@@ -11,14 +11,45 @@ body {
     width: 100%;
 }
 
+.hamburger-menu {
+    font-size: 30px;
+    padding: 15px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000; /* Ensure it is above other content */
+}
+
 .sidebar {
     width: 250px;
     background-color: #302e38;
     padding: 20px;
     position: fixed;
-    height: 96vh;
+    height: 100vh;
+    left: -300px; /* Initially hidden */
+    transition: left 0.3s ease;
     overflow-y: auto;
-    font-size: large;
+    z-index: 999; /* Ensure it is below the hamburger menu */
+}
+
+.sidebar.open {
+    left: 0; /* Show when open */
+}
+
+.main-content {
+    margin-left: 250px; /* Shift main content to the right */
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0; /* No margin for smaller screens */
+    }
+
+    .sidebar {
+        width: 100%; /* Full width for mobile screens */
+    }
 }
 
 .sidebar::-webkit-scrollbar {
