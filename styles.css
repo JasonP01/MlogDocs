@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    background-color: rgb(62, 59, 73);
 }
 
 .container {
@@ -15,9 +16,9 @@ body {
     font-size: 30px;
     padding: 15px;
     cursor: pointer;
-    position: fixed;
-    top: 10px;
-    left: 10px;
+    position: absolute;
+    top: -7px; 
+    margin-left: -20px;
     z-index: 1000; /* Ensure it is above other content */
 }
 
@@ -27,7 +28,7 @@ body {
     padding: 20px;
     position: fixed;
     height: 100vh;
-    left: -300px; /* Initially hidden */
+    left: -280px; /* Initially hidden */
     transition: left 0.3s ease;
     overflow-y: auto;
     z-index: 999; /* Ensure it is below the hamburger menu */
@@ -37,20 +38,6 @@ body {
     left: 0; /* Show when open */
 }
 
-.main-content {
-    margin-left: 250px; /* Shift main content to the right */
-    padding: 20px;
-}
-
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: 0; /* No margin for smaller screens */
-    }
-
-    .sidebar {
-        width: 100%; /* Full width for mobile screens */
-    }
-}
 
 .sidebar::-webkit-scrollbar {
     width: 12px;
@@ -80,6 +67,10 @@ body {
     margin-left: 20px;
 }
 
+.indent2 {
+    margin-left: 40px;
+}
+
 .sidebar ul li a {
     text-decoration: none;
     color: #ffffff;
@@ -89,14 +80,41 @@ body {
     text-decoration: underline;
 }
 
-.content {
+.main-content {
     color: white;
-    margin-left: 330px;
-    margin-top: 30px;
-    padding: 0px;
-    flex-grow: 1;
+    margin-left: 0px; /* Shift main content to the right to make space for the sidebar */
+    margin-top:-20px;
+    transition: margin-left 0.3s ease; /* Smooth transition */
 }
+
+.main-content.open {
+    margin-left: 290px;
+}
+
 
 section {
     margin-bottom: 40px;
+}
+
+
+/* Styles for mobile devices */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+        margin-top: 20px;
+        margin-left: 0px !important ;   
+    }
+    .sidebar ul {
+        margin-top: 60px;
+    }
+}
+
+/* Styles for desktop devices */
+@media (min-width: 769px) {
+    .main-content {
+        padding: 80px;
+    }
+    .hamburger-menu {
+        margin-left: -60px;
+    }
 }
