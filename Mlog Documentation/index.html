@@ -918,10 +918,2240 @@
                             Example: 3x3  means the unit can carry 9 of 1x1 blocks, 2 of 2x2 blocks and, 1 of 3x3 blocks
                         </p>
                     </section>
-                    
+                <section id="unit bind">
+                    <h1><li><b>Unit Bind</b></li></h1>
+                    <p class="ti">
+                        Bind 1 unit and put its reference in the <span style="color: yellow;">@unit</span> variable,<br> 
+                        When binding a unit <span style="color: yellow;">@[type]</span> it will bind in an order<br>
+                        the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
+                        When looped (meaning the <mark class="unit">unit bind</mark> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
+                        Here’s a visualization : the red box indicates that the unit is in the <span style="color: yellow;">@unit</span> variable<br>
+                        <img src="image/vis bind.gif" alt=""><br>
+                        Don’t worry about instruction line 1,2,3,they are there just to make the code not 1 instruction, to more easily visualize it.<br>
+                        Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in <span style="color: yellow;">@unit</span> meaning <span style="color: yellow;">@unit</span> is now “mega#1”, and so on with “mega#2 , 3 , 4”<br><br>
+
+                        Unit bind can also be used to bind unit reference directly, to get unit reference you have to bind <span style="color: yellow;">@[type]</span> first then save <span style="color: yellow;">@unit</span> to a variable, for example ‘u1’, now ‘u1’ holds 1 unit reference, you then can directly bind ‘u1’ using unit bind
+
+                        
+                    </p>
+                </section>
+                <section id="unit control">
+                    <h1><li><b>Unit Control</b></li></h1>
+                    <p class="ti">
+                        Unit control, controls <b>one</b> unit in the <span style="color: yellow;">@unit</span> variable, a common misconception is that it controls all binded unit, this is wrong, and a second common misconception is that <mark class="unit">Unit control</mark> wait for completion before running the next <mark class="unit">unit control</mark>, this is also wrong,
+                        Like the visualization you see above, the processor doesn’t care what instruction you put in it, it will just run it regardless, it is not smart, you have to specify it yourself.
+                    </p>
+                    <section id="move">
+                        <h3><li><b>Move</b></li></h3>
+                        <p class="ti">
+                            Move to unit to the specified coordinates in a straight line 
+                            Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
+                            <br><img src="image/ucontrol move.png" alt="">
+                        </p>
+                    </section>
+                    <section id="approach">
+                        <h3><li><b>Approach</b></li></h3>
+                        <p class="ti">
+                            Similar to move but it has a radius, the unit will stop at the radius<br>
+                            <img src="image/approach.gif" style="width: 700px;"><br>
+                            <img src="image/unit control1.png" style="width: 700px;">
+                        </p>
+                    </section>
+                    <h3><li><b>pathFind</b></li></h3>
+                    <p class="ti">
+                        Path find to the specified location
+                        Usually used with grounded units as <mark class="unit">Move</mark> moves the unit in a straight line and grounded units can get stuck in buildings
+                        If the specified location is inside a building or invalid the unit will not move, they will stay in place
+                    </p>
+                    <h3><li><b>autoPathFind</b></li></h3>
+                    <p class="ti">
+                        Automatically pathfinds to the nearest enemy core or drop point.<br>
+                        This is the same as standard wave enemy pathfinding
+                    </p>
+                    <h3><li><b>Idle</b></li></h3>
+                    <p class="ti">
+                        Stop moving, but keep building/mining, the default state
+                    </p>
+                    <h3><li>Stop<b></b></li></h3>
+                    <p class="ti">
+                        Stop moving, mining, and building
+                    </p>
+                    <h3><li><b>Boost</b></li></h3>
+                    <p class="ti">
+                        Enable <a href="#boosting">boosting</a>, boolean, 1 = boost, 0 = don’t boost. cannot be disabled if boosted unit cannot land (on top of blocks/buildings)
+                    </p>
+                    <h3><li><b>Target</b></li></h3>
+                    <p class="ti">
+                        Shoot a coordinate position, boolean, 1 = shoot, 0 = stop shooting<br>
+                        <img src="image/unit control.png" alt="">
+                    </p>
+                    <h3><li><b>TargetP</b></li></h3>
+                    <p class="ti">
+                        Same as target but shoot a unit reference instead and with velocity prediction
+                    </p>
+                    <h3><li><b>ItemDrop</b></li></h3>
+                    <p class="ti">
+                        Drops items the unit is currently carrying to the specified location	
+                        Unit have to be within 5.625 + [block size] / 2 tiles of the targeted block, else it does nothing<br>
+                        <img src="image/unit control itemdrop.png" alt=""><br>
+                        <mark class="lg">to</mark> “building reference”<br>
+                        <mark class="lg">amount</mark> is how many to drop<br>
+                        The unit have to be near the specified building to drop items, else it does nothing<br>
+                        Can also drop to “<span style="color: yellow;">@air</span>” which will discard the item anywhere<br>
+                        to drop everything just put a large number like 999<br>
+                        Unit has an interaction limit of 1,5 seconds, meaning it can only take/drop item every 1,5 seconds
+                    </p>
+                    <h3><li><b>ItemTake</b></li></h3>
+                    <p class="ti">
+                        Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu
+                        Unit have to be within <span style="color: yellow;">5.625 + [block size] / 2</span> tiles of the targeted block, else it does nothing
+                        to take the maximum amount the unit can take just put a large number like 999
+                        Unit has an interaction limit of 1.5 seconds, meaning it can only take/drop item every 1.5 seconds
+                    </p>
+                    <h3><li><b>PayDrop</b></li></h3>
+                    <p class="ti">
+                        Drop <a href="payload">payload</a> at current location.
+                    </p>
+                    <h3><li><b>PayTake</b></li></h3>
+                    <p class="ti">
+                        Pick up <a href="payload">payload</a> at current location
+                    </p>
+                    <h3><li><b>PayEnter</b></li></h3>
+                    <p class="ti">
+                        Land/enter on a building that accept payload, like reconstructor
+                    </p>
+                    <h3><li><b>Mine</b></li></h3>
+                    <p class="ti">
+                        Mine a coordinate position, if out of range or not mineable will do nothing
+                    </p>
+                    <h3><li><b>Build</b></li></h3>
+                    <p class="ti">
+                        Build a block at specified location, if out of range or invalid will do nothing<br>
+                        <img src="image/unit control build.png" alt=""><br>
+                        <mark class="lg">x,y</mark> is build location<br>
+                        <mark class="lg">block</mark> is what block to build<br>
+                        <mark class="lg">rotation</mark> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
+                        <mark class="lg">Config</mark>, configuration of blocks, eg, if `<span style="color: yellow;">@copper</span>` when building a sorter will set the sorter to `<span style="color: yellow;">@copper</span>`. Additionally can be a building reference, eg, if `<mark style="color: yellow;">@this</mark>` when building a processor will copy `<mark style="color: yellow;">@this</mark>` processor’s code to the built processor
+                    </p>
+                    <h3><li><b>getBlock</b></li></h3>
+                    <p class="ti">
+                        Gets a block at a specified location, outputs will be null if out of range<br>
+                        <img src="image/ucontrol getblock.png" alt=""><br>
+                        <mark class="lg">x,y</mark> is coordinate location to get the block<br>
+                        <mark class="lg">type</mark> is an output, it will output the type of block to the variable<br>
+                        <mark class="lg">building</mark> is an output, it will output the <a href="#building reference">building reference</a> to the variable<br>
+                        <mark class="lg">floor</mark> is an output, it will output the type of floor to the variable
+                    </p>
+                    <h3><li><b>Within</b></li></h3>
+                    <p class="ti">
+                        Check if unit is within a position with a radius<br>
+                        <img src="image/unit control within.png" alt=""><br>
+                        x,y is coordinate location to check if unit is within that coordinate<br>
+                        radius is the radius of the within<br>
+                        result is the results<br>
+                        Example: (the @unit variable is mega shown on the picture)<br>
+                        <img src="image/ucontrol within.png" alt=""><br>
+                        <img src="image/vis ucontrol within.png" alt="">
+                        <img src="image/vis ucontrol within 1.png" alt=""><br>
+                        In this two scenario, the picture on the left will have the 
+                        variable “result” true because the unit is within the circle, 
+                        while the right picture is false because it is outside the circle
+                    </p>
+                    <h3><li><b>Unbind</b></li></h3>
+                    <p class="ti">
+                        Immediately <a href="unbind">unbind</a> unit
+                    </p>
+                    <h3><li><b>Flag</b></li></h3>
+                    <p class="ti">
+                        Gives the unit a numeric flag, essentially assigning a 
+                        number to a unit, this number serves no purpose other 
+                        than being read, what you do with the number is up to you
+                        <br>unit permanently retains their flag until written again
+                        <br>Unit default flag is 0
+                        <br>a unit can only store 1 number
+                        <br>The largest integer that can be stored accurately 
+                        is <span style="color: yellow;">2^53</span> which is <span style="color: yellow;">9007199254740992</span> 
+                        and <span style="color: yellow;">2^-53</span> which is 
+                        <span style="color: yellow;">-9007199254740992</span>. Beyond these limits, representation 
+                        may lead to inaccuracies due to the way numbers are rounded.
+                    </p>
+                </section>
+                <section id="unit radar">
+                    <h1><li><b>Unit Radar</b></li></h1>
+                    <p class="ti">
+                        <img src="image/unit radar.png" alt="">
+                        <br><mark class="unit">Unit radar</mark> locates other unit around the <span style="color: yellow;">@unit</span> unit within the unit’s range (information can be found in-game’s info menu)
+                        <br><mark class="lg">target</mark> is a filter of what category of unit it will radar, enemy means it will radar enemy units
+                        <br><mark class="lg">Order</mark> is sorting order, ascending or descending, can only be 0 or 1
+                        <br><mark class="lg">sort</mark> is a metric to sort results by, distance means it will get unit by distance
+                        <br>Since order is 1, the unit gotten is the closest to that <span style="color: yellow;">@unit</span>’s unit
+                        Will output the unit reference to “result”
+                    </p>
+                </section>
+                <section id="unit locate">
+                    <h1><li><b>Unit Locate</b></li></h1>
+                    <p class="ti">
+                        Locates a building/ore/spawn without needing to be in the unit’s range, but limited to what it can locates
+                    </p>
+                    <ol>
+                        <h2><li><b>Building</b></li></h2>
+                        <p>
+                            Will locate a building of the selected group, in this case, core,
+                            <br><img src="image/unit locate.png" alt="">
+                            <br><mark class="lg">Enemy</mark> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
+                            <br><mark class="lg">outX</mark> and <mark class="lg">outY</mark> are the building’s output coordinates
+                            <br><mark class="lg">Found</mark> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
+                            <mark class="lg">Building</mark> is an output of that building reference
+                        </p>
+                        <h2><li><b>Ore</b></li></h2>
+                        <p>
+                           <img src="image/unit locate 2.png" alt="">
+                           <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span> 
+                        </p>
+                        <h2><li><b>Spawn</b></li></h2>
+                        <p>
+                            Will locate an enemy spawn point, may be a core or a position
+                        </p>
+                        <h2><li><b>Damaged</b></li></h2>
+                        <p>
+                            Will locate an enemy spawn point, may be a core or a position
+                        </p>
+                    </ol>
+                </section>
                 </ol>
             </section>
+            <section id="simple logic examples">
+                <hr>
+                <h1>Simple Logic examples</h1>
+                <section id="universal switch">
+                    <h2>Universal Switch</h2>
+                    <p>
+                        <img src="image/vis getlink.gif" style="height: 500px;"> <img src="image/getlink ex.jpg" style="height: 500px;">
+                        <br>line 0 : <a href="#sensor">sensor</a> for @enabled in ‘switch1’, stores the state in the ‘switch’ variable
+                        <br>line 1 : <a href="#getlink">getlink</a> with ‘link’, which is an incrementing variable
+                        <br>line 2 : <a href="#sensor">sensor</a> for @type in ‘switch1’ for later
+                        <br>line 3 : <a href="#incrementing variable">increment</a> the variable ‘link’
+                        <br>line 4 : resets the variable `link` when it reached `@links` using the % operator
+                        <br>line 5 : <a href="#jump">jump</a> if ‘type’ is @switch, this ensures that the switch building does not get controlled
+                        line 6 : <a href="#control">control</a> the enabled of ‘block’, which is the results of getlink, to ‘switch’
+                    </p>
+                </section>
+                <section id="shuttle logic">
+                    <h2>Shuttle Logic</h2>
+                    <img src="image/vis shuttle.gif" alt="">
+                    <p>
+                        Line 0 : <a href="#unit bind">bind</a> a flare
+                        <br>Line 1 : <a href="#unit locate">locate</a> an ally core, outputs its coordinates to “cx,cy”, and building reference to “core”
+                        <br>Line 2 - 3 : get the coordinates of the linked vault using <a href="#sensor">sensor</a>
+                        <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#@totalitems">@totalItems</a> from <span style="color: yellow;">@unit</span> to get the amount of items the unit are currently carrying
+                        <br>Line 5 : a conditional <a href="#jump">jump</a>, jump to (move to core) and take item if the item the unit are currently carrying is 0
+                        <br>Else jump to move to (vault and drop item)</span>
+                        <br>Line 6-7: <a href="move">move</a> to vault and take item from vault
+                        <br>Line 8 : <a href="end">end</a>, to make sure both (move to core) and (move to vault) cannot run in the same time
+                        <br>Line 9-10 : <a href="#move">move</a> to core and take @copper from core
+                        <br><br>
+                            <span style="margin-left: 20px;">The key is to not put 2 or more move that the processor can run “simultaneously”, in other words don’t make the unit move to 2 location or more “simultaneously”
+                        Either move to core or move to vault based on a condition</span>
+                    </p>
+                </section>
+                    <section id="thorium reactor fail safe">
+                    <h2>Thorium Reactor Fail Safe</h2>
+                    <img src="image/reactor fail safe.gif" style="height: 400px;"><img src="image/reactor faiil safe ex.png" style="height: 400px;">
+                    <p>
+                        line 0 : getlink with `i`, which is an incrementing variable, writes the result to `block`
+                        <br>line 1 : sensor for cryofluid in `block`, writes the result to `cryo`
+                        <br>line 2 : compare if `cryo` > (greater than) 15, if it is `fail` will be true, else `fail` will be false
+                        <br>line 3 : control `block` to `fail` which controls the thorium reactors to `fail`, if line 2 is true then `fail` is true, thus enabling the thorium reactor
+                        <br>line 4 : incrementing the variable `i`
+                        line 5 : resets the variable `i` when it reached `@links` using the % operator
+                    </p>
+                </section>
+                <section id="@counter array">
+                    <h2>@counter Array</h2>
+                    <p>
+                        This is a bit more advanced than previous examples but it is very useful especially for unit multibind, assuming you already know what an array is you can simulate it using the @counter variable
+                    <br><img src="image/vis counter array.gif" style="width: 700px;">
+                    <br>The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
+                    </p>
+                </section>
+            </section>
+            <section id="advanced">
+                <h1>Advanced</h1>
+                <h2>Writing in text editor</h2>
+                <p class="ti">
+                    Mlog are essentially plain text, this means you can use any text editor to write mlog, including Notepad
+                    <br>Here are some things that makes it easier to write in plain text:
+                    <br>In these example i will be using Visual Studio Code with “Mindustry Logic” extension
+                    <br>
+                    <br>a new VS Code extension has been made by <span style="color: lightblue;">JeanJPNM</span>, “<a href="https://marketplace.visualstudio.com/items?itemName=JeanJPNM.mlogls-vscode">Mindustry Logic for VSCode</a>” !
+                    This extension brings actual support for mlog, like syntax highlighting, intellisense, diagnostic messages, and more, if you’re writing with VSCode I recommend checking this out.
+                </p>
+                <h3>Lables</h3>
+                <img src="image/labels.png" alt="">
+                <p>Labels are replacement for jumps number, this way you can write freely without needing to worry about jump numbers</p>
+                <h3>Comments</h3>
+                <p>Comments will be removed when importing the code to the game</p>
+                <h3>Combining lines</h3>
+                <img src="image/seperate.png" alt="">
+                <p>You can combine lines with  “ ; “</p>
+                <h3>Tabs and newlines</h3>
+                <img src="image/labels.png" alt="">
+                <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
+                <p>List of mlog <a href="#text form instruction">instruction in text form</a></p>
+                <h2>Antithreading / Subframe</h2>
+                <p>uses the game update order to force multiple processors into one.
+                    <br>Every ingame frame the game updates blocks from left to right and bottom to top, this is not always true if you just recently placed a block, to fix this reload your save.
+                    <br>`wait 1e-3` or just `wait 0.001` will make the processor wait exactly a single frame before continuing running the instructions after it, this also depends on your game FPS
+                    <br>using these you can make multiple processors run instructions at the same time
+                    <br>use cases for this are very minimal, ( I, of course, don’t know every detail about this, the use cases i did use this for was drawing into a single display with multiple processor without it flashing)
+                    </p>
+            </section>
+            <section id="world logic">
+                <h1>World Logic</h1>
+                <p class="ti"> 
+                    World processor are processor that controls how the world behave, they have every instruction a normal processor have plus world instruction
+                    <br>They have unlimited range
+                    <br>They can link and control every buildings including enemy’s
+                    <br>they can bind and control every units including enemy’s
+                    <br>Maximum IPT of a world processor is 500, which can be set using <mark class="wp">Set Rate</mark>
+                </p>
+                <section id="how to get world processor">
+                <h2>How to get World Processor</h2>
+                <p>World processor are editor only object, go to the editor - choose a map - 
+                    at the top left there is a hamburger button <img src="image/hamburger.png" alt=""> , 
+                    click on it and go to “Edit In-Game” <img src="image/wp.png" alt="">, world processor 
+                    along with world cell and world message will appear in the processor menu, 
+                    however this mode is equivalent to pause mode as nothing runs including processors, 
+                    go back to the editor open the hamburger button and choose “Playtest” <img src="image/playtest.png" alt=""> instead, this allows 
+                    you to edit and run processor in real time, although not placing new ones
+                    <br><br>
+                    alternatively you can load your custom map as normal through the “Play” 
+                    button and use the console to make world processor available, typing :
+                    <br><mark class="bl">Blocks.worldProcessor.buildVisibility = BuildVisibility.shown</mark> will make world processor available in the menu, and
+                    <br><mark class="bl">Vars.state.playtestingMap=Vars.state.map</mark> allows you to edit them 
+                    (making the map into a playtest mode), we are basically doing the 
+                    same thing as the former method but using the console instead, however when you exit out 
+                    of the world the game thinks you are in the editor thus putting you in the editor without saving any changes, 
+                    auto save does work though, so you might want to lower the auto save interval, or you can disable the playtest mode using : 
+                    <br><mark class="bl">Vars.state.playtestingMap=null</mark> before exiting the world
+                    <br><br>
+                    there might be better ways of gaining access to world processor, like using mods, if you know any other easier method let me know and i will edit this section
+                    </p>
+                </section>
+                    <ol style="list-style-type: disc;">
+                        <section id="get block">
+                        <h2><li>Get block</li></h2>
+                        <img src="image/get block.png" alt="">
+                        <p>
+                            “result” the output
+                            <br>`get` what to get, can be:
+                                <br><span class="spin">“floor”	get the floor name of the specified coordinate</span>
+                                <br><span class="spin">“ore”	get the ore name of the specified coordinate</span>
+                                <br><span class="spin">“block”	get the block name of the specified coordinate</span>
+                                <br><span class="spin">“building” get the building reference of the specified coordinate</span>
+                            <br>`at` x and y coordinate respectively
+                        </p>
+                        </section>
+                        <section id="set block">
+                        <h2><li>Set Block</li></h2>
+                        <img src="image/set block.png" alt="">
+                        <p>
+                            `set` what type to set, can be : 
+                            <br><span class="spin">“floor” set the floor to the specified name and coordinate</span>
+                            <br><span class="spin">“ore”	set ore to the specified name and coordinate</span>
+                            <br><span class="spin">“block”	set block to the specified name and coordinate</span>
+                            <br>name can be found on <a href="environment">Environment</a>
+                            <br>`at` x and y coordinate respectively
+                            <br>`team` what them to set the block to, can be team name or a number 0 - 255
+                        </p>
+                        </section>
+                        <section id="spawn unit">
+                            <h2><li>Spawn Unit</li></h2>
+                            <img src="image/spawn unit.png" alt="">
+                            <p>
+                                “result”, the output, unit reference
+                                <br>`spawn` what unit to spawn
+                                <br>`at` x and y coordinate respectively
+                                <br>`team` what them to set the block to, can be team name or a number 0 - 255
+                                <br>`rot` rotation (facing what direction) of the spawned unit, in degrees, for reference : 360/0 is right,	90 is up
+                            </p>
+                        </section>
+                        <section id="apply status">
+                            <h2><li>Apply Status</li></h2>
+                            <img src="image/apply status.png" alt="">
+                            <p>
+                                `apply` or `clear`, apply or clear
+                                <br>`wet` what status to apply to the unit
+                                <br>`to` unit, unit reference
+                                <br>`for` duration of the status                            
+                            </p>
+                        </section>
+                        <section id="spawn wave">
+                        <h2><li>Spawn Wave</li></h2>
+                        <img src="image/spawn wave.png" alt="">
+                        </section>
+                        <section id="set rule">
+                            <h2><li>Set Rule</li></h2>
+                            <img src="image/set rule.png" alt="">
+                            <p>
+                                currentWaveTime
+                                <br><span class="spin">change the current wave timer, in seconds</span>
+                                <br>waveTimer
+                                <br>waves
+                                <br>wave
+                                <br><span class="spin">set wave number</span>
+                                <br>waveSpacing
+                                <br><span class="spin">change the timer for the next wave, in seconds</span>
+                                <br>waveSending
+                                <br>attackMode
+                                <br>enemyCoreBuildRadius
+                                <br><span class="spin">set how large the radius of the no build zone around the enemy core</span>
+                                <br>dropZoneRadius
+                                <br><span class="spin">set how large the annihilation radius around the enemy spawn point</span>
+                                <br>unitCap
+                                <br><span class="spin">set the cap of unit that can be constructed</span>
+                                <br>mapArea
+                                    <br><span class="spin">set the size of the playable field in the map/sector</span>
+                                    <br><span class="spin">starts at the bottom left</span>
+                                    <br><span class="spin">`x` and `y` is the offset from 0,0</span>
+                                    <br><span class="spin">`width` and `height` is the size of the map, calculated from the offset</span>
+                                <br>lightning
+                                    <br><span class="spin">boolean, whether to enable lightning or not, if disabled all section of the map (other 		solid walls) will be fully bright</span>
+                                <br>ambientLight
+                                    <br><span class="spin">set the ‘dark’ part of light colors, in other words change colors of shadows</span>
+                                <br>solarMultiplier
+                                    <br><span class="spin">set the multiplier solar panels produce power</span>
+                                <br>unitBuildSpeed
+                                    <br><span class="spin">set the build speed of units</span>
+                                <br>unitHealth
+                                    <br><span class="spin">set the multiplier of unit health, does not actually change unit max health, increase
+                                    resistance instead, actual damage received = (damage received / unitHealth)
+                                    as for ‘damage received’ check <a href="damage calculation">damage calculation</a></span>
+                                <br>unitCost
+                                    <br><span class="spin">set multiplier of unit construction cost</span>
+                                <br>unitDamage
+                                    <br><span class="spin">set the multiplier of unit damage</span>
+                                <br>blockHealth
+                                    <br><span class="spin">set the multiplier of block health</span>
+                                <br>blockDamage
+                                    <br><span class="spin">set the multiplier of block damage (turrets, explosion, etc)</span>
+                                <br>rtsMinWeight
+                                <br>rtsMinSquad
+                            </p>
+                        </section>
+                        <section id="flush message">
+                            <h2><li>Flush Message</li></h2>
+                            <img src="image/flush message.png" alt="">
+                            <p>
+                                display a message on player’s screen from the text buffer, will wait until the previous message finishes
+                                <br><br>`announce` center of the screen
+                                <br><img src="image/message.png" alt="">
+                                <br><br>`notify` top of the screen
+                                <br><img src="image/message 3.png" alt="">
+                                <br><br>`toast`
+                                <br><img src="image/message 4.png" alt="">
+                                <br><br>`mission`
+                                <br><img src="image/message 2.png" alt="">
+                            </p>
+                        </section>
+                        <section id="cut scene">
+                            <h2><li>Cut scene</li></h2>
+                            <p>
+                                manipulate the camera, players cannot move/interact in this mode
+                                <br>does not have duration cutscene will stays until `cutscene stop` is used
+                                    <br><span class="spin">`pan` moves the camera to the specified coordinates, with specified speed</span>
+                                    <br><span class="spin">`zoom` zooms the camera, value is from 0 to 1, although can be more it is limited by the game, this limit is the same as your manual zoom limit, when used not with `pan` will zoom to 0,0 instead</span>
+                                    <br><span class="spin">`stop` stops previous cutscene</span>
+                            </p>
+                        </section>
+                        <section id="effect">
+                            <h2><li>Effect</li></h2>
+                            <img src="image/effect.png" alt="">
+                            <p>
+                                display a particle effect on the world, you can click the `warn` to view every available effect
+                            </p>
+                        </section>
+                        <section id="explosion">
+                            <h2><li>Explosion</li></h2>
+                            <img src="image/explosion.png" alt="">
+                            <p>
+                                <span class="spin">create an explosion</span>
+                                <br><span class="spin">`team` what team the explosion belong to, explosion cannot harm ally blocks</span>
+                                <br><span class="spin">`x` `y` where to create the explosion</span>
+                                <br><span class="spin">`radius` size of explosion, block outside this radius does not take damage</span>
+                                <br><span class="spin">`damage` the damage of the explosion</span>
+                                <br><span class="spin">`air` whether to damage air or nor, true means it will damage air (air units, boosted units, etc)</span>
+                                <br><span class="spin">`ground` whether to damage ground or nor, true means it will damage air (ground unit, blocks, etc)</span>
+                                <br><span class="spin">`pierce` whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged</span>
+                            </p>
+                        </section>
+                        <section id="set rate">
+                            <h2><li>Set Rate</li></h2>
+                            <img src="image/set rate.png" alt="">
+                            <p>
+                                Set the speed of the processor, in ipt
+                            </p>
+                        </section>
+                        <section id="fetch">
+                            <h2><li>Fetch</li></h2>
+                            <img src="image/fetch.png" alt="">
+                            <p>
+                                get unit, player, core, building, and outputs their reference to “result”, by index
+                            <br>    <span class="spin">`team` what team to fetch the object</span>
+                            <br>    <span class="spin">`#` index, starts at 0, 0 being the first object</span>
+                            <br>    <span class="spin">unitCount, playerCount, coreCount, buildCount, gets the total count of currently alive/available object in the world</span>
+                            <br>when an object dies the last unit index will replace the object index that dies
+                            <br>for example: you have 10 conveyors indexed from 1-10, conveyor #5 is deconstructed, conveyor 
+                            <br>#10 will the become #5, then a new placed conveyor will become #10
+                            </p>
+                        </section>
+                        <section id="sync">
+                            <h2><li>Sync</li></h2>
+                            <img src="image/sycn.png" alt="">
+                        </section>
+                        <section id="get flag">
+                            <h2><li>Get Flag</li></h2>
+                            <img src="image/getflag.png" alt="">
+                        </section>
+                        <section id="set flag">
+                            <h2><li>Set Flag</li></h2>
+                            <img src="image/set flag.png" alt="">
+                        </section>
+                        <section id="set prop">
+                            <h2><li>Set Prop</li></h2>
+                            <img src="image/set prop.png" alt="">
+                            <p>
+                                sets the properties of a unit or building
+                                <br><span class="spin">`of` unit/building reference</span>
+                                <br><span class="spin">`to` value</span>
+                            </p>
+                        </section>
+                    </ol>
+            </section>
+            <section id="bleeding edge">
+                <hr>
+                <h1>Bleeding Edge</h1>
+                <h2>Draw print</h2>
+                <p>
+                    Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
+                </p>
+                <h2>Draw Translate</h2>
+                <p>
+                    Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush
+                    <br>example: you draw something at 20, 20, running translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30
+                    <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40
+                    <br>to reset it use draw reset
+                </p>
+                <h2>Draw Scale</h2>
+                <p>
+                    scale the display coordinates / zooms it, this is also not static
+                    <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40
+                    <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again
+                    <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x
+                </p>
+                <h2>Draw Rotate</h2>
+                <p>
+                    self explanatory, rotate the display coordinates by a degree, also not static
+                </p>
+                <h2>Draw Reset</h2>
+                <p>
+                    resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one
+                </p>
+                <h2>Format</h2>
+                <p>
+                    allows you to print a variable or something else inside a string, if you know python it's similar to
+                    <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string
+                    <br>
+                    <br>the pattern is {0-9}
+                    <br>
+                    <br>example:
+                    <br><img src="image/format.png" alt="">
+                    <img src="image/format 1.png" alt="">
+                    <br>the first format will take {0} and the second format will take {1}
+                </p>
+                <h2>Play Sound</h2>
+                <img src="image/play sound.png" alt="">
+                <p>
+                    <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>
+                    <br>volume controls the volume of the played sound</span>
+                    <br>pitch change the pitch of the played sound, </span>
+                    <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>
+                    <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
+                    <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
+                    <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
+                    <br>pan pans the sound to the left or right
+                </p>
+                <h2>Weather Sense</h2>
+                <p>
+                    sense the current weather is the specified weather type, returns boolean
+                </p>
+                <h2>Weather Set</h2>
+                <p>
+                    set the current state of the weather to the specified type
+                </p>
+                <h2>Set Marker</h2>
+                <h2>Make Marker</h2>
+                <h2>Locale Print</h2>
+            </section>
+            <section id="extras">
+                <p>
+                    These are niche question that very small number of people might have
+                </p>
+                <h2>Mindustry coordinate system</h2>
+                <p class="ti">
+                    unlike traditional Cartesian Coordinate System where the center point of a coordinate is on the edge of a block Mindustry chooses the middle of a block as its center point instead
+                    <br><img src="image/coordinate system.png" alt="">
+                    <br>the game still uses Cartesian but just offset by 0.5
+                    <br>the game also by default set 0,0 to the very bottom left of the world, this means all campaign world and most custom worlds (since you can set the coordinate offset in the editor) playfield are always positive
+                </p>
+                <h2>You cannot spawn Scathe missile</h2>
+                <p class="ti">
+                    To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using `<mark class="wp">setprop</mark>` and `<mark class="lg">@scathe-missle</mark>`, make the unit drop the payload and then kill the unit
+                    <br>you can also setprop the rotation of the scathe missile
+                </p>
+                <h2>Modded items and draw image</h2>
+                <p class="ti">
+                    the game doesn’t generate logic icons for modded items, this means you cannot draw it using draw image
+                </p>
+                <h2>AI chatbot doesn’t understand Mlog</h2>
+                <p>
+                    AI chatbot like ChatGPT / Copilot / Aria, can’t do and doesn’t understand Mlog, to my knowledge there is no AI currently that can assist you with Mlog
+                </p>
+                <h2>Getting unit cap</h2>
+                <p>
+                    There currently no way of getting the unit cap consistently, there are workarounds however, assuming the default cap isn’t changed you can count how many cores there are in the map and what type it is, if you know both of those you can get the unit cap by summing up all of those core(s) ‘Max Active Unit’
+                    Shard has a unit cap of 8, foundation is 16, and nucleus is 24, info of which can be found in the game’s info menu
+                </p>
+                <h2>v6 unit controls with logic</h2>
+                <p>
+                    you cannot 100% replicate v6 unit controlling with logic, formation and shooting is possible, but support units cannot help you build like they used to in v6, although not perfect the RTS controls is the best we currently have
+                </p>
+                <section id="damage calculation">
+                <h2>Damage calculation</h2>
+                    <p class="ti">
+                        <br>every unit has an armor value, in most cases damage is just simply subtracted by this armor value, formula is 
+                        <br>damage received = max (damage * 0.1 , damage - armor)
+                        <br>example :
+                        <br>unit = corvus, armor = 9
+                        <br>enemy turret = lancer, damage = 140
+                        <br>
+                        <br>damage received = max ( 140 * 0.1 , 140 - 9)
+                        <br>damage received = max ( 14 , 131)
+                        <br>damage received = 131
+                    </p>
+                </section>
+            </section>
+            <section id="self promotion">
+                <h2>My Micro Processor only Bad Apple!!!</h2>
+                <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
+                <img src="image/bad apple.gif" alt="">
+                <br><h2>Raycasting and DDA Raycasting</h2>
+                <a href="https://youtu.be/oyeoV2xXz8U" class="ytlink">Mindustry Raycasting</a>
+                <img src="image/raycasting.gif" alt="">
+                <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
+                <img src="image/raycasting 2.gif" alt="">
+                <h2>Perspective Projection</h2>
+                <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
+                <img src="image/perspective projection.gif" alt="">
+                <img src="image/spinning birb.gif" alt="">
+                <h2>Power Monitor with Numbers</h2>
+                <img src="image/power display.gif" alt="">
+            </section>
+            <section id="appendix">
+                <section id="built in variables">
+                    <h2>Built in variables</h2>
+                    Information of each might be added in the future
+                    <h2>Global</h2>
+                    @waveNumber 
+                    <br>    <span class="spin">number of wave currently</span>
+                    <br>@waveTime
+                    <br>    <span class="spin">current countdown time for next wave</span>
+                    <br>@derelict
+                    <br>    <span class="spin">derelict team</span>
+                    <br>@sharded
+                    <br>    <span class="spin">sharded team</span>
+                    <br>@crux
+                    <br>    <span class="spin">crux team</span>
+                    <br>@malis
+                    <br>    <span class="spin">malis team</span>
+                    <br>@green
+                    <br>   <span class="spin"> green team</span>
+                    <br>@blue
+                    <br>    <span class="spin">blue team</span>
+                    <br>@solid
+                    <br>    <span class="spin">alias for stone-wall</span>
+                    <br>@block
+                    <br>@manifold
+                    <br>@assembly-drone
+                    <br>@turret-unit-build-tower
+                    <br>@blockCount
+                    <br>    <span class="spin">count of total different type of block in the game</span>
+                    <br>@unitCount
+                    <br>    <span class="spin">count of total different type of unit in the game</span>
+                    <br>@itemCount
+                    <br>    <span class="spin">count of total different type of item in the game</span>
+                    <br>@liquidCount
+                    <br>    <span class="spin">count of total different type of liquid in the game</span>
+                </section>
+                <section id="environment">
+                    <h2>Environment</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Column 1</th>
+                                <th>Column 2</th>
+                                <th>Column 3</th>
+                                <th>Column 4</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@air</td>
+                                <td>@spawn</td>
+                                <td>@cliff</td>
+                                <td>@build1</td>
+                            </tr>
+                            <tr>
+                                <td>@build2</td>
+                                <td>@build3</td>
+                                <td>@build4</td>
+                                <td>@build5</td>
+                            </tr>
+                            <tr>
+                                <td>@build6</td>
+                                <td>@build7</td>
+                                <td>@build8</td>
+                                <td>@build9</td>
+                            </tr>
+                            <tr>
+                                <td>@build10</td>
+                                <td>@build11</td>
+                                <td>@build12</td>
+                                <td>@build13</td>
+                            </tr>
+                            <tr>
+                                <td>@build14</td>
+                                <td>@build15</td>
+                                <td>@build16</td>
+                                <td>@deep-water</td>
+                            </tr>
+                            <tr>
+                                <td>@shallow-water</td>
+                                <td>@tainted-water</td>
+                                <td>@deep-tainted-water</td>
+                                <td>@darksand-tainted-water</td>
+                            </tr>
+                            <tr>
+                                <td>@sand-water</td>
+                                <td>@darksand-water</td>
+                                <td>@tar</td>
+                                <td>@pooled-cryofluid</td>
+                            </tr>
+                            <tr>
+                                <td>@molten-slag</td>
+                                <td>@space</td>
+                                <td>@empty</td>
+                                <td>@stone</td>
+                            </tr>
+                            <tr>
+                                <td>@crater-stone</td>
+                                <td>@char</td>
+                                <td>@basalt</td>
+                                <td>@hotrock</td>
+                            </tr>
+                            <tr>
+                                <td>@magmarock</td>
+                                <td>@sand-floor</td>
+                                <td>@darksand</td>
+                                <td>@dirt</td>
+                            </tr>
+                            <tr>
+                                <td>@mud</td>
+                                <td>@dacite</td>
+                                <td>@rhyolite</td>
+                                <td>@rhyolite-crater</td>
+                            </tr>
+                            <tr>
+                                <td>@rough-rhyolite</td>
+                                <td>@regolith</td>
+                                <td>@yellow-stone</td>
+                                <td>@carbon-stone</td>
+                            </tr>
+                            <tr>
+                                <td>@ferric-stone</td>
+                                <td>@ferric-craters</td>
+                                <td>@beryllic-stone</td>
+                                <td>@crystalline-stone</td>
+                            </tr>
+                            <tr>
+                                <td>@crystal-floor</td>
+                                <td>@yellow-stone-plates</td>
+                                <td>@red-stone</td>
+                                <td>@dense-red-stone</td>
+                            </tr>
+                            <tr>
+                                <td>@red-ice</td>
+                                <td>@arkycite-floor</td>
+                                <td>@arkyic-stone</td>
+                                <td>@rhyolite-vent</td>
+                            </tr>
+                            <tr>
+                                <td>@carbon-vent</td>
+                                <td>@arkyic-vent</td>
+                                <td>@yellow-stone-vent</td>
+                                <td>@red-stone-vent</td>
+                            </tr>
+                            <tr>
+                                <td>@crystalline-vent</td>
+                                <td>@redmat</td>
+                                <td>@bluemat</td>
+                                <td>@grass</td>
+                            </tr>
+                            <tr>
+                                <td>@salt</td>
+                                <td>@snow</td>
+                                <td>@ice</td>
+                                <td>@ice-snow</td>
+                            </tr>
+                            <tr>
+                                <td>@shale</td>
+                                <td>@moss</td>
+                                <td>@core-zone</td>
+                                <td>@spore-moss</td>
+                            </tr>
+                            <tr>
+                                <td>@stone-wall</td>
+                                <td>@spore-wall</td>
+                                <td>@dirt-wall</td>
+                                <td>@dacite-wall</td>
+                            </tr>
+                            <tr>
+                                <td>@ice-wall</td>
+                                <td>@snow-wall</td>
+                                <td>@dune-wall</td>
+                                <td>@regolith-wall</td>
+                            </tr>
+                            <tr>
+                                <td>@yellow-stone-wall</td>
+                                <td>@rhyolite-wall</td>
+                                <td>@carbon-wall</td>
+                                <td>@ferric-stone-wall</td>
+                            </tr>
+                            <tr>
+                                <td>@beryllic-stone-wall</td>
+                                <td>@arkyic-wall</td>
+                                <td>@crystalline-stone-wall</td>
+                                <td>@red-ice-wall</td>
+                            </tr>
+                            <tr>
+                                <td>@red-stone-wall</td>
+                                <td>@red-diamond-wall</td>
+                                <td>@sand-wall</td>
+                                <td>@salt-wall</td>
+                            </tr>
+                            <tr>
+                                <td>@shrubs</td>
+                                <td>@shale-wall</td>
+                                <td>@spore-pine</td>
+                                <td>@snow-pine</td>
+                            </tr>
+                            <tr>
+                                <td>@pine</td>
+                                <td>@white-tree-dead</td>
+                                <td>@white-tree</td>
+                                <td>@spore-cluster</td>
+                            </tr>
+                            <tr>
+                                <td>@redweed</td>
+                                <td>@pur-bush</td>
+                                <td>@yellowcoral</td>
+                                <td>@boulder</td>
+                            </tr>
+                            <tr>
+                                <td>@snow-boulder</td>
+                                <td>@shale-boulder</td>
+                                <td>@sand-boulder</td>
+                                <td>@dacite-boulder</td>
+                            </tr>
+                            <tr>
+                                <td>@basalt-boulder</td>
+                                <td>@carbon-boulder</td>
+                                <td>@ferric-boulder</td>
+                                <td>@beryllic-boulder</td>
+                            </tr>
+                            <tr>
+                                <td>@yellow-stone-boulder</td>
+                                <td>@arkyic-boulder</td>
+                                <td>@crystal-cluster</td>
+                                <td>@vibrant-crystal-cluster</td>
+                            </tr>
+                            <tr>
+                                <td>@crystal-blocks</td>
+                                <td>@crystal-orbs</td>
+                                <td>@crystalline-boulder</td>
+                                <td>@red-ice-boulder</td>
+                            </tr>
+                            <tr>
+                                <td>@rhyolite-boulder</td>
+                                <td>@red-stone-boulder</td>
+                                <td>@metal-floor</td>
+                                <td>@metal-floor-damaged</td>
+                            </tr>
+                            <tr>
+                                <td>@metal-floor-2</td>
+                                <td>@metal-floor-3</td>
+                                <td>@metal-floor-4</td>
+                                <td>@metal-floor-5</td>
+                            </tr>
+                            <tr>
+                                <td>@dark-panel-1</td>
+                                <td>@dark-panel-2</td>
+                                <td>@dark-panel-3</td>
+                                <td>@dark-panel-4</td>
+                            </tr>
+                            <tr>
+                                <td>@dark-panel-5</td>
+                                <td>@dark-panel-6</td>
+                                <td>@dark-metal</td>
+                                <td>@pebbles</td>
+                            </tr>
+                            <tr>
+                                <td>@tendrils</td>
+                                <td>@ore-copper</td>
+                                <td>@ore-lead</td>
+                                <td>@ore-scrap</td>
+                            </tr>
+                            <tr>
+                                <td>@ore-coal</td>
+                                <td>@ore-titanium</td>
+                                <td>@ore-thorium</td>
+                                <td>@ore-beryllium</td>
+                            </tr>
+                            <tr>
+                                <td>@ore-tungsten</td>
+                                <td>@ore-crystal-thorium</td>
+                                <td>@ore-wall-thorium</td>
+                                <td>@ore-wall-beryllium</td>
+                            </tr>
+                            <tr>
+                                <td>@graphitic-wall</td>
+                                <td>@ore-wall-tungsten</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section id="sensors">
+                    <h2>Sensors</h2>
+                    <br>@totalItems
+                    <br>    <span class="spin">total items the object is currently holding; returns integer</span>
+                    <br>@firstItem
+                    <br>    <span class="spin">the first item the object is currently holding</span>
+                    <br>    <span class="spin">returns item names, eg, @copper, @lead</span>
+                    <br>@totalLiquids
+                    <br>    <span class="spin">total liquid units the object is currently holding; returns number</span>
+                    <br>@totalPower
+                    <br>    <span class="spin">total power stored in a singular battery, returns number, can also check if a block is powered or not, returns boolean</span>
+                    <br>@itemCapacity
+                    <br>    <span class="spin">the maximum item capacity an object can hold, for vault it is 1000 even though it can store each item for 1000; returns number, information can also be found on ingame’s info menu</span>
+                    <br>@liquidCapacity
+                    <br>    <span class="spin">the maximum liquid units capacity an object can hold; returns number, information can also be found on ingame’s info menu</span>
+                    <br>@powerCapacity
+                    <br>    <span class="spin">the maximum power unit a battery can hold; returns number, information can also be found on ingame’s info menu</span>
+                    <br>@powerNetStored
+                    <br>    <span class="spin">the power currently stored in the net (all connected batteries); returns number</span>
+                    <br>@powerNetCapacity
+                    <br>    <span class="spin">the maximum power unit a net of battery can hold; returns number</span>
+                    <br>@powerNetIn
+                    <br>    <span class="spin">the gross power of net generators (anything that generate power); returns number</span>
+                    <br>@powerNetOut
+                    <br>    <span class="spin">the load power of net (anything that uses power); returns number</span>
+                    <br>@ammo
+                    <br><span class="spin">the number of shot a turret can shoot, doesn’t necessarily mean total items in turret</span>
+                    <br>@ammoCapacity
+                    <br>    <span class="spin">the maximum amount of items (ammo) a turret can hold; returns number</span>
+                    <br>@health
+                    <br>    <span class="spin">the current health of object, returns number</span>
+                    <br>@maxHealth
+                    <br>    <span class="spin">the maximum health of object, returns number</span>
+                    <br>@heat
+                    <br>    <span class="spin">heat of object, like heat in thorium reactor / force projector, returns number</span>
+                    <br>@efficiency
+                    <br>
+                    <br>@progress
+                    <br>    <span class="spin">progress of an object, eg, launch pad when on their cooldown, foreshadow when on their cooldown; returns number, 0 - 1</span>
+                    <br>@timescale
+                    <br>   <span class="spin"> multipliers of boosted object (overdrived with overdrive projector or overdrive dome), returns number, 1 is normal value, 1.5 is when overdrive with overdrive projector, 2.5 is dome</span>
+                    <br>@rotation
+                    <br>    <span class="spin">rotation of object, returns number in degrees,0 - 360, 360/0 is right, 90 is up, 180 is left, 270 is down</span>
+                    <br>@x
+                    <br>   <span class="spin"> the x coordinate location of the object; returns number</span>
+                    <br>@y
+                    <br>    <span class="spin">the y coordinate location of the object; returns number</span>
+                    <br>@shootX
+                    <br>    <span class="spin">the x coordinate value of what that object is targeting, returns number, if used on a player will return their cursor position</span>
+                    <br>@shootY
+                    <br>    <span class="spin">the y coordinate value of what that object is targeting, returns number, if used on a player will return their cursor position</span>
+                    <br>@size
+                    <br>    <span class="spin">the size of object; returns number, eg, foreshadow is 4 because it is 4x4, information can also be found on ingame’s info menu</span>
+                    <br>@dead
+                    <br>    <span class="spin">whether the object is dead or not, returns booelan, 1 is dead, 0 is not dead</span>
+                    <br>@range
+                    <br>    <span class="spin">range of object; returns number, information can also be found on ingame’s info menu</span>
+                    <br>@shooting
+                    <br>    <span class="spin">whether the object is shooting or not, returns boolean, 1 is shooting, 0 is not shooting</span>
+                    <br>@boosting
+                    <br>    <span class="spin">whether the object is boosting or not; returns boolean, 1 is boosting, 0 is not boosting</span>
+                    <br>@mineX
+                    <br>    <span class="spin">if unit is mining returns the x coordinate value of that unit mining location, else returns -1</span>
+                    <br>@mineY
+                    <br>    <span class="spin">if unit is mining returns the y coordinate value of that unit mining location, else returns -1</span>
+                    <br>@mining
+                    <br>    <span class="spin">whether the unit is mining or not; returns boolean, 1 is mining, 0 is not mining</span>
+                    <br>@speed
+                    <br>    <span class="spin">the object maximum speed, in tiles/second; returns number, information can also be found on ingame’s info menu, there is currently no variable for current speed</span>
+                    <br>@team
+                    <br>    <span class="spin" style="margin-bottom: 0px;">the object team; returns integers, 1 is sharded, 2 is crux, …. there are a total of 256 available team in mindustry
+                    <br>    0 = @derelict
+                    <br>    1 = @sharded
+                    <br>    2 = @crux
+                    <br>    3 = @malis
+                    <br>    4 = @green
+                    <br>    5 = @blue
+                    <br>    6 - 255 = unnamed</span>
+                    <br>
+                    <br>@type
+                    <br>    <span class="spin">the object’s name (not reference), eg, for router returns `@router` , not a string</span>
+                    <br>@flag
+                    <br>    <span class="spin">the object’s flags; returns number, unit can be flagged with `ucontrol flag`</span>
+                    <br>@controlled
+                    <br>    <span class="spin">check if unit is controlled, returns : 
+                    <br>        0 , if unit is not controlled by anything
+                    <br>        @ctrlProcessor or 1, if unit is controlled by processor
+                    <br>        @ctrlPlayer or 2, if unit is controlled by a player
+                    <br>        @ctrlCommad or 3, if unit is controlled by a player command</span>
+                    <br>@controller
+                    <br>    <span class="spin">returns the controller reference, if processor will returns that processor building reference, else returns the unit reference itself</span>
+                    <br>@name
+                    <br>    <span class="spin">name of player, returns string</span>
+                    <br>@payloadCount
+                    <br>    <span class="spin">number of payload the unit is currently carrying, returns integer</span>
+                    <br>@payloadType
+                    <br>    <span class="spin">name of payload, will return only the last picked up payload, returns name</span>
+                    <br>@id
+                    <br>    <span class="spin">returns the object ID, returns integer</span>
+                    <br>@enabled
+                    <br>    <span class="spin">whether the object is enabled or not, returns boolean; 1 is enabled, 0 is disabled</span>
+                    <br>@config
+                    <br>    <span class="spin">configuration of object, eg, sorter item names</span>
+                    <br>@color
+                    <br>    <span class="spin">color of illuminator, returns packed color</span>
+                </section>
+                <section id="blocks and items">
+                    <h2>Blocks and Items</h2>
+                    <h2>Blocksa</h2>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>@graphite-press</td>
+                                <td>@multi-press</td>
+                                <td>@silicon-smelter</td>
+                                <td>@silicon-crucible</td>
+                            </tr>
+                            <tr>
+                                <td>@kiln</td>
+                                <td>@plastanium-compressor</td>
+                                <td>@phase-weaver</td>
+                                <td>@surge-smelter</td>
+                            </tr>
+                            <tr>
+                                <td>@cryofluid-mixer</td>
+                                <td>@pyratite-mixer</td>
+                                <td>@blast-mixer</td>
+                                <td>@melter</td>
+                            </tr>
+                            <tr>
+                                <td>@separator</td>
+                                <td>@disassembler</td>
+                                <td>@spore-press</td>
+                                <td>@pulverizer</td>
+                            </tr>
+                            <tr>
+                                <td>@coal-centrifuge</td>
+                                <td>@incinerator</td>
+                                <td>@silicon-arc-furnace</td>
+                                <td>@electrolyzer</td>
+                            </tr>
+                            <tr>
+                                <td>@atmospheric-concentrator</td>
+                                <td>@oxidation-chamber</td>
+                                <td>@electric-heater</td>
+                                <td>@slag-heater</td>
+                            </tr>
+                            <tr>
+                                <td>@phase-heater</td>
+                                <td>@heat-redirector</td>
+                                <td>@heat-router</td>
+                                <td>@slag-incinerator</td>
+                            </tr>
+                            <tr>
+                                <td>@carbide-crucible</td>
+                                <td>@slag-centrifuge</td>
+                                <td>@surge-crucible</td>
+                                <td>@cyanogen-synthesizer</td>
+                            </tr>
+                            <tr>
+                                <td>@phase-synthesizer</td>
+                                <td>@heat-reactor</td>
+                                <td>@copper-wall</td>
+                                <td>@copper-wall-large</td>
+                            </tr>
+                            <tr>
+                                <td>@titanium-wall</td>
+                                <td>@titanium-wall-large</td>
+                                <td>@plastanium-wall</td>
+                                <td>@plastanium-wall-large</td>
+                            </tr>
+                            <tr>
+                                <td>@thorium-wall</td>
+                                <td>@thorium-wall-large</td>
+                                <td>@phase-wall</td>
+                                <td>@phase-wall-large</td>
+                            </tr>
+                            <tr>
+                                <td>@surge-wall</td>
+                                <td>@surge-wall-large</td>
+                                <td>@door</td>
+                                <td>@door-large</td>
+                            </tr>
+                            <tr>
+                                <td>@scrap-wall</td>
+                                <td>@scrap-wall-large</td>
+                                <td>@scrap-wall-huge</td>
+                                <td>@scrap-wall-gigantic</td>
+                            </tr>
+                            <tr>
+                                <td>@thruster</td>
+                                <td>@beryllium-wall</td>
+                                <td>@beryllium-wall-large</td>
+                                <td>@tungsten-wall</td>
+                            </tr>
+                            <tr>
+                                <td>@tungsten-wall-large</td>
+                                <td>@blast-door</td>
+                                <td>@reinforced-surge-wall</td>
+                                <td>@reinforced-surge-wall-large</td>
+                            </tr>
+                            <tr>
+                                <td>@carbide-wall</td>
+                                <td>@carbide-wall-large</td>
+                                <td>@shielded-wall</td>
+                                <td>@mender</td>
+                            </tr>
+                            <tr>
+                                <td>@mend-projector</td>
+                                <td>@overdrive-projector</td>
+                                <td>@overdrive-dome</td>
+                                <td>@force-projector</td>
+                            </tr>
+                            <tr>
+                                <td>@shock-mine</td>
+                                <td>@radar</td>
+                                <td>@build-tower</td>
+                                <td>@regen-projector</td>
+                            </tr>
+                            <tr>
+                                <td>@shockwave-tower</td>
+                                <td>@shield-projector</td>
+                                <td>@large-shield-projector</td>
+                                <td>@conveyor</td>
+                            </tr>
+                            <tr>
+                                <td>@titanium-conveyor</td>
+                                <td>@plastanium-conveyor</td>
+                                <td>@armored-conveyor</td>
+                                <td>@junction</td>
+                            </tr>
+                            <tr>
+                                <td>@bridge-conveyor</td>
+                                <td>@phase-conveyor</td>
+                                <td>@sorter</td>
+                                <td>@inverted-sorter</td>
+                            </tr>
+                            <tr>
+                                <td>@router</td>
+                                <td>@distributor</td>
+                                <td>@overflow-gate</td>
+                                <td>@underflow-gate</td>
+                            </tr>
+                            <tr>
+                                <td>@mass-driver</td>
+                                <td>@duct</td>
+                                <td>@armored-duct</td>
+                                <td>@duct-router</td>
+                            </tr>
+                            <tr>
+                                <td>@overflow-duct</td>
+                                <td>@underflow-duct</td>
+                                <td>@duct-bridge</td>
+                                <td>@duct-unloader</td>
+                            </tr>
+                            <tr>
+                                <td>@surge-conveyor</td>
+                                <td>@surge-router</td>
+                                <td>@unit-cargo-loader</td>
+                                <td>@unit-cargo-unload-point</td>
+                            </tr>
+                            <tr>
+                                <td>@mechanical-pump</td>
+                                <td>@rotary-pump</td>
+                                <td>@impulse-pump</td>
+                                <td>@conduit</td>
+                            </tr>
+                            <tr>
+                                <td>@pulse-conduit</td>
+                                <td>@plated-conduit</td>
+                                <td>@liquid-router</td>
+                                <td>@liquid-container</td>
+                            </tr>
+                            <tr>
+                                <td>@liquid-tank</td>
+                                <td>@liquid-junction</td>
+                                <td>@bridge-conduit</td>
+                                <td>@phase-conduit</td>
+                            </tr>
+                            <tr>
+                                <td>@reinforced-pump</td>
+                                <td>@reinforced-conduit</td>
+                                <td>@reinforced-liquid-junction</td>
+                                <td>@reinforced-bridge-conduit</td>
+                            </tr>
+                            <tr>
+                                <td>@reinforced-liquid-router</td>
+                                <td>@reinforced-liquid-container</td>
+                                <td>@reinforced-liquid-tank</td>
+                                <td>@power-node</td>
+                            </tr>
+                            <tr>
+                                <td>@power-node-large</td>
+                                <td>@surge-tower</td>
+                                <td>@diode</td>
+                                <td>@battery</td>
+                            </tr>
+                            <tr>
+                                <td>@battery-large</td>
+                                <td>@combustion-generator</td>
+                                <td>@thermal-generator</td>
+                                <td>@steam-generator</td>
+                            </tr>
+                            <tr>
+                                <td>@differential-generator</td>
+                                <td>@rtg-generator</td>
+                                <td>@solar-panel</td>
+                                <td>@solar-panel-large</td>
+                            </tr>
+                            <tr>
+                                <td>@thorium-reactor</td>
+                                <td>@impact-reactor</td>
+                                <td>@beam-node</td>
+                                <td>@beam-tower</td>
+                            </tr>
+                            <tr>
+                                <td>@beam-link</td>
+                                <td>@turbine-condenser</td>
+                                <td>@chemical-combustion-chamber</td>
+                                <td>@pyrolysis-generator</td>
+                            </tr>
+                            <tr>
+                                <td>@flux-reactor</td>
+                                <td>@neoplasia-reactor</td>
+                                <td>@mechanical-drill</td>
+                                <td>@pneumatic-drill</td>
+                            </tr>
+                            <tr>
+                                <td>@laser-drill</td>
+                                <td>@blast-drill</td>
+                                <td>@water-extractor</td>
+                                <td>@cultivator</td>
+                            </tr>
+                            <tr>
+                                <td>@oil-extractor</td>
+                                <td>@vent-condenser</td>
+                                <td>@cliff-crusher</td>
+                                <td>@plasma-bore</td>
+                            </tr>
+                            <tr>
+                                <td>@large-plasma-bore</td>
+                                <td>@impact-drill</td>
+                                <td>@eruption-drill</td>
+                                <td>@core-shard</td>
+                            </tr>
+                            <tr>
+                                <td>@core-foundation</td>
+                                <td>@core-nucleus</td>
+                                <td>@core-bastion</td>
+                                <td>@core-citadel</td>
+                            </tr>
+                            <tr>
+                                <td>@core-acropolis</td>
+                                <td>@container</td>
+                                <td>@vault</td>
+                                <td>@unloader</td>
+                            </tr>
+                            <tr>
+                                <td>@reinforced-container</td>
+                                <td>@reinforced-vault</td>
+                                <td>@duo</td>
+                                <td>@scatter</td>
+                            </tr>
+                            <tr>
+                                <td>@scorch</td>
+                                <td>@hail</td>
+                                <td>@wave</td>
+                                <td>@lancer</td>
+                            </tr>
+                            <tr>
+                                <td>@arc</td>
+                                <td>@parallax</td>
+                                <td>@swarmer</td>
+                                <td>@salvo</td>
+                            </tr>
+                            <tr>
+                                <td>@segment</td>
+                                <td>@tsunami</td>
+                                <td>@fuse</td>
+                                <td>@ripple</td>
+                            </tr>
+                            <tr>
+                                <td>@cyclone</td>
+                                <td>@foreshadow</td>
+                                <td>@spectre</td>
+                                <td>@meltdown</td>
+                            </tr>
+                            <tr>
+                                <td>@breach</td>
+                                <td>@diffuse</td>
+                                <td>@sublimate</td>
+                                <td>@titan</td>
+                            </tr>
+                            <tr>
+                                <td>@disperse</td>
+                                <td>@afflict</td>
+                                <td>@lustre</td>
+                                <td>@scathe</td>
+                            </tr>
+                            <tr>
+                                <td>@smite</td>
+                                <td>@malign</td>
+                                <td>@ground-factory</td>
+                                <td>@air-factory</td>
+                            </tr>
+                            <tr>
+                                <td>@naval-factory</td>
+                                <td>@additive-reconstructor</td>
+                                <td>@multiplicative-reconstructor</td>
+                                <td>@exponential-reconstructor</td>
+                            </tr>
+                            <tr>
+                                <td>@tetrative-reconstructor</td>
+                                <td>@repair-point</td>
+                                <td>@repair-turret</td>
+                                <td>@tank-fabricator</td>
+                            </tr>
+                            <tr>
+                                <td>@ship-fabricator</td>
+                                <td>@mech-fabricator</td>
+                                <td>@tank-refabricator</td>
+                                <td>@mech-refabricator</td>
+                            </tr>
+                            <tr>
+                                <td>@ship-refabricator</td>
+                                <td>@prime-refabricator</td>
+                                <td>@tank-assembler</td>
+                                <td>@ship-assembler</td>
+                            </tr>
+                            <tr>
+                                <td>@mech-assembler</td>
+                                <td>@basic-assembler-module</td>
+                                <td>@unit-repair-tower</td>
+                                <td>@payload-conveyor</td>
+                            </tr>
+                            <tr>
+                                <td>@payload-router</td>
+                                <td>@reinforced-payload-conveyor</td>
+                                <td>@reinforced-payload-router</td>
+                                <td>@payload-mass-driver</td>
+                            </tr>
+                            <tr>
+                                <td>@large-payload-mass-driver</td>
+                                <td>@small-deconstructor</td>
+                                <td>@deconstructor</td>
+                                <td>@constructor</td>
+                            </tr>
+                            <tr>
+                                <td>@large-constructor</td>
+                                <td>@payload-loader</td>
+                                <td>@payload-unloader</td>
+                                <td>@power-source</td>
+                            </tr>
+                            <tr>
+                                <td>@power-void</td>
+                                <td>@item-source</td>
+                                <td>@item-void</td>
+                                <td>@liquid-source</td>
+                            </tr>
+                            <tr>
+                                <td>@liquid-void</td>
+                                <td>@payload-source</td>
+                                <td>@payload-void</td>
+                                <td>@heat-source</td>
+                            </tr>
+                            <tr>
+                                <td>@illuminator</td>
+                                <td>@legacy-mech-pad</td>
+                                <td>@legacy-unit-factory</td>
+                                <td>@legacy-unit-factory-air</td>
+                            </tr>
+                            <tr>
+                                <td>@legacy-unit-factory-ground</td>
+                                <td>@command-center</td>
+                                <td>@launch-pad</td>
+                                <td>@interplanetary-accelerator</td>
+                            </tr>
+                            <tr>
+                                <td>@message</td>
+                                <td>@switch</td>
+                                <td>@micro-processor</td>
+                                <td>@logic-processor</td>
+                            </tr>
+                            <tr>
+                                <td>@hyper-processor</td>
+                                <td>@memory-cell</td>
+                                <td>@memory-bank</td>
+                                <td>@logic-display</td>
+                            </tr>
+                            <tr>
+                                <td>@large-logic-display</td>
+                                <td>@canvas</td>
+                                <td>@reinforced-message</td>
+                                <td>@world-processor</td>
+                            </tr>
+                            <tr>
+                                <td>@world-cell</td>
+                                <td>@world-message</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                    <br> <h2>Items</h2>
+                    <br><table>
+                        <tbody>
+                            <tr>
+                                <td>@copper</td>
+                                <td>@lead</td>
+                                <td>@metaglass</td>
+                            </tr>
+                            <tr>
+                                <td>@graphite</td>
+                                <td>@sand</td>
+                                <td>@coal</td>
+                            </tr>
+                            <tr>
+                                <td>@titanium</td>
+                                <td>@thorium</td>
+                                <td>@scrap</td>
+                            </tr>
+                            <tr>
+                                <td>@silicon</td>
+                                <td>@plastanium</td>
+                                <td>@phase-fabric</td>
+                            </tr>
+                            <tr>
+                                <td>@surge-alloy</td>
+                                <td>@spore-pod</td>
+                                <td>@blast-compound</td>
+                            </tr>
+                            <tr>
+                                <td>@pyratite</td>
+                                <td>@beryllium</td>
+                                <td>@tungsten</td>
+                            </tr>
+                            <tr>
+                                <td>@oxide</td>
+                                <td>@carbide</td>
+                                <td>@fissile-matter</td>
+                            </tr>
+                            <tr>
+                                <td>@dormant-cyst</td>
+                                <td>@water</td>
+                                <td>@slag</td>
+                            </tr>
+                            <tr>
+                                <td>@oil</td>
+                                <td>@cryofluid</td>
+                                <td>@neoplasm</td>
+                            </tr>
+                            <tr>
+                                <td>@arkycite</td>
+                                <td>@gallium</td>
+                                <td>@ozone</td>
+                            </tr>
+                            <tr>
+                                <td>@hydrogen</td>
+                                <td>@nitrogen</td>
+                                <td>@cyanogen</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <section id="Units">
+                        <br><h2>Units</h2>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>@dagger</td>
+                                    <td>@mace</td>
+                                    <td>@fortress</td>
+                                </tr>
+                                <tr>
+                                    <td>@scepter</td>
+                                    <td>@reign</td>
+                                    <td>@nova</td>
+                                </tr>
+                                <tr>
+                                    <td>@pulsar</td>
+                                    <td>@quasar</td>
+                                    <td>@vela</td>
+                                </tr>
+                                <tr>
+                                    <td>@corvus</td>
+                                    <td>@crawler</td>
+                                    <td>@atrax</td>
+                                </tr>
+                                <tr>
+                                    <td>@spiroct</td>
+                                    <td>@arkyid</td>
+                                    <td>@toxopid</td>
+                                </tr>
+                                <tr>
+                                    <td>@flare</td>
+                                    <td>@horizon</td>
+                                    <td>@zenith</td>
+                                </tr>
+                                <tr>
+                                    <td>@antumbra</td>
+                                    <td>@eclipse</td>
+                                    <td>@mono</td>
+                                </tr>
+                                <tr>
+                                    <td>@poly</td>
+                                    <td>@mega</td>
+                                    <td>@quad</td>
+                                </tr>
+                                <tr>
+                                    <td>@oct</td>
+                                    <td>@risso</td>
+                                    <td>@minke</td>
+                                </tr>
+                                <tr>
+                                    <td>@bryde</td>
+                                    <td>@sei</td>
+                                    <td>@omura</td>
+                                </tr>
+                                <tr>
+                                    <td>@retusa</td>
+                                    <td>@oxynoe</td>
+                                    <td>@cyerce</td>
+                                </tr>
+                                <tr>
+                                    <td>@aegires</td>
+                                    <td>@navanax</td>
+                                    <td>@alpha</td>
+                                </tr>
+                                <tr>
+                                    <td>@beta</td>
+                                    <td>@gamma</td>
+                                    <td>@stell</td>
+                                </tr>
+                                <tr>
+                                    <td>@locus</td>
+                                    <td>@precept</td>
+                                    <td>@vanquish</td>
+                                </tr>
+                                <tr>
+                                    <td>@conquer</td>
+                                    <td>@merui</td>
+                                    <td>@cleroi</td>
+                                </tr>
+                                <tr>
+                                    <td>@anthicus</td>
+                                    <td>@anthicus-missile</td>
+                                    <td>@tecta</td>
+                                </tr>
+                                <tr>
+                                    <td>@collaris</td>
+                                    <td>@elude</td>
+                                    <td>@avert</td>
+                                </tr>
+                                <tr>
+                                    <td>@obviate</td>
+                                    <td>@quell</td>
+                                    <td>@quell-missile</td>
+                                </tr>
+                                <tr>
+                                    <td>@disrupt</td>
+                                    <td>@disrupt-missile</td>
+                                    <td>@renale</td>
+                                </tr>
+                                <tr>
+                                    <td>@latum</td>
+                                    <td>@evoke</td>
+                                    <td>@incite</td>
+                                </tr>
+                                <tr>
+                                    <td>@emanate</td>
+                                    <td>@scathe-missile</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                <section id="text form instrcutin">
+                    <h2>Text form instruction</h2>
+                        <br>or you can just write the instruction in game and “copy to clipboard”
+                        <br>
+                        <h2>Normal processor</h2>
+                        <br>
+                        <br>read result cell1 0
+                        <br>
+                        <br>write result cell1 0
+                        <br>
+                        <br>draw clear r g b
+                        <br>    <span class="spin">color r b g a
+                        <br>    col n
+                        <br>    stroke n
+                        <br>    line x y x2 y2
+                        <br>    rect x y width height
+                        <br>    lineRect x y width height
+                        <br>    poly x y sides radius rotation
+                        <br>    linePoly x y  sides radius rotation
+                        <br>    triangle x y x2 y2 x3 y3
+                        <br>    image x y @copper size rotation</span>
+                        <br>
+                        <br>print "frog"
+                        <br>
+                        <br>drawflush display1
+                        <br>
+                        <br>printflush message1
+                        <br>
+                        <br>getlink result index
+                        <br>
+                        <br>control enabled block1 enable
+                        <br>   <span class="spin"> shoot block1 x y shoot
+                        <br>    shootp block1 unit shoot
+                        <br>    config block1 to
+                        <br>    color block1 to</span>
+                        <br>
+                        <br>radar filter filter filter distance turret1 order result
+                        <br>    <span class="spin">any		health
+                        <br>    enemy	shield
+                        <br>    ally	armor
+                        <br>    player	maxHealth
+                        <br>    attacker	
+                        <br>    flying		
+                        <br>    boss
+                        <br>    ground</span>
+                        <br>
+                        <br>
+                        <br>sensor result block1 @copper
+                        <br>
+                        <br>set result 0
+                        <br>
+                        <br>op add result a b
+                        <br>   <span class="spin"> sub
+                        <br>    mul
+                        <br>    div
+                        <br>    idiv
+                        <br>    mod
+                        <br>    pow
+                        <br>    equal
+                        <br>    notEqual
+                        <br>    land
+                        <br>    lessThan
+                        <br>    lessThanEq
+                        <br>    greaterThan
+                        <br>    greaterThanEq
+                        <br>    strictEqual
+                        <br>    shl
+                        <br>    shr
+                        <br>    or
+                        <br>    and
+                        <br>    xor
+                        <br>    not
+                        <br>    max
+                        <br>    min
+                        <br>    angle
+                        <br>    angleDiff
+                        <br>    len
+                        <br>    noise
+                        <br>    abs
+                        <br>    log
+                        <br>    log10
+                        <br>    floor
+                        <br>    ceil
+                        <br>    sqrt
+                        <br>    rand
+                        <br>    sin
+                        <br>    cos
+                        <br>    tan
+                        <br>    asin
+                        <br>    acos
+                        <br>    atan</span>
+                        <br>
+                        <br>lookup block result index
+                        <br>    <span class="spin">unit
+                        <br>    item
+                        <br>    liquid</span>
+                        <br>
+                        <br>packcolor result r g b a
+                        <br>
+                        <br>wait 0.5
+                        <br>
+                        <br>stop
+                        <br>
+                        <br>end
+                        <br>
+                        <br>jump -1 equal v1 v2
+                        <br>    <span class="spin">notEqual
+                        <br>    lessThan
+                        <br>    lessThanEq
+                        <br>    greaterThan
+                        <br>    greaterThanEq
+                        <br>    strictEqual
+                        <br>    always</span>
+                        <br>
+                        <br>
+                        <br>ubind @poly
+                        <br>    <span class="spin">ucontrol idle
+                        <br>    stop
+                        <br>    move x y
+                        <br>    approach x y radius
+                        <br>    pathfind x y
+                        <br>    autoPathfind
+                        <br>    boost enable
+                        <br>    target x y shoot
+                        <br>    targetp unit shoot
+                        <br>    itemDrop to amount
+                        <br>    itemTake from amount
+                        <br>    payDrop
+                        <br>    payTake takeUnits
+                        <br>    payEnter
+                        <br>    mine x y
+                        <br>    flag value
+                        <br>    build x y block rotation config
+                        <br>    getBlock x y type building floor
+                        <br>    within x y radius result
+                        <br>    unbind</span>
+                        <br>
+                        <br>
+                        <br>uradar any any any distance 0 1 result
+                        <br>       <span class="spin">enemy	   distance
+                        <br>       ally		   health
+                        <br>       player	   shield
+                        <br>       attacker	   armor
+                        <br>       flying	   maxHealth
+                        <br>       boss
+                        <br>       ground</span>
+                        <br>
+                        <br>ulocate building core enemy @copper outx outy found building
+                        <br>        <span class="spin">core
+                        <br>        storage
+                        <br>        generator
+                        <br>        turret
+                        <br>        factory
+                        <br>        repair
+                        <br>        battery
+                        <br>        reactor</span>
+                        <br>ulocate ore core true @copper outx outy found building
+                        <br>ulocate spawn core true @copper outx outy found building
+                        <br>ulocate spawn core true @copper outx outy found building
+                        <br>
+                        <br><h2>World Processor</h2>
+                        <br>
+                        <br>getblock floor result x y
+                        <br>    <span class="spin">ore
+                        <br>    block
+                        <br>    building</span>
+                        <br>
+                        <br>setblock floor @block x y @team rotation
+                        <br>        <span class="spin">ore
+                        <br>        block</span>
+                        <br>
+                        <br>spawn @unit x y rotation @team result
+                        <br>
+                        <br>status false wet unit duration
+                        <br>    <span class="spin">true   burning
+                        <br>    freezing
+                        <br>    unmoving
+                        <br>    wet
+                        <br>    melting
+                        <br>    sapped
+                        <br>    electrified
+                        <br>    spore-slowed
+                        <br>    tarred
+                        <br>    overdrive
+                        <br>    overclock
+                        <br>    boss
+                        <br>    shocked
+                        <br>    blasted</span>
+                        <br>
+                        <br>spawnwave x y false
+                        <br>
+                        <br>setrule currentWaveTime value
+                        <br>    <span class="spin">waveTimer 
+                        <br>    waves 
+                        <br>    wave 
+                        <br>    waveSpacing 
+                        <br>    waveSending 
+                        <br>    attackMode 
+                        <br>    enemyCoreBuildRadius
+                        <br>    dropZoneRadius
+                        <br>    unitCap
+                        <br>    mapArea 0 x y 100 100
+                        <br>    lighting
+                        <br>    ambientLight
+                        <br>    solarMultiplier
+                        <br>    buildSpeed
+                        <br>    unitHealth
+                        <br>    unitBuildSpeed
+                        <br>    unitCost
+                        <br>    unitDamage
+                        <br>    blockHealth
+                        <br>    blockDamage
+                        <br>    rtsMinWeight
+                        <br>    rtsMinSquad</span>
+                        <br>
+                        <br>message notify duration
+                        <br>    <span class="spin">announce
+                        <br>    toast
+                        <br>    mission</span>
+                        <br>
+                        <br>cutscene pan x y speed 0
+                        <br>    <span class="spin">zoom level
+                        <br>    stop</span>
+                        <br>
+                        <br>effect trail x y size %color
+                        <br>    <span class="spin">warn
+                        <br>    cross
+                        <br>    blockFall
+                        <br>    placeBlock
+                        <br>    placeBlockSpark
+                        <br>    breakBlock
+                        <br>    spawn
+                        <br>    trail
+                        <br>    breakProp
+                        <br>    smokeCloud
+                        <br>    vapor
+                        <br>    hit
+                        <br>    hitSquare
+                        <br>    shootSmall
+                        <br>    shootBig
+                        <br>    smokeSmall
+                        <br>    smokeBig
+                        <br>    smokeColor
+                        <br>    smokeSquare
+                        <br>    smokeSquareBig
+                        <br>    spark
+                        <br>    sparkBig
+                        <br>    sparkShoot
+                        <br>    sparkShootBig
+                        <br>    drill
+                        <br>    drillBig
+                        <br>    lightBlock
+                        <br>    explosion
+                        <br>    smokePuff
+                        <br>    sparkExplosion
+                        <br>    crossExplosion
+                        <br>    wave
+                        <br>    bubble</span>
+                        <br>
+                        <br>explosion @team x y radius damage (air)bool (ground)bool (pierce)bool
+                        <br>
+                        <br>setrate rate(ipt)
+                        <br>
+                        <br>fetch build result @team index block
+                        <br>   <span class="spin"> player
+                        <br>    core
+                        <br>    unit
+                        <br>    unitCount
+                        <br>    playerCount
+                        <br>    coreCount
+                        <br>    unitCount</span>
+                        <br>
+                        <br>sync var
+                        <br>
+                        <br>getflag result "flag"
+                        <br>
+                        <br>setflag "flag" true
+                        <br>
+                        <br>setprop @copper block1 to
+                </section>
+                <section id="lookup ids">
+                    <h2>Lookup IDs</h2>
+                    <h3>blocks</h3>
+                    <br>0 = @graphite-press
+                    <br>1 = @multi-press
+                    <br>2 = @silicon-smelter
+                    <br>3 = @silicon-crucible
+                    <br>4 = @kiln
+                    <br>5 = @plastanium-compressor
+                    <br>6 = @phase-weaver
+                    <br>7 = @cryofluid-mixer
+                    <br>8 = @pyratite-mixer
+                    <br>9 = @blast-mixer
+                    <br>10 = @melter
+                    <br>11 = @separator
+                    <br>12 = @disassembler
+                    <br>13 = @spore-press
+                    <br>14 = @pulverizer
+                    <br>15 = @coal-centrifuge
+                    <br>16 = @incinerator
+                    <br>17 = @copper-wall
+                    <br>18 = @copper-wall-large
+                    <br>19 = @titanium-wall
+                    <br>20 = @titanium-wall-large
+                    <br>21 = @plastanium-wall
+                    <br>22 = @plastanium-wall-large
+                    <br>23 = @thorium-wall
+                    <br>24 = @thorium-wall-large
+                    <br>25 = @phase-wall
+                    <br>26 = @phase-wall-large
+                    <br>27 = @surge-wall
+                    <br>28 = @surge-wall-large
+                    <br>29 = @door
+                    <br>30 = @door-large
+                    <br>31 = @scrap-wall
+                    <br>32 = @scrap-wall-large
+                    <br>33 = @scrap-wall-huge
+                    <br>34 = @scrap-wall-gigantic
+                    <br>35 = @mender
+                    <br>36 = @mend-projector
+                    <br>37 = @overdrive-projector
+                    <br>38 = @overdrive-dome
+                    <br>39 = @force-projector
+                    <br>40 = @shock-mine
+                    <br>41 = @conveyor
+                    <br>42 = @titanium-conveyor
+                    <br>43 = @plastanium-conveyor
+                    <br>44 = @armored-conveyor
+                    <br>45 = @junction
+                    <br>46 = @bridge-conveyor
+                    <br>47 = @phase-conveyor
+                    <br>48 = @sorter
+                    <br>49 = @inverted-sorter
+                    <br>50 = @router
+                    <br>51 = @distributor
+                    <br>52 = @overflow-gate
+                    <br>53 = @underflow-gate
+                    <br>54 = @mass-driver
+                    <br>55 = @duct
+                    <br>56 = @duct-router
+                    <br>57 = @duct-bridge
+                    <br>58 = @mechanical-pump
+                    <br>59 = @rotary-pump
+                    <br>60 = @conduit
+                    <br>61 = @pulse-conduit
+                    <br>62 = @plated-conduit
+                    <br>63 = @liquid-router
+                    <br>64 = @liquid-tank
+                    <br>65 = @liquid-junction
+                    <br>66 = @bridge-conduit
+                    <br>67 = @phase-conduit
+                    <br>68 = @power-node
+                    <br>69 = @power-node-large
+                    <br>70 = @surge-tower
+                    <br>71 = @diode
+                    <br>72 = @battery
+                    <br>73 = @battery-large
+                    <br>74 = @combustion-generator
+                    <br>75 = @thermal-generator
+                    <br>76 = @steam-generator
+                    <br>77 = @differential-generator
+                    <br>78 = @rtg-generator
+                    <br>79 = @solar-panel
+                    <br>80 = @solar-panel-large
+                    <br>81 = @thorium-reactor
+                    <br>82 = @impact-reactor
+                    <br>83 = @mechanical-drill
+                    <br>84 = @pneumatic-drill
+                    <br>85 = @laser-drill
+                    <br>86 = @blast-drill
+                    <br>87 = @water-extractor
+                    <br>88 = @cultivator
+                    <br>89 = @oil-extractor
+                    <br>90 = @core-shard
+                    <br>91 = @core-foundation
+                    <br>92 = @core-nucleus
+                    <br>93 = @vault
+                    <br>94 = @container
+                    <br>95 = @unloader
+                    <br>96 = @duo
+                    <br>97 = @scatter
+                    <br>98 = @scorch
+                    <br>99 = @hail
+                    <br>100 = @wave
+                    <br>101 = @lancer
+                    <br>102 = @arc
+                    <br>103 = @parallax
+                    <br>104 = @swarmer
+                    <br>105 = @salvo
+                    <br>106 = @segment
+                    <br>107 = @tsunami
+                    <br>108 = @fuse
+                    <br>109 = @ripple
+                    <br>110 = @cyclone
+                    <br>111 = @foreshadow
+                    <br>112 = @spectre
+                    <br>113 = @meltdown
+                    <br>114 = @command-center
+                    <br>115 = @ground-factory
+                    <br>116 = @air-factory
+                    <br>117 = @naval-factory
+                    <br>118 = @additive-reconstructor
+                    <br>119 = @multiplicative-reconstructor
+                    <br>120 = @exponential-reconstructor
+                    <br>121 = @tetrative-reconstructor
+                    <br>122 = @repair-point
+                    <br>123 = @repair-turret
+                    <br>124 = @payload-conveyor
+                    <br>125 = @payload-router
+                    <br>126 = @power-source
+                    <br>127 = @power-void
+                    <br>128 = @item-source
+                    <br>129 = @item-void
+                    <br>130 = @liquid-source
+                    <br>131 = @liquid-void
+                    <br>132 = @payload-void
+                    <br>133 = @payload-source
+                    <br>134 = @illuminator
+                    <br>135 = @launch-pad
+                    <br>136 = @interplanetary-accelerator
+                    <br>137 = @message
+                    <br>138 = @switch
+                    <br>139 = @micro-processor
+                    <br>140 = @logic-processor
+                    <br>141 = @hyper-processor
+                    <br>142 = @memory-cell
+                    <br>143 = @memory-bank
+                    <br>144 = @logic-display
+                    <br>145 = @large-logic-display
+                    <br>146 = @liquid-container
+                    <br>147 = @deconstructor
+                    <br>148 = @constructor
+                    <br>149 = @thruster
+                    <br>150 = @large-constructor
+                    <br>151 = @payload-loader
+                    <br>152 = @payload-unloader
+                    <br>153 = @silicon-arc-furnace
+                    <br>154 = @cliff-crusher
+                    <br>155 = @plasma-bore
+                    <br>156 = @reinforced-liquid-junction
+                    <br>157 = @breach
+                    <br>158 = @core-bastion
+                    <br>159 = @turbine-condenser
+                    <br>160 = @beam-node
+                    <br>161 = @beam-tower
+                    <br>162 = @build-tower
+                    <br>163 = @impact-drill
+                    <br>164 = @carbide-crucible
+                    <br>165 = @surge-conveyor
+                    <br>166 = @duct-unloader
+                    <br>167 = @surge-router
+                    <br>168 = @reinforced-conduit
+                    <br>169 = @reinforced-liquid-router
+                    <br>170 = @reinforced-liquid-container
+                    <br>171 = @reinforced-liquid-tank
+                    <br>172 = @reinforced-bridge-conduit
+                    <br>173 = @core-citadel
+                    <br>174 = @core-acropolis
+                    <br>175 = @heat-reactor
+                    <br>176 = @impulse-pump
+                    <br>177 = @reinforced-pump
+                    <br>178 = @electrolyzer
+                    <br>179 = @oxidation-chamber
+                    <br>180 = @surge-smelter
+                    <br>181 = @surge-crucible
+                    <br>182 = @overflow-duct
+                    <br>183 = @large-plasma-bore
+                    <br>184 = @cyanogen-synthesizer
+                    <br>185 = @slag-centrifuge
+                    <br>186 = @electric-heater
+                    <br>187 = @slag-incinerator
+                    <br>188 = @phase-synthesizer
+                    <br>189 = @sublimate
+                    <br>190 = @reinforced-container
+                    <br>191 = @reinforced-vault
+                    <br>192 = @atmospheric-concentrator
+                    <br>193 = @unit-cargo-loader
+                    <br>194 = @unit-cargo-unload-point
+                    <br>195 = @chemical-combustion-chamber
+                    <br>196 = @pyrolysis-generator
+                    <br>197 = @regen-projector
+                    <br>198 = @titan
+                    <br>199 = @small-deconstructor
+                    <br>200 = @vent-condenser
+                    <br>201 = @phase-heater
+                    <br>202 = @heat-redirector
+                    <br>203 = @tungsten-wall
+                    <br>204 = @tungsten-wall-large
+                    <br>205 = @tank-assembler
+                    <br>206 = @beryllium-wall
+                    <br>207 = @beryllium-wall-large
+                    <br>208 = @eruption-drill
+                    <br>209 = @ship-assembler
+                    <br>210 = @mech-assembler
+                    <br>211 = @shield-projector
+                    <br>212 = @beam-link
+                    <br>213 = @world-processor
+                    <br>214 = @reinforced-payload-conveyor
+                    <br>215 = @reinforced-payload-router
+                    <br>216 = @disperse
+                    <br>217 = @large-shield-projector
+                    <br>218 = @payload-mass-driver
+                    <br>219 = @world-cell
+                    <br>220 = @carbide-wall
+                    <br>221 = @carbide-wall-large
+                    <br>222 = @tank-fabricator
+                    <br>223 = @mech-fabricator
+                    <br>224 = @ship-fabricator
+                    <br>225 = @reinforced-surge-wall
+                    <br>226 = @radar
+                    <br>227 = @blast-door
+                    <br>228 = @canvas
+                    <br>229 = @armored-duct
+                    <br>230 = @unit-repair-tower
+                    <br>231 = @diffuse
+                    <br>232 = @prime-refabricator
+                    <br>233 = @basic-assembler-module
+                    <br>234 = @reinforced-surge-wall-large
+                    <br>235 = @tank-refabricator
+                    <br>236 = @mech-refabricator
+                    <br>237 = @ship-refabricator
+                    <br>238 = @slag-heater
+                    <br>239 = @afflict
+                    <br>240 = @shielded-wall
+                    <br>241 = @lustre
+                    <br>242 = @scathe
+                    <br>243 = @smite
+                    <br>244 = @underflow-duct
+                    <br>245 = @malign
+                    <br>246 = @shockwave-tower
+                    <br>247 = @heat-source
+                    <br>248 = @flux-reactor
+                    <br>249 = @neoplasia-reactor
+                    <br>250 = @heat-router
+                    <br>251 = @large-payload-mass-driver
+                    <br>252 = @reinforced-message
+                    <br>253 = @world-message
+                    <h3>units</h3>
+                    <br>0 = @dagger
+                    <br>1 = @mace
+                    <br>2 = @fortress
+                    <br>3 = @scepter
+                    <br>4 = @reign
+                    <br>5 = @nova
+                    <br>6 = @pulsar
+                    <br>7 = @quasar
+                    <br>8 = @vela
+                    <br>9 = @corvus
+                    <br>10 = @crawler
+                    <br>11 = @atrax
+                    <br>12 = @spiroct
+                    <br>13 = @arkyid
+                    <br>14 = @toxopid
+                    <br>15 = @flare
+                    <br>16 = @horizon
+                    <br>17 = @zenith
+                    <br>18 = @antumbra
+                    <br>19 = @eclipse
+                    <br>20 = @mono
+                    <br>21 = @poly
+                    <br>22 = @mega
+                    <br>23 = @quad
+                    <br>24 = @oct
+                    <br>25 = @risso
+                    <br>26 = @minke
+                    <br>27 = @bryde
+                    <br>28 = @sei
+                    <br>29 = @omura
+                    <br>30 = @retusa
+                    <br>31 = @oxynoe
+                    <br>32 = @cyerce
+                    <br>33 = @aegires
+                    <br>34 = @navanax
+                    <br>35 = @alpha
+                    <br>36 = @beta
+                    <br>37 = @gamma
+                    <br>38 = @stell
+                    <br>39 = @locus
+                    <br>40 = @precept
+                    <br>41 = @vanquish
+                    <br>42 = @conquer
+                    <br>43 = @merui
+                    <br>44 = @cleroi
+                    <br>45 = @anthicus
+                    <br>46 = @tecta
+                    <br>47 = @collaris
+                    <br>48 = @elude
+                    <br>49 = @avert
+                    <br>50 = @obviate
+                    <br>51 = @quell
+                    <br>52 = @disrupt
+                    <br>53 = @evoke
+                    <br>54 = @incite
+                    <br>55 = @emanate
+                    <h3>items</h3>
+                    <br>0 = @copper
+                    <br>1 = @lead
+                    <br>2 = @metaglass
+                    <br>3 = @graphite
+                    <br>4 = @sand
+                    <br>5 = @coal
+                    <br>6 = @titanium
+                    <br>7 = @thorium
+                    <br>8 = @scrap
+                    <br>9 = @silicon
+                    <br>10 = @plastanium
+                    <br>11 = @phase-fabric
+                    <br>12 = @surge-alloy
+                    <br>13 = @spore-pod
+                    <br>14 = @blast-compound
+                    <br>15 = @pyratite
+                    <br>16 = @beryllium
+                    <br>17 = @fissile-matter
+                    <br>18 = @dormant-cyst
+                    <br>19 = @tungsten
+                    <br>20 = @carbide
+                    <br>21 = @oxide
+                    <h3>liquids</h3>
+                    <br>0 = @water
+                    <br>1 = @slag
+                    <br>2 = @oil
+                    <br>3 = @cryofluid
+                    <br>4 = @neoplasm
+                    <br>5 = @hydrogen
+                    <br>6 = @ozone
+                    <br>7 = @cyanogen
+                    <br>8 = @gallium
+                    <br>9 = @nitrogen
+                    <br>10 = @arkycite
 
+
+                </section>
+            </section>
 
         </main>
     </div>
