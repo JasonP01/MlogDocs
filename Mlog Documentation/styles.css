@@ -131,7 +131,7 @@ section {
         left: 0px; /* Show when open */
     }
 
-    .image {
+    img {
         position: relative !important;
         max-width: 95% !important;
         left: 0px !important; 
@@ -176,11 +176,44 @@ section {
     background-color: #c7b59d;
 }
 
+.draw{
+    background-color: #a08a8a;
+}
+
+.control{
+    background-color: #d4816b;
+}
+
 .ti {
     text-indent: 30px;
 }
 
-.image {
+img {
     position: relative;
     max-width: 100%;
+}
+
+a{
+    color:#03a3f2 ;
+}
+
+
+ol.custom-list {
+    list-style-type: none; /* Remove default numbering */
+    padding-left: 0; /* Remove default padding */
+}
+ol.custom-list li {
+    position: relative; /* Position relative to use ::before */
+    padding-left: 20px; /* Space for the hyphen */
+}
+ol.custom-list li::before {
+    content: "- "; /* The hyphen followed by a space */
+    position: absolute; /* Position absolute to place it */
+    left: 0; /* Align it to the left of the li */
+    top: 0; /* Align it to the top of the li */
+}
+
+.oplist {
+    margin-top: 5px;
+    margin-left: 20px;
 }
