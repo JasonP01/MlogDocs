@@ -22,7 +22,7 @@
                 <li class="indent1"><a href="#links" class="sidebar-link">Links</a></li>
                 <li class="indent1"><a href="#variables">Variables</a></li>
                 <li class="indent1"><a href="#built in variables" class="sidebar-link">Built in Variables</a></li>
-                <li class="indent1"><a href="#constant" class="sidebar-link">Constant</a></li>
+                <li class="indent1"><a href="#constants" class="sidebar-link">Constant</a></li>
                 <li class="indent1"><a href="#buffers" class="sidebar-link">Buffers</a></li>
                 <li><a href="#blocks" class="sidebar-link">Blocks</a></li>
                 <li><a href="#instructions" class="sidebar-link">Instructions</a></li>
@@ -58,7 +58,7 @@
                 <li class="indent1"><a href="#writing in text editor" class="sidebar-link">Writing in text editor</a></li>
                 <li class="indent1"><a href="#subframe" class="sidebar-link">Antithreading / Subframe</a></li>
                 <li><a href="#world logic" class="sidebar-link">World Logic (WIP)</a></li>
-                <li class="indent1"><a href="#how to get world processr" class="sidebar-link">How to get World Processor</a></li>
+                <li class="indent1"><a href="#how to get world processor" class="sidebar-link">How to get World Processor</a></li>
                 <li class="indent1"><a href="#get block" class="sidebar-link">Get Block</a></li>
                 <li class="indent1"><a href="#set block" class="sidebar-link">Set Block</a></li>
                 <li class="indent1"><a href="#spawn unit" class="sidebar-link">Spawn Unit</a></li>
@@ -66,7 +66,7 @@
                 <li class="indent1"><a href="#spawn wave" class="sidebar-link">Spawn Wave(WIP)</a></li>
                 <li class="indent1"><a href="#set rule" class="sidebar-link">Set Rule(WIP)</a></li>
                 <li class="indent1"><a href="#flush message" class="sidebar-link">Flush Message</a></li>
-                <li class="indent1"><a href="#cutscene" class="sidebar-link">Cut Scene</a></li>
+                <li class="indent1"><a href="#cut scene" class="sidebar-link">Cut Scene</a></li>
                 <li class="indent1"><a href="#effect" class="sidebar-link">Effect (WIP)</a></li>
                 <li class="indent1"><a href="#explosion" class="sidebar-link">Explosion</a></li>
                 <li class="indent1"><a href="#set rate" class="sidebar-link">Set Rate</a></li>
@@ -143,12 +143,14 @@
                         <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
                     <p>Strings</p>
                         <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
+                    <section id="building reference">
                     <p>Block or Unit Reference</p>
                         <p class="ti">every block and unit has a unique reference, so every block and unit can be differentiated from 
                             each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
-                    in game these references are stored in a variable like <a href="#link" >Building Variable</a>, or <a href="#@unit" >@unit</a>
+                    in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#@unit" >@unit</a>
                     they can also be written to a normal variable</p>
                     </p>
+                    </section>
             </section>
             <section id="basic concept">
                 <hr>
@@ -254,16 +256,16 @@
                             <img src="image/set x @counter.png" >
                             <p>
                                 Since this <mark class="op">set</mark> instruction is at line 10, the “x” variable will be 11.
-                                Another usage example is: <a href="#counter array" > @counter Array.</a>
+                                Another usage example is: <a href="#@counter array" > @counter Array.</a>
                             </p>
                             <li><b>@this</b></li>
                                 <p style="margin-top: 5px;" class="ti">
-                                    <b>@this</b> shows the <a href="building reference" > building reference</a> 
+                                    <b>@this</b> shows the <a href="#building reference" > building reference</a> 
                                     for that processor, example: anything that
                                      uses building reference can be replaced by this, so instead of
                                       ‘processor1’ you can write “@this” for this processor
                                 </p>
-                            <li><b><a href="@unit" >@unit</a></b></li>
+                            <li><b><a href="#@unit" >@unit</a></b></li>
                             <p style="margin-top: 5px;" class="ti">	
                                 <b>@unit</b> shows the current unit that is stored in the processor as the 
                                 result of the <mark class="unit">unit bind</mark> instruction. 
@@ -367,6 +369,7 @@
                     <p class="ti" style="margin-top: 5px;">
                         Is used with Draw and Draw Flush, display resolution can be seen in the game's info menu.
                     </p>
+                    <section id="cell">
                     <li>Memory cell and Memory Bank</li>
                     <p class="ti" style="margin: 5px;">
                         A cell can store up to 64 values, but only numbers, while Bank can store up to 512 values<br>
@@ -396,6 +399,7 @@
                         from <span style="color: yellow;">-2^53</span> , which is <span style="color: yellow;">−9007199254740992</span>. Beyond these limits, 
                         floating-point representation may lead to inaccuracies due to the way numbers are rounded.
                     </p>
+                    </section>
                 </ol>
             </section>
             <section id="instructions">
@@ -425,7 +429,7 @@
                     <section id="draw">
                         <h2><li><b>Draw</b></li></h2>
                         <p>
-                            Adds a command to the draw <a href="#buffer">buffer</a>
+                            Adds a command to the draw <a href="#buffers">buffer</a>
                         </p>
                         <ol style="list-style-type: circle;">
                             <li><b>Clear</b></li>
@@ -435,8 +439,10 @@
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
+                                
                             </p>
                             <li><b>Color</b></li>
+                            
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
                                 <img src="image/draw color.png" ><br>
@@ -444,11 +450,14 @@
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
                             </p>
+                            
+                            <section id="draw col">
                             <li><b>col</b></li>
                             <p class="ti">
                                 Same as color, but use hex color code instead of RGB color code
                                 Usually used with the <a href="#pack color" >Pack Color</a> instruction
                             </p>
+                            </section>
                             <li><b>Stroke</b></li>
                             <p class="ti">
                                 Sets the line width for any upcoming draw operations
@@ -488,7 +497,7 @@
                             <p class="ti">
                                 Draws a triangle with 3 different sets coordinates as its vertices<br>
                                 <img src="image/draw triangle.png" >
-                                x,y is the first sets of coordinates<br>
+                                <br>x,y is the first sets of coordinates<br>
                                 x2,y2 is the second sets of coordinates<br>
                                 x3,y3 is the second sets of coordinates
                             </p>
@@ -531,7 +540,7 @@
                     <section id="print flush">
                         <h2><li><b>Print Flush</b></li></h2>
                         <p class="ti">
-                            Flush the queued print instruction(s) from the text <a href="#buffer" >buffer</a> to 
+                            Flush the queued print instruction(s) from the text <a href="#buffers" >buffer</a> to 
                             the specified message block with its building reference, <b>will erases</b> previous message on the message block
                         </p>
                     </section>
@@ -569,11 +578,13 @@
                             <p class="ti">
                                 Shoot at a unit/building but with velocity prediction
                             </p>
+                            <section id="control color">
                             <li>Color</li>
                             <p class="ti">
                                 Change the color of Illuminator block
                                 Usually used with <a href="#pack color">pack color</a>
                             </p>
+                            </section>
                         </ol>
                     </section>
                     <section id="radar">
@@ -598,7 +609,7 @@
                             <img src="image/sensor.png"><br>
                             “results” is your named variable<br>
                             “<span style="color: yellow;">@copper</span>” is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
-                            “block1” building reference, it is what object to get the data from, can also be a <a href="#unit reference">unit reference</a><br>
+                            “block1” building reference, it is what object to get the data from, can also be a <a href="#controlling units">unit reference</a><br>
                             Example:<br>
                             <img src="image/sensor 1.png"><br>
                             This will get the amount of copper in ‘vault1’, the number will be stored in the variable ‘result’, let’s say the vault has 10 coppers, therefore ‘result’ will be 10
@@ -795,11 +806,11 @@
                     <section id="pack color">
                         <h2><li><b>Pack Color</b></li></h2>
                         <p class="ti">
-                            Packs RGBA color into a single number, is usually used with <a href="#draw col"><mark class="draw">draw col</mark></a> and <a href="control color">control color</a><br>
-                            Since it's a single number it can be stored to 1 address on <a href="#cells">cells/banks</a>, 
+                            Packs RGBA color into a single number, is usually used with <a href="#draw col"><mark class="draw">draw col</mark></a> and <a href="#control color">control color</a><br>
+                            Since it's a single number it can be stored to 1 address on <a href="#cell">cells/banks</a>, 
                             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
                             <img src="image/pack color.png"><br>
-                            <a href="rgba">RGBA</a> is their respective color, can also be directly written with a 
+                            <a href="#draw">RGBA</a> is their respective color, can also be directly written with a 
                             number, value is from 0 (dimmest) to 1 (brightest)
                                 
                             You can unpack Packed color by dividing it by <span style="color: yellow;">%00000001</span>, this will 
@@ -827,7 +838,7 @@
                         <h2><li><b>End</b></li></h2>
                         <p class="ti">
                             End the process, when a processor run this line it will go back to 0 as if it reach the 
-                            <a href="#end of instruction">end of the instruction</a>, similar to <mark class="jump">jump always 0</mark>
+                            <a href="#how processor run its code">end of the instruction</a>, similar to <mark class="jump">jump always 0</mark>
                         </p>
                     </section>
                     <section id="jump">
@@ -1009,11 +1020,11 @@
                     </p>
                     <h3><li><b>PayDrop</b></li></h3>
                     <p class="ti">
-                        Drop <a href="payload">payload</a> at current location.
+                        Drop <a href="#payload">payload</a> at current location.
                     </p>
                     <h3><li><b>PayTake</b></li></h3>
                     <p class="ti">
-                        Pick up <a href="payload">payload</a> at current location
+                        Pick up <a href="#payload">payload</a> at current location
                     </p>
                     <h3><li><b>PayEnter</b></li></h3>
                     <p class="ti">
@@ -1058,7 +1069,7 @@
                     </p>
                     <h3><li><b>Unbind</b></li></h3>
                     <p class="ti">
-                        Immediately <a href="unbind">unbind</a> unit
+                        Immediately <a href="#unit bind">unbind</a> unit
                     </p>
                     <h3><li><b>Flag</b></li></h3>
                     <p class="ti">
@@ -1088,12 +1099,12 @@
                     </p>
                 </section>
                 <section id="unit locate">
-                    <h1><li><b>Unit Locate</b></li></h1>
+                    <h2><li><b>Unit Locate</b></li></h2>
                     <p class="ti">
                         Locates a building/ore/spawn without needing to be in the unit’s range, but limited to what it can locates
                     </p>
-                    <ol>
-                        <h2><li><b>Building</b></li></h2>
+                    <ol style="list-style-type: disc;">
+                        <h1><li><b>Building</b></li></h1>
                         <p>
                             Will locate a building of the selected group, in this case, core,
                             <br><img src="image/unit locate.png" alt="">
@@ -1102,16 +1113,16 @@
                             <br><mark class="lg">Found</mark> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
                             <mark class="lg">Building</mark> is an output of that building reference
                         </p>
-                        <h2><li><b>Ore</b></li></h2>
+                        <h1><li><b>Ore</b></li></h1>
                         <p>
                            <img src="image/unit locate 2.png" alt="">
                            <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span> 
                         </p>
-                        <h2><li><b>Spawn</b></li></h2>
+                        <h1><li><b>Spawn</b></li></h1>
                         <p>
                             Will locate an enemy spawn point, may be a core or a position
                         </p>
-                        <h2><li><b>Damaged</b></li></h2>
+                        <h1><li><b>Damaged</b></li></h1>
                         <p>
                             Will locate an enemy spawn point, may be a core or a position
                         </p>
@@ -1127,7 +1138,7 @@
                     <p>
                         <img src="image/vis getlink.gif" style="width: 800px;"> <img src="image/getlink ex.jpg">
                         <br>line 0 : <a href="#sensor">sensor</a> for @enabled in ‘switch1’, stores the state in the ‘switch’ variable
-                        <br>line 1 : <a href="#getlink">getlink</a> with ‘link’, which is an incrementing variable
+                        <br>line 1 : <a href="#get link">getlink</a> with ‘link’, which is an incrementing variable
                         <br>line 2 : <a href="#sensor">sensor</a> for @type in ‘switch1’ for later
                         <br>line 3 : <a href="#incrementing variable">increment</a> the variable ‘link’
                         <br>line 4 : resets the variable `link` when it reached `@links` using the % operator
@@ -1145,8 +1156,8 @@
                         <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#@totalitems">@totalItems</a> from <span style="color: yellow;">@unit</span> to get the amount of items the unit are currently carrying
                         <br>Line 5 : a conditional <a href="#jump">jump</a>, jump to (move to core) and take item if the item the unit are currently carrying is 0
                         <br>Else jump to move to (vault and drop item)</span>
-                        <br>Line 6-7: <a href="move">move</a> to vault and take item from vault
-                        <br>Line 8 : <a href="end">end</a>, to make sure both (move to core) and (move to vault) cannot run in the same time
+                        <br>Line 6-7: <a href="#move">move</a> to vault and take item from vault
+                        <br>Line 8 : <a href="#end">end</a>, to make sure both (move to core) and (move to vault) cannot run in the same time
                         <br>Line 9-10 : <a href="#move">move</a> to core and take @copper from core
                         <br><br>
                             <span style="margin-left: 20px;">The key is to not put 2 or more move that the processor can run “simultaneously”, in other words don’t make the unit move to 2 location or more “simultaneously”
@@ -1155,7 +1166,7 @@
                 </section>
                     <section id="thorium reactor fail safe">
                     <h2>Thorium Reactor Fail Safe</h2>
-                    <img src="image/reactor fail safe.gif" style="height: 400px;"><img src="image/reactor faiil safe ex.png" style="height: 400px;">
+                    <img src="image/reactor fail safe.gif" class="image"><img src="image/reactor faiil safe ex.png">
                     <p>
                         line 0 : getlink with `i`, which is an incrementing variable, writes the result to `block`
                         <br>line 1 : sensor for cryofluid in `block`, writes the result to `cryo`
@@ -1176,6 +1187,7 @@
             </section>
             <section id="advanced">
                 <h1>Advanced</h1>
+                <section id="writing in text editor">
                 <h2>Writing in text editor</h2>
                 <p class="ti">
                     Mlog are essentially plain text, this means you can use any text editor to write mlog, including Notepad
@@ -1197,6 +1209,8 @@
                 <img src="image/labels.png" alt="">
                 <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
                 <p>List of mlog <a href="#text form instruction">instruction in text form</a></p>
+                </section>
+                <section id="subframe">
                 <h2>Antithreading / Subframe</h2>
                 <p>uses the game update order to force multiple processors into one.
                     <br>Every ingame frame the game updates blocks from left to right and bottom to top, this is not always true if you just recently placed a block, to fix this reload your save.
@@ -1204,6 +1218,7 @@
                     <br>using these you can make multiple processors run instructions at the same time
                     <br>use cases for this are very minimal, ( I, of course, don’t know every detail about this, the use cases i did use this for was drawing into a single display with multiple processor without it flashing)
                     </p>
+                </section>
             </section>
             <section id="world logic">
                 <h1>World Logic</h1>
@@ -1259,7 +1274,7 @@
                             <br><span class="spin">“floor” set the floor to the specified name and coordinate</span>
                             <br><span class="spin">“ore”	set ore to the specified name and coordinate</span>
                             <br><span class="spin">“block”	set block to the specified name and coordinate</span>
-                            <br>name can be found on <a href="environment">Environment</a>
+                            <br>name can be found on <a href="#environment">Environment</a>
                             <br>`at` x and y coordinate respectively
                             <br>`team` what them to set the block to, can be team name or a number 0 - 255
                         </p>
@@ -1325,7 +1340,7 @@
                                 <br>unitHealth
                                     <br><span class="spin">set the multiplier of unit health, does not actually change unit max health, increase
                                     resistance instead, actual damage received = (damage received / unitHealth)
-                                    as for ‘damage received’ check <a href="damage calculation">damage calculation</a></span>
+                                    as for ‘damage received’ check <a href="#damage calculation">damage calculation</a></span>
                                 <br>unitCost
                                     <br><span class="spin">set multiplier of unit construction cost</span>
                                 <br>unitDamage
@@ -1493,40 +1508,54 @@
                 <h2>Locale Print</h2>
             </section>
             <section id="extras">
+                <hr>
+                <h2>Extras</h2>
                 <p>
                     These are niche question that very small number of people might have
                 </p>
-                <h2>Mindustry coordinate system</h2>
-                <p class="ti">
-                    unlike traditional Cartesian Coordinate System where the center point of a coordinate is on the edge of a block Mindustry chooses the middle of a block as its center point instead
-                    <br><img src="image/coordinate system.png" alt="">
-                    <br>the game still uses Cartesian but just offset by 0.5
-                    <br>the game also by default set 0,0 to the very bottom left of the world, this means all campaign world and most custom worlds (since you can set the coordinate offset in the editor) playfield are always positive
-                </p>
-                <h2>You cannot spawn Scathe missile</h2>
-                <p class="ti">
-                    To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using `<mark class="wp">setprop</mark>` and `<mark class="lg">@scathe-missle</mark>`, make the unit drop the payload and then kill the unit
-                    <br>you can also setprop the rotation of the scathe missile
-                </p>
-                <h2>Modded items and draw image</h2>
-                <p class="ti">
-                    the game doesn’t generate logic icons for modded items, this means you cannot draw it using draw image
-                </p>
-                <h2>AI chatbot doesn’t understand Mlog</h2>
-                <p>
-                    AI chatbot like ChatGPT / Copilot / Aria, can’t do and doesn’t understand Mlog, to my knowledge there is no AI currently that can assist you with Mlog
-                </p>
-                <h2>Getting unit cap</h2>
-                <p>
-                    There currently no way of getting the unit cap consistently, there are workarounds however, assuming the default cap isn’t changed you can count how many cores there are in the map and what type it is, if you know both of those you can get the unit cap by summing up all of those core(s) ‘Max Active Unit’
-                    Shard has a unit cap of 8, foundation is 16, and nucleus is 24, info of which can be found in the game’s info menu
-                </p>
-                <h2>v6 unit controls with logic</h2>
-                <p>
-                    you cannot 100% replicate v6 unit controlling with logic, formation and shooting is possible, but support units cannot help you build like they used to in v6, although not perfect the RTS controls is the best we currently have
-                </p>
+                <section id="mindustry coordinate system">
+                    <h2>Mindustry coordinate system</h2>
+                    <p class="ti">
+                        unlike traditional Cartesian Coordinate System where the center point of a coordinate is on the edge of a block Mindustry chooses the middle of a block as its center point instead
+                        <br><img src="image/coordinate system.png" alt="">
+                        <br>the game still uses Cartesian but just offset by 0.5
+                        <br>the game also by default set 0,0 to the very bottom left of the world, this means all campaign world and most custom worlds (since you can set the coordinate offset in the editor) playfield are always positive
+                    </p>
+                </section>
+                <section id="you cannot spawn scathe missile">
+                    <h2>You cannot spawn Scathe missile</h2>
+                    <p class="ti">
+                        To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using `<mark class="wp">setprop</mark>` and `<mark class="lg">@scathe-missle</mark>`, make the unit drop the payload and then kill the unit
+                        <br>you can also setprop the rotation of the scathe missile
+                    </p>
+                </section>
+                <section id="modded items and draw image">
+                    <h2>Modded items and draw image</h2>
+                    <p class="ti">
+                        the game doesn’t generate logic icons for modded items, this means you cannot draw it using draw image
+                    </p>
+                </section>
+                <section id="ai chatbot doens't understand mlog">
+                    <h2>AI chatbot doesn’t understand Mlog</h2>
+                    <p>
+                        AI chatbot like ChatGPT / Copilot / Aria, can’t do and doesn’t understand Mlog, to my knowledge there is no AI currently that can assist you with Mlog
+                    </p>
+                </section>
+                <section id="getting unit cap">
+                    <h2>Getting unit cap</h2>
+                    <p>
+                        There currently no way of getting the unit cap consistently, there are workarounds however, assuming the default cap isn’t changed you can count how many cores there are in the map and what type it is, if you know both of those you can get the unit cap by summing up all of those core(s) ‘Max Active Unit’
+                        Shard has a unit cap of 8, foundation is 16, and nucleus is 24, info of which can be found in the game’s info menu
+                    </p>
+                </section>
+                <section id="v6 unit control with logic">
+                    <h2>v6 unit controls with logic</h2>
+                    <p>
+                        you cannot 100% replicate v6 unit controlling with logic, formation and shooting is possible, but support units cannot help you build like they used to in v6, although not perfect the RTS controls is the best we currently have
+                    </p>
+                </section>
                 <section id="damage calculation">
-                <h2>Damage calculation</h2>
+                    <h2>Damage calculation</h2>
                     <p class="ti">
                         <br>every unit has an armor value, in most cases damage is just simply subtracted by this armor value, formula is 
                         <br>damage received = max (damage * 0.1 , damage - armor)
@@ -1557,9 +1586,12 @@
                 <img src="image/power display.gif" alt="">
             </section>
             <section id="appendix">
-                <section id="built in variables">
+                <hr>
+                <h2>Appendix</h2>
+                <section id="built in variables1">
                     <h2>Built in variables</h2>
                     Information of each might be added in the future
+                    <section id="global">
                     <h2>Global</h2>
                     @waveNumber 
                     <br>    <span class="spin">number of wave currently</span>
@@ -1591,18 +1623,11 @@
                     <br>    <span class="spin">count of total different type of item in the game</span>
                     <br>@liquidCount
                     <br>    <span class="spin">count of total different type of liquid in the game</span>
+                    </section>
                 </section>
                 <section id="environment">
                     <h2>Environment</h2>
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Column 1</th>
-                                <th>Column 2</th>
-                                <th>Column 3</th>
-                                <th>Column 4</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr>
                                 <td>@air</td>
@@ -1843,7 +1868,7 @@
                 </section>
                 <section id="sensors">
                     <h2>Sensors</h2>
-                    <br>@totalItems
+                    <br id="@totalitems">@totalItems
                     <br>    <span class="spin">total items the object is currently holding; returns integer</span>
                     <br>@firstItem
                     <br>    <span class="spin">the first item the object is currently holding</span>
@@ -1949,7 +1974,7 @@
                 </section>
                 <section id="blocks and items">
                     <h2>Blocks and Items</h2>
-                    <h2>Blocksa</h2>
+                    <h2>Blocks</h2>
                     <table>
                         <tbody>
                             <tr>
@@ -2345,6 +2370,7 @@
                         </tbody>
                     </table>
                 </section>
+                <section id="Units">
                     <br> <h2>Items</h2>
                     <br><table>
                         <tbody>
@@ -2406,7 +2432,7 @@
                         </tbody>
                     </table>
                     <br>
-                    <section id="Units">
+                    <section id="units">
                         <br><h2>Units</h2>
                         <table>
                             <tbody>
@@ -2518,10 +2544,12 @@
                             </tbody>
                         </table>
                     </section>
-                <section id="text form instrcutin">
+                </section>
+                <section id="text form instruction">
                     <h2>Text form instruction</h2>
                         <br>or you can just write the instruction in game and “copy to clipboard”
                         <br>
+                        <section id="normal processor">
                         <h2>Normal processor</h2>
                         <br>
                         <br>read result cell1 0
@@ -2678,6 +2706,8 @@
                         <br>ulocate spawn core true @copper outx outy found building
                         <br>ulocate spawn core true @copper outx outy found building
                         <br>
+                        </section>
+                        <section id="world processor">
                         <br><h2>World Processor</h2>
                         <br>
                         <br>getblock floor result x y
@@ -2797,6 +2827,7 @@
                         <br>setflag "flag" true
                         <br>
                         <br>setprop @copper block1 to
+                        </section>
                 </section>
                 <section id="lookup ids">
                     <h2>Lookup IDs</h2>
