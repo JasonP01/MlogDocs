@@ -164,18 +164,18 @@
                 <section id="processor's ui">
                     <p style="font-size: 23px;">Processor’s UI</p>
                     <p class="ti">when opening a processor by clicking the pencil icon:</p>
-                    <img src="image/ui3.png"  style="left: 130px;">
+                    <img alt="Image loading error, try reloading the page" src="image/ui3.png" style="left: 130px;">
                     <p class="ti">you will be prompted to this screen:</p>
-                    <img src="image/ui.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/ui.png" >
                     <p class="ti">the “Add” button <span style="font-size: 40px;">
-                        (<img src="image/ui7.png"  style="top: 15px; width: 120px;">)</span> opens a menu to add an instruction:</p>
-                    <img src="image/ui1.png" >
+                        (<img alt="Image loading error, try reloading the page" src="image/ui7.png"  style="top: 15px; width: 120px;">)</span> opens a menu to add an instruction:</p>
+                    <img alt="Image loading error, try reloading the page" src="image/ui1.png" >
                     <p class="ti">the “Vars” button <span style="font-size: 40px;">
-                        (<img src="image/vars.png"  style="top: 15px; width: 120px;">)</span> opens a menu showing all of your variables</p>
-                    <img src="image/data types.png"  style="width: 800px;">
+                        (<img alt="Image loading error, try reloading the page" src="image/vars.png"  style="top: 15px; width: 120px;">)</span> opens a menu showing all of your variables</p>
+                    <img alt="Image loading error, try reloading the page" src="image/data types.png"  style="width: 800px;">
                     <p class="ti">the “edit” button <span style="font-size: 40px;">
-                        (<img src="image/ui5.png"  style="top: 15px; width: 120px;">)</span>opens a menu to export/import codes</p>
-                    <img src="image/ui2.png"  style="width: 300px; left:160px;">
+                        (<img alt="Image loading error, try reloading the page" src="image/ui5.png"  style="top: 15px; width: 120px;">)</span>opens a menu to export/import codes</p>
+                    <img alt="Image loading error, try reloading the page" src="image/ui2.png"  style="width: 300px; left:160px;">
                     <p>when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
                         unlike a schematic mlog code are plain readable text, <a href="#text form instruction" >click here for more info</a></p>
                     </p>
@@ -185,9 +185,9 @@
                     <p class="ti">They Always run Instruction from top to bottom 1 at a time
                         You can only jump and wait, you cannot make it run from bottom to top for example.
                         Here is a visualization:</p>
-                        <img src="image/print1.gif"  style="width: 700px;">
+                        <img alt="Image loading error, try reloading the page" src="image/print1.gif"  style="width: 700px;">
                         <p class="ti">with jumps:</p>
-                        <img src="image/vis jump.gif" >
+                        <img alt="Image loading error, try reloading the page" src="image/vis jump.gif" >
                         <p>When the processor reach the end of its instruction it will go back to 0, repeating the loop indefinitely </p>
                 </section>
                 <section id="links">
@@ -195,7 +195,7 @@
                     <p class="ti">You can link a building to the processor by clicking the processor 
                         (you can see a circle, this is the processor range) and clicking the building
                     </p>
-                    <img src="image/link.png"  style="width: 600px;">
+                    <img alt="Image loading error, try reloading the page" src="image/link.png"  style="width: 600px;">
                     <p>“display1” is now a variable that can be used in the processor, it stores a <a href="#building reference" >building reference.</a> 
                         is also sometimes called a “building variable”
                         building variable cannot be overwritten by any means, 
@@ -208,12 +208,12 @@
                         Variables are the fundamental of programming, to put it simply, they are just named 
                         “containers” to store data to, for example the <mark class="op">Set</mark> instruction sets a variable:
                     </p>
-                    <img src="image/set x 10.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/set x 10.png" >
                     <p>
                         This will make “x” a variable, this variable can be used for all 
                         sort of different things, for example, the <mark class="op">Operation</mark> instruction
                     </p>
-                    <img src="image/operation.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/operation.png" >
                     <p>
                         Because “x” is 10 this operation means 10 + 5, and the result of it is written to the “result” variable, 
                         meaning “result” is now 15 Of course it doesn’t have to be “result”, you can write anything for it, 
@@ -228,7 +228,7 @@
                     <p class="ti" style="margin: 4px;">
                         Increment is the act or process of increasing
                     </p>
-                    <img src="image/operation1.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/operation1.png" >
                     <p>
                         Since processor loops, this will increase “x” by 1 every loop, as time goes on x will 
                         get bigger and bigger. This is what’s called incrementing a variable
@@ -249,12 +249,12 @@
                                 @counter shows the current line the processor runs at, other than giving you crucial 
                                 information while debugging you can also use it by writing to it, changing its value, usage example:
                             </p>
-                            <img src="image/set counter 10.png" >
+                            <img alt="Image loading error, try reloading the page" src="image/set counter 10.png" >
                             <p>
                                 This acts like <mark class="jump">jump always</mark> where it will jump to instruction 10
                                 If read it will return the next line instead:
                             </p>
-                            <img src="image/set x @counter.png" >
+                            <img alt="Image loading error, try reloading the page" src="image/set x @counter.png" >
                             <p>
                                 Since this <mark class="op">set</mark> instruction is at line 10, the “x” variable will be 11.
                                 Another usage example is: <a href="#@counter array" > @counter Array.</a>
@@ -345,8 +345,8 @@
                     then to get that word to a message block you have to use Print Flush which transfer 
                     the items in the text buffer to the message block
                 </p>
-                <img src="image/print.png"  width="700px"><br>
-                <img src="image/darw ex.png"  width="700px">
+                <img alt="Image loading error, try reloading the page" src="image/print.png"  width="700px"><br>
+                <img alt="Image loading error, try reloading the page" src="image/darw ex.png"  width="700px">
                 <p>It's the same case with draw.
                     <br><br>
                     The draw buffer has 256 item limit, meaning you can only draw 256 times before needing to flush, otherwise everything after 256 just gets thrown out, 
@@ -379,18 +379,18 @@
                     <p class="ti" style="margin-top: 0px;">
                         Let’s use a cell as an example, imagine it is like a numbered storage boxes
                     </p>
-                    <img src="image/cell.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/cell.png" >
                     <p>
                         the number below are called addresses, since a cell can store up to 
                         64 values that means there are 64 addresses in a cell, from  #0 to #63
                         you can then store a number in this line of boxes by an address, for example 
                         if you want to store a number to box number #3 you would write:
                     </p>
-                    <img src="image/ex write.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/ex write.png" >
                     <p>
                         this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using `read`
                     </p>
-                    <img src="image/read 1.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/read 1.png" >
                     <p>
                         this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
                         called ‘result’, therefore ‘result’ is now <span style="color: yellow;">1838</span>
@@ -411,7 +411,7 @@
                         <h2><li><b>Read</b></li></h2>
                         <p class="ti">
                             Read a value from a cell<br>
-                            <img src="image/read.png" ><br>
+                            <img alt="Image loading error, try reloading the page" src="image/read.png" ><br>
                             Essentially the same with read but it writes instead
                             Example: the “result” variable is 10, then it will write “10” to ‘cell1’ at 0
                             Can also be directly written using a number instead of a variable.
@@ -421,7 +421,7 @@
                         <h2><li><b>Write</b></li></h2>
                         <p>
                             Write a value to a cell<br>
-                            <img src="image/write.png" ><br>
+                            <img alt="Image loading error, try reloading the page" src="image/write.png" ><br>
                             Essentially the same with read but it writes instead<br>
                             Example: the “result” variable is 10, then it will write “10” to ‘cell1’ at 0<br>
                             Can also be directly written using a number instead of a variable.
@@ -436,7 +436,7 @@
                             <li><b>Clear</b></li>
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
-                                <img src="image/draw clear.png" ><br>
+                                <img alt="Image loading error, try reloading the page" src="image/draw clear.png" ><br>
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
@@ -446,7 +446,7 @@
                             
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
-                                <img src="image/draw color.png" ><br>
+                                <img alt="Image loading error, try reloading the page" src="image/draw color.png" ><br>
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
@@ -466,14 +466,14 @@
                             <li><b>Line</b></li>
                             <p class="ti">
                                 Draws a line from one coordinates to another coordinates<br>
-                                <img src="image/draw line.png" ><br>
+                                <img alt="Image loading error, try reloading the page" src="image/draw line.png" ><br>
                                 x,y is the first set of coordinates<br>
                                 x2,y2 is the second sets of coordinates
                             </p>
                             <li><b>Rect</b></li>
                             <p class="ti">
                                 Draw a rectangle at the specified coordinates with the bottom left of the rectangle as its origin<br>
-                                <img src="image/draw rect.png" ><br>
+                                <img alt="Image loading error, try reloading the page" src="image/draw rect.png" ><br>
                                 x,y is the rectangle coordinates<br>
                                 Width and height are the rectangle width and height
                             </p>
@@ -484,7 +484,7 @@
                             <li><b>Poly</b></li>
                             <p class="ti">
                                 Draw a polygon with its center as its origin<br>
-                                <img src="image/draw poly.png" ><br>
+                                <img alt="Image loading error, try reloading the page" src="image/draw poly.png" ><br>
                                 x,y is the polygon coordinates<br>
                                 sides is the number of sides the polygon will have<br>
                                 radius is the radius of the polygon<br>
@@ -497,7 +497,7 @@
                             <li><b>Triangle</b></li>
                             <p class="ti">
                                 Draws a triangle with 3 different sets coordinates as its vertices<br>
-                                <img src="image/draw triangle.png" >
+                                <img alt="Image loading error, try reloading the page" src="image/draw triangle.png" >
                                 <br>x,y is the first sets of coordinates<br>
                                 x2,y2 is the second sets of coordinates<br>
                                 x3,y3 is the second sets of coordinates
@@ -505,7 +505,7 @@
                             <li><b>Image</b></li>
                             <p class="ti">
                                 Draws an image of something from the game, such as a dagger or copper with its center as its origin<br>
-                                <img src="image/draw image.png" ><br>
+                                <img alt="Image loading error, try reloading the page" src="image/draw image.png" ><br>
                                 x,y is the of coordinates<br>
                                 image is what image it will draw, you put object name here, like @dagger<br>
                                 size is the size of the image<br>
@@ -528,11 +528,11 @@
                         <ol style="list-style-type: circle;">
                             <li><b>\n</b></li>
                             <p class="ti">Writing \n will write the next text to a new line, example:</p>
-                            <img src="image/new line.png" >
+                            <img alt="Image loading error, try reloading the page" src="image/new line.png" >
                             <li>Printing colors “<b> [ ] </b>"</li>
                             <p class="ti">
                                 You can change printed colors with [ ], example<br>
-                                <img src="image/print color.png" co><br>
+                                <img alt="Image loading error, try reloading the page" src="image/print color.png" co><br>
                                 You can either put color names or hexadecimal color code<br>
                                 Example of HEX color code is [#FF0000] for red, you can simply search “hex color picker” on google to choose your own color
                             </p>
@@ -554,7 +554,7 @@
                             getlink “result” #1 will get you ‘duo2’<br>
                             The order is based on the order you link the buildings<br>
                             The buildings reference is then “result”<br>
-                            <img src="image/getlink.png"  height="400px"><img src="image/getlink 2.png"  height="400px"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/getlink.png"  height="400px"><img alt="Image loading error, try reloading the page" src="image/getlink 2.png"  height="400px"><br>
                             Using it with numbers is pretty useless, they are usually used with incrementing variables as its index, 
                             this way you can get multiple buildings without writing every building reference (message1,2,3….)
                         </p>
@@ -600,7 +600,7 @@
                         <h2><li><b>Radar</b></li></h2>
                         <p class="ti">
                             Radar a unit in range of the building’s range<br>
-                            <img src="image/radar.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/radar.png"><br>
                             ‘from’ is building reference<br>
                             ‘target’ is a filter, target enemy means it will only radar enemy units<br>
                             ‘order’ is sorting order, ascending or descending, can only be 0 or 1<br>
@@ -615,12 +615,12 @@
                         <h2><li><b>Sensor</b></li></h2>
                         <p class="ti">
                             Sensor / get / read data from an object, usually buildings or units with their reference<br>
-                            <img src="image/sensor.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/sensor.png"><br>
                             “results” is your named variable<br>
                             “<span style="color: yellow;">@copper</span>” is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
                             “block1” building reference, it is what object to get the data from, can also be a <a href="#controlling units">unit reference</a><br>
                             Example:<br>
-                            <img src="image/sensor 1.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/sensor 1.png"><br>
                             This will get the amount of copper in ‘vault1’, the number will be stored in the variable ‘result’, let’s say the vault has 10 coppers, therefore ‘result’ will be 10
                         </p>
                     </section>
@@ -634,7 +634,7 @@
                         <h2><li><b>Operation</b></li></h2>
                         <p class="ti">
                             Perform a single operation on 2 variables, or just numbers directly, example:
-                            <img src="image/operation.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/operation.png"><br>
                             Let’s say “a” is 10, therefore this operation means 10 + 5<br>
                             “result” will then be 15 
                         </p>
@@ -805,9 +805,9 @@
                             <span style="color: yellow;">56</span> / <span style="color: yellow;">22</span> / <span style="color: yellow;">11</span> / <span style="color: yellow;">254</span> (as of v146), respectively, they are a constant.<br>
                             For the inverse operation, sensor @id of the object<br>
                             Example:<br>
-                            <img src="image/lookup.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/lookup.png"><br>
                             This operation is looking up item with an id of 1, which is lead, therefore “result” will then be lead, lead is NOT a string, its an object, same as ‘<span style="color: yellow;">@lead</span>’, which can be used for things like sensor<br>
-                            <img src="image/lookup1.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/lookup1.png"><br>
                             Lookup are usually used with an incrementing variable<br>
                             Lists of IDs can be found in the <a href="#appendix">Appendix</a>
                         </p>
@@ -818,7 +818,7 @@
                             Packs RGBA color into a single number, is usually used with <a href="#draw col"><mark class="draw">draw col</mark></a> and <a href="#control color">control color</a><br>
                             Since it's a single number it can be stored to 1 address on <a href="#cell">cells/banks</a>, 
                             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
-                            <img src="image/pack color.png"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/pack color.png"><br>
                             <a href="#draw">RGBA</a> is their respective color, can also be directly written with a 
                             number, value is from 0 (dimmest) to 1 (brightest)
                                 
@@ -909,8 +909,8 @@
                     <p class="ti">
                         unlike the name say, <mark class="unit">unit bind</mark> instruction itself 
                         does not bind, <mark class="unit">unit control</mark>, <mark class="unit">unit radar</mark>, <mark class="unit">unit locate</mark> are what binds unit<br>
-                        <img src="image/bind.png">
-                        <img src="image/bind2.png"><br>
+                        <img alt="Image loading error, try reloading the page" src="image/bind.png">
+                        <img alt="Image loading error, try reloading the page" src="image/bind2.png"><br>
                         If you hover your mouse on either the unit or the 
                         processor you will see a yellow box showing what unit 
                         the processor is binding or what processor the unit is 
@@ -945,7 +945,7 @@
                         the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
                         When looped (meaning the <mark class="unit">unit bind</mark> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
                         Here’s a visualization : the red box indicates that the unit is in the <span style="color: yellow;">@unit</span> variable<br>
-                        <img src="image/vis bind.gif" alt=""><br>
+                        <img alt="Image loading error, try reloading the page" src="image/vis bind.gif" ><br>
                         Don’t worry about instruction line 1,2,3,they are there just to make the code not 1 instruction, to more easily visualize it.<br>
                         Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in <span style="color: yellow;">@unit</span> meaning <span style="color: yellow;">@unit</span> is now “mega#1”, and so on with “mega#2 , 3 , 4”<br><br>
 
@@ -965,15 +965,15 @@
                         <p class="ti">
                             Move to unit to the specified coordinates in a straight line 
                             Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
-                            <br><img src="image/ucontrol move.png" alt="">
+                            <br><img alt="Image loading error, try reloading the page" src="image/ucontrol move.png" >
                         </p>
                     </section>
                     <section id="approach">
                         <h3><li><b>Approach</b></li></h3>
                         <p class="ti">
                             Similar to move but it has a radius, the unit will stop at the radius<br>
-                            <img src="image/approach.gif" style="width: 700px;"><br>
-                            <img src="image/unit control1.png" style="width: 700px;">
+                            <img alt="Image loading error, try reloading the page" src="image/approach.gif" style="width: 700px;"><br>
+                            <img alt="Image loading error, try reloading the page" src="image/unit control1.png" style="width: 700px;">
                         </p>
                     </section>
                     <h3><li><b>pathFind</b></li></h3>
@@ -1002,7 +1002,7 @@
                     <h3><li><b>Target</b></li></h3>
                     <p class="ti">
                         Shoot a coordinate position, boolean, 1 = shoot, 0 = stop shooting<br>
-                        <img src="image/unit control.png" alt="">
+                        <img alt="Image loading error, try reloading the page" src="image/unit control.png" >
                     </p>
                     <h3><li><b>TargetP</b></li></h3>
                     <p class="ti">
@@ -1012,7 +1012,7 @@
                     <p class="ti">
                         Drops items the unit is currently carrying to the specified location	
                         Unit have to be within 5.625 + [block size] / 2 tiles of the targeted block, else it does nothing<br>
-                        <img src="image/unit control itemdrop.png" alt=""><br>
+                        <img alt="Image loading error, try reloading the page" src="image/unit control itemdrop.png" ><br>
                         <mark class="lg">to</mark> “building reference”<br>
                         <mark class="lg">amount</mark> is how many to drop<br>
                         The unit have to be near the specified building to drop items, else it does nothing<br>
@@ -1046,7 +1046,7 @@
                     <h3><li><b>Build</b></li></h3>
                     <p class="ti">
                         Build a block at specified location, if out of range or invalid will do nothing<br>
-                        <img src="image/unit control build.png" alt=""><br>
+                        <img alt="Image loading error, try reloading the page" src="image/unit control build.png" ><br>
                         <mark class="lg">x,y</mark> is build location<br>
                         <mark class="lg">block</mark> is what block to build<br>
                         <mark class="lg">rotation</mark> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
@@ -1055,7 +1055,7 @@
                     <h3><li><b>getBlock</b></li></h3>
                     <p class="ti">
                         Gets a block at a specified location, outputs will be null if out of range<br>
-                        <img src="image/ucontrol getblock.png" alt=""><br>
+                        <img alt="Image loading error, try reloading the page" src="image/ucontrol getblock.png" ><br>
                         <mark class="lg">x,y</mark> is coordinate location to get the block<br>
                         <mark class="lg">type</mark> is an output, it will output the type of block to the variable<br>
                         <mark class="lg">building</mark> is an output, it will output the <a href="#building reference">building reference</a> to the variable<br>
@@ -1064,14 +1064,14 @@
                     <h3><li><b>Within</b></li></h3>
                     <p class="ti">
                         Check if unit is within a position with a radius<br>
-                        <img src="image/unit control within.png" alt=""><br>
+                        <img alt="Image loading error, try reloading the page" src="image/unit control within.png" ><br>
                         x,y is coordinate location to check if unit is within that coordinate<br>
                         radius is the radius of the within<br>
                         result is the results<br>
                         Example: (the @unit variable is mega shown on the picture)<br>
-                        <img src="image/ucontrol within.png" alt=""><br>
-                        <img src="image/vis ucontrol within.png" alt="">
-                        <img src="image/vis ucontrol within 1.png" alt=""><br>
+                        <img alt="Image loading error, try reloading the page" src="image/ucontrol within.png" ><br>
+                        <img alt="Image loading error, try reloading the page" src="image/vis ucontrol within.png" >
+                        <img alt="Image loading error, try reloading the page" src="image/vis ucontrol within 1.png" ><br>
                         In this two scenario, the picture on the left will have the 
                         variable “result” true because the unit is within the circle, 
                         while the right picture is false because it is outside the circle
@@ -1098,7 +1098,7 @@
                 <section id="unit radar">
                     <h1><li><b>Unit Radar</b></li></h1>
                     <p class="ti">
-                        <img src="image/unit radar.png" alt="">
+                        <img alt="Image loading error, try reloading the page" src="image/unit radar.png" >
                         <br><mark class="unit">Unit radar</mark> locates other unit around the <span style="color: yellow;">@unit</span> unit within the unit’s range (information can be found in-game’s info menu)
                         <br><mark class="lg">target</mark> is a filter of what category of unit it will radar, enemy means it will radar enemy units
                         <br><mark class="lg">Order</mark> is sorting order, ascending or descending, can only be 0 or 1
@@ -1116,7 +1116,7 @@
                         <h1><li><b>Building</b></li></h1>
                         <p>
                             Will locate a building of the selected group, in this case, core,
-                            <br><img src="image/unit locate.png" alt="">
+                            <br><img alt="Image loading error, try reloading the page" src="image/unit locate.png" >
                             <br><mark class="lg">Enemy</mark> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                             <br><mark class="lg">outX</mark> and <mark class="lg">outY</mark> are the building’s output coordinates
                             <br><mark class="lg">Found</mark> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
@@ -1124,7 +1124,7 @@
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
-                           <img src="image/unit locate 2.png" alt="">
+                           <img alt="Image loading error, try reloading the page" src="image/unit locate 2.png" >
                            <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span> 
                         </p>
                         <h1><li><b>Spawn</b></li></h1>
@@ -1145,7 +1145,7 @@
                 <section id="universal switch">
                     <h2>Universal Switch</h2>
                     <p>
-                        <img src="image/vis getlink.gif" style="width: 800px;"> <img src="image/getlink ex.jpg">
+                        <img alt="Image loading error, try reloading the page" src="image/vis getlink.gif" style="width: 800px;"> <img alt="Image loading error, try reloading the page" src="image/getlink ex.jpg">
                         <br>line 0 : <a href="#sensor">sensor</a> for @enabled in ‘switch1’, stores the state in the ‘switch’ variable
                         <br>line 1 : <a href="#get link">getlink</a> with ‘link’, which is an incrementing variable
                         <br>line 2 : <a href="#sensor">sensor</a> for @type in ‘switch1’ for later
@@ -1157,7 +1157,7 @@
                 </section>
                 <section id="shuttle logic">
                     <h2>Shuttle Logic</h2>
-                    <img src="image/vis shuttle.gif" alt="">
+                    <img alt="Image loading error, try reloading the page" src="image/vis shuttle.gif" >
                     <p>
                         Line 0 : <a href="#unit bind">bind</a> a flare
                         <br>Line 1 : <a href="#unit locate">locate</a> an ally core, outputs its coordinates to “cx,cy”, and building reference to “core”
@@ -1175,7 +1175,7 @@
                 </section>
                     <section id="thorium reactor fail safe">
                     <h2>Thorium Reactor Fail Safe</h2>
-                    <img src="image/reactor fail safe.gif" class="image"><img src="image/reactor faiil safe ex.png">
+                    <img alt="Image loading error, try reloading the page" src="image/reactor fail safe.gif" class="image"><img alt="Image loading error, try reloading the page" src="image/reactor faiil safe ex.png">
                     <p>
                         line 0 : getlink with `i`, which is an incrementing variable, writes the result to `block`
                         <br>line 1 : sensor for cryofluid in `block`, writes the result to `cryo`
@@ -1189,7 +1189,7 @@
                     <h2>@counter Array</h2>
                     <p>
                         This is a bit more advanced than previous examples but it is very useful especially for unit multibind, assuming you already know what an array is you can simulate it using the @counter variable
-                    <br><img src="image/vis counter array.gif" style="width: 700px;">
+                    <br><img alt="Image loading error, try reloading the page" src="image/vis counter array.gif" style="width: 700px;">
                     <br>The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
                     </p>
                 </section>
@@ -1207,15 +1207,15 @@
                     This extension brings actual support for mlog, like syntax highlighting, intellisense, diagnostic messages, and more, if you’re writing with VSCode I recommend checking this out.
                 </p>
                 <h3>Lables</h3>
-                <img src="image/labels.png" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/labels.png" >
                 <p>Labels are replacement for jumps number, this way you can write freely without needing to worry about jump numbers</p>
                 <h3>Comments</h3>
                 <p>Comments will be removed when importing the code to the game</p>
                 <h3>Combining lines</h3>
-                <img src="image/seperate.png" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/seperate.png" >
                 <p>You can combine lines with  “ ; “</p>
                 <h3>Tabs and newlines</h3>
-                <img src="image/labels.png" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/labels.png" >
                 <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
                 <p>List of mlog <a href="#text form instruction">instruction in text form</a></p>
                 </section>
@@ -1241,11 +1241,11 @@
                 <section id="how to get world processor">
                 <h2>How to get World Processor</h2>
                 <p>World processor are editor only object, go to the editor - choose a map - 
-                    at the top left there is a hamburger button <img src="image/hamburger.png" alt=""> , 
-                    click on it and go to “Edit In-Game” <img src="image/wp.png" alt="">, world processor 
+                    at the top left there is a hamburger button <img alt="Image loading error, try reloading the page" src="image/hamburger.png" > , 
+                    click on it and go to “Edit In-Game” <img alt="Image loading error, try reloading the page" src="image/wp.png" >, world processor 
                     along with world cell and world message will appear in the processor menu, 
                     however this mode is equivalent to pause mode as nothing runs including processors, 
-                    go back to the editor open the hamburger button and choose “Playtest” <img src="image/playtest.png" alt=""> instead, this allows 
+                    go back to the editor open the hamburger button and choose “Playtest” <img alt="Image loading error, try reloading the page" src="image/playtest.png" > instead, this allows 
                     you to edit and run processor in real time, although not placing new ones
                     <br><br>
                     alternatively you can load your custom map as normal through the “Play” 
@@ -1264,7 +1264,7 @@
                     <ol style="list-style-type: disc;">
                         <section id="get block">
                         <h2><li>Get block</li></h2>
-                        <img src="image/get block.png" alt="">
+                        <img alt="Image loading error, try reloading the page" src="image/get block.png" >
                         <p>
                             “result” the output
                             <br>`get` what to get, can be:
@@ -1277,7 +1277,7 @@
                         </section>
                         <section id="set block">
                         <h2><li>Set Block</li></h2>
-                        <img src="image/set block.png" alt="">
+                        <img alt="Image loading error, try reloading the page" src="image/set block.png" >
                         <p>
                             `set` what type to set, can be : 
                             <br><span class="spin">“floor” set the floor to the specified name and coordinate</span>
@@ -1290,7 +1290,7 @@
                         </section>
                         <section id="spawn unit">
                             <h2><li>Spawn Unit</li></h2>
-                            <img src="image/spawn unit.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/spawn unit.png" >
                             <p>
                                 “result”, the output, unit reference
                                 <br>`spawn` what unit to spawn
@@ -1301,7 +1301,7 @@
                         </section>
                         <section id="apply status">
                             <h2><li>Apply Status</li></h2>
-                            <img src="image/apply status.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/apply status.png" >
                             <p>
                                 `apply` or `clear`, apply or clear
                                 <br>`wet` what status to apply to the unit
@@ -1311,11 +1311,11 @@
                         </section>
                         <section id="spawn wave">
                         <h2><li>Spawn Wave</li></h2>
-                        <img src="image/spawn wave.png" alt="">
+                        <img alt="Image loading error, try reloading the page" src="image/spawn wave.png" >
                         </section>
                         <section id="set rule">
                             <h2><li>Set Rule</li></h2>
-                            <img src="image/set rule.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/set rule.png" >
                             <p>
                                 currentWaveTime
                                 <br><span class="spin">change the current wave timer, in seconds</span>
@@ -1364,17 +1364,17 @@
                         </section>
                         <section id="flush message">
                             <h2><li>Flush Message</li></h2>
-                            <img src="image/flush message.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/flush message.png" >
                             <p>
                                 display a message on player’s screen from the text buffer, will wait until the previous message finishes
                                 <br><br>`announce` center of the screen
-                                <br><img src="image/message.png" alt="">
+                                <br><img alt="Image loading error, try reloading the page" src="image/message.png" >
                                 <br><br>`notify` top of the screen
-                                <br><img src="image/message 3.png" alt="">
+                                <br><img alt="Image loading error, try reloading the page" src="image/message 3.png" >
                                 <br><br>`toast`
-                                <br><img src="image/message 4.png" alt="">
+                                <br><img alt="Image loading error, try reloading the page" src="image/message 4.png" >
                                 <br><br>`mission`
-                                <br><img src="image/message 2.png" alt="">
+                                <br><img alt="Image loading error, try reloading the page" src="image/message 2.png" >
                             </p>
                         </section>
                         <section id="cut scene">
@@ -1389,14 +1389,14 @@
                         </section>
                         <section id="effect">
                             <h2><li>Effect</li></h2>
-                            <img src="image/effect.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/effect.png" >
                             <p>
                                 display a particle effect on the world, you can click the `warn` to view every available effect
                             </p>
                         </section>
                         <section id="explosion">
                             <h2><li>Explosion</li></h2>
-                            <img src="image/explosion.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/explosion.png" >
                             <p>
                                 <span class="spin">create an explosion</span>
                                 <br><span class="spin">`team` what team the explosion belong to, explosion cannot harm ally blocks</span>
@@ -1410,14 +1410,14 @@
                         </section>
                         <section id="set rate">
                             <h2><li>Set Rate</li></h2>
-                            <img src="image/set rate.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/set rate.png" >
                             <p>
                                 Set the speed of the processor, in ipt
                             </p>
                         </section>
                         <section id="fetch">
                             <h2><li>Fetch</li></h2>
-                            <img src="image/fetch.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/fetch.png" >
                             <p>
                                 get unit, player, core, building, and outputs their reference to “result”, by index
                             <br>    <span class="spin">`team` what team to fetch the object</span>
@@ -1430,19 +1430,19 @@
                         </section>
                         <section id="sync">
                             <h2><li>Sync</li></h2>
-                            <img src="image/sycn.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/sycn.png" >
                         </section>
                         <section id="get flag">
                             <h2><li>Get Flag</li></h2>
-                            <img src="image/getflag.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/getflag.png" >
                         </section>
                         <section id="set flag">
                             <h2><li>Set Flag</li></h2>
-                            <img src="image/set flag.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/set flag.png" >
                         </section>
                         <section id="set prop">
                             <h2><li>Set Prop</li></h2>
-                            <img src="image/set prop.png" alt="">
+                            <img alt="Image loading error, try reloading the page" src="image/set prop.png" >
                             <p>
                                 sets the properties of a unit or building
                                 <br><span class="spin">`of` unit/building reference</span>
@@ -1488,12 +1488,12 @@
                     <br>the pattern is {0-9}
                     <br>
                     <br>example:
-                    <br><img src="image/format.png" alt="">
-                    <img src="image/format 1.png" alt="">
+                    <br><img alt="Image loading error, try reloading the page" src="image/format.png" >
+                    <img alt="Image loading error, try reloading the page" src="image/format 1.png" >
                     <br>the first format will take {0} and the second format will take {1}
                 </p>
                 <h2>Play Sound</h2>
-                <img src="image/play sound.png" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/play sound.png" >
                 <p>
                     <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>
                     <br>volume controls the volume of the played sound</span>
@@ -1526,7 +1526,7 @@
                     <h2>Mindustry coordinate system</h2>
                     <p class="ti">
                         unlike traditional Cartesian Coordinate System where the center point of a coordinate is on the edge of a block Mindustry chooses the middle of a block as its center point instead
-                        <br><img src="image/coordinate system.png" alt="">
+                        <br><img alt="Image loading error, try reloading the page" src="image/coordinate system.png" >
                         <br>the game still uses Cartesian but just offset by 0.5
                         <br>the game also by default set 0,0 to the very bottom left of the world, this means all campaign world and most custom worlds (since you can set the coordinate offset in the editor) playfield are always positive
                     </p>
@@ -1581,18 +1581,18 @@
             <section id="self promotion">
                 <h2>My Micro Processor only Bad Apple!!!</h2>
                 <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
-                <img src="image/bad apple.gif" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/bad apple.gif" >
                 <br><h2>Raycasting and DDA Raycasting</h2>
                 <a href="https://youtu.be/oyeoV2xXz8U" class="ytlink">Mindustry Raycasting</a>
-                <img src="image/raycasting.gif" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/raycasting.gif" >
                 <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
-                <img src="image/raycasting 2.gif" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/raycasting 2.gif" >
                 <h2>Perspective Projection</h2>
                 <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
-                <img src="image/perspective projection.gif" alt="">
-                <img src="image/spinning birb.gif" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/perspective projection.gif" >
+                <img alt="Image loading error, try reloading the page" src="image/spinning birb.gif" >
                 <h2>Power Monitor with Numbers</h2>
-                <img src="image/power display.gif" alt="">
+                <img alt="Image loading error, try reloading the page" src="image/power display.gif" >
             </section>
             <section id="appendix">
                 <hr>
