@@ -1,5 +1,6 @@
-Hi, im Yruei
-my socials : Discord (Yruei)  
+Hi, im Yruei  
+my socials :  
+Discord (Yruei)  
              Reddit [Far_Kale588](https://www.reddit.com/user/Far_Kale588/)  
              Youtube [Yruei](https://www.youtube.com/@Yruei_)  
 
