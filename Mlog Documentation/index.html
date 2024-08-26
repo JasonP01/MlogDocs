@@ -1452,116 +1452,114 @@
                         </section>
                     </ol>
             </section>
-            <section id="bleeding edge">
                 <hr>
-                <h1>Bleeding Edge</h1>
-                <h2>Draw print</h2>
-                <p class="spin">
-                    Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
-                </p>
-                <h2>Draw Translate</h2>
-                <p class="spin">
-                    Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush
-                    <br>example: you draw something at 20, 20, running translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30
-                    <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40
-                    <br>to reset it use draw reset
-                </p>
-                <h2>Draw Scale</h2>
-                <p class="spin">
-                    scale the display coordinates / zooms it, this is also not static
-                    <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40
-                    <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again
-                    <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x
-                </p>
-                <h2>Draw Rotate</h2>
-                <p class="spin">
-                    self explanatory, rotate the display coordinates by a degree, also not static
-                </p>
-                <h2>Draw Reset</h2>
-                <p class="spin">
-                    resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one
-                </p>
-                <h2>Format</h2>
-                <p class="spin">
-                    allows you to print a variable or something else inside a string, if you know python it's similar to
-                    <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string
-                    <br>
-                    <br>the pattern is {0-9}
-                    <br>
-                    <br>example:
-                    <br><img alt="Image loading error, try reloading the page" src="image/format.png" >
-                    <img alt="Image loading error, try reloading the page" src="image/format 1.png" >
-                    <br>the first format will take {0} and the second format will take {1}
-                </p>
-                <h2>Play Sound</h2>
-                <img alt="Image loading error, try reloading the page" src="image/play sound.png" >
-                <p class="spin">
-                    <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>
-                    <br>volume controls the volume of the played sound</span>
-                    <br>pitch change the pitch of the played sound, </span>
-                    <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>
-                    <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
-                    <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
-                    <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
-                    <br>pan pans the sound to the left or right
-                </p>
-                <h2>Weather Sense</h2>
-                <p class="spin">
-                    sense the current weather is the specified weather type, returns boolean
-                </p>
-                <h2>Weather Set</h2>
-                <p class="spin">
-                    set the current state of the weather to the specified type
-                </p>
-                <h2>Set Marker</h2>
-                <p class="spin">
+            <h1 id="bleeding edge">Bleeding Edge</h1>
+            <h2>Draw print</h2>
+            <p class="spin">
+                Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
+            </p>
+            <h2>Draw Translate</h2>
+            <p class="spin">
+                Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush
+                <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30
+                <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40
+                <br>to reset it use draw reset
+            </p>
+            <h2>Draw Scale</h2>
+            <p class="spin">
+                scale the display coordinates / zooms it, this is also not static
+                <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40
+                <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again
+                <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x
+            </p>
+            <h2>Draw Rotate</h2>
+            <p class="spin">
+                self explanatory, rotate the display coordinates by a degree, also not static
+            </p>
+            <h2>Draw Reset</h2>
+            <p class="spin">
+                resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one
+            </p>
+            <h2>Format</h2>
+            <p class="spin">
+                allows you to print a variable or something else inside a string, if you know python it's similar to
+                <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string
+                <br>
+                <br>the pattern is {0-9}
+                <br>
+                <br>example:
+                <br><img alt="Image loading error, try reloading the page" src="image/format.png" >
+                <img alt="Image loading error, try reloading the page" src="image/format 1.png" >
+                <br>the first format will take {0} and the second format will take {1}
+            </p>
+            <h2>Play Sound</h2>
+            <img alt="Image loading error, try reloading the page" src="image/play sound.png" >
+            <p class="spin">
+                <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>
+                <br>volume controls the volume of the played sound</span>
+                <br>pitch change the pitch of the played sound, </span>
+                <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>
+                <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
+                <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
+                <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
+                <br>pan pans the sound to the left or right
+            </p>
+            <h2>Weather Sense</h2>
+            <p class="spin">
+                sense the current weather is the specified weather type, returns boolean
+            </p>
+            <h2>Weather Set</h2>
+            <p class="spin">
+                set the current state of the weather to the specified type
+            </p>
+            <h2>Set Marker</h2>
+            <p class="spin">
 
-                </p>
-                <h2>Make Marker</h2>
-                <p class="spin">
+            </p>
+            <h2>Make Marker</h2>
+            <p class="spin">
 
-                </p>
-                <h2>Locale Print</h2>
-                <p class="spin">
+            </p>
+            <h2>Locale Print</h2>
+            <p class="spin">
 
-                </p>
-                <h2>@cameraWidth and @cameraHeight</h2>
-                <p class="spin">
-                    an object camera width/height, usually the players possesed object, eg turrets/units
-                    <br>the width/height numbers in blocks
-                    <br>example:
-                    <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
-                    <br>a maxed zoomed in screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
-                    <br>if the object is not a player/doesn't have a camera returns 0
-                </p>
-                <h2>@cameraX and @cameraY</h2>
-                <p class="spin">
-                    an object x/y camera location
-                    <br>the x/y numbers in the map coordinate system
-                    <br>example:
-                    <br>`sensor x <mark class="lg">@unit</mark> <mark class="lg">@cameraX</mark>`, where `<mark class="lg">@unit</mark>` is the player
-                    <br>while moving the camera returns the camera position in the map coordinate location
-                    <br>different from sensoring `<mark class="lg">@x</mark>` since you can move the camera independently of the unit
-                </p>
-                <h2>@solid</h2>
-                <p class="spin">
-                    an object solidness
-                    <br>example:
-                    <br>`sensor s conveyor1 <mark class="lg">@solid</mark>`
-                    <br>returns `s` as <span style="color: yellow;">0</span>
-                    <br>while a wall for example returns 1
-                </p>
-                <h2>@velocityX and @velocityY</h2>
-                <p class="spin">
-                    an object velocity, in blocks/second
-                    <br>example:
-                    <br>`sensor vx <mark class="lg">@unit</mark> <mark class="lg">@velocityX</mark>`
-                    <br>returns `vx` as a number of the <mark class="lg">@unit</mark> velocity in blocks/second
-                    <br>can also be think of as a vector,
-                    <br>by using `<mark class="op">op len</mark>` on the <mark class="lg">@unit</mark>'s <mark class="lg">@velocityX</mark> and <mark class="lg">@velocityY</mark> you can get the unit current speed
-                    <br>this variable also avaiable in `<mark class="wp">setprop</mark>`
-                </p>
-            </section>
+            </p>
+            <h2>@cameraWidth and @cameraHeight</h2>
+            <p class="spin">
+                an object camera width/height, usually the players possesed object, eg turrets/units
+                <br>the width/height numbers in blocks
+                <br>example:
+                <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
+                <br>a maxed zoomed in screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
+                <br>if the object is not a player/doesn't have a camera returns 0
+            </p>
+            <h2>@cameraX and @cameraY</h2>
+            <p class="spin">
+                an object x/y camera location
+                <br>the x/y numbers in the map coordinate system
+                <br>example:
+                <br>`sensor x <mark class="lg">@unit</mark> <mark class="lg">@cameraX</mark>`, where `<mark class="lg">@unit</mark>` is the player
+                <br>while moving the camera returns the camera position in the map coordinate location
+                <br>different from sensoring `<mark class="lg">@x</mark>` since you can move the camera independently of the unit
+            </p>
+            <h2>@solid</h2>
+            <p class="spin">
+                an object solidness
+                <br>example:
+                <br>`sensor s conveyor1 <mark class="lg">@solid</mark>`
+                <br>returns `s` as <span style="color: yellow;">0</span>
+                <br>while a wall for example returns 1
+            </p>
+            <h2>@velocityX and @velocityY</h2>
+            <p class="spin">
+                an object velocity, in blocks/second
+                <br>example:
+                <br>`sensor vx <mark class="lg">@unit</mark> <mark class="lg">@velocityX</mark>`
+                <br>returns `vx` as a number of the <mark class="lg">@unit</mark> velocity in blocks/second
+                <br>can also be think of as a vector,
+                <br>by using `<mark class="op">op len</mark>` on the <mark class="lg">@unit</mark>'s <mark class="lg">@velocityX</mark> and <mark class="lg">@velocityY</mark> you can get the unit current speed
+                <br>this variable also avaiable in `<mark class="wp">setprop</mark>`
+            </p>
             <section id="extras">
                 <hr>
                 <h2>Extras</h2>
@@ -1624,22 +1622,21 @@
                     </p>
                 </section>
             </section>
-            <section id="self promotion">
-                <h2>My Micro Processor only Bad Apple!!!</h2>
-                <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
-                <img alt="Image loading error, try reloading the page" src="image/bad apple.gif" >
-                <br><h2>Raycasting and DDA Raycasting</h2>
-                <a href="https://youtu.be/oyeoV2xXz8U" class="ytlink">Mindustry Raycasting</a>
-                <img alt="Image loading error, try reloading the page" src="image/raycasting.gif" >
-                <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
-                <img alt="Image loading error, try reloading the page" src="image/raycasting 2.gif" >
-                <h2>Perspective Projection</h2>
-                <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
-                <img alt="Image loading error, try reloading the page" src="image/perspective projection.gif" >
-                <img alt="Image loading error, try reloading the page" src="image/spinning birb.gif" >
-                <h2>Power Monitor with Numbers</h2>
-                <img alt="Image loading error, try reloading the page" src="image/power display.gif" >
-            </section>
+            <h1 id="self promotion">Self Promotion</h1>
+            <h2>My Micro Processor only Bad Apple!!!</h2>
+            <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
+            <img alt="Image loading error, try reloading the page" src="image/bad apple.gif" >
+            <br><h2>Raycasting and DDA Raycasting</h2>
+            <a href="https://youtu.be/oyeoV2xXz8U" class="ytlink">Mindustry Raycasting</a>
+            <img alt="Image loading error, try reloading the page" src="image/raycasting.gif" >
+            <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
+            <img alt="Image loading error, try reloading the page" src="image/raycasting 2.gif" >
+            <h2>Perspective Projection</h2>
+            <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
+            <img alt="Image loading error, try reloading the page" src="image/perspective projection.gif" >
+            <img alt="Image loading error, try reloading the page" src="image/spinning birb.gif" >
+            <h2>Power Monitor with Numbers</h2>
+            <img alt="Image loading error, try reloading the page" src="image/power display.gif" >
             <section id="appendix">
                 <hr>
                 <h2>Appendix</h2>
