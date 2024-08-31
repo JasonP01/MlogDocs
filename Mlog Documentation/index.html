@@ -1454,34 +1454,47 @@
             </section>
                 <hr>
             <h1 id="bleeding edge">Bleeding Edge</h1>
-            <h2>Draw print</h2>
-            <p class="spin">
+            <p class="spin" style="margin-left: 20px;">
+                Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
+                <br>BE version can be found and downloaded on
+                <a href="https://github.com/Anuken/MindustryBuilds">https://github.com/Anuken/MindustryBuilds</a>
+                <br>
+                <br><span style="font-size: larger;">BE feature are subject to <span style="color: red;">change</span>, therefore i cannot make sure these information are up to date</span>
+            </p>
+            <br>
+            <h2><li>Draw print</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
             </p>
-            <h2>Draw Translate</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Draw Translate</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush
                 <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30
                 <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40
                 <br>to reset it use draw reset
             </p>
-            <h2>Draw Scale</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Draw Scale</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 scale the display coordinates / zooms it, this is also not static
                 <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40
                 <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again
                 <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x
             </p>
-            <h2>Draw Rotate</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Draw Rotate</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 self explanatory, rotate the display coordinates by a degree, also not static
             </p>
-            <h2>Draw Reset</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Draw Reset</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one
             </p>
-            <h2>Format</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Format</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 allows you to print a variable or something else inside a string, if you know python it's similar to
                 <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string
                 <br>
@@ -1492,9 +1505,10 @@
                 <img alt="Image loading error, try reloading the page" src="image/format 1.png" >
                 <br>the first format will take {0} and the second format will take {1}
             </p>
-            <h2>Play Sound</h2>
+            <br>
+            <h2><li>Play Sound</li></h2>
             <img alt="Image loading error, try reloading the page" src="image/play sound.png" >
-            <p class="spin">
+            <p class="spin" style="margin-left: 20px;">
                 <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>
                 <br>volume controls the volume of the played sound</span>
                 <br>pitch change the pitch of the played sound, </span>
@@ -1504,54 +1518,90 @@
                 <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
                 <br>pan pans the sound to the left or right
             </p>
-            <h2>Weather Sense</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Weather Sense</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 sense the current weather is the specified weather type, returns boolean
             </p>
-            <h2>Weather Set</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Weather Set</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 set the current state of the weather to the specified type
             </p>
-            <h2>Set Marker</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Make Marker</li></h2>
+            <p class="spin" style="margin-left: 20px;">
+                Makes a Marker
+                <br>id is numeric identity of the Marker, id can be from 0 to 19999
+                <br>meaning a world/map can only have 20.000 markers
+                <br>
+                <br>
+                <b>Texture</b>, makes a marker for a Texture
+                <br>initially invisible until texture is defined, using <mark class="wp">setmarker texture</mark>
+                <br>texture can be anything that is available in the game
+                <br>
+                <br>
+                <b>Quad</b>, are quadrilateral
+                <br>quad has 4 vertices
+                <br>each vertices can be set using <mark class="wp">setmarker posi</mark>
+            </p>
+            <br>
+            <h2><li>Set Marker</li></h2>
+            <p class="spin" style="margin-left: 20px;">
+                Sets a property of a marker with the specified id
+                <br>
+                <br>
+                <b>Texture</b>, sets the texure of a marker
+                <br>the `printFlush` argument are boolean
+                <br>when true it uses the text in the text buffer as the name
+                <br>otherwise uses the `name` argument
+                <br>name is game content name, like <span style="color: yellow;">@router</span>, or <span style="color: yellow;">@surge-alloy</span>
+                <br>
+                <br>
+                <b>Posi</b>, sets the vertices location of a quad, location are world x,y location
+                <br>with index from 0-3
+                <br>each index repesents each vertices
+                <br>
+                <br>
 
             </p>
-            <h2>Make Marker</h2>
-            <p class="spin">
+            <br>
+            <h2><li>Locale Print</li></h2>
+            <p class="spin" style="margin-left: 20px;">
 
             </p>
-            <h2>Locale Print</h2>
-            <p class="spin">
-
-            </p>
-            <h2>@cameraWidth and @cameraHeight</h2>
-            <p class="spin">
+            <br>
+            <h2><li>@cameraWidth and @cameraHeight</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 an object camera width/height, usually the players possesed object, eg turrets/units
-                <br>the width/height numbers in blocks
+                <br>the width/height numbers are in blocks
                 <br>example:
                 <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
                 <br>a maxed zoomed in screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
                 <br>if the object is not a player/doesn't have a camera returns 0
             </p>
-            <h2>@cameraX and @cameraY</h2>
-            <p class="spin">
+            <br>
+            <h2><li>@cameraX and @cameraY</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 an object x/y camera location
-                <br>the x/y numbers in the map coordinate system
+                <br>the x/y numbers are in the map coordinate system
                 <br>example:
                 <br>`sensor x <mark class="lg">@unit</mark> <mark class="lg">@cameraX</mark>`, where `<mark class="lg">@unit</mark>` is the player
                 <br>while moving the camera returns the camera position in the map coordinate location
                 <br>different from sensoring `<mark class="lg">@x</mark>` since you can move the camera independently of the unit
             </p>
-            <h2>@solid</h2>
-            <p class="spin">
+            <br>
+            <h2><li>@solid</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 an object solidness
                 <br>example:
                 <br>`sensor s conveyor1 <mark class="lg">@solid</mark>`
                 <br>returns `s` as <span style="color: yellow;">0</span>
                 <br>while a wall for example returns 1
             </p>
-            <h2>@velocityX and @velocityY</h2>
-            <p class="spin">
+            <br>
+            <h2><li>@velocityX and @velocityY</li></h2>
+            <p class="spin" style="margin-left: 20px;">
                 an object velocity, in blocks/second
                 <br>example:
                 <br>`sensor vx <mark class="lg">@unit</mark> <mark class="lg">@velocityX</mark>`
@@ -1560,6 +1610,7 @@
                 <br>by using `<mark class="op">op len</mark>` on the <mark class="lg">@unit</mark>'s <mark class="lg">@velocityX</mark> and <mark class="lg">@velocityY</mark> you can get the unit current speed
                 <br>this variable also avaiable in `<mark class="wp">setprop</mark>`
             </p>
+            <br>
             <section id="extras">
                 <hr>
                 <h2>Extras</h2>
