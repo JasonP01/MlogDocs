@@ -1176,14 +1176,15 @@
                 </section>
                     <section id="thorium reactor fail safe">
                     <h2>Thorium Reactor Fail Safe</h2>
-                    <img alt="Image loading error, try reloading the page" src="image/reactor fail safe.gif" class="image"><img alt="Image loading error, try reloading the page" src="image/reactor faiil safe ex.png">
+                    <img alt="Image loading error, try reloading the page" src="image/reactor fail safe.gif" class="image">
+                    <img alt="Image loading error, try reloading the page" src="image/reactor faiil safe ex.png" style="width: 500px;">
                     <p>
                         line 0 : getlink with `i`, which is an incrementing variable, writes the result to `block`
                         <br>line 1 : sensor for cryofluid in `block`, writes the result to `cryo`
                         <br>line 2 : compare if `cryo` > (greater than) 15, if it is `fail` will be true, else `fail` will be false
                         <br>line 3 : control `block` to `fail` which controls the thorium reactors to `fail`, if line 2 is true then `fail` is true, thus enabling the thorium reactor
                         <br>line 4 : incrementing the variable `i`
-                        line 5 : resets the variable `i` when it reached `@links` using the % operator
+                        <br>line 5 : resets the variable `i` when it reached `@links` using the % operator
                     </p>
                 </section>
                 <section id="@counter array">
@@ -1535,6 +1536,9 @@
                 <br>id is numeric identity of the Marker, id can be from 0 to 19999
                 <br>meaning a world/map can only have 20.000 markers
                 <br>
+                <br>currently there is a <span style="color: red;">bug</span> with the `replace` argument where it <span style="color: red;">replaces</span> other markers than the specified id
+                <br>advice is : don't enable the `replace` argument, keep it 0 / false
+                <br>
                 <br>
                 <b>Texture</b>, makes a marker for a Texture
                 <br>initially invisible until texture is defined, using <mark class="wp">setmarker texture</mark>
@@ -1563,6 +1567,10 @@
                 <br>each index repesents each vertices
                 <br>
                 <br>
+                <b>Color</b>, change the color of the marker
+                <br>color only tints the color of the marker
+                <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color
+                <br>since quad doesn't have a color quad will take the full color the specified color
 
             </p>
             <br>
