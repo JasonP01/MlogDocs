@@ -563,28 +563,33 @@
                     <section id="control">
                         <h2><li><b>Control</b></li></h2>
                         <p class="ti">
-                            Controls a building
+                            Controls a building <mark class="lg">of</mark> a <a href="#building reference">building reference or a unit reference</a>
                         </p>
                         <ol style="list-style-type:circle;">
                             <li>Enabled</li>
                             <p class="ti">
                                 Enabled or disable a building, can be 0 or 1 or true and false
-                                when disabling a processor it pauses code execution until re-enabled again, resuming at the line number where it was disabled
+                                <br>when disabling a processor it pauses code execution until re-enabled again, resuming at the line number where it was disabled
                             </p>
                             <li>Shoot</li>
                             <p class="ti">
-                                Shoot at a coordinate position, usually used with turret
-                                can be 0 or 1 / true or false
+                                Shoot at a coordinate position, 
+                                <br><img src="image/control.png" alt="">
+                                <br><mark class="lg">x</mark> and <mark class="lg">y</mark> is coordinate location where to aim/shoot at
+                                <br><mark class="lg">shoot</mark> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
                             </p>
                             <li>Shootp</li>
                             <p class="ti">
                                 Shoot at a unit/building but with velocity prediction
+                                <br><img src="image/control shootp.png" alt="">
+                                <br><mark class="lg">unit</mark>, what object to aim/shoot at, it says `unit` but you can put a building reference there too.
+                                <br><mark class="lg">shoot</mark> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
                             <li>Config</li>
                             <p class="ti">  
                                 Change the configuration of buildings, 
                                 <br>for example :
                                 <br>sorter config, by putting item name to the <mark class="lg">to</mark> arguments, eg <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@lead</span>
-                                <br>factory config, by putting unit name to the <mark class="lg"> to</mark> arguments, eg <span style="color: yellow;">@flare</span>, <span style="color: yellow;">@dagger</span>, 
+                                <br>unit factory config, by putting unit name to the <mark class="lg"> to</mark> arguments, eg <span style="color: yellow;">@flare</span>, <span style="color: yellow;">@dagger</span>, 
                                 and of course it only supports units it meant to create, if you put other unit name that it cant create it will just deselect all unit
                             </p>
                             </p>
