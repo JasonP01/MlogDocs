@@ -68,7 +68,7 @@
                 <li class="indent1"><a href="#set rule" class="sidebar-link">Set Rule(WIP)</a></li>
                 <li class="indent1"><a href="#flush message" class="sidebar-link">Flush Message</a></li>
                 <li class="indent1"><a href="#cut scene" class="sidebar-link">Cut Scene</a></li>
-                <li class="indent1"><a href="#effect" class="sidebar-link">Effect (WIP)</a></li>
+                <li class="indent1"><a href="#effect" class="sidebar-link">Effect</a></li>
                 <li class="indent1"><a href="#explosion" class="sidebar-link">Explosion</a></li>
                 <li class="indent1"><a href="#set rate" class="sidebar-link">Set Rate</a></li>
                 <li class="indent1"><a href="#fetch" class="sidebar-link">Fetch</a></li>
@@ -1275,10 +1275,10 @@
                         <p>
                             “result” the output
                             <br>`get` what to get, can be:
-                                <br><span class="spin">“floor”	get the floor name of the specified coordinate</span>
-                                <br><span class="spin">“ore”	get the ore name of the specified coordinate</span>
-                                <br><span class="spin">“block”	get the block name of the specified coordinate</span>
-                                <br><span class="spin">“building” get the building reference of the specified coordinate</span>
+                                <br><span class="spin">“floor”	get the floor name of the specified coordinate
+                                <br>“ore”	get the ore name of the specified coordinate
+                                <br>“block”	get the block name of the specified coordinate
+                                <br>“building” get the building reference of the specified coordinate</span>
                             <br>`at` x and y coordinate respectively
                         </p>
                         </section>
@@ -1287,9 +1287,9 @@
                         <img alt="Image loading error, try reloading the page" src="image/set block.png" >
                         <p>
                             `set` what type to set, can be : 
-                            <br><span class="spin">“floor” set the floor to the specified name and coordinate</span>
-                            <br><span class="spin">“ore”	set ore to the specified name and coordinate</span>
-                            <br><span class="spin">“block”	set block to the specified name and coordinate</span>
+                            <br><span class="spin">“floor” set the floor to the specified name and Coordinate
+                            <br>“ore”	set ore to the specified name and coordinate
+                            <br>“block”	set block to the specified name and coordinate</span>
                             <br>name can be found on <a href="#environment">Environment</a>
                             <br>`at` x and y coordinate respectively
                             <br>`team` what them to set the block to, can be team name or a number 0 - 255
@@ -1341,10 +1341,10 @@
                                 <br>unitCap
                                 <br><span class="spin">set the cap of unit that can be constructed</span>
                                 <br>mapArea
-                                    <br><span class="spin">set the size of the playable field in the map/sector</span>
-                                    <br><span class="spin">starts at the bottom left</span>
-                                    <br><span class="spin">`x` and `y` is the offset from 0,0</span>
-                                    <br><span class="spin">`width` and `height` is the size of the map, calculated from the offset</span>
+                                    <br><span class="spin">set the size of the playable field in the map/sector
+                                    <br>starts at the bottom left
+                                    <br>`x` and `y` is the offset from 0,0
+                                    <br>`width` and `height` is the size of the map, calculated from the offset</span>
                                 <br>lightning
                                     <br><span class="spin">boolean, whether to enable lightning or not, if disabled all section of the map (other 		solid walls) will be fully bright</span>
                                 <br>ambientLight
@@ -1389,9 +1389,9 @@
                             <p>
                                 manipulate the camera, players cannot move/interact in this mode
                                 <br>does not have duration cutscene will stays until `cutscene stop` is used
-                                    <br><span class="spin">`pan` moves the camera to the specified coordinates, with specified speed</span>
-                                    <br><span class="spin">`zoom` zooms the camera, value is from 0 to 1, although can be more it is limited by the game, this limit is the same as your manual zoom limit, when used not with `pan` will zoom to 0,0 instead</span>
-                                    <br><span class="spin">`stop` stops previous cutscene</span>
+                                    <br><span class="spin">`pan` moves the camera to the specified coordinates, with specified speed
+                                    <br>`zoom` zooms the camera, value is from 0 to 1, although can be more it is limited by the game, this limit is the same as your manual zoom limit, when used not with `pan` will zoom to 0,0 instead
+                                    <br>`stop` stops previous cutscene</span>
                             </p>
                         </section>
                         <section id="effect">
@@ -1405,14 +1405,14 @@
                             <h2><li>Explosion</li></h2>
                             <img alt="Image loading error, try reloading the page" src="image/explosion.png" >
                             <p>
-                                <span class="spin">create an explosion</span>
-                                <br><span class="spin">`team` what team the explosion belong to, explosion cannot harm ally blocks</span>
-                                <br><span class="spin">`x` `y` where to create the explosion</span>
-                                <br><span class="spin">`radius` size of explosion, block outside this radius does not take damage</span>
-                                <br><span class="spin">`damage` the damage of the explosion</span>
-                                <br><span class="spin">`air` whether to damage air or nor, true means it will damage air (air units, boosted units, etc)</span>
-                                <br><span class="spin">`ground` whether to damage ground or nor, true means it will damage air (ground unit, blocks, etc)</span>
-                                <br><span class="spin">`pierce` whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged</span>
+                                create an explosion
+                                <br><span class="spin">`team` what team the explosion belong to, explosion cannot harm ally blocks
+                                <br>`x` `y` where to create the explosion
+                                <br>`radius` size of explosion, block outside this radius does not take damage
+                                <br>`damage` the damage of the explosion
+                                <br>`air` whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
+                                <br>`ground` whether to damage ground or nor, true means it will damage air (ground unit, blocks, etc)
+                                <br>`pierce` whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged</span>
                             </p>
                         </section>
                         <section id="set rate">
@@ -1427,9 +1427,9 @@
                             <img alt="Image loading error, try reloading the page" src="image/fetch.png" >
                             <p>
                                 get unit, player, core, building, and outputs their reference to “result”, by index
-                            <br>    <span class="spin">`team` what team to fetch the object</span>
-                            <br>    <span class="spin">`#` index, starts at 0, 0 being the first object</span>
-                            <br>    <span class="spin">unitCount, playerCount, coreCount, buildCount, gets the total count of currently alive/available object in the world</span>
+                            <br>    <span class="spin">`team` what team to fetch the object
+                            <br>    `#` index, starts at 0, 0 being the first object
+                            <br>    unitCount, playerCount, coreCount, buildCount, gets the total count of currently alive/available object in the world</span>
                             <br>when an object dies the last unit index will replace the object index that dies
                             <br>for example: you have 10 conveyors indexed from 1-10, conveyor #5 is deconstructed, conveyor 
                             <br>#10 will the become #5, then a new placed conveyor will become #10
@@ -1438,22 +1438,35 @@
                         <section id="sync">
                             <h2><li>Sync</li></h2>
                             <img alt="Image loading error, try reloading the page" src="image/sycn.png" >
-                        </section>
-                        <section id="get flag">
-                            <h2><li>Get Flag</li></h2>
-                            <img alt="Image loading error, try reloading the page" src="image/getflag.png" >
+                            <p>
+                                sync a variable across all devices, used mainly in multiplayer, to avoid desyncing
+                            </p>
                         </section>
                         <section id="set flag">
                             <h2><li>Set Flag</li></h2>
                             <img alt="Image loading error, try reloading the page" src="image/set flag.png" >
+                            <p>
+                                set a global flag / global variable, flag content can only be 0 or 1, true or false
+                                <br>flag name is enclosed by `<mark class="lg"> " </mark>`
+                                <br>this flag can be read anywhere in the map using the <mark class="wp">get flag</mark> instruction
+                            </p>
+                        </section>
+                        <section id="get flag">
+                            <h2><li>Get Flag</li></h2>
+                            <img alt="Image loading error, try reloading the page" src="image/getflag.png" >
+                            <p>
+                                read the flag/variable created by <mark class="wp">set flag</mark>
+                                <br>reads the content of the flag
+                                <br>writes the result the the <mark class="lg">result</mark> variable
+                            </p>
                         </section>
                         <section id="set prop">
                             <h2><li>Set Prop</li></h2>
                             <img alt="Image loading error, try reloading the page" src="image/set prop.png" >
                             <p>
                                 sets the properties of a unit or building
-                                <br><span class="spin">`of` unit/building reference</span>
-                                <br><span class="spin">`to` value</span>
+                                <br><span class="spin">`of` unit/building Reference
+                                <br>`to` value</span>
                             </p>
                         </section>
                     </ol>
