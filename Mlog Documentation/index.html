@@ -88,6 +88,7 @@
                 <li class="indent1"><a href="#damage calculation" class="sidebar-link">Damage calculation   </a></li>
                 <li><a href="#self promotion" class="sidebar-link">Self promotion</a></li>
                 <li><a href="#appendix" class="sidebar-link">Appendix</a></li>
+                <li class="indent1"><a href="#mloginvention" class="sidebar-link">Mlog Invention</a></li>
                 <li class="indent1"><a href="#built in variables1" class="sidebar-link">Built in Variables</a></li>
                 <li class="indent2"><a href="#global" class="sidebar-link">Global</a></li>
                 <li class="indent2"><a href="#environment" class="sidebar-link">Environment</a></li>
@@ -98,8 +99,6 @@
                 <li class="indent2"><a href="#normal processor" class="sidebar-link">Normal Processor</a></li>
                 <li class="indent2"><a href="#world processor" class="sidebar-link">World Processor</a></li>
                 <li class="indent1"><a href="#lookup ids" class="sidebar-link">Lookup Id(s)</a></li>
-
-
             </ul>
         </aside>
         <main class="main-content" style="font-size: larger;">
@@ -913,8 +912,9 @@
                     <h3><li>Binding</li></h3>
                     <p class="ti">
                         unlike the name say, <mark class="unit">unit bind</mark> instruction itself 
-                        does not bind, <mark class="unit">unit control</mark>, <mark class="unit">unit radar</mark>, <mark class="unit">unit locate</mark> are what binds unit<br>
-                        <img alt="Image loading error, try reloading the page" src="image/bind.png">
+                        does not bind, <mark class="unit">unit control</mark>, <mark class="unit">unit radar</mark>, <mark class="unit">unit locate</mark> are what binds unit.
+                        <br> <mark class="unit">unit bind</mark> just gets a unit's <a href="building reference">reference</a> and puts it in a variable called<span style="color: yellow;"> @unit</span>
+                        <br><img alt="Image loading error, try reloading the page" src="image/bind.png">
                         <img alt="Image loading error, try reloading the page" src="image/bind2.png"><br>
                         If you hover your mouse on either the unit or the 
                         processor you will see a yellow box showing what unit 
@@ -962,7 +962,8 @@
                 <section id="unit control">
                     <h1><li><b>Unit Control</b></li></h1>
                     <p class="ti">
-                        Unit control, controls <b>one</b> unit in the <span style="color: yellow;">@unit</span> variable, a common misconception is that it controls all binded unit, this is wrong, and a second common misconception is that <mark class="unit">Unit control</mark> wait for completion before running the next <mark class="unit">unit control</mark>, this is also wrong,
+                        Unit control, controls <b>one</b> unit in the <span style="color: yellow;">@unit</span> variable, a common misconception is that it controls all binded unit, this is wrong, it might seem that way because processor loops, everytime it loops <mark class="unit">ubind</mark> it binds a new unit and controls it, it does this very fast that it looks like its controlling all unit at once. 
+                        <br>and a second common misconception is that <mark class="unit">Unit control</mark> wait for completion before running the next <mark class="unit">unit control</mark>, this is also wrong,
                         Like the visualization you see above, the processor doesn’t care what instruction you put in it, it will just run it regardless, it is not smart, you have to specify it yourself.
                     </p>
                     <section id="move">
@@ -1809,6 +1810,9 @@
 
                 <hr>
                 <h1 id="appendix">Appendix</h2>
+
+                <h2 id="mloginvention">Mlog Invention</h2>
+                is in a seperate page <a href="MlogInvention/index.html">Yrueii.github.io/Mlog Documentation/MlogInvention</a>
                 <section id="built in variables1">
                     <h2>Built in variables</h2>
                     Information of each might be added in the future
@@ -3403,7 +3407,7 @@
 
                 </section>
             </section>
-
+        
         </main>
     </div>
     
