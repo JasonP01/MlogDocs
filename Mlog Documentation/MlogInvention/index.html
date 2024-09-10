@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yruei</title>
+    <title>Mlog Invention</title>
     <link rel="icon" href="..\image\micro-processor.png" type="image/png">
 <body style="font-family: 'Courier New', Courier, monospace; background-color: rgb(62, 59, 73); color: white">
     <style>
@@ -19,13 +19,35 @@
             margin-left: 10vw;
             font-size: larger;
         }
-        a{
-            color: aqua;
+        .warning{
+            margin-left: 10vw;
+            font-size: larger;
         }
-        @media (max-width: 769px) {
-        li{
-            margin-left: 2vw;
-        }}
+        a{
+            color:#03a3f2 ;
+        }
+        hr{
+            width: 80%;
+        }
+        img{
+            max-width: 100vw;
+        }
+            @media (max-width: 769px) {
+            li{
+                margin-left: 2vw;
+            }
+            .warning {
+                margin-left: 2vw;
+            }
+            hr{
+                width: 120%;
+            }
+
+            }
+        li h3 {
+            display: inline;
+            font-size: 1.5em; /* Adjust the size to suit your needs */
+        }
     </style>
     <h1 style="margin-top: 3vw;">
         Mlog Invention
@@ -33,12 +55,25 @@
     <h2>
         Documenting Mlog invention that i deemed fit
     </h2>
+    <h3 class="warning" style="color: red;">if a schematic is bugged/not working/have trouble using, please reach out to corresponding creator, not me!</h3>
     <li>
-         OverArch (v0.3.8) </a>
-        <div style="text-indent: 20px;">
-            <a href="MlogFiles/OverArch_v0.3.8.msch">OverArch_v0.3.8.msch</a>
-            <div style="margin-left: 20px;">
-                Automatically fill an overdrive dome with Silicon and Phase Fabric with a unit
+        <h3>Display Power Monitor by <span style="color: aqua;" >Yruei</span></h3>
+        <div style="margin-left:25px;">
+            File: <a href="MlogFiles/(S) Digits Power Display.msch">(Small) Digits Power Display.msch</a>
+            <br>File: <a href="MlogFiles/(M) Digits Power Display.msch">(Medium) Digits Power Display.msch</a>
+            <br>File: <a href="MlogFiles/(H) Digits Power Display.msch">(Hyper) Digits Power Display.msch</a>
+            <br><img src="MlogFiles/power monitor.png" alt="">
+            <br><span style="color: lime;">Display the status of your power grid and displays it to a large display</span>
+            <br>if you think its too bulky, try the single processor : <a href="MlogFiles/(1Proc) Digits Power Display.msch">(Single Processor) Digits Power Display.msch</a>
+        </div>
+    </li>
+    <hr width="80%">
+    <li>
+        <h3>OverArch (v0.3.8) By <span style="color: aqua;">SBytes</span> </a></h3>
+        <div style="margin-left:25px;">
+            File : <a href="MlogFiles/OverArch_v0.3.8.msch">OverArch_v0.3.8.msch</a>
+            <br>Source : <a href="https://discord.com/channels/391020510269669376/878022862915653723/1043928884074266756">Discord</a>
+            <br><span style="color: lime;">Automatically fill an overdrive dome with Silicon and Phase Fabric with a unit</span>
             <br><br><span style="color: yellow;">Creator notes:</span>
             <br>OverArch v0.3.8
             <br>by SBytes
@@ -57,7 +92,7 @@
             <br>
             <br><< Notes >>
             <br>- Due to its sheer speed it likely will desync a lot in multiplayer.
-            <br>- How have I not uploaded this to #curated-schematics all this time??</div>
+            <br>- How have I not uploaded this to #curated-schematics all this time??
         </div>
     </li>
 
