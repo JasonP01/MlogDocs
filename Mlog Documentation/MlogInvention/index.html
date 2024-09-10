@@ -25,6 +25,7 @@
         .warning{
             margin-left: 10vw;
             font-size: larger;
+            text-indent: 0px;
         }
         a{
             color:#03a3f2 ;
@@ -33,7 +34,7 @@
             width: 80%;
         }
         img{
-            max-width: 100vw;
+            max-width: 85vw;
         }
             @media (max-width: 769px) {
             li{
@@ -43,14 +44,18 @@
                 margin-left: 2vw;
             }
             hr{
-                width: 120%;
+                width: 100%;
             }
 
             }
         li h3 {
-            display: inline;
             font-size: 1.5em; /* Adjust the size to suit your needs */
+            display: inline;
         }
+        li b {
+            font-size: xx-large;
+        }
+
     </style>
     <h1 style="margin-top: 3vw;">
         Mlog Invention
@@ -59,62 +64,63 @@
         Documenting Mlog invention that i deemed fit
     </h2>
     <h3 class="warning" style="color: red;">if a schematic is bugged/not working/have trouble using, please reach out to corresponding creator, not me!</h3>
-    <li>
-        <h3>Display Power Monitor by <span style="color: aqua;" >Yruei</span></h3>
-        <div style="margin-left:40px;">
-            File: <a href="MlogFiles/(S) Digits Power Display.msch">(Small) Digits Power Display.msch</a>
-            <br>File: <a href="MlogFiles/(M) Digits Power Display.msch">(Medium) Digits Power Display.msch</a>
-            <br>File: <a href="MlogFiles/(H) Digits Power Display.msch">(Hyper) Digits Power Display.msch</a>
-            <br><img src="MlogFiles/power monitor.png" alt="">
-            <br><span style="color: lime;">Display the status of your power grid to a large display</span>
-            <br>if you think its too bulky, try the single processor : <a href="MlogFiles/(1Proc) Digits Power Display.msch">(Single Processor) Digits Power Display.msch</a>
-            <br><br><span style="color: yellow;">Creator notes:</span>
-            <br>Just connect the node to your grid
-        </div>
-    </li>
-    <hr>
-    <li>
-        <h3>Mining Panel v6 By <span style="color: aqua;">Yruei</span></h3>
-        <div style="margin-left: 40px;">
-            File: <a href="MlogFiles/Mining Panel v6.msch">Mining Panel v6.msch</a>
-            <br><img src="MlogFiles/mining panel.png" alt="" style="width: 300px;">
-            <br><span style="color: lime;">allows users to controls units capable of mining to mine the desired ore(s) and deposit it to the core
-                <br>displays the amount of each ores in a progress bar style with transitioning colors from red to green</span>
-            <br><br><span style="color: yellow;">Creator notes:</span>
-            <br>Top switches determined how many units will mine, top switches increases, bottom switches decreases
-            <br>Bottom switches determined what ore(s) to mine, if multiple are enabled units will mine the lowest amount ore in core
-            
-        </div>
-    </li>
-    <hr>
-    <li>
-        <h3>OverArch (v0.3.8) By <span style="color: aqua;">SBytes</span> </a></h3>
-        <div style="margin-left:25px;">
-            File : <a href="MlogFiles/OverArch_v0.3.8.msch">OverArch_v0.3.8.msch</a>
-            <br>Source : <a href="https://discord.com/channels/391020510269669376/878022862915653723/1043928884074266756">Discord</a>
-            <br><span style="color: lime;">Automatically fill an overdrive dome with Silicon and Phase Fabric with a unit</span>
-            <br><br><span style="color: yellow;">Creator notes:</span>
-            <br>OverArch v0.3.8
-            <br>by SBytes
-            <br>
-            <br>Stable as of now. Ping SByte#7574 on discord for discussions regarding the logic.
-            <br>
-            <br><< Info >>
-            <br>The ODD Logic
-            <br>Heavily inspired by Ultimate Dome Loader (thanks highfire1 :D)
-            <br>
-            <br><< Features >>
-            <br>1. 4 unit type binding in the following order: flare, poly, mega, mono
-            <br>2. Allows 2 multibinded units with up to 550 range (varies depending on unit type)
-            <br>3. Diagnostics!
-            <br>4. Auto detects linked dome & message block.
-            <br>
-            <br><< Notes >>
-            <br>- Due to its sheer speed it likely will desync a lot in multiplayer.
-            <br>- How have I not uploaded this to #curated-schematics all this time??
-        </div>
-    </li>
-
+    <ul>    
+        <li>
+            <b>Display Power Monitor by <span style="color: aqua;" >Yruei</span></b>
+            <div>
+                File: <a href="MlogFiles/(S) Digits Power Display.msch">(Small) Digits Power Display.msch</a>
+                <br>File: <a href="MlogFiles/(M) Digits Power Display.msch">(Medium) Digits Power Display.msch</a>
+                <br>File: <a href="MlogFiles/(H) Digits Power Display.msch">(Hyper) Digits Power Display.msch</a>
+                <br><img src="MlogFiles/power monitor.png" alt="">
+                <br><span style="color: lime;">Display the status of your power grid to a large display</span>
+                <br>if you think its too bulky, try the single processor : <a href="MlogFiles/(1Proc) Digits Power Display.msch">(Single Processor) Digits Power Display.msch</a>
+                <br><br><span style="color: yellow;">Creator notes:</span>
+                <br>Just connect the node to your grid
+            </div>
+        </li>
+        <hr>
+        <li>
+            <b>Mining Panel v6 By <span style="color: aqua;">Yruei</span></b>
+            <div>
+                File: <a href="MlogFiles/Mining Panel v6.msch">Mining Panel v6.msch</a>
+                <br><img src="MlogFiles/mining panel.png" alt="" style="width: 300px;">
+                <br><span style="color: lime;">allows users to controls units capable of mining to mine the desired ore(s) and deposit it to the core
+                    <br>displays the amount of each ores in a progress bar style with transitioning colors from red to green</span>
+                <br><br><span style="color: yellow;">Creator notes:</span>
+                <br>Top switches determined how many units will mine, top switches increases, bottom switches decreases
+                <br>Bottom switches determined what ore(s) to mine, if multiple are enabled units will mine the lowest amount ore in core
+                
+            </div>
+        </li>
+        <hr>
+        <li>
+            <b>OverArch (v0.3.8) By <span style="color: aqua;">SBytes</span></b>
+            <div>
+                File : <a href="MlogFiles/OverArch_v0.3.8.msch">OverArch_v0.3.8.msch</a>
+                <br>Source : <a href="https://discord.com/channels/391020510269669376/878022862915653723/1043928884074266756">Discord</a>
+                <br><span style="color: lime;">Automatically fill an overdrive dome with Silicon and Phase Fabric with a unit</span>
+                <br><br><span style="color: yellow;">Creator notes:</span>
+                <br>OverArch v0.3.8
+                <br>by SBytes
+                <br>
+                <br>Stable as of now. Ping SByte#7574 on discord for discussions regarding the logic.
+                <br>
+                <br><< Info >>
+                <br>The ODD Logic
+                <br>Heavily inspired by Ultimate Dome Loader (thanks highfire1 :D)
+                <br>
+                <br><< Features >>
+                <br>1. 4 unit type binding in the following order: flare, poly, mega, mono
+                <br>2. Allows 2 multibinded units with up to 550 range (varies depending on unit type)
+                <br>3. Diagnostics!
+                <br>4. Auto detects linked dome & message block.
+                <br>
+                <br><< Notes >>
+                <br>- Due to its sheer speed it likely will desync a lot in multiplayer.
+                <br>- How have I not uploaded this to #curated-schematics all this time??
+            </div>
+        </li>
+    </ul>
    
 </body>
 </html>
