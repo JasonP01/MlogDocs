@@ -1504,7 +1504,7 @@
                                 <br>`radius` size of explosion, block outside this radius does not take damage
                                 <br>`damage` the damage of the explosion
                                 <br>`air` whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
-                                <br>`ground` whether to damage ground or nor, true means it will damage air (ground unit, blocks, etc)
+                                <br>`ground` whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
                                 <br>`pierce` whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged</span>
                             </p>
                         </section>
@@ -1512,7 +1512,7 @@
                             <h2><li>Set Rate</li></h2>
                             <img alt="Image loading error, try reloading the page" src="image/set rate.png" >
                             <p>
-                                Set the speed of the processor, in ipt
+                                Set the speed of the processor, in instruction per tick, 1 second = 60 ticks
                             </p>
                         </section>
                         <section id="fetch">
@@ -1629,6 +1629,7 @@
                 <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
                 <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
                 <br>pan pans the sound to the left or right
+                <br>limit, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
             </p>
             <br>
             <h2><li>Weather Sense</li></h2>
