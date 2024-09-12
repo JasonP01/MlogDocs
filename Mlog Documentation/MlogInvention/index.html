@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mlog Invention</title>
     <link rel="icon" href="..\image\micro-processor.png" type="image/png">
-<body style="font-family: 'Courier New', Courier, monospace; background-color: rgb(62, 59, 73); color: white">
+<body style="font-family: 'Courier New', Courier, monospace; background-color: rgb(62, 59, 73); color: white;">
     <style>
         h1{
             text-align: center;
@@ -61,12 +61,18 @@
         Mlog Invention
     </h1>
     <h2>
-        Documenting Mlog invention that i deemed fit
+        Documenting Mlog invention that i deemed fit.
     </h2>
     <h3 class="warning" style="color: red;">if a schematic is bugged/not working/have trouble using, please reach out to corresponding creator, not me!</h3>
-    <br><div class="warning" style="font-size:medium;margin-right: 10vw;" ><span style="color: yellow;">for creators</span> : i do not alter either your code or your notes(schematic description), i found these schematics/invention in the public <a href="https://discord.com/invite/mindustry">Mindustry discord server</a>
-    ,i put them here for easy access and sorting, these page act like the #curated-schematics in the mindustry discord server but only for logics, where users can find great and useful logic schematics without the thousands of meme schematics
+    <hr><div class="warning" style="font-size:medium;margin-right: 10vw;" ><span style="color: yellow;">for creators</span> : i do not alter either your code or your notes(schematic description), i found these schematics/invention in the public <a href="https://discord.com/invite/mindustry">Mindustry discord server</a>
+    ,i put them here for easy access and sorting, 
     <br> if you want to remove your schematic from here for any reason feel free to reach out to me, either by making an issue on this github repository or dm-ing me directly, i will remove it no question asked</div>
+    <hr><div class="warning" style="font-size: 18px;margin-right: 10vw;color:lime; ">
+        this page act like the #curated-schematics in the mindustry discord server but only for logics, where users can find great and useful logic schematics without the thousands of meme schematics.
+        <br>some are fully comprehensive, sophisticated, ready to use schematic,
+        <br>and some are just to give a general idea on how to do something.
+    </div>
+    <hr>
     <ul>    
         <li>
             <b>Display Power Monitor by <span style="color: aqua;" >Yruei</span></b>
@@ -202,9 +208,25 @@
             <div>
                 File : <a href="MlogFiles/pack & unpack method.msch">Pack & Unpack method.msch</a>
                 <br><img src="MlogFiles/pack & unpack method.png" alt="" style="width: 700px;">
-                <br><span style="color: lime;">Gives 2 type of packing and unpacking of 2 numbers into one method, only meant to be read
+                <br><span style="color: lime;">Gives 2 type of packing and unpacking of 2 numbers into one method, gives a general idea how to pack numbers.
                     <br>because of how numbers is stored in computers the left method (bit shitf) is technically better, but the right might be more intuitive
                 </span>
+            </div>
+        </li>
+        <hr>
+        <li>
+            <b>Velocity Prediction (ripple) By <span style="color: aqua;">Yruei</span></b>
+            <div>
+                File : <a href="MlogFiles/ripple prediction.msch">ripple prediction.msch</a>
+                <br><div style="display: flex;"><img src="MlogFiles/target prediction.png" alt="" style="max-width: 40vw;"> 
+                <div style="margin: 20px;">
+                    <span style="color: yellow;">Yellow dot</span> = Turret 
+                    <br><span style="color: lime;">Green dot</span> = Target
+                    <br><span style="color: red;">Red dot</span> = Predicted Target location
+                    <br><span style="color: red;">Red line</span> = Turret aim 
+                </div>
+            </div>
+                <br><span style="color: lime;">target prediction with velocity, recreates the `targetp` instruction, gives a general idea how to predict a moving target</span>
             </div>
         </li>
     </ul>
