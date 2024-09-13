@@ -13,7 +13,7 @@
         <aside class="sidebar" id="sidebar">
             <ul>
                 <h2>Table of Contents</h2>
-                <li><a href="#foreword" class="sidebar-link">Foreword</a></li>
+                <li><a href="#foreword">Foreword</a></li>
                 <li><a href="#introduction" class="sidebar-link">Introduction</a></li>
                 <li><a href="#glossary" class="sidebar-link">Glossary</a></li>
                 <li><a href="#basic concept" class="sidebar-link">Basic Concept</a></li>
@@ -145,14 +145,14 @@
                         <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
                     <p>Strings</p>
                         <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
-                    <section id="building reference">
+                    <div id="building reference">
                     <p>Block or Unit Reference</p>
                         <p class="ti">every block and unit has a unique reference, so every block and unit can be differentiated from 
                             each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
                     in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#@unit" >@unit</a>
                     they can also be written to a normal variable</p>
                     </p>
-                    </section>
+                </div>
             </section>
             <section id="basic concept">
                 <hr>
@@ -221,19 +221,19 @@
                         different people write their variable differently, some chooses to write arbitrary words/letters like “peach” 
                         and others simply write “x+5”, whatever you choose is up to you, just keep in mind you have to remember them.
                     </p>
-                </section>
-                <section id="incrementing variable">
-                    <p style="margin: 0px;">
-                        Incrementing Variable
-                    </p>
-                    <p class="ti" style="margin: 4px;">
-                        Increment is the act or process of increasing
-                    </p>
-                    <img alt="alt" src="image/operation1.png" >
-                    <p>
-                        Since processor loops, this will increase “x” by 1 every loop, as time goes on x will 
-                        get bigger and bigger. This is what’s called incrementing a variable
-                    </p>
+                    <div id="incrementing variable">
+                        <p style="margin: 0px;">
+                            Incrementing Variable
+                        </p>
+                        <p class="ti" style="margin: 4px;">
+                            Increment is the act or process of increasing
+                        </p>
+                        <img alt="alt" src="image/operation1.png" >
+                        <p>
+                            Since processor loops, this will increase “x” by 1 every loop, as time goes on x will 
+                            get bigger and bigger. This is what’s called incrementing a variable
+                        </p>
+                    </div>
                 </section>
                 <section id="built in variables">
                     <p style="font-size: 23px;"> 
@@ -300,63 +300,62 @@
                             <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
                     </ol>
                 </section>
+                <section id="constants">
+                    <p style="font-size: 23px;">Constants</p>
+                    <p class="ti">
+                        Constant, they are like variable but you can’t write to them, their value are predetermined, 
+                        for example “<b>@pi</b>”, like the name suggest it is pi (  , 3.14159….), here are the list of constant 
+                        (if you’re just starting out you don’t have to read all of this, you can always come back):
+                    </p>
+                    <ol start="list-style-type:dics;">
+                        <li><b>Null</b></li>
+                        <p class="ti" style="margin-top: 5px;">
+                            null means none, it has no value
+                        </p>
+                        <li><b>true</b> and <b>false</b></li>
+                        <p class="ti" style="margin-top: 5px;">
+                            true and false are booleans, they are interpreted to 1 and 0
+                        </p>
+                        <li><b>@pi</b></li>
+                        <p class="ti" style="margin-top: 5px;">
+                            π, 3.14159….
+                        </p>
+                        <li><b>@e</b></li>
+                        <p class="ti" style="margin-top: 5px;">
+                            Mathematical constant e (2,71828…)
+                        </p>
+                        <li><b>@degToRad</b></li>
+                        <p class="ti" style="margin-top: 5px;">
+                            To convert degrees to radian, multiply the number with this
+                        </p>
+                        <li><b>@radToDeg</b></li>
+                        <p class="ti" style="margin-top: 5px;">
+                            Opposite of @degToRad
+                        </p>
+                    </ol>
+                </section>
+                <section id="buffers">
+                    <p style="font-size: 23px;">Buffers</p>
+                    <p class="ti">
+                        Internally there is a Text buffer and a Draw buffer in each processor, 
+                        when you use print or draw, when the processor runs it, it will store it in the buffer.
+                        Example: if you print “frog” the word “frog” will be stored in the text buffer, 
+                        then to get that word to a message block you have to use Print Flush which transfer 
+                        the items in the text buffer to the message block
+                    </p>
+                    <img alt="alt" src="image/print.png"  width="700px"><br>
+                    <img alt="alt" src="image/darw ex.png"  width="700px">
+                    <p>It's the same case with draw.
+                        <br><br>
+                        The draw buffer has 256 item limit, meaning you can only draw 256 times before needing to flush, otherwise everything after 256 just gets thrown out, 
+                        displays also have a buffer limit, 1024 / tick to be exact, this means if you flush 1025 items to 1 display in 1 tick 1 item will be lost.
+                        <br><br>
+                        The text buffer has a 400 character limit, for example “frog” is 4 characters. Even though the message block has a 220 characters limit you can still print 400 characters to it. 
+                        </p>
+                </section>
             </section>
-            <section id="constants">
-                <hr>
-                <h1>Constants</h1>
-                <p class="ti">
-                    Constant, they are like variable but you can’t write to them, their value are predetermined, 
-                    for example “<b>@pi</b>”, like the name suggest it is pi (  , 3.14159….), here are the list of constant 
-                    (if you’re just starting out you don’t have to read all of this, you can always come back):
-                </p>
-                <ol start="list-style-type:dics;">
-                    <li><b>Null</b></li>
-                    <p class="ti" style="margin-top: 5px;">
-                        null means none, it has no value
-                    </p>
-                    <li><b>true</b> and <b>false</b></li>
-                    <p class="ti" style="margin-top: 5px;">
-                        true and false are booleans, they are interpreted to 1 and 0
-                    </p>
-                    <li><b>@pi</b></li>
-                    <p class="ti" style="margin-top: 5px;">
-                        π, 3.14159….
-                    </p>
-                    <li><b>@e</b></li>
-                    <p class="ti" style="margin-top: 5px;">
-                        Mathematical constant e (2,71828…)
-                    </p>
-                    <li><b>@degToRad</b></li>
-                    <p class="ti" style="margin-top: 5px;">
-                        To convert degrees to radian, multiply the number with this
-                    </p>
-                    <li><b>@radToDeg</b></li>
-                    <p class="ti" style="margin-top: 5px;">
-                        Opposite of @degToRad
-                    </p>
-                </ol>
-            </section>
-            <section id="buffers">
-                <hr>
-                <h1>Buffers</h1>
-                <p class="ti">
-                    Internally there is a Text buffer and a Draw buffer in each processor, 
-                    when you use print or draw, when the processor runs it, it will store it in the buffer.
-                    Example: if you print “frog” the word “frog” will be stored in the text buffer, 
-                    then to get that word to a message block you have to use Print Flush which transfer 
-                    the items in the text buffer to the message block
-                </p>
-                <img alt="alt" src="image/print.png"  width="700px"><br>
-                <img alt="alt" src="image/darw ex.png"  width="700px">
-                <p>It's the same case with draw.
-                    <br><br>
-                    The draw buffer has 256 item limit, meaning you can only draw 256 times before needing to flush, otherwise everything after 256 just gets thrown out, 
-                    displays also have a buffer limit, 1024 / tick to be exact, this means if you flush 1025 items to 1 display in 1 tick 1 item will be lost.
-                    <br><br>
-                    The text buffer has a 400 character limit, for example “frog” is 4 characters. Even though the message block has a 220 characters limit you can still print 400 characters to it. 
-                    </p>
-            </section>
-            <h1 id="blocks">Blocks</h1>
+            <section id="blocks">
+            <h1>Blocks</h1>
                 <ol style="list-style-type: disc;">
                     <li>Message</li>
                     <p class="ti" style="margin-top: 5px;">
@@ -401,11 +400,11 @@
                         from <span style="color: yellow;">-2^53</span> , which is <span style="color: yellow;">−9007199254740992</span>. Beyond these limits, 
                         floating-point representation may lead to inaccuracies due to the way numbers are rounded.
                     </p>
-                    </section>
                 </ol>
-
+            </section>
+            <section id="instructions">
                 <hr>
-                <h1 id="instructions">Instructions</h1>
+                <h1>Instructions</h1>
                 <ol style="list-style-type: disc;">
                     <section id="read">
                         <h2><li><b>Read</b></li></h2>
@@ -899,8 +898,9 @@
                     </section>
                 </ol>
             </section>
+            <section id="controlling units">
                 <hr>
-                <h1 id="controlling units">Controlling Units</h1>
+                <h1>Controlling Units</h1>
                 <ol style="list-style-type: disc;">
                     <section id="@unit">
                         <h3><li><b>@unit</b></li></h3>
@@ -1145,8 +1145,9 @@
                 </section>
                 </ol>
             </section>
+            <section id="simple logic examples">
                 <hr>
-                <h1 id="simple logic examples">Simple Logic examples</h1>
+                <h1>Simple Logic examples</h1>
                 <div style="font-size: larger; color: yellow;">
                     From now on i will start documenting logic invention, <a href="MlogInvention/index.html">Mlog Invention</a>
                     <br> if you have a logic schematic/program/invention you want to be documented here feel free to dm me
@@ -1203,184 +1204,186 @@
                     <br>The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
                     </p>
                 </section>
+            </section>
                 <hr>
-            <h1 id="advanced">Advanced</h1>
+            <section id="advanced">
+                <h1>Advanced</h1>
                 <section id="writing in text editor">
-                <h2>Writing in text editor</h2>
-                <p class="ti">
-                    Mlog are essentially plain text, this means you can use any text editor to write mlog, including Notepad
-                    <br>Here are some things that makes it easier to write in plain text:
-                    <br>In these example i will be using Visual Studio Code with “Mindustry Logic” extension
-                    <br>
-                    <br>a new VS Code extension has been made by <span style="color: lightblue;">JeanJPNM</span>, “<a href="https://marketplace.visualstudio.com/items?itemName=JeanJPNM.mlogls-vscode">Mindustry Logic for VSCode</a>” !
-                    This extension brings actual support for mlog, like syntax highlighting, intellisense, diagnostic messages, and more, if you’re writing with VSCode I recommend checking this out.
-                </p>
-                <h3>Lables</h3>
-                <img alt="alt" src="image/labels.png" >
-                <p>Labels are replacement for jumps number, this way you can write freely without needing to worry about jump numbers</p>
-                <h3>Comments</h3>
-                <p>Comments will be removed when importing the code to the game</p>
-                <h3>Combining lines</h3>
-                <img alt="alt" src="image/seperate.png" >
-                <p>You can combine lines with  “ ; “</p>
-                <h3>Tabs and newlines</h3>
-                <img alt="alt" src="image/labels.png" >
-                <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
-                <p>List of mlog <a href="#text form instruction">instruction in text form</a></p>
+                    <h2>Writing in text editor</h2>
+                    <p class="ti">
+                        Mlog are essentially plain text, this means you can use any text editor to write mlog, including Notepad
+                        <br>Here are some things that makes it easier to write in plain text:
+                        <br>In these example i will be using Visual Studio Code with “Mindustry Logic” extension
+                        <br>
+                        <br>a new VS Code extension has been made by <span style="color: lightblue;">JeanJPNM</span>, “<a href="https://marketplace.visualstudio.com/items?itemName=JeanJPNM.mlogls-vscode">Mindustry Logic for VSCode</a>” !
+                        This extension brings actual support for mlog, like syntax highlighting, intellisense, diagnostic messages, and more, if you’re writing with VSCode I recommend checking this out.
+                    </p>
+                    <h3>Lables</h3>
+                    <img alt="alt" src="image/labels.png" >
+                    <p>Labels are replacement for jumps number, this way you can write freely without needing to worry about jump numbers</p>
+                    <h3>Comments</h3>
+                    <p>Comments will be removed when importing the code to the game</p>
+                    <h3>Combining lines</h3>
+                    <img alt="alt" src="image/seperate.png" >
+                    <p>You can combine lines with  “ ; “</p>
+                    <h3>Tabs and newlines</h3>
+                    <img alt="alt" src="image/labels.png" >
+                    <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
+                    <p>List of mlog <a href="#text form instruction">instruction in text form</a></p>
                 </section>
-                <h1 id="transpiler">Transpiler</h1>
-                Transpiler is a program that translate programming language to another programming language 
-                <br>
-                <br>List of compiler:  (Last updated: 11 / 04 / 2023) (Information gathered by <span style="color: lightblue;">Varxalaxiacis</span>)
+                <section id="transpiler">
+                    <h1>Transpiler</h1>
+                    Transpiler is a program that translate programming language to another programming language 
+                    <br>
+                    <br>List of compiler:  (Last updated: 11 / 04 / 2023) (Information gathered by <span style="color: lightblue;">Varxalaxiacis</span>)
 
-                <ol>
-                    <li style="font-size: larger;"><a href="https://github.com/cardillan/mindcode"><b>Mincode</b></a> :</li>
-                    <ul style="list-style-type:circle;">
-                        <li>Repo Owner : cardillan</li>  
-                        <li>Last Updated : November 4, 2023  </li>
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/Lonami/pyndustric"><b>Pyndustric</b></a> :</li>
-                    <ul><ul></ul>
-                        <li>Repo Owner: Lonami </li> 
-                        <li>Last Updated: July 27, 2023</li>  
-                    </ul>
-                    <br><b></b>
-                    <li style="font-size: larger;"><a href="https://github.com/JeanJPNM/mlogls"><b>Mlogls</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: JeanJPNM  </li>
-                        <li>Last Updated: July 13, 2023  </li>
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/BalaM314/mlogx"><b>Mlogx</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: BalaM314</li>
-                        <li>Last Updated: April 13, 2023</li>  
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogium?tab=readme-ov-file"><b>mlogium</b></a>:</li>
-                    <ul>
-                        <li>Repo Owner: albi-c</li>  
-                        <li>Last Updated: April 15, 2023 </li> 
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/mlogjs/mlogjs"><b>Mlog JS</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: mlogjs</li>  
-                        <li>Last Updated: March 6, 2023</li> 
-                    </ul> 
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/BnDLett/mlog_compiler"><b>Mlog Compiler</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: BnDLett  </li>
-                        <li>Last Updated: February 2, 2023</li> 
-                    </ul> 
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/SuperStormer/c2logic"><b>c2logic</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: SuperStormer  </li>
-                        <li>Last Updated: February 2, 2023 </li> 
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/yangfl/minasm"><b>MlogEvo</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: yangfl  </li>
-                        <li>Last Updated: December 2, 2022  </li>
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/Vilsol/go-mlog"><b>go-mlog</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: Vilsol  </li>
-                        <li>Last Updated: March 20, 2022  </li>
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogpp"><b>Mlogpp</b></a> : </li>
-                    <ul>
-                        <li>Repo Owner: albi-c  </li>
-                        <li>Last Updated: September 1, 2021</li>  
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/quantumsheep/glsl-mlog-compiler"><b>GLSL to Mlog</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: quantumsheep  </li>
-                        <li>Last Updated: August 6, 2021  </li>
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/Voz-Duh/Mindustry_CodeToLogic"><b>Mindustry CodeToLogic</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: Voz-Duh </li> 
-                        <li>Last Updated: August 20, 2021</li>  
-                    </ul>
-                    <br>
-                    <li style="font-size: larger;"><a href="https://github.com/A4-Tacks/mindustry_logic_bang_lang/tree/main"><b>Mlog Bang Lang</b></a> :</li>
-                    <ul>
-                        <li>Repo Owner: A4-Tacks</li>  
-                        <li>Last Updated: December 8, 2021</li>
-                    </ul>
-                </ol>
-                <h1 id="mods">Mods</h1>
-                <div>
-                    <ul><span style="font-size: larger;">these mods add little to none new content, their purpose is to enhance logic, not add to them</span>
-                        <br><br>
-                        <li style="font-size: larger;"><b>yr2 Logic Debugger</b></li>
-                        a common and popular choice, can be found in the game's mod browser
-                        <br>a very comprehensive mod that enchance the ui of logic, gives many excellent extra feature like:
-                            <ul>
-                                <li>viewing memory cells content in real time</li>
-                                <li>viewing all processor's variables in real time</li>
-                                <li>view currently binded unit with a red line trace to the unit</li>
-                                <li>and much more</li>
-                            </ul>
-                            <br>
-                        <li style="font-size: larger;"><b>Logic Debugger By DeltaNedas</b></li>
-                        can be found in the game's mod browser
-                        <br>features :
-                        <ul>
-                            <li>Step through logic instructions</li>
-                            <li>viewing memory cells content in real time</li>
-                            <li>viewing all processor's variables in real time</li>
+                    <ol>
+                        <li style="font-size: larger;"><a href="https://github.com/cardillan/mindcode"><b>Mincode</b></a> :</li>
+                        <ul style="list-style-type:circle;">
+                            <li>Repo Owner : cardillan</li>  
+                            <li>Last Updated : November 4, 2023  </li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><b>Logic Debugger Extended</b></li>
-                        an extended version of Logic Debugger By Deltanedas extended By zxtej
-                        <br>Repo : <a href="https://github.com/zxtej/ldb">https://github.com/zxtej/ldb</a>
+                        <li style="font-size: larger;"><a href="https://github.com/Lonami/pyndustric"><b>Pyndustric</b></a> :</li>
+                        <ul><ul></ul>
+                            <li>Repo Owner: Lonami </li> 
+                            <li>Last Updated: July 27, 2023</li>  
+                        </ul>
+                        <br><b></b>
+                        <li style="font-size: larger;"><a href="https://github.com/JeanJPNM/mlogls"><b>Mlogls</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: JeanJPNM  </li>
+                            <li>Last Updated: July 13, 2023  </li>
+                        </ul>
                         <br>
+                        <li style="font-size: larger;"><a href="https://github.com/BalaM314/mlogx"><b>Mlogx</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: BalaM314</li>
+                            <li>Last Updated: April 13, 2023</li>  
+                        </ul>
                         <br>
-                        <li style="font-size: larger;"><b>Infinite/logics</b></li>
-                        Gives faster processor and world processor, max ipt of which is 6 Million (6.000.000) compared to world processor vanilla which is 500.
-                        <br>Gives larger and borderless displays
-                        <br>can be found in the game's mods browser
+                        <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogium?tab=readme-ov-file"><b>mlogium</b></a>:</li>
+                        <ul>
+                            <li>Repo Owner: albi-c</li>  
+                            <li>Last Updated: April 15, 2023 </li> 
+                        </ul>
                         <br>
+                        <li style="font-size: larger;"><a href="https://github.com/mlogjs/mlogjs"><b>Mlog JS</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: mlogjs</li>  
+                            <li>Last Updated: March 6, 2023</li> 
+                        </ul> 
                         <br>
-                        <li style="font-size: larger;"><b>New Console</b></li>
-                        Gives a new console ui superior to the built-in one
-                        <br>can be found in the game's mods browser
+                        <li style="font-size: larger;"><a href="https://github.com/BnDLett/mlog_compiler"><b>Mlog Compiler</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: BnDLett  </li>
+                            <li>Last Updated: February 2, 2023</li> 
+                        </ul> 
                         <br>
+                        <li style="font-size: larger;"><a href="https://github.com/SuperStormer/c2logic"><b>c2logic</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: SuperStormer  </li>
+                            <li>Last Updated: February 2, 2023 </li> 
+                        </ul>
                         <br>
-                        <li style="font-size: larger;"><b>Time Control</b></li>
-                        speed up / slow down the game.
-                        <br>when used with a logic debugger you can see each instruction execution in slow motion, might give a better understanding how a code works, or debugging.
-                        <br>can be found in the game's mods browser
-
-
-
-                    </ul>
-                    
-
-                </div>
-
-                <h1 id="subframe">Antithreading / Subframe</h1>
-                <p>
-                    uses the game update order to force multiple processors into one.
-                    <br>Every ingame frame the game updates blocks from left to right and bottom to top, this is not always true if you just recently placed a block, to fix this reload your save.
-                    <br>`wait 1e-3` or just `wait 0.001` will make the processor wait exactly a single frame before continuing running the instructions after it, this also depends on your game FPS
-                    <br>using these you can make multiple processors run instructions at the same time
-                    <br>use cases for this are very minimal, ( I, of course, don’t know every detail about this, the use cases i did use this for was drawing into a single display with multiple processor without it flashing)
-                </p>
-
+                        <li style="font-size: larger;"><a href="https://github.com/yangfl/minasm"><b>MlogEvo</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: yangfl  </li>
+                            <li>Last Updated: December 2, 2022  </li>
+                        </ul>
+                        <br>
+                        <li style="font-size: larger;"><a href="https://github.com/Vilsol/go-mlog"><b>go-mlog</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: Vilsol  </li>
+                            <li>Last Updated: March 20, 2022  </li>
+                        </ul>
+                        <br>
+                        <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogpp"><b>Mlogpp</b></a> : </li>
+                        <ul>
+                            <li>Repo Owner: albi-c  </li>
+                            <li>Last Updated: September 1, 2021</li>  
+                        </ul>
+                        <br>
+                        <li style="font-size: larger;"><a href="https://github.com/quantumsheep/glsl-mlog-compiler"><b>GLSL to Mlog</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: quantumsheep  </li>
+                            <li>Last Updated: August 6, 2021  </li>
+                        </ul>
+                        <br>
+                        <li style="font-size: larger;"><a href="https://github.com/Voz-Duh/Mindustry_CodeToLogic"><b>Mindustry CodeToLogic</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: Voz-Duh </li> 
+                            <li>Last Updated: August 20, 2021</li>  
+                        </ul>
+                        <br>
+                        <li style="font-size: larger;"><a href="https://github.com/A4-Tacks/mindustry_logic_bang_lang/tree/main"><b>Mlog Bang Lang</b></a> :</li>
+                        <ul>
+                            <li>Repo Owner: A4-Tacks</li>  
+                            <li>Last Updated: December 8, 2021</li>
+                        </ul>
+                    </ol>
+                </section>
+                <section id="mods">
+                    <h1>Mods</h1>
+                    <div>
+                        <ul><span style="font-size: larger;">these mods add little to none new content, their purpose is to enhance logic, not add to them</span>
+                            <br><br>
+                            <li style="font-size: larger;"><b>yr2 Logic Debugger</b></li>
+                            a common and popular choice, can be found in the game's mod browser
+                            <br>a very comprehensive mod that enchance the ui of logic, gives many excellent extra feature like:
+                                <ul>
+                                    <li>viewing memory cells content in real time</li>
+                                    <li>viewing all processor's variables in real time</li>
+                                    <li>view currently binded unit with a red line trace to the unit</li>
+                                    <li>and much more</li>
+                                </ul>
+                                <br>
+                            <li style="font-size: larger;"><b>Logic Debugger By DeltaNedas</b></li>
+                            can be found in the game's mod browser
+                            <br>features :
+                            <ul>
+                                <li>Step through logic instructions</li>
+                                <li>viewing memory cells content in real time</li>
+                                <li>viewing all processor's variables in real time</li>
+                            </ul>
+                            <br>
+                            <li style="font-size: larger;"><b>Logic Debugger Extended</b></li>
+                            an extended version of Logic Debugger By Deltanedas extended By zxtej
+                            <br>Repo : <a href="https://github.com/zxtej/ldb">https://github.com/zxtej/ldb</a>
+                            <br>
+                            <br>
+                            <li style="font-size: larger;"><b>Infinite/logics</b></li>
+                            Gives faster processor and world processor, max ipt of which is 6 Million (6.000.000) compared to world processor vanilla which is 500.
+                            <br>Gives larger and borderless displays
+                            <br>can be found in the game's mods browser
+                            <br>
+                            <br>
+                            <li style="font-size: larger;"><b>New Console</b></li>
+                            Gives a new console ui superior to the built-in one
+                            <br>can be found in the game's mods browser
+                            <br>
+                            <br>
+                            <li style="font-size: larger;"><b>Time Control</b></li>
+                            speed up / slow down the game.
+                            <br>when used with a logic debugger you can see each instruction execution in slow motion, might give a better understanding how a code works, or debugging.
+                            <br>can be found in the game's mods browser
+                        </ul>
+                    </div>
+                </section>
+                <section id="subframe">
+                    <h1>Antithreading / Subframe</h1>
+                    <p>
+                        uses the game update order to force multiple processors into one.
+                        <br>Every ingame frame the game updates blocks from left to right and bottom to top, this is not always true if you just recently placed a block, to fix this reload your save.
+                        <br>`wait 1e-3` or just `wait 0.001` will make the processor wait exactly a single frame before continuing running the instructions after it, this also depends on your game FPS
+                        <br>using these you can make multiple processors run instructions at the same time
+                        <br>use cases for this are very minimal, ( I, of course, don’t know every detail about this, the use cases i did use this for was drawing into a single display with multiple processor without it flashing)
+                    </p>
+                </section>
                 <hr>
-
-            <h1 id="world logic">World Logic</h1>
+            </section>
+            <section id="world logic">
+                <h1>World Logic</h1>
                 <p class="ti"> 
                     World processor are processor that controls how the world behave, they have every instruction a normal processor have plus world instruction
                     <br>They have unlimited range
@@ -1615,176 +1618,180 @@
                     </ol>
 
                 <hr>
-            <h1 id="bleeding edge">Bleeding Edge</h1>
-            <p class="spin" style="margin-left: 20px;">
-                Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
-                <br>BE version can be found and downloaded on
-                <a href="https://github.com/Anuken/MindustryBuilds">https://github.com/Anuken/MindustryBuilds</a>
+            </section>
+            <section id="bleeding edge">
+                <h1>Bleeding Edge</h1>
+                <p class="spin" style="margin-left: 20px;">
+                    Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
+                    <br>BE version can be found and downloaded on
+                    <a href="https://github.com/Anuken/MindustryBuilds">https://github.com/Anuken/MindustryBuilds</a>
+                    <br>
+                    <br><span style="font-size: larger;">BE feature are subject to <span style="color: red;">change</span>, therefore i cannot make sure these information are up to date</span>
+                </p>
                 <br>
-                <br><span style="font-size: larger;">BE feature are subject to <span style="color: red;">change</span>, therefore i cannot make sure these information are up to date</span>
-            </p>
-            <br>
-            <h2><li>Draw print</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
-            </p>
-            <br>
-            <h2><li>Draw Translate</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush.
-                <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
-                <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
-                <br>to reset it use draw reset
-            </p>
-            <br>
-            <h2><li>Draw Scale</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                scale the display coordinates / zooms it, this is also not static.
-                <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
-                <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again.
-                <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x.
-            </p>
-            <br>
-            <h2><li>Draw Rotate</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                self explanatory, rotate the display coordinates by a degree, also not static.
-            </p>
-            <br>
-            <h2><li>Draw Reset</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one.
-            </p>
-            <br>
-            <h2><li>Format</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                allows you to print a variable or something else inside a string, if you know python it's similar to
-                <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string.
+                <h2><li>Draw print</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
+                </p>
                 <br>
-                <br>the pattern is {0-9}
+                <h2><li>Draw Translate</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush.
+                    <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
+                    <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
+                    <br>to reset it use draw reset
+                </p>
                 <br>
-                <br>example:
-                <br><img alt="alt" src="image/format.png" >
-                <img alt="alt" src="image/format 1.png" >
-                <br>the first format will take {0} and the second format will take {1}
-            </p>
-            <br>
-            <h2><li>Play Sound</li></h2>
-            <img alt="alt" src="image/play sound.png" >
-            <p class="spin" style="margin-left: 20px;">
-                <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>.
-                <br>volume controls the volume of the played sound</span>.
-                <br>pitch change the pitch of the played sound, </span>.
-                <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>.
-                <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
-                <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
-                <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
-                <br>pan pans the sound to the left or right
-                <br>limit, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
-            </p>
-            <br>
-            <h2><li>Weather Sense</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                sense the current weather is the specified weather type, returns boolean
-            </p>
-            <br>
-            <h2><li>Weather Set</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                set the current state of the weather to the specified type
-            </p>
-            <br>
-            <h2><li>Make Marker</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                Makes a Marker
-                <br>id is numeric identity of the Marker, id can be from 0 to 19999
-                <br>meaning a world/map can only have 20.000 markers
+                <h2><li>Draw Scale</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    scale the display coordinates / zooms it, this is also not static.
+                    <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
+                    <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again.
+                    <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x.
+                </p>
                 <br>
-                <br>currently there is a <span style="color: red;">bug</span> with the `replace` argument where it <span style="color: red;">replaces</span> other markers than the specified id
-                <br>advice is : don't enable the `replace` argument, keep it 0 / false
+                <h2><li>Draw Rotate</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    self explanatory, rotate the display coordinates by a degree, also not static.
+                </p>
                 <br>
+                <h2><li>Draw Reset</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one.
+                </p>
                 <br>
-                <b>Texture</b>, makes a marker for a Texture.
-                <br>initially invisible until texture is defined, using <mark class="wp">setmarker texture</mark>.
-                <br>texture can be anything that is available in the game.
+                <h2><li>Format</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    allows you to print a variable or something else inside a string, if you know python it's similar to
+                    <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string.
+                    <br>
+                    <br>the pattern is {0-9}
+                    <br>
+                    <br>example:
+                    <br><img alt="alt" src="image/format.png" >
+                    <img alt="alt" src="image/format 1.png" >
+                    <br>the first format will take {0} and the second format will take {1}
+                </p>
                 <br>
+                <h2><li>Play Sound</li></h2>
+                <img alt="alt" src="image/play sound.png" >
+                <p class="spin" style="margin-left: 20px;">
+                    <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>.
+                    <br>volume controls the volume of the played sound</span>.
+                    <br>pitch change the pitch of the played sound, </span>.
+                    <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>.
+                    <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
+                    <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
+                    <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
+                    <br>pan pans the sound to the left or right
+                    <br>limit, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
+                </p>
                 <br>
-                <b>Quad</b>, are quadrilateral.
-                <br>quad has 4 vertices.
-                <br>each vertices can be set using <mark class="wp">setmarker posi</mark>.
-            </p>
-            <br>
-            <h2><li>Set Marker</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                Sets a property of a marker with the specified id.
+                <h2><li>Weather Sense</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    sense the current weather is the specified weather type, returns boolean
+                </p>
                 <br>
+                <h2><li>Weather Set</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    set the current state of the weather to the specified type
+                </p>
                 <br>
-                <b>Texture</b>, sets the texure of a marker.
-                <br>the `printFlush` argument are boolean,
-                <br>when true it uses the text in the text buffer as the name,
-                <br>otherwise uses the `name` argument.
-                <br>name can game content name, like <span style="color: yellow;">@router</span>, or <span style="color: yellow;">@surge-alloy</span>, if doesn't work use file name instead.
-                <br>can also be file name, like <span style="color: yellow;">"item-copper"</span>, when using a file name remember to put them in quotes,
-                <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
+                <h2><li>Make Marker</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    Makes a Marker
+                    <br>id is numeric identity of the Marker, id can be from 0 to 19999
+                    <br>meaning a world/map can only have 20.000 markers
+                    <br>
+                    <br>currently there is a <span style="color: red;">bug</span> with the `replace` argument where it <span style="color: red;">replaces</span> other markers than the specified id
+                    <br>advice is : don't enable the `replace` argument, keep it 0 / false
+                    <br>
+                    <br>
+                    <b>Texture</b>, makes a marker for a Texture.
+                    <br>initially invisible until texture is defined, using <mark class="wp">setmarker texture</mark>.
+                    <br>texture can be anything that is available in the game.
+                    <br>
+                    <br>
+                    <b>Quad</b>, are quadrilateral.
+                    <br>quad has 4 vertices.
+                    <br>each vertices can be set using <mark class="wp">setmarker posi</mark>.
+                </p>
                 <br>
-                <br>
-                <b>Posi</b>, sets the vertices location of a quad, location are world x,y location
-                <br>with index from 0-3
-                <br>each index repesents each vertices
-                <br>
-                <br>
-                <b>Color</b>, change the color of the marker.
-                <br>color only tints the color of the marker,
-                <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
-                <br>since quad doesn't have a color quad will take the full color the specified color.
+                <h2><li>Set Marker</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    Sets a property of a marker with the specified id.
+                    <br>
+                    <br>
+                    <b>Texture</b>, sets the texure of a marker.
+                    <br>the `printFlush` argument are boolean,
+                    <br>when true it uses the text in the text buffer as the name,
+                    <br>otherwise uses the `name` argument.
+                    <br>name can game content name, like <span style="color: yellow;">@router</span>, or <span style="color: yellow;">@surge-alloy</span>, if doesn't work use file name instead.
+                    <br>can also be file name, like <span style="color: yellow;">"item-copper"</span>, when using a file name remember to put them in quotes,
+                    <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
+                    <br>
+                    <br>
+                    <b>Posi</b>, sets the vertices location of a quad, location are world x,y location
+                    <br>with index from 0-3
+                    <br>each index repesents each vertices
+                    <br>
+                    <br>
+                    <b>Color</b>, change the color of the marker.
+                    <br>color only tints the color of the marker,
+                    <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
+                    <br>since quad doesn't have a color quad will take the full color the specified color.
 
-            </p>
-            <br>
-            <h2><li>Locale Print</li></h2>
-            <p class="spin" style="margin-left: 20px;">
+                </p>
+                <br>
+                <h2><li>Locale Print</li></h2>
+                <p class="spin" style="margin-left: 20px;">
 
-            </p>
-            <br>
-            <h2><li>@cameraWidth and @cameraHeight</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                an object camera width/height, usually the players possesed object, eg turrets/units
-                <br>the width/height numbers are in blocks
-                <br>example:
-                <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
-                <br>a maxed zoomed in screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
-                <br>if the object is not a player/doesn't have a camera returns 0
-            </p>
-            <br>
-            <h2><li>@cameraX and @cameraY</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                an object x/y camera location
-                <br>the x/y numbers are in the map coordinate system
-                <br>example:
-                <br>`sensor x <mark class="lg">@unit</mark> <mark class="lg">@cameraX</mark>`, where `<mark class="lg">@unit</mark>` is the player
-                <br>while moving the camera returns the camera position in the map coordinate location
-                <br>different from sensoring `<mark class="lg">@x</mark>` since you can move the camera independently of the unit
-            </p>
-            <br>
-            <h2><li>@solid</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                an object solidness
-                <br>example:
-                <br>`sensor s conveyor1 <mark class="lg">@solid</mark>`
-                <br>returns `s` as <span style="color: yellow;">0</span>
-                <br>while a wall for example returns 1
-            </p>
-            <br>
-            <h2><li>@velocityX and @velocityY</li></h2>
-            <p class="spin" style="margin-left: 20px;">
-                an object velocity, in blocks/second
-                <br>example:
-                <br>`sensor vx <mark class="lg">@unit</mark> <mark class="lg">@velocityX</mark>`
-                <br>returns `vx` as a number of the <mark class="lg">@unit</mark> velocity in blocks/second
-                <br>can also be think of as a vector,
-                <br>by using `<mark class="op">op len</mark>` on the <mark class="lg">@unit</mark>'s <mark class="lg">@velocityX</mark> and <mark class="lg">@velocityY</mark> you can get the unit current speed
-                <br>this variable also avaiable in `<mark class="wp">setprop</mark>`
-            </p>
-            <br>
+                </p>
+                <br>
+                <h2><li>@cameraWidth and @cameraHeight</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    an object camera width/height, usually the players possesed object, eg turrets/units
+                    <br>the width/height numbers are in blocks
+                    <br>example:
+                    <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
+                    <br>a maxed zoomed in screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
+                    <br>if the object is not a player/doesn't have a camera returns 0
+                </p>
+                <br>
+                <h2><li>@cameraX and @cameraY</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    an object x/y camera location
+                    <br>the x/y numbers are in the map coordinate system
+                    <br>example:
+                    <br>`sensor x <mark class="lg">@unit</mark> <mark class="lg">@cameraX</mark>`, where `<mark class="lg">@unit</mark>` is the player
+                    <br>while moving the camera returns the camera position in the map coordinate location
+                    <br>different from sensoring `<mark class="lg">@x</mark>` since you can move the camera independently of the unit
+                </p>
+                <br>
+                <h2><li>@solid</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    an object solidness
+                    <br>example:
+                    <br>`sensor s conveyor1 <mark class="lg">@solid</mark>`
+                    <br>returns `s` as <span style="color: yellow;">0</span>
+                    <br>while a wall for example returns 1
+                </p>
+                <br>
+                <h2><li>@velocityX and @velocityY</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    an object velocity, in blocks/second
+                    <br>example:
+                    <br>`sensor vx <mark class="lg">@unit</mark> <mark class="lg">@velocityX</mark>`
+                    <br>returns `vx` as a number of the <mark class="lg">@unit</mark> velocity in blocks/second
+                    <br>can also be think of as a vector,
+                    <br>by using `<mark class="op">op len</mark>` on the <mark class="lg">@unit</mark>'s <mark class="lg">@velocityX</mark> and <mark class="lg">@velocityY</mark> you can get the unit current speed
+                    <br>this variable also avaiable in `<mark class="wp">setprop</mark>`
+                </p>
+                <br>
+            </section>
+            <section id="extras">
                 <hr>
-                <h1 id="extras">Extras</h2>
+                <h1>Extras</h2>
                 <p>
                     These are niche question that very small number of people might have
                 </p>
@@ -1845,24 +1852,28 @@
                         <br>damage received = 131
                     </p>
                 </section>
-            <h1 id="self promotion">Self Promotion</h1>
-            <h2>My Micro Processor only Bad Apple!!!</h2>
-            <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
-            <img alt="alt" src="image/bad apple.gif" >
-            <br><h2>Raycasting and DDA Raycasting</h2>
-            <a href="https://youtu.be/oyeoV2xXz8U" class="ytlink">Mindustry Raycasting</a>
-            <img alt="alt" src="image/raycasting.gif" >
-            <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
-            <img alt="alt" src="image/raycasting 2.gif" >
-            <h2>Perspective Projection</h2>
-            <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
-            <img alt="alt" src="image/perspective projection.gif" >
-            <img alt="alt" src="image/spinning birb.gif" >
-            <h2>Power Monitor with Numbers</h2>
-            <img alt="alt" src="image/power display.gif" >
+            </section>
+            <section id="self promotion">
+                <h1>Self Promotion</h1>
+                <h2>My Micro Processor only Bad Apple!!!</h2>
+                <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
+                <img alt="alt" src="image/bad apple.gif" >
+                <br><h2>Raycasting and DDA Raycasting</h2>
+                <a href="https://youtu.be/oyeoV2xXz8U" class="ytlink">Mindustry Raycasting</a>
+                <img alt="alt" src="image/raycasting.gif" >
+                <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
+                <img alt="alt" src="image/raycasting 2.gif" >
+                <h2>Perspective Projection</h2>
+                <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
+                <img alt="alt" src="image/perspective projection.gif" >
+                <img alt="alt" src="image/spinning birb.gif" >
+                <h2>Power Monitor with Numbers</h2>
+                <img alt="alt" src="image/power display.gif" >
+            </section>
+            <section id="appendix">
 
                 <hr>
-                <h1 id="appendix">Appendix</h2>
+                <h1>Appendix</h2>
 
                 <h2 id="mloginvention">Mlog Invention</h2>
                 is in a seperate page <a href="MlogInvention/index.html">Yrueii.github.io/Mlog Documentation/MlogInvention</a>
@@ -1902,7 +1913,6 @@
                     <br>@liquidCount
                     <br>    <span class="spin">count of total different type of liquid in the game</span>
                     </section>
-                </section>
                 <section id="environment">
                     <h2>Environment</h2>
                     <table>
@@ -2647,8 +2657,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </section>
-                <section id="Units">
                     <br> <h2>Items</h2>
                     <br><table>
                         <tbody>
@@ -2710,119 +2718,120 @@
                         </tbody>
                     </table>
                     <br>
-                    <section id="units">
-                        <br><h2>Units</h2>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>@dagger</td>
-                                    <td>@mace</td>
-                                    <td>@fortress</td>
-                                </tr>
-                                <tr>
-                                    <td>@scepter</td>
-                                    <td>@reign</td>
-                                    <td>@nova</td>
-                                </tr>
-                                <tr>
-                                    <td>@pulsar</td>
-                                    <td>@quasar</td>
-                                    <td>@vela</td>
-                                </tr>
-                                <tr>
-                                    <td>@corvus</td>
-                                    <td>@crawler</td>
-                                    <td>@atrax</td>
-                                </tr>
-                                <tr>
-                                    <td>@spiroct</td>
-                                    <td>@arkyid</td>
-                                    <td>@toxopid</td>
-                                </tr>
-                                <tr>
-                                    <td>@flare</td>
-                                    <td>@horizon</td>
-                                    <td>@zenith</td>
-                                </tr>
-                                <tr>
-                                    <td>@antumbra</td>
-                                    <td>@eclipse</td>
-                                    <td>@mono</td>
-                                </tr>
-                                <tr>
-                                    <td>@poly</td>
-                                    <td>@mega</td>
-                                    <td>@quad</td>
-                                </tr>
-                                <tr>
-                                    <td>@oct</td>
-                                    <td>@risso</td>
-                                    <td>@minke</td>
-                                </tr>
-                                <tr>
-                                    <td>@bryde</td>
-                                    <td>@sei</td>
-                                    <td>@omura</td>
-                                </tr>
-                                <tr>
-                                    <td>@retusa</td>
-                                    <td>@oxynoe</td>
-                                    <td>@cyerce</td>
-                                </tr>
-                                <tr>
-                                    <td>@aegires</td>
-                                    <td>@navanax</td>
-                                    <td>@alpha</td>
-                                </tr>
-                                <tr>
-                                    <td>@beta</td>
-                                    <td>@gamma</td>
-                                    <td>@stell</td>
-                                </tr>
-                                <tr>
-                                    <td>@locus</td>
-                                    <td>@precept</td>
-                                    <td>@vanquish</td>
-                                </tr>
-                                <tr>
-                                    <td>@conquer</td>
-                                    <td>@merui</td>
-                                    <td>@cleroi</td>
-                                </tr>
-                                <tr>
-                                    <td>@anthicus</td>
-                                    <td>@anthicus-missile</td>
-                                    <td>@tecta</td>
-                                </tr>
-                                <tr>
-                                    <td>@collaris</td>
-                                    <td>@elude</td>
-                                    <td>@avert</td>
-                                </tr>
-                                <tr>
-                                    <td>@obviate</td>
-                                    <td>@quell</td>
-                                    <td>@quell-missile</td>
-                                </tr>
-                                <tr>
-                                    <td>@disrupt</td>
-                                    <td>@disrupt-missile</td>
-                                    <td>@renale</td>
-                                </tr>
-                                <tr>
-                                    <td>@latum</td>
-                                    <td>@evoke</td>
-                                    <td>@incite</td>
-                                </tr>
-                                <tr>
-                                    <td>@emanate</td>
-                                    <td>@scathe-missile</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </section>
                 </section>
+                <section id="units">
+                    <br><h2>Units</h2>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>@dagger</td>
+                                <td>@mace</td>
+                                <td>@fortress</td>
+                            </tr>
+                            <tr>
+                                <td>@scepter</td>
+                                <td>@reign</td>
+                                <td>@nova</td>
+                            </tr>
+                            <tr>
+                                <td>@pulsar</td>
+                                <td>@quasar</td>
+                                <td>@vela</td>
+                            </tr>
+                            <tr>
+                                <td>@corvus</td>
+                                <td>@crawler</td>
+                                <td>@atrax</td>
+                            </tr>
+                            <tr>
+                                <td>@spiroct</td>
+                                <td>@arkyid</td>
+                                <td>@toxopid</td>
+                            </tr>
+                            <tr>
+                                <td>@flare</td>
+                                <td>@horizon</td>
+                                <td>@zenith</td>
+                            </tr>
+                            <tr>
+                                <td>@antumbra</td>
+                                <td>@eclipse</td>
+                                <td>@mono</td>
+                            </tr>
+                            <tr>
+                                <td>@poly</td>
+                                <td>@mega</td>
+                                <td>@quad</td>
+                            </tr>
+                            <tr>
+                                <td>@oct</td>
+                                <td>@risso</td>
+                                <td>@minke</td>
+                            </tr>
+                            <tr>
+                                <td>@bryde</td>
+                                <td>@sei</td>
+                                <td>@omura</td>
+                            </tr>
+                            <tr>
+                                <td>@retusa</td>
+                                <td>@oxynoe</td>
+                                <td>@cyerce</td>
+                            </tr>
+                            <tr>
+                                <td>@aegires</td>
+                                <td>@navanax</td>
+                                <td>@alpha</td>
+                            </tr>
+                            <tr>
+                                <td>@beta</td>
+                                <td>@gamma</td>
+                                <td>@stell</td>
+                            </tr>
+                            <tr>
+                                <td>@locus</td>
+                                <td>@precept</td>
+                                <td>@vanquish</td>
+                            </tr>
+                            <tr>
+                                <td>@conquer</td>
+                                <td>@merui</td>
+                                <td>@cleroi</td>
+                            </tr>
+                            <tr>
+                                <td>@anthicus</td>
+                                <td>@anthicus-missile</td>
+                                <td>@tecta</td>
+                            </tr>
+                            <tr>
+                                <td>@collaris</td>
+                                <td>@elude</td>
+                                <td>@avert</td>
+                            </tr>
+                            <tr>
+                                <td>@obviate</td>
+                                <td>@quell</td>
+                                <td>@quell-missile</td>
+                            </tr>
+                            <tr>
+                                <td>@disrupt</td>
+                                <td>@disrupt-missile</td>
+                                <td>@renale</td>
+                            </tr>
+                            <tr>
+                                <td>@latum</td>
+                                <td>@evoke</td>
+                                <td>@incite</td>
+                            </tr>
+                            <tr>
+                                <td>@emanate</td>
+                                <td>@scathe-missile</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </section>
                 <section id="text form instruction">
                     <h2>Text form instruction</h2>
                         <br>or you can just write the instruction in game and “copy to clipboard”
