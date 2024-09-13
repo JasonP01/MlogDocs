@@ -1,4 +1,8 @@
 /* styles.css */
+html {
+    scroll-behavior:smooth;
+  }
+
 body {
     font-family: Arial, sans-serif;
     font-size: 15px;
@@ -84,8 +88,21 @@ body {
     color: #ffffff;
 }
 
-.sidebar ul li a:hover {
+.sidebar ul li a:hover {    
     text-decoration: underline;
+}
+
+.highlight {
+    background-color: rgb(53, 52, 81);
+    color: black; 
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+
+#sidebar a {
+display: block; /* This ensures that the link takes up the entire line (makes it look like a box) */
+text-decoration: none; /* Optional: to remove the underline from the link */
 }
 
 .main-content {
@@ -152,8 +169,6 @@ section {
     .hamburger-menu {
         margin-left: -60px;
     }
-
-
 
 }
 
