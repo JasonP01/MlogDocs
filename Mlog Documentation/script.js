@@ -45,9 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
     function highlightCurrentSection() {
       const centerX = window.innerWidth / 1.5;
-      const centerY = window.innerHeight / 2;
-  
-      const elementAtCenter = document.elementFromPoint(centerX, centerY);
+      let centerY = window.innerHeight / 2;
+      let elementAtCenter = document.elementFromPoint(centerX, centerY);
 
       let currentSection = elementAtCenter.closest('section');
       let parentSections = [];
@@ -56,6 +55,18 @@ document.addEventListener('DOMContentLoaded', function() {
         parentSections.push(currentSection);
         currentSection = currentSection.parentElement.closest('section');
       }
+
+      let section = elementAtCenter.closest('section'); // Find the closest section to the element at the center
+      const maxHeight = window.innerHeight - 30;
+      while (section == parentSections[0] && centerY < maxHeight || !section && centerY < maxHeight) {
+        centerY += 10;
+        elementAtCenter = document.elementFromPoint(centerX, centerY);
+        section = elementAtCenter.closest('section');
+      }
+      if (section != null)
+        parentSections.push(section);
+      
+
   
       tocLinks.forEach(link => link.classList.remove('highlight'));
   
