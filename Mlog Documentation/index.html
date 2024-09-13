@@ -58,6 +58,7 @@
                 <li><a href="#advanced" class="sidebar-link">Advanced</a></li>
                 <li class="indent1"><a href="#writing in text editor" class="sidebar-link">Writing in text editor</a></li>
                 <li class="indent1"><a href="#transpiler" class="sidebar-link">Transpiler</a></li>
+                <li class="indent1"><a href="#mods" class="sidebar-link">Mods</a></li>
                 <li class="indent1"><a href="#subframe" class="sidebar-link">Antithreading / Subframe</a></li>
                 <li><a href="#world logic" class="sidebar-link">World Logic (WIP)</a></li>
                 <li class="indent1"><a href="#how to get world processor" class="sidebar-link">How to get World Processor</a></li>
@@ -109,15 +110,14 @@
             <section id="foreword">
                 <hr>
                 <h1>Foreword</h1>
-                <p class="ti">This documentation was created entirely by me, so there may be inaccuracies or omissions. As English is not my first language, I apologize for any spelling or grammar errors. If you have any corrections, additions, or suggestions, please feel free to contact me to discuss them.
+                <p class="ti">This documentation was written entirely by me, so there may be inaccuracies or omissions. As English is not my first language, I apologize for any spelling or grammar errors. If you have any corrections, additions, or suggestions, please feel free to contact me to discuss them.
                     Or if you just want to ask questions, I’ll be happy to help
                     you can DM me on<br>
                     Discord (Yruei)
                     <br>Reddit (<a  href="https://www.reddit.com/user/Far_Kale588/">u/Far_Kale558</a>)
                     <br>or make an issue <a href="https://github.com/Yrueii/Yrueii.github.io/issues">Here</a>
-                    <br><br><br>this is the new website, it still needs a bit of tweaking especially some gifs, but it shouldn't affect information availbility.
-                    <br>images are rendered at 100% resolution, meaning no matter how small you screen is if you zoom in enough it will show its original resolution.
-                    <br>if you prefer the old website for some reason click <a href="https://docs.google.com/document/d/19QCrupPGglPaCuIfajgktu2At5iJLrrSaM2jeXXyuyg/edit?usp=sharing"> here</a> (Google docs).
+                    <br><br><br>this is the new website, images are rendered at 100% resolution, meaning no matter how small you screen is if you zoom in enough it will show its original resolution.
+                    <!-- <br>if you prefer the old website for some reason click <a href="https://docs.google.com/document/d/19QCrupPGglPaCuIfajgktu2At5iJLrrSaM2jeXXyuyg/edit?usp=sharing"> here</a> (outdated). -->
                     
                     </p>
             </section>
@@ -178,7 +178,7 @@
                         (<img alt="alt" src="image/ui5.png"  style="top: 15px; width: 120px;">)</span>opens a menu to export/import codes</p>
                     <img alt="alt" src="image/ui2.png"  style="width: 300px; left:160px;">
                     <p>when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
-                        unlike a schematic mlog code are plain readable text, <a href="#text form instruction" >click here for more info</a></p>
+                        unlike a schematic, mlog code are plain readable text, <a href="#text form instruction" >click here for more info</a></p>
                     </p>
                 </section>
                 <section id="how processor run its code">
@@ -1317,17 +1317,67 @@
                         <li>Repo Owner: A4-Tacks</li>  
                         <li>Last Updated: December 8, 2021</li>
                     </ul>
-
                 </ol>
-                <section id="subframe">
-                <h2>Antithreading / Subframe</h2>
-                <p>uses the game update order to force multiple processors into one.
+                <h1 id="mods">Mods</h1>
+                <div>
+                    <ul><span style="font-size: larger;">these mods add little to none new content, their purpose is to enhance logic, not add to them</span>
+                        <br><br>
+                        <li style="font-size: larger;"><b>yr2 Logic Debugger</b></li>
+                        a common and popular choice, can be found in the game's mod browser
+                        <br>a very comprehensive mod that enchance the ui of logic, gives many excellent extra feature like:
+                            <ul>
+                                <li>viewing memory cells content in real time</li>
+                                <li>viewing all processor's variables in real time</li>
+                                <li>view currently binded unit with a red line trace to the unit</li>
+                                <li>and much more</li>
+                            </ul>
+                            <br>
+                        <li style="font-size: larger;"><b>Logic Debugger By DeltaNedas</b></li>
+                        can be found in the game's mod browser
+                        <br>features :
+                        <ul>
+                            <li>Step through logic instructions</li>
+                            <li>viewing memory cells content in real time</li>
+                            <li>viewing all processor's variables in real time</li>
+                        </ul>
+                        <br>
+                        <li style="font-size: larger;"><b>Logic Debugger Extended</b></li>
+                        an extended version of Logic Debugger By Deltanedas extended By zxtej
+                        <br>Repo : <a href="https://github.com/zxtej/ldb">https://github.com/zxtej/ldb</a>
+                        <br>
+                        <br>
+                        <li style="font-size: larger;"><b>Infinite/logics</b></li>
+                        Gives faster processor and world processor, max ipt of which is 6 Million (6.000.000) compared to world processor vanilla which is 500.
+                        <br>Gives larger and borderless displays
+                        <br>can be found in the game's mods browser
+                        <br>
+                        <br>
+                        <li style="font-size: larger;"><b>New Console</b></li>
+                        Gives a new console ui superior to the built-in one
+                        <br>can be found in the game's mods browser
+                        <br>
+                        <br>
+                        <li style="font-size: larger;"><b>Time Control</b></li>
+                        speed up / slow down the game.
+                        <br>when used with a logic debugger you can see each instruction execution in slow motion, might give a better understanding how a code works, or debugging.
+                        <br>can be found in the game's mods browser
+
+
+
+                    </ul>
+                    
+
+                </div>
+
+                <h1 id="subframe">Antithreading / Subframe</h1>
+                <p>
+                    uses the game update order to force multiple processors into one.
                     <br>Every ingame frame the game updates blocks from left to right and bottom to top, this is not always true if you just recently placed a block, to fix this reload your save.
                     <br>`wait 1e-3` or just `wait 0.001` will make the processor wait exactly a single frame before continuing running the instructions after it, this also depends on your game FPS
                     <br>using these you can make multiple processors run instructions at the same time
                     <br>use cases for this are very minimal, ( I, of course, don’t know every detail about this, the use cases i did use this for was drawing into a single display with multiple processor without it flashing)
-                    </p>
-                </section>
+                </p>
+
                 <hr>
 
             <h1 id="world logic">World Logic</h1>
