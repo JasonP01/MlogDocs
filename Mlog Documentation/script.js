@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tocLinks = document.querySelectorAll('#sidebar a');
   
     function highlightCurrentSection() {
-      const centerX = window.innerWidth / 2;
+      const centerX = window.innerWidth / 1.5;
       const centerY = window.innerHeight / 2;
   
       const elementAtCenter = document.elementFromPoint(centerX, centerY);
