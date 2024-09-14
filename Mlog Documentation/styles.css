@@ -158,6 +158,11 @@ section {
     body {
         font-size: 12px;
     }
+    
+    table {
+        width: 90vw; /* Make the table width 100% of its container */
+        border-collapse: collapse; /* Collapse borders */
+    }
 
 }
 
@@ -168,6 +173,10 @@ section {
     }
     .hamburger-menu {
         margin-left: -60px;
+    }
+    table {
+        width: 100%; /* Make the table width 100% of its container */
+        border-collapse: collapse; /* Collapse borders */
     }
 
 }
@@ -263,10 +272,7 @@ ol.custom-list li::before {
 
 }
 
-table {
-    width: 90vw; /* Make the table width 100% of its container */
-    border-collapse: collapse; /* Collapse borders */
-}
+
 th, td {
     border: 1px solid black; /* Add a border to table cells */
     padding: 3px; /* Add padding inside cells */
