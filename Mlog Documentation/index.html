@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mlog Documentation</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="image\micro-processor.png" type="image/png">
@@ -435,7 +435,7 @@
                             <li><b>Clear</b></li>
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
-                                <img alt="alt" src="image/draw clear.png" ><br>
+                                <img alt="alt" src="image/draw clear.png" style="max-width: 80vw !important;"><br>
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
@@ -445,7 +445,7 @@
                             
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
-                                <img alt="alt" src="image/draw color.png" ><br>
+                                <img alt="alt" src="image/draw color.png" style="max-width: 80vw !important;"><br>
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
@@ -465,14 +465,14 @@
                             <li><b>Line</b></li>
                             <p class="ti">
                                 Draws a line from one coordinates to another coordinates<br>
-                                <img alt="alt" src="image/draw line.png" ><br>
+                                <img alt="alt" src="image/draw line.png" style="max-width: 80vw !important;"><br>
                                 x,y is the first set of coordinates<br>
                                 x2,y2 is the second sets of coordinates
                             </p>
                             <li><b>Rect</b></li>
                             <p class="ti">
                                 Draw a rectangle at the specified coordinates with the bottom left of the rectangle as its origin<br>
-                                <img alt="alt" src="image/draw rect.png" ><br>
+                                <img alt="alt" src="image/draw rect.png" style="max-width: 80vw !important;"><br>
                                 x,y is the rectangle coordinates<br>
                                 Width and height are the rectangle width and height
                             </p>
@@ -483,7 +483,7 @@
                             <li><b>Poly</b></li>
                             <p class="ti">
                                 Draw a polygon with its center as its origin<br>
-                                <img alt="alt" src="image/draw poly.png" ><br>
+                                <img alt="alt" src="image/draw poly.png" style="max-width: 80vw !important;"><br>
                                 x,y is the polygon coordinates<br>
                                 sides is the number of sides the polygon will have<br>
                                 radius is the radius of the polygon<br>
@@ -496,7 +496,7 @@
                             <li><b>Triangle</b></li>
                             <p class="ti">
                                 Draws a triangle with 3 different sets coordinates as its vertices<br>
-                                <img alt="alt" src="image/draw triangle.png" >
+                                <img alt="alt" src="image/draw triangle.png" style="max-width: 80vw !important;">
                                 <br>x,y is the first sets of coordinates<br>
                                 x2,y2 is the second sets of coordinates<br>
                                 x3,y3 is the second sets of coordinates
@@ -504,7 +504,7 @@
                             <li><b>Image</b></li>
                             <p class="ti">
                                 Draws an image of something from the game, such as a dagger or copper with its center as its origin<br>
-                                <img alt="alt" src="image/draw image.png" ><br>
+                                <img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
                                 x,y is the of coordinates<br>
                                 image is what image it will draw, you put object name here, like @dagger<br>
                                 size is the size of the image<br>
@@ -527,11 +527,11 @@
                         <ol style="list-style-type: circle;">
                             <li><b>\n</b></li>
                             <p class="ti">Writing \n will write the next text to a new line, example:</p>
-                            <img alt="alt" src="image/new line.png" >
+                            <img alt="alt" src="image/new line.png" style="max-width: 80vw !important;">
                             <li>Printing colors “<b> [ ] </b>"</li>
                             <p class="ti">
                                 You can change printed colors with [ ], example<br>
-                                <img alt="alt" src="image/print color.png" co><br>
+                                <img alt="alt" src="image/print color.png" style="max-width: 80vw !important;"><br>
                                 You can either put color names or hexadecimal color code<br>
                                 Example of HEX color code is [#FF0000] for red, you can simply search “hex color picker” on google to choose your own color
                             </p>
@@ -572,14 +572,14 @@
                             <li>Shoot</li>
                             <p class="ti">
                                 Shoot at a coordinate position, 
-                                <br><img src="image/control.png" alt="">
+                                <br><img src="image/control.png" alt="" style="max-width: 80vw !important;">
                                 <br><mark class="lg">x</mark> and <mark class="lg">y</mark> is coordinate location where to aim/shoot at
                                 <br><mark class="lg">shoot</mark> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
                             </p>
                             <li>Shootp</li>
                             <p class="ti">
                                 Shoot at a unit/building but with velocity prediction
-                                <br><img src="image/control shootp.png" alt="">
+                                <br><img src="image/control shootp.png" alt="" style="max-width: 80vw !important;">
                                 <br><mark class="lg">unit</mark>, what object to aim/shoot at, it says `unit` but you can put a building reference there too.
                                 <br><mark class="lg">shoot</mark> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
                             <li>Config</li>
@@ -604,7 +604,7 @@
                         <h2><li><b>Radar</b></li></h2>
                         <p class="ti">
                             Radar a unit in range of the building’s range<br>
-                            <img alt="alt" src="image/radar.png"><br>
+                            <img alt="alt" src="image/radar.png"style="max-width: 88vw !important;"><br>
                             ‘from’ is building reference<br>
                             ‘target’ is a filter, target enemy means it will only radar enemy units<br>
                             ‘order’ is sorting order, ascending or descending, can only be 0 or 1<br>
@@ -619,12 +619,12 @@
                         <h2><li><b>Sensor</b></li></h2>
                         <p class="ti">
                             Sensor / get / read data from an object, usually buildings or units with their reference<br>
-                            <img alt="alt" src="image/sensor.png"><br>
+                            <img alt="alt" src="image/sensor.png"style="max-width: 88vw !important;"><br>
                             “results” is your named variable<br>
                             “<span style="color: yellow;">@copper</span>” is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
                             “block1” building reference, it is what object to get the data from, can also be a <a href="#controlling units">unit reference</a><br>
                             Example:<br>
-                            <img alt="alt" src="image/sensor 1.png"><br>
+                            <img alt="alt" src="image/sensor 1.png"style="max-width: 88vw !important;"><br>
                             This will get the amount of copper in ‘vault1’, the number will be stored in the variable ‘result’, let’s say the vault has 10 coppers, therefore ‘result’ will be 10
                         </p>
                     </section>
@@ -638,7 +638,7 @@
                         <h2><li><b>Operation</b></li></h2>
                         <p class="ti">
                             Perform a single operation on 2 variables, or just numbers directly, example:
-                            <img alt="alt" src="image/operation.png"><br>
+                            <img alt="alt" src="image/operation.png"style="max-width: 88vw !important;"><br>
                             Let’s say “a” is 10, therefore this operation means 10 + 5<br>
                             “result” will then be 15 
                         </p>
@@ -1078,9 +1078,9 @@
                         <img alt="alt" src="image/ucontrol within.png" ><br>
                         <img alt="alt" src="image/vis ucontrol within.png" >
                         <img alt="alt" src="image/vis ucontrol within 1.png" ><br>
-                        In this two scenario, the picture on the left will have the 
+                        In this two scenario, the first picture will have the 
                         variable “result” true because the unit is within the circle, 
-                        while the right picture is false because it is outside the circle
+                        while the second picture is false because it is outside the circle
                     </p>
                     <h3><li><b>Unbind</b></li></h3>
                     <p class="ti">
@@ -1104,7 +1104,7 @@
                 <section id="unit radar">
                     <h1><li><b>Unit Radar</b></li></h1>
                     <p class="ti">
-                        <img alt="alt" src="image/unit radar.png" >
+                        <img alt="alt" src="image/unit radar.png" style="max-width: 80vw !important;">
                         <br><mark class="unit">Unit radar</mark> locates other unit around the <span style="color: yellow;">@unit</span> unit within the unit’s range (information can be found in-game’s info menu)
                         <br><mark class="lg">target</mark> is a filter of what category of unit it will radar, enemy means it will radar enemy units
                         <br><mark class="lg">Order</mark> is sorting order, ascending or descending, can only be 0 or 1
@@ -1122,7 +1122,7 @@
                         <h1><li><b>Building</b></li></h1>
                         <p>
                             Will locate a building of the selected group, in this case, core,
-                            <br><img alt="alt" src="image/unit locate.png" >
+                            <br><img alt="alt" src="image/unit locate.png" style="max-width: 80vw !important;">
                             <br><mark class="lg">Enemy</mark> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                             <br><mark class="lg">outX</mark> and <mark class="lg">outY</mark> are the building’s output coordinates
                             <br><mark class="lg">Found</mark> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
@@ -1130,7 +1130,7 @@
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
-                           <img alt="alt" src="image/unit locate 2.png" >
+                           <img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
                            <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span> 
                         </p>
                         <h1><li><b>Spawn</b></li></h1>
@@ -1728,7 +1728,7 @@
                     <br>otherwise uses the `name` argument.
                     <br>name can game content name, like <span style="color: yellow;">@router</span>, or <span style="color: yellow;">@surge-alloy</span>, if doesn't work use file name instead.
                     <br>can also be file name, like <span style="color: yellow;">"item-copper"</span>, when using a file name remember to put them in quotes,
-                    <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
+                    <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
                     <br>
                     <br>
                     <b>Posi</b>, sets the vertices location of a quad, location are world x,y location
