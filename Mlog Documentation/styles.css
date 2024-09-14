@@ -151,7 +151,7 @@ section {
 
     img {
         position: relative !important;
-        max-width: 95% !important;
+        max-width: 90vw !important;
         left: 0px !important; 
     }
 
@@ -264,7 +264,7 @@ ol.custom-list li::before {
 }
 
 table {
-    width: 100%; /* Make the table width 100% of its container */
+    width: 90vw; /* Make the table width 100% of its container */
     border-collapse: collapse; /* Collapse borders */
 }
 th, td {
