@@ -304,3 +304,17 @@ th {
     pointer-events: none;
     animation: backgroundGlow 1.5s ease-in-out;
   }
+
+.error-message {
+    display: none;
+    color: #ff0000; 
+    font-size: 16px; 
+    font-weight: bold;
+    text-align: center; 
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #fdd;
+    border: 2px solid #f00;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
