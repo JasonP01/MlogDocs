@@ -87,6 +87,7 @@
                 <li class="indent1"><a href="#getting unit cap" class="sidebar-link">Getting unit cap</a></li>
                 <li class="indent1"><a href="#v6 unit control with logic" class="sidebar-link">v6 unit control with logic</a></li>
                 <li class="indent1"><a href="#damage calculation" class="sidebar-link">Damage calculation   </a></li>
+                <li class="indent1"><a href="#math">Math</a></li>
                 <li><a href="#self promotion" class="sidebar-link">Self promotion</a></li>
                 <li><a href="#appendix" class="sidebar-link">Appendix</a></li>
                 <li class="indent1"><a href="#mloginvention" class="sidebar-link">Mlog Invention</a></li>
@@ -178,7 +179,8 @@
                         (<img alt="alt" src="image/ui5.png"  style="top: 15px; width: 120px;">)</span>opens a menu to export/import codes</p>
                     <img alt="alt" src="image/ui2.png"  style="width: 300px; left:160px;">
                     <p>when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
-                        unlike a schematic, mlog code are plain readable text, <a href="#text form instruction" >click here for more info</a></p>
+                        unlike a schematic, mlog code are plain readable text, <a href="#text form instruction" >click here for more info</a>
+                        <br>this mlog code can be pasted into a processor again using the "import from clipboard"
                     </p>
                 </section>
                 <section id="how processor run its code">
@@ -197,10 +199,10 @@
                         (you can see a circle, this is the processor range) and clicking the building
                     </p>
                     <img alt="alt" src="image/link.png"  style="width: 600px;">
-                    <p>“display1” is now a variable that can be used in the processor, it stores a <a href="#building reference" >building reference.</a> 
-                        is also sometimes called a “building variable”
-                        building variable cannot be overwritten by any means, 
-                        in other words, you cannot use this variable to put in an output of an instruction
+                    <p>“display1” is now a variable that can be used in the processor, it stores a <a href="#building reference" >building reference,</a> 
+                        is also sometimes called a “building variable”,
+                        <br>building variable cannot be overwritten by any means, 
+                        <br>in other words, you cannot use this variable to put in an output of an instruction
                     </p>
                 </section>
                 <section id="variables">
@@ -220,10 +222,11 @@
                         meaning “result” is now 15 Of course it doesn’t have to be “result”, you can write anything for it, 
                         different people write their variable differently, some chooses to write arbitrary words/letters like “peach” 
                         and others simply write “x+5”, whatever you choose is up to you, just keep in mind you have to remember them.
+                        <br><br>a processor doesn't have a limit on how many variables it can have, however a processor has a 1000 instruction limit
                     </p>
                     <div id="incrementing variable">
                         <p style="margin: 0px;">
-                            Incrementing Variable
+                            <b>Incrementing Variable</b>
                         </p>
                         <p class="ti" style="margin: 4px;">
                             Increment is the act or process of increasing
@@ -247,7 +250,8 @@
                     <ol style="list-style-type: disc;">
                         <li><b>@counter</b></li>
                             <p style="margin-top: 5px;">
-                                @counter shows the current line the processor runs at, other than giving you crucial 
+                                @counter shows the current line number the processor runs at,
+                                <br>other than giving you crucial 
                                 information while debugging you can also use it by writing to it, changing its value, usage example:
                             </p>
                             <img alt="alt" src="image/set counter 10.png" >
@@ -523,6 +527,7 @@
                         <h2><li><b>Print</b></li></h2>
                         <p class="ti">
                             Prints the specified value to the text buffer, can print both text and variables
+                            <br>however you cannot print text and variable in 1 instruction, you have to use multiple instruction
                         </p>
                         <ol style="list-style-type: circle;">
                             <li><b>\n</b></li>
@@ -1841,7 +1846,7 @@
                 <section id="damage calculation">
                     <h2>Damage calculation</h2>
                     <p class="ti">
-                        <br>every unit has an armor value, in most cases damage is just simply subtracted by this armor value, formula is 
+                        every unit has an armor value, in most cases damage is just simply subtracted by this armor value, formula is 
                         <br>damage received = max (damage * 0.1 , damage - armor)
                         <br>example :
                         <br>unit = corvus, armor = 9
@@ -1851,6 +1856,42 @@
                         <br>damage received = max ( 14 , 131)
                         <br>damage received = 131
                     </p>
+                </section>
+                <section id="math">
+                    <h2>Math</h2>
+                    Math is useful in every language. Since there are so many topics, I will only explain the ones commonly used in Mindustry.
+                    <ul>
+                        <li>Trigonometry
+                            <br>Sine
+                            <br>Calculates how much a point moves along the Y-axis based on an angle.
+                            <br>for example: Imagine a clock hand (arrow) with a length of 1, the arrow is currently point to 3 o'clock, let's say that is 0&deg;, 
+                            <br>now rotate the arrow counterclock wise by 45&deg;, the arrow is now pointing between 1 and 2 (1:30), 
+                            <br>now place a point at the tip of the arrow, 
+                            <br>in just the Y-axis what is the length from the center of the clock to that point?
+                            <br>this is what sin(45&deg;) gets, which is 0.707106..., 
+                            <br>Cosine does the same but in the X-axis instead
+                            <br><br>using this you can plot a point based on another point
+                            <br>for example you want to plot a point in front of a unit, sensor its <span style="color: yellow;">@rotation</span>, sine and cosine it,
+                            <br>the new point formula is <mark class="lg">Xnew = Xcurrent + Cos(<span style="color: yellow; background-color: grey;">@rotation</span>)</mark> and <mark class="lg">Ynew = Ycurrent + Sin(<span style="color: yellow; background-color: grey;">@rotation</span>)</mark>
+                            <br>where <mark class="lg">Xcurrent</mark> and <mark class="lg">Ycurrent</mark> is the current location of the unit, which you can get by sensoring it for <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>
+                            <br>this will plot a point with a length exactly 1 from the unit, to increase the length just multiply the output of the sine and cosine:
+                            <br><mark class="lg">5*Cos(@rotation)</mark> and <mark class="lg">5*Sin(@rotation)</mark>, same as before add this to the current unit position, this will make a point in front of the unit with a length of exactly 5
+                        </li>
+                        <br>
+                        <li>LERP (Linear Interpolation)
+                            <br>in Mindustry it is mainly used for getting a point in between 2 known points, the general formula are:
+                            <br><mark class="lg">X<sub>new</sub> = (1 - t) * X<sub>1</sub> + t * X<sub>2</sub></mark>
+                            <br><mark class="lg">Y<sub>new</sub> = (1 - t) * Y<sub>1</sub> + t * Y<sub>2</sub></mark>
+                            <br>where X<sub>1</sub> and Y<sub>1</sub> is the first known point and
+                            <br> X<sub>2</sub> and Y<sub>2</sub> is the second known point
+                            <br>t is ratio from 1 point to the other, for example if you wanna get a point in the middle of 2 known point put t as 0.5
+                            <br>or if you want 75% of the way, put t as 0.75
+                        </li>
+                        <br>
+                        <li>Vectors
+                            
+                        </li>
+                    </ul>
                 </section>
             </section>
             <section id="self promotion">
