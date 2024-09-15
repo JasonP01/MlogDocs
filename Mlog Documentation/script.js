@@ -31,7 +31,7 @@ document.querySelectorAll('img').forEach(img => {
 
         let errorMessage = document.createElement('span');
         errorMessage.className = 'error-message';
-        errorMessage.textContent = 'Image loading error, try reloading the page';
+        errorMessage.textContent = 'Image loading error, try reloading the page, if persist contact me';
         
         this.parentNode.insertBefore(errorMessage, this.nextSibling);
         errorMessage.style.display = 'block';
@@ -90,6 +90,11 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
   
 function triggerGlow(event) {
+
+  event.preventDefault();
+  document.querySelector(this.getAttribute('href')).scrollIntoView({
+    behavior: 'smooth'
+  });
 
   // Get the href attribute and extract the target ID
   const targetId = event.target.getAttribute('href').substring(1);
