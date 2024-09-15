@@ -281,3 +281,26 @@ th, td {
 th {
     background-color: #f2f2f2; /* Add background color to table headers */
 }
+
+
+@keyframes backgroundGlow {
+    50% {
+        background: rgba(200, 200, 200, 0.5); /* Glow color */
+    }
+  }
+
+.glow-section {
+    position: relative;
+}
+
+.glow-section::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 30px;
+    margin-left: -50px;
+    filter:blur(10px);
+    z-index: 1001;
+    pointer-events: none;
+    animation: backgroundGlow 1.5s ease-in-out;
+  }
