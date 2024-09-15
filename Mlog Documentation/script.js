@@ -81,5 +81,35 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightCurrentSection);
   
     highlightCurrentSection();
-  });
+});
+
+
+// Add event listener 'onclick' to every a[href = (with #)]
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', triggerGlow);
+});
   
+function triggerGlow(event) {
+
+  // Get the href attribute and extract the target ID
+  const targetId = event.target.getAttribute('href').substring(1);
+  const targetElement = document.getElementById(targetId);
+
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        triggerGlow1(targetElement);
+        observer.disconnect();
+      }
+    });
+  });
+
+  observer.observe(targetElement);
+}
+
+function triggerGlow1(section) {
+  section.classList.remove('glow-section');
+  void section.offsetWidth;
+  section.classList.add('glow-section');
+}
