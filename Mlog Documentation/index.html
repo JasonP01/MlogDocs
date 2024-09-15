@@ -13,7 +13,7 @@
         <aside class="sidebar" id="sidebar">
             <ul>
                 <h2>Table of Contents</h2>
-                <li><a href="#foreword">Foreword</a></li>
+                <li><a href="#foreword" class="sidebar-link">Foreword</a></li>
                 <li><a href="#introduction" class="sidebar-link">Introduction</a></li>
                 <li><a href="#glossary" class="sidebar-link">Glossary</a></li>
                 <li><a href="#basic concept" class="sidebar-link">Basic Concept</a></li>
@@ -21,7 +21,7 @@
                 <li class="indent1"><a href="#processor's ui" class="sidebar-link">Processor's UI</a></li>
                 <li class="indent1"><a href="#how processor run its code" class="sidebar-link">How Processors run its code</a></li>
                 <li class="indent1"><a href="#links" class="sidebar-link">Links</a></li>
-                <li class="indent1"><a href="#variables">Variables</a></li>
+                <li class="indent1"><a href="#variables" class="sidebar-link">Variables</a></li>
                 <li class="indent1"><a href="#built in variables" class="sidebar-link">Built in Variables</a></li>
                 <li class="indent1"><a href="#constants" class="sidebar-link">Constant</a></li>
                 <li class="indent1"><a href="#buffers" class="sidebar-link">Buffers</a></li>
@@ -87,7 +87,7 @@
                 <li class="indent1"><a href="#getting unit cap" class="sidebar-link">Getting unit cap</a></li>
                 <li class="indent1"><a href="#v6 unit control with logic" class="sidebar-link">v6 unit control with logic</a></li>
                 <li class="indent1"><a href="#damage calculation" class="sidebar-link">Damage calculation   </a></li>
-                <li class="indent1"><a href="#math">Math</a></li>
+                <li class="indent1"><a href="#math" class="sidebar-link">Math</a></li>
                 <li><a href="#self promotion" class="sidebar-link">Self promotion</a></li>
                 <li><a href="#appendix" class="sidebar-link">Appendix</a></li>
                 <li class="indent1"><a href="#mloginvention" class="sidebar-link">Mlog Invention</a></li>
@@ -138,22 +138,33 @@
                 <hr>
                 <h1><b>Glossary</b></h1>
                 <p style="font-size: 23px;">Data types<br>
-                    <p> Integers</p>
+                    <p><b>Integers</b></p>
                         <p class="ti"><a href="https://en.wikipedia.org/wiki/Integer" >Integers</a> are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.</p>
-                    <p>Float</p>
+                    <p><b>Float</b></p>
                         <p class="ti">Opposite of integers, decimal numbers, 1.001, are float.</p>
-                    <p>Boolean</p>
+                    <p><b>Boolean</b></p>
                         <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
-                    <p>Strings</p>
+                    <p><b>Strings</b></p>
                         <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
-                    <div id="building reference">
-                    <p>Block or Unit Reference</p>
-                        <p class="ti">every block and unit has a unique reference, so every block and unit can be differentiated from 
+                    <section id="building reference" style="margin-bottom: 0;">
+                    <p><b>Block or Unit Reference</b></p>
+                        <p class="ti">
+                            every block and unit has a unique reference, so every block and unit can be differentiated from 
                             each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
-                    in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#@unit" >@unit</a>
-                    they can also be written to a normal variable</p>
+                            in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#@unit" >@unit</a>
+                            they can also be written to a normal variable
+                        </p>
+                    </section>
+                    <section id="contentname">
+                    <p><b>Content name</b></p>
+                    <p class="ti">
+                        in-game content/item names, like <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@surge-alloy</span>, <span style="color: yellow;">@antumbra</span> kebab case naming, and case sensitive
+                        <br>these are <b>not</b> variables, these are <b>values</b> that can be stored in variables
+                        <br>
+                        <br>content name can be found in the <a href="#appendix">appendix</a>
                     </p>
-                </div>
+                    </section>
+                
             </section>
             <section id="basic concept">
                 <hr>
@@ -507,7 +518,7 @@
                             </p>
                             <li><b>Image</b></li>
                             <p class="ti">
-                                Draws an image of something from the game, such as a dagger or copper with its center as its origin<br>
+                                Draws an image of something from the game with <a href="#contentname">content name</a>, such as <span style="color: yellow;">@dagger</span> or <span style="color: yellow;">@copper</span> with its center as its origin<br>
                                 <img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
                                 x,y is the of coordinates<br>
                                 image is what image it will draw, you put object name here, like @dagger<br>
@@ -591,8 +602,8 @@
                             <p class="ti">  
                                 Change the configuration of buildings, 
                                 <br>for example :
-                                <br>sorter config, by putting item name to the <mark class="lg">to</mark> arguments, eg <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@lead</span>
-                                <br>unit factory config, by putting unit name to the <mark class="lg"> to</mark> arguments, eg <span style="color: yellow;">@flare</span>, <span style="color: yellow;">@dagger</span>, 
+                                <br>sorter config, by putting <a href="#contentname">item name</a> to the <mark class="lg">to</mark> arguments, eg <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@lead</span>, <span style="color: yellow;">@surge-alloy</span>
+                                <br>unit factory config, by putting <a href="#contentname">unit name</a> to the <mark class="lg"> to</mark> arguments, eg <span style="color: yellow;">@flare</span>, <span style="color: yellow;">@dagger</span>, 
                                 and of course it only supports units it meant to create, if you put other unit name that it cant create it will just deselect all unit
                             </p>
                             </p>
@@ -1061,7 +1072,7 @@
                         <mark class="lg">x,y</mark> is build location<br>
                         <mark class="lg">block</mark> is what block to build<br>
                         <mark class="lg">rotation</mark> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
-                        <mark class="lg">Config</mark>, configuration of blocks, eg, if `<span style="color: yellow;">@copper</span>` when building a sorter will set the sorter to `<span style="color: yellow;">@copper</span>`. Additionally can be a building reference, eg, if `<mark style="color: yellow;">@this</mark>` when building a processor will copy `<mark style="color: yellow;">@this</mark>` processor’s code to the built processor
+                        <mark class="lg">Config</mark>, configuration of blocks, eg, if `<span style="color: yellow;">@copper</span>` when building a sorter will set the sorter to `<span style="color: yellow;">@copper</span>`. Additionally can be a building reference, eg, if `<span style="color: yellow;">@this</span>` when building a processor will copy `<span style="color: yellow;">@this</span>` processor’s code to the built processor
                     </p>
                     <h3><li><b>getBlock</b></li></h3>
                     <p class="ti">
@@ -2201,7 +2212,7 @@
                     <br>    <span class="spin">total items the object is currently holding; returns integer</span>
                     <br>@firstItem
                     <br>    <span class="spin">the first item the object is currently holding</span>
-                    <br>    <span class="spin">returns item names, eg, @copper, @lead</span>
+                    <br>    <span class="spin">returns item names, eg, @copper, @lead, @surge-alloy</span>
                     <br>@totalLiquids
                     <br>    <span class="spin">total liquid units the object is currently holding; returns number</span>
                     <br>@totalPower
