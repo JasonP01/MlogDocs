@@ -56,6 +56,13 @@
             font-size: xx-large;
         }
 
+        .code{
+            background-color: rgb(38, 36, 44);
+            padding: 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
     </style>
     <h1 style="margin-top: 3vw;">
         Mlog Invention
@@ -235,9 +242,32 @@
             <div>
                 File : <a href="MlogFiles/Unpack color.msch">Unpack color.msch</a>
                 <br><img src="MlogFiles/unpack color.png" alt="" style="max-height: 500px;">
-                <br><span style="color: lime;">Gives a method on how to unpack a packed color, the variable R,G,B,A is now their respective color value from 0-255
+                <br><span style="color: lime;">Gives a method on how to unpack a packed color, the variable R,G,B,A is now their respective color value from 0-255,
                 <br>the `color` variable is divided by %00000001</span>
             </div>
+        </li>
+        <hr>
+        <li>
+            <b>Unit Counter By <span style="color: aqua;">Yruei</span></b>
+            <br>File : <a href="MlogFiles/Unit Counter.msch">Unit Counter.msch</a>
+            <br><img src="MlogFiles/unit counter.png" alt="" style="max-width: 500px;">
+            <br>Code Text :
+            <br><div class="code">
+                set Unit_Counter 0
+                <br>ubind @poly
+                <br>jump 9 strictEqual @unit null
+                <br>set first @unit
+                <br>ubind @poly
+                <br>sensor dead first @dead
+                <br>jump 0 equal dead true
+                <br>op add Unit_Counter Unit_Counter 1
+                <br>jump 4 notEqual first @unit
+                <br>print Unit_Counter
+                <br>printflush message1
+            </div>
+            <br><span style="color: lime;">Count a the total amount of a specific type of unit in a map,
+            <br>you can change the unit type by changing both `ubind`s to the unit you want
+            </span>
         </li>
     </ul>
    
