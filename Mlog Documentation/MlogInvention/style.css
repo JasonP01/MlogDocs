@@ -40,7 +40,7 @@ img{
 
     }
 li h3 {
-    font-size: 1.5em; /* Adjust the size to suit your needs */
+    font-size: 1.5em;
     display: inline;
 }
 li b {
@@ -52,6 +52,44 @@ li b {
     padding: 20px;
     border-radius: 20px;
     display: inline-block;
+}
+
+.codebox {
+    width: 100%;
+    max-width: 70vw;
+    height: 300px;
+    border-radius: 7px;
+    overflow: auto;
+    padding: 0px 30px 0px 30px;
+    background-color: rgb(38, 36, 44);
+    border: 1px solid rgb(38, 36, 44);
+    font-family: monospace;
+    white-space: pre-wrap;
+    
+  }
+
+.codebox::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+}
+
+.codebox::-webkit-scrollbar-track {
+    background: rgb(38, 36, 44);      
+}
+
+.codebox::-webkit-scrollbar-thumb {
+    background-color: #555;    
+    border-radius: 7px;        
+    border: 1px solid rgb(38, 36, 44);   
+}
+
+.codebox::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+pre{
+    margin: -10px;
+    padding: -10px;
 }
 
 .error-message {
