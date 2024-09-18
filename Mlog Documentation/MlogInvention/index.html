@@ -213,6 +213,144 @@
             <br>you can change the unit type by changing both `ubind`s to the unit you want
             </span>
         </li>
+        <hr>
+        <li>
+            <b>Number drawer By <span style="color: aqua;">Yruei</span></b>
+            <br>File : <a href="MlogFiles/Number Drawer.msch">Number Drawer.msch</a>
+            <br><img src="MlogFiles/number drawer.png" alt="">
+            <div class="codebox">
+                <pre>
+                    <code style="font-family: 'Courier New', Courier, monospace;">
+#initial variables (change as needed)
+set number 0 #number that will be drawn
+set xloc 88 #number location on screen coordinates (right to left)
+set yloc 88
+set DistBtwn 0 #distance between numbers (0 = auto)
+set sizex 15 #horizontal size (if possible input a number that can be divided by 3)
+set sizey 20 #vertical size (if possible input a number that can be divided by 5)
+#if not might leave some lines artifacts
+set bgwidth 100 #background width, generally = [number length] * [sizex])
+
+
+#initial calculation (do not change anything below here)
+op sub bgx xloc bgwidth
+op div size2 sizex 3
+op mul size8 size2 2
+op div size2y sizey 5 
+op mul size4y size2y 2
+op mul size6y size2y 3
+op mul size8y size2y 4
+op add yb6 yloc size6y 
+op add yb2 yloc size2y
+draw stroke size2
+jump auto greaterThan DistBtwn 0
+    op add DistBtwn sizex size2
+auto:
+set xloc1 xloc
+set val number
+
+loop: #main loop
+    op mod wn val 10
+    op idiv val val 10
+    op sub xloc1 xloc1 DistBtwn
+    draw color 255 255 255
+
+#draw number
+    op mul wn wn 7
+    op add @counter @counter wn
+    #digit 0
+        draw lineRect xloc1 yloc sizex sizey
+    jump loop greaterThan val 0
+    draw color 0 0 0 255 #this is tied to draw rect after flush (background), if you dont use that you can remove this for a little bit more performance
+    jump flush always
+    noop 
+    noop
+    noop
+    #digit 1
+        op add xb1 xloc1 size8
+        draw rect xb1 yloc size2 sizey
+    jump loop greaterThan val 0
+    draw color 0 0 0 255 #this is tied to draw rect after flush (background), if you dont use that you can remove this for a little bit more performance
+    jump flush always
+    noop
+    noop
+    #digit 2
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        op add xb1 xloc1 size2 
+        draw rect xloc1 yb6 size8 size2y
+        draw rect xb1 yb2 size8 size2y
+    jump loop greaterThan val 0
+    jump flush always
+    #digit 3
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        draw rect xloc1 yb6 size8 size2y
+        draw rect xloc1 yb2 size8 size2y
+    jump loop greaterThan val 0
+    jump flush always
+    noop
+    #digit 4
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        op add xb1 xloc1 size2
+        draw rect xb1 yb6 size2 size4y
+        draw rect xloc1 yloc size8 size4y
+    jump loop greaterThan val 0
+    jump flush always
+    #digit 5
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        op add xb1 xloc1 size2
+        draw rect xb1 yb6 size8 size2y
+        draw rect xloc1 yb2 size8 size2y
+    jump loop greaterThan val 0
+    jump flush always
+    #digit 6
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        op add xb1 xloc1 size2
+        draw rect xb1 yb6 size8 size2y
+        draw rect xb1 yb2 size2 size2y
+    jump loop greaterThan val 0
+    jump flush always
+    #digit 7
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        draw rect xloc1 yloc size8 size8y
+    jump loop greaterThan val 0
+    jump flush always
+    noop
+    noop
+    #digit 8
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        op add xb1 xloc1 size2
+        draw rect xb1 yb6 size2 size2y
+        draw rect xb1 yb2 size2 size2y
+    jump loop greaterThan val 0
+    jump flush always
+    #digit 9
+        draw rect xloc1 yloc sizex sizey
+        draw color 0 0 0 255
+        op add xb1 xloc1 size2
+        draw rect xb1 yb6 size2 size2y
+        draw rect xloc1 yb2 size8 size2y
+    jump loop greaterThan val 0
+    jump flush always
+
+    flush:
+    drawflush display1
+        draw rect bgx yloc bgwidth sizey #background, alter as needed
+        op add number number 1 #add 1 to [number] (incremental demonstration), alter as needed
+    set val number
+    set xloc1 xloc
+    jump loop always
+                    </code>
+                </pre>
+            </div>
+            <span style="color: lime;">Gives an easier readable code to number drawing</span>
+        </li>
     </ul>
    
 </body>
