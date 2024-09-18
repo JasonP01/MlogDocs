@@ -1652,15 +1652,15 @@
                 <br>
                 <h2><li>Draw Translate</li></h2>
                 <p class="spin" style="margin-left: 20px;">
-                    Translate / offset the display coordinates, NOT static, rather it translate it by the specified number every flush.
+                    Translate / offset the display coordinates, this instruction is cumulative, meaning it translate it by the specified number every flush.
                     <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
-                    <br>like said above it is not static, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
+                    <br>like said above it is cumulative, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
                     <br>to reset it use draw reset
                 </p>
                 <br>
                 <h2><li>Draw Scale</li></h2>
                 <p class="spin" style="margin-left: 20px;">
-                    scale the display coordinates / zooms it, this is also not static.
+                    scale the display coordinates / zooms it, this is also cumulative.
                     <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
                     <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again.
                     <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x.
@@ -1668,7 +1668,7 @@
                 <br>
                 <h2><li>Draw Rotate</li></h2>
                 <p class="spin" style="margin-left: 20px;">
-                    self explanatory, rotate the display coordinates by a degree, also not static.
+                    self explanatory, rotate the display coordinates by a degree, also cumulative.
                 </p>
                 <br>
                 <h2><li>Draw Reset</li></h2>
