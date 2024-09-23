@@ -987,142 +987,144 @@
                         <br>and a second common misconception is that <mark class="unit">Unit control</mark> wait for completion before running the next <mark class="unit">unit control</mark>, this is also wrong,
                         Like the visualization you see above, the processor doesn’t care what instruction you put in it, it will just run it regardless, it is not smart, you have to specify it yourself.
                     </p>
-                    <section id="move">
-                        <h3><li><b>Move</b></li></h3>
-                        <p class="ti">
-                            Move to unit to the specified coordinates in a straight line 
-                            Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
-                            <br><img alt="alt" src="image/ucontrol move.png" >
-                        </p>
-                    </section>
-                    <section id="approach">
-                        <h3><li><b>Approach</b></li></h3>
-                        <p class="ti">
-                            Similar to move but it has a radius, the unit will stop at the radius<br>
-                            <img alt="alt" src="image/approach.gif" style="width: 700px;"><br>
-                            <img alt="alt" src="image/unit control1.png" style="width: 700px;">
-                        </p>
-                    </section>
-                    <h3><li><b>pathFind</b></li></h3>
-                    <p class="ti">
-                        Path find to the specified location
-                        Usually used with grounded units as <mark class="unit">Move</mark> moves the unit in a straight line and grounded units can get stuck in buildings
-                        If the specified location is inside a building or invalid the unit will not move, they will stay in place
-                    </p>
-                    <h3><li><b>autoPathFind</b></li></h3>
-                    <p class="ti">
-                        Automatically pathfinds to the nearest enemy core or drop point.<br>
-                        This is the same as standard wave enemy pathfinding
-                    </p>
-                    <h3><li><b>Idle</b></li></h3>
-                    <p class="ti">
-                        Stop moving, but keep building/mining, the default state
-                    </p>
-                    <h3><li>Stop<b></b></li></h3>
-                    <p class="ti">
-                        Stop moving, mining, and building
-                    </p>
-                    <h3><li><b>Boost</b></li></h3>
-                    <p class="ti">
-                        Enable <a href="#boosting">boosting</a>, boolean, 1 = boost, 0 = don’t boost. cannot be disabled if boosted unit cannot land (on top of blocks/buildings)
-                    </p>
-                    <h3><li><b>Target</b></li></h3>
-                    <p class="ti">
-                        Shoot a coordinate position, boolean, 1 = shoot, 0 = stop shooting<br>
-                        <img alt="alt" src="image/unit control.png" >
-                    </p>
-                    <h3><li><b>TargetP</b></li></h3>
-                    <p class="ti">
-                        Same as target but shoot a unit reference instead and with velocity prediction
-                    </p>
-                    <h3><li><b>ItemDrop</b></li></h3>
-                    <p class="ti">
-                        Drops items the unit is currently carrying to the specified location	
-                        Unit have to be within 5.625 + [block size] / 2 tiles of the targeted block, else it does nothing<br>
-                        <img alt="alt" src="image/unit control itemdrop.png" ><br>
-                        <mark class="lg">to</mark> “building reference”<br>
-                        <mark class="lg">amount</mark> is how many to drop<br>
-                        The unit have to be near the specified building to drop items, else it does nothing<br>
-                        Can also drop to “<span style="color: yellow;">@air</span>” which will discard the item anywhere<br>
-                        to drop everything just put a large number like 999<br>
-                        Unit has an interaction limit of 1,5 seconds, meaning it can only take/drop item every 1,5 seconds
-                    </p>
-                    <h3><li><b>ItemTake</b></li></h3>
-                    <p class="ti">
-                        Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu,
-                        <br>Unit have to be within <span style="color: yellow;">5.625 + [block size] / 2</span> tiles of the targeted block, else it does nothing,
-                        <br>to take the maximum amount the unit can take just put a large number like 999,
-                        <br>Unit has an interaction limit of 1.5 seconds, meaning it can only take/drop item every 1.5 seconds.
-                    </p>
-                    <h3><li><b>PayDrop</b></li></h3>
-                    <p class="ti">
-                        Drop <a href="#payload">payload</a> at current location.
-                    </p>
-                    <h3><li><b>PayTake</b></li></h3>
-                    <p class="ti">
-                        Pick up a block or a unit at current location and turn it into a <a href="#payload">payload</a>
-                        <br>if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>)
-                        <br>for example a unit taker location is exactly at 10,10 , there's 2 unit below it at 9.8,10 and 9.9,10 , when using paytake it will take the 9.9,10 unit
-                    </p>
-                    <h3><li><b>PayEnter</b></li></h3>
-                    <p class="ti">
-                        Land/enter on a building that accept payload, like reconstructor
-                    </p>
-                    <h3><li><b>Mine</b></li></h3>
-                    <p class="ti">
-                        Mine a coordinate position, if out of range or not mineable will do nothing
-                    </p>
-                    <h3><li><b>Build</b></li></h3>
-                    <p class="ti">
-                        Build a block at specified location, if out of range or invalid will do nothing<br>
-                        <img alt="alt" src="image/unit control build.png" ><br>
-                        <mark class="lg">x,y</mark> is build location<br>
-                        <mark class="lg">block</mark> is what block to build<br>
-                        <mark class="lg">rotation</mark> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
-                        <mark class="lg">Config</mark>, configuration of blocks, eg, if `<span style="color: yellow;">@copper</span>` when building a sorter will set the sorter to `<span style="color: yellow;">@copper</span>`. Additionally can be a building reference, eg, if `<span style="color: yellow;">@this</span>` when building a processor will copy `<span style="color: yellow;">@this</span>` processor’s code to the built processor
-                    </p>
-                    <h3><li><b>getBlock</b></li></h3>
-                    <p class="ti">
-                        Gets a block at a specified location, outputs will be null if out of range<br>
-                        <img alt="alt" src="image/ucontrol getblock.png" ><br>
-                        <mark class="lg">x,y</mark> is coordinate location to get the block<br>
-                        <mark class="lg">type</mark> is an output, it will output the type of block to the variable<br>
-                        <mark class="lg">building</mark> is an output, it will output the <a href="#building reference">building reference</a> to the variable<br>
-                        <mark class="lg">floor</mark> is an output, it will output the type of floor to the variable
-                    </p>
-                    <h3><li><b>Within</b></li></h3>
-                    <p class="ti">
-                        Check if unit is within a position with a radius<br>
-                        <img alt="alt" src="image/unit control within.png" ><br>
-                        x,y is coordinate location to check if unit is within that coordinate<br>
-                        radius is the radius of the within<br>
-                        result is the results<br>
-                        Example: (the @unit variable is mega shown on the picture)<br>
-                        <img alt="alt" src="image/ucontrol within.png" ><br>
-                        <img alt="alt" src="image/vis ucontrol within.png" >
-                        <img alt="alt" src="image/vis ucontrol within 1.png" ><br>
-                        In this two scenario, the first picture will have the 
-                        variable “result” true because the unit is within the circle, 
-                        while the second picture is false because it is outside the circle
-                    </p>
-                    <h3><li><b>Unbind</b></li></h3>
-                    <p class="ti">
-                        Immediately <a href="#unit bind">unbind</a> unit
-                    </p>
-                    <h3><li><b>Flag</b></li></h3>
-                    <p class="ti">
-                        Gives the unit a numeric flag, essentially assigning a 
-                        number to a unit, this number serves no purpose other 
-                        than being read, what you do with the number is up to you
-                        <br>unit permanently retains their flag until written again
-                        <br>Unit default flag is 0
-                        <br>a unit can only store 1 number
-                        <br>The largest integer that can be stored accurately 
-                        is <span style="color: yellow;">2^53</span> which is <span style="color: yellow;">9007199254740992</span> 
-                        and <span style="color: yellow;">2^-53</span> which is 
-                        <span style="color: yellow;">-9007199254740992</span>. Beyond these limits, representation 
-                        may lead to inaccuracies due to the way numbers are rounded.
-                    </p>
+                        <ul>
+                            <section id="move">
+                                <h3><li><b>Move</b></li></h3>
+                                    <p class="ti">
+                                        Move to unit to the specified coordinates in a straight line 
+                                        Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
+                                        <br><img alt="alt" src="image/ucontrol move.png" style="max-width: 80vw !important;">
+                                    </p>
+                            </section>
+                            <section id="approach">
+                                <h3><li><b>Approach</b></li></h3>
+                                <p class="ti">
+                                    Similar to move but it has a radius, the unit will stop at the radius<br>
+                                    <img alt="alt" src="image/approach.gif" style="max-width: 80vw !important;"><br>
+                                    <img alt="alt" src="image/unit control1.png" style="max-width: 80vw !important;">
+                                </p>
+                            </section>
+                            <h3><li><b>pathFind</b></li></h3>
+                            <p class="ti">
+                                Path find to the specified location
+                                Usually used with grounded units as <mark class="unit">Move</mark> moves the unit in a straight line and grounded units can get stuck in buildings
+                                If the specified location is inside a building or invalid the unit will not move, they will stay in place
+                            </p>
+                            <h3><li><b>autoPathFind</b></li></h3>
+                            <p class="ti">
+                                Automatically pathfinds to the nearest enemy core or drop point.<br>
+                                This is the same as standard wave enemy pathfinding
+                            </p>
+                            <h3><li><b>Idle</b></li></h3>
+                            <p class="ti">
+                                Stop moving, but keep building/mining, the default state
+                            </p>
+                            <h3><li>Stop<b></b></li></h3>
+                            <p class="ti">
+                                Stop moving, mining, and building
+                            </p>
+                            <h3><li><b>Boost</b></li></h3>
+                            <p class="ti">
+                                Enable <a href="#boosting" style="max-width: 80vw !important;">boosting</a>, boolean, 1 = boost, 0 = don’t boost. cannot be disabled if boosted unit cannot land (on top of blocks/buildings)
+                            </p>
+                            <h3><li><b>Target</b></li></h3>
+                            <p class="ti">
+                                Shoot a coordinate position, boolean, 1 = shoot, 0 = stop shooting<br>
+                                <img alt="alt" src="image/unit control.png" style="max-width: 80vw !important;" >
+                            </p>
+                            <h3><li><b>TargetP</b></li></h3>
+                            <p class="ti">
+                                Same as target but shoot a unit reference instead and with velocity prediction
+                            </p>
+                            <h3><li><b>ItemDrop</b></li></h3>
+                            <p class="ti">
+                                Drops items the unit is currently carrying to the specified location	
+                                Unit have to be within 5.625 + [block size] / 2 tiles of the targeted block, else it does nothing<br>
+                                <img alt="alt" src="image/unit control itemdrop.png" style="max-width: 80vw !important;" ><br>
+                                <mark class="lg">to</mark> “building reference”<br>
+                                <mark class="lg">amount</mark> is how many to drop<br>
+                                The unit have to be near the specified building to drop items, else it does nothing<br>
+                                Can also drop to “<span style="color: yellow;">@air</span>” which will discard the item anywhere<br>
+                                to drop everything just put a large number like 999<br>
+                                Unit has an interaction limit of 1,5 seconds, meaning it can only take/drop item every 1,5 seconds
+                            </p>
+                            <h3><li><b>ItemTake</b></li></h3>
+                            <p class="ti">
+                                Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu,
+                                <br>Unit have to be within <span style="color: yellow;">5.625 + [block size] / 2</span> tiles of the targeted block, else it does nothing,
+                                <br>to take the maximum amount the unit can take just put a large number like 999,
+                                <br>Unit has an interaction limit of 1.5 seconds, meaning it can only take/drop item every 1.5 seconds.
+                            </p>
+                            <h3><li><b>PayDrop</b></li></h3>
+                            <p class="ti">
+                                Drop <a href="#payload">payload</a> at current location.
+                            </p>
+                            <h3><li><b>PayTake</b></li></h3>
+                            <p class="ti">
+                                Pick up a block or a unit at current location and turn it into a <a href="#payload">payload</a>
+                                <br>if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>)
+                                <br>for example a unit taker location is exactly at 10,10 , there's 2 unit below it at 9.8,10 and 9.9,10 , when using paytake it will take the 9.9,10 unit
+                            </p>
+                            <h3><li><b>PayEnter</b></li></h3>
+                            <p class="ti">
+                                Land/enter on a building that accept payload, like reconstructor
+                            </p>
+                            <h3><li><b>Mine</b></li></h3>
+                            <p class="ti">
+                                Mine a coordinate position, if out of range or not mineable will do nothing
+                            </p>
+                            <h3><li><b>Build</b></li></h3>
+                            <p class="ti">
+                                Build a block at specified location, if out of range or invalid will do nothing<br>
+                                <img alt="alt" src="image/unit control build.png" style="max-width: 80vw !important;" ><br>
+                                <mark class="lg">x,y</mark> is build location<br>
+                                <mark class="lg">block</mark> is what block to build<br>
+                                <mark class="lg">rotation</mark> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
+                                <mark class="lg">Config</mark>, configuration of blocks, eg, if `<span style="color: yellow;">@copper</span>` when building a sorter will set the sorter to `<span style="color: yellow;">@copper</span>`. Additionally can be a building reference, eg, if `<span style="color: yellow;">@this</span>` when building a processor will copy `<span style="color: yellow;">@this</span>` processor’s code to the built processor
+                            </p>
+                            <h3><li><b>getBlock</b></li></h3>
+                            <p class="ti">
+                                Gets a block at a specified location, outputs will be null if out of range<br>
+                                <img alt="alt" src="image/ucontrol getblock.png" style="max-width: 80vw !important;" ><br>
+                                <mark class="lg">x,y</mark> is coordinate location to get the block<br>
+                                <mark class="lg">type</mark> is an output, it will output the type of block to the variable<br>
+                                <mark class="lg">building</mark> is an output, it will output the <a href="#building reference">building reference</a> to the variable<br>
+                                <mark class="lg">floor</mark> is an output, it will output the type of floor to the variable
+                            </p>
+                            <h3><li><b>Within</b></li></h3>
+                            <p class="ti">
+                                Check if unit is within a position with a radius<br>
+                                <img alt="alt" src="image/unit control within.png" style="max-width: 80vw !important;" ><br>
+                                x,y is coordinate location to check if unit is within that coordinate<br>
+                                radius is the radius of the within<br>
+                                result is the results<br>
+                                Example: (the @unit variable is mega shown on the picture)<br>
+                                <img alt="alt" src="image/ucontrol within.png" style="max-width: 80vw !important;" ><br>
+                                <img alt="alt" src="image/vis ucontrol within.png" style="max-width: 80vw !important;" >
+                                <img alt="alt" src="image/vis ucontrol within 1.png" style="max-width: 80vw !important;" ><br>
+                                In this two scenario, the first picture will have the 
+                                variable “result” true because the unit is within the circle, 
+                                while the second picture is false because it is outside the circle
+                            </p>
+                            <h3><li><b>Unbind</b></li></h3>
+                            <p class="ti">
+                                Immediately <a href="#unit bind">unbind</a> unit
+                            </p>
+                            <h3><li><b>Flag</b></li></h3>
+                            <p class="ti">
+                                Gives the unit a numeric flag, essentially assigning a 
+                                number to a unit, this number serves no purpose other 
+                                than being read, what you do with the number is up to you
+                                <br>unit permanently retains their flag until written again
+                                <br>Unit default flag is 0
+                                <br>a unit can only store 1 number
+                                <br>The largest integer that can be stored accurately 
+                                is <span style="color: yellow;">2^53</span> which is <span style="color: yellow;">9007199254740992</span> 
+                                and <span style="color: yellow;">2^-53</span> which is 
+                                <span style="color: yellow;">-9007199254740992</span>. Beyond these limits, representation 
+                                may lead to inaccuracies due to the way numbers are rounded.
+                            </p>
+                        </ul>
                 </section>
                 <section id="unit-radar">
                     <h1><li><b>Unit Radar</b></li></h1>
