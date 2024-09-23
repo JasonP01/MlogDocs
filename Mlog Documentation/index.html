@@ -956,8 +956,11 @@
                     <section id="payload">
                         <h3><li>Payload</li></h3>
                         <p class="ti">
-                            Payload is a block/unit that is not physically placed in the world, they are either on a conveyor or picked up by unit, unit’s payload capacity can be found in-game’s info menu<br>
-                            Example: 3x3  means the unit can carry 9 of 1x1 blocks, 2 of 2x2 blocks and, 1 of 3x3 blocks
+                            Payload is a block/unit that is not physically placed in the world, they are either on a conveyor or picked up by unit,
+                            <br>however if you save a unit reference prior to picking it up you can still sensor data from it like <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>, although <span style="color: yellow;">@dead</span> will be true
+                            <br>unit’s payload capacity can be found in-game’s info menu
+                            <br>Example: 3x3  means the unit can carry 9 of 1x1 blocks, 2 of 2x2 blocks and, 1 of 3x3 blocks
+                            <br>for units its the same, a mace size is 1.25 x 1.25 meaning it will take 1.5625 block worth of space as payload
                         </p>
                     </section>
                 <section id="unit-bind">
@@ -1057,7 +1060,9 @@
                     </p>
                     <h3><li><b>PayTake</b></li></h3>
                     <p class="ti">
-                        Pick up <a href="#payload">payload</a> at current location
+                        Pick up a block or a unit at current location and turn it into a <a href="#payload">payload</a>
+                        <br>if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>)
+                        <br>for example a unit taker location is exactly at 10,10 , there's 2 unit below it at 9.8,10 and 9.9,10 , when using paytake it will take the 9.9,10 unit
                     </p>
                     <h3><li><b>PayEnter</b></li></h3>
                     <p class="ti">
