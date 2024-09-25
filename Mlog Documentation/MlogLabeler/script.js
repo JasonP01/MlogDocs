@@ -20,6 +20,9 @@ function submitText() {
         lines.forEach((line, index) => {
             let words = line.trim().split(/\s+/);
             let firstWord = words[0];
+            if (jumpList.includes(index)) {
+                lmcode += "j" + String(index) + ":" + "\n";
+            }
             if (firstWord === "jump") {
                 words.forEach((word, wordIndex) => {
                     if (wordIndex === 1) {
@@ -35,9 +38,7 @@ function submitText() {
             } else {
                 lmcode += "    " + (words.join(" ")) + "\n";
             }
-            if (jumpList.includes(index)) {
-                lmcode += "j" + String(index) + ":" + "\n";
-            }
+
         });
     const output = document.getElementById("output");
     output.value = lmcode
