@@ -46,6 +46,13 @@
             background-color: #45a049; /* Darker green when hovered */
         }
 
+        @media (max-width: 668px) {
+            .input{
+                padding-right: 0 !important;
+            }
+
+        }
+
     </style>
 </head>
 <body 
@@ -60,7 +67,7 @@
 <h2>Mlog Labeler</h2>
 <p style="font-size: larger;">Please enter unedited mlog code</p>
 
-<div style="padding-right: 30px;display: inline-block;">
+<div style="padding-right: 30px;display: inline-block;" class="input">
     <p style="font-size: larger;">Input</p>
     <textarea id="input" placeholder="Enter Mlog Code here"></textarea>
     <br><button onclick="submitText()">Submit</button>
