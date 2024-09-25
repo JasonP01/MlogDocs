@@ -33,6 +33,28 @@ body {
     height: 50px;
 
 }
+.hamburger-menu-right {
+    font-size: 30px;
+    cursor: pointer;
+    top: 25px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it is above other content */
+    position: fixed;
+    background-color: rgba(231, 255, 144, 0.426);
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    transition: right 0.3s ease;
+
+}
+
+.hamburger-menu-right.open {
+    right: 308px;
+}
 
 .sidebar {
     width: 250px;
@@ -74,6 +96,59 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+
+
+
+.sidebar-right {
+    width: 250px;
+    background-color: #302e38;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    right: -288px; /* Initially hidden */
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+.sidebar-right.open {
+    right: 0px; /* Show when open */
+}
+
+
+.sidebar-right::-webkit-scrollbar {
+    width: 12px;
+}
+
+.sidebar-right::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners */
+}
+
+.sidebar-right h2 {
+    font-size: x-large  ;
+    margin-top: 0;
+    color:#ffffff;
+}
+
+.sidebar-right ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-right ul li {
+    font-size: larger;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar-right a {
+    color: white;
+    text-decoration: none;
+}
+
+
 
 .indent1 {
     margin-left: 20px;
@@ -227,9 +302,7 @@ img {
     max-width: 100%;
 }
 
-a{
-    color:#03a3f2 ;
-}
+
 
 
 ol.custom-list {
@@ -318,3 +391,43 @@ th {
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
 }
+
+a {
+    position: relative;
+    color:#03a3f2 ;
+}
+
+        a .tooltip {
+            visibility: hidden;
+            background-color: rgb(34, 47, 68);
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%; /* Adjust this to control tooltip position */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Arrow below the tooltip */
+        a .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%; /* Adjust to position the arrow */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgb(34, 47, 68) transparent transparent transparent;
+        }
+
+        /* Show the tooltip when hovering */
+        a:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
