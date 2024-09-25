@@ -13,14 +13,18 @@
         }
     </style>
 </head>
-<body style="background-color: rgb(48, 70, 70);">
+<body style="background-color: rgb(48, 70, 70); color: white;">
 
-<h2 style="color: white;">Mlog Labeler</h2>
-<p style="color: white; font-size: larger;">Please enter unedited mlog code</p>
-<textarea id="input" rows="5" cols="30" placeholder="Enter multiple lines of text here"></textarea>
-<span style="padding-left: 30px;">
-<textarea id="output" rows="5" cols="30" placeholder="output here"></textarea>
-</span>
+<h2>Mlog Labeler</h2>
+<p style="font-size: larger;">Please enter unedited mlog code</p>
+<div style="padding-right: 30px;display: inline-block;">
+    <p style="font-size: larger;">Input</p>
+    <textarea id="input" rows="5" cols="30" placeholder="Enter Mlog Code here"></textarea>
+</div> 
+<div style="display: inline-block;">
+    <p style="font-size: larger;">Output</p>
+    <textarea id="output" rows="5" cols="30" placeholder="output here"></textarea>
+</div>
 <br><button onclick="submitText()" style="width: 100px; height:30px; font-size: larger;">Submit</button>
 <!-- <br><button onclick="copy()">copy</button> -->
 
