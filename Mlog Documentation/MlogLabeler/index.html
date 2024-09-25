@@ -10,24 +10,68 @@
             width: 300px;
             height: 500px;
             resize: none;
+            background-color: #302e38;
+            color: white;
+            border-color: #302e38;
         }
+        textarea::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #888; 
+            border-radius: 6px;
+        }
+
+        textarea:focus {
+            border-color: rgb(34, 34, 39); 
+            outline: 2px ridge #182b44;
+        }
+
+        button {
+            background-color: #4CAF50; /* Green background */
+            color: white;              /* White text */
+            padding: 12px 24px;         /* Padding */
+            border: none;               /* Remove default border */
+            border-radius: 8px;         /* Rounded corners */
+            cursor: pointer;            /* Pointer cursor on hover */
+            font-size: 16px;            /* Text size */
+            font-family: Arial, sans-serif; /* Font family */
+            outline: 5px ridge rgba(34, 85, 82, 0.6);
+            border-radius: 2rem;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: #45a049; /* Darker green when hovered */
+        }
+
     </style>
 </head>
-<body style="background-color: rgb(62, 59, 73); color: white;">
+<body 
+    style=
+    "background-color: rgb(62, 59, 73); 
+    color: white; 
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+">
 
 <h2>Mlog Labeler</h2>
 <p style="font-size: larger;">Please enter unedited mlog code</p>
+
 <div style="padding-right: 30px;display: inline-block;">
     <p style="font-size: larger;">Input</p>
-    <textarea id="input" rows="5" cols="30" placeholder="Enter Mlog Code here"></textarea>
+    <textarea id="input" placeholder="Enter Mlog Code here"></textarea>
+    <br><button onclick="submitText()">Submit</button>
 </div> 
-<div style="display: inline-block;">
-    <p style="font-size: larger;">Output</p>
-    <textarea id="output" rows="5" cols="30" placeholder="output here"></textarea>
-</div>
-<br><button onclick="submitText()" style="width: 100px; height:30px; font-size: larger;">Submit</button>
-<!-- <br><button onclick="copy()">copy</button> -->
 
+<div style="display: inline-block;vertical-align: top;">
+    <p style="font-size: larger;">Output</p>
+    <textarea id="output" placeholder="Output here"></textarea>
+</div>
+
+<!-- <br><button onclick="copy()">copy</button> -->
 
 </body>
 </html>
