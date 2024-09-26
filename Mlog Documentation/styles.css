@@ -204,6 +204,7 @@ section {
         margin-top: 20px;
         margin-left: 0px !important ;   
     }
+    
     .sidebar ul {
         margin-top: 60px;
     }
@@ -214,14 +215,15 @@ section {
         padding: 20px;
         position: fixed;
         height: 100vh;
-        left: -280px; /* Initially hidden */
+        left: -280px; 
         transition: left 0.3s ease;
         overflow-y: auto;
-        z-index: 999; /* Ensure it is below the hamburger menu */
+        z-index: 999;
     }
     
+    
     .sidebar.open {
-        left: 0px; /* Show when open */
+        left: 0px;
     }
 
     img {
@@ -239,6 +241,69 @@ section {
         border-collapse: collapse; /* Collapse borders */
     }
 
+    ol {
+        padding-left: 20px
+    }
+
+    /* ol img {
+        max-width: 20vw !important;
+    } */
+
+    ul {
+        padding-left: 20px
+    }
+
+    .sidebar-right {
+        width: 130px;
+        right: -168px;
+    }
+    
+    .sidebar-right.open {
+        right: 0px;
+    }
+
+    /* .sidebar {
+        width: 130px;
+        left: -168px;
+        font-size: smaller;
+    }
+    
+    .sidebar.open {
+        left: 0px;  
+    }*/
+
+    .hamburger-menu-right {
+        right: 20px;
+    }
+    
+    .hamburger-menu-right.open {
+        right: 188px;
+    }
+    
+    main {
+        width: 95vw;
+    }
+
+}
+
+@media (max-width: 1670px) {
+    .main-content {
+        margin-left: 0px !important ;   
+    }
+    .sidebar {
+        font-size: 17px;
+        width: 250px;
+        padding: 20px;
+        left: -280px; 
+    }
+
+    .sidebar.open {
+        left: 0px;
+    }
+    .sidebar ul {
+        margin-top: 60px;
+    }
+
 }
 
 /* Styles for desktop devices */
@@ -250,11 +315,13 @@ section {
         margin-left: -60px;
     }
     table {
-        width: 100%; /* Make the table width 100% of its container */
-        border-collapse: collapse; /* Collapse borders */
+        width: 100%; 
+        border-collapse: collapse;
     }
-
 }
+
+
+
 
 .link {
     color:#03a3f2 ;
