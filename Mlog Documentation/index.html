@@ -278,12 +278,12 @@
                                 <br>other than giving you crucial 
                                 information while debugging you can also use it by writing to it, changing its value, usage example:
                             </p>
-                            <img alt="alt" src="image/set counter 10.png" >
+                            <img alt="alt" src="image/set counter 10.png" style="max-width: 85vw !important;">
                             <p>
                                 This acts like <mark class="jump">jump always</mark> where it will jump to instruction 10
                                 If read it will return the next line instead:
                             </p>
-                            <img alt="alt" src="image/set x @counter.png" >
+                            <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
                             <p>
                                 Since this <mark class="op">set</mark> instruction is at line 10, the “x” variable will be 11.
                                 Another usage example is: <a href="#@counter array" > @counter Array.</a>
@@ -407,18 +407,18 @@
                     <p class="ti" style="margin-top: 0px;">
                         Let’s use a cell as an example, imagine it is like a numbered storage boxes
                     </p>
-                    <img alt="alt" src="image/cell.png" >
+                    <img alt="alt" src="image/cell.png"style="max-width: 85vw !important">
                     <p>
                         the number below are called addresses, since a cell can store up to 
                         64 values that means there are 64 addresses in a cell, from  #0 to #63
                         you can then store a number in this line of boxes by an address, for example 
                         if you want to store a number to box number #3 you would write:
                     </p>
-                    <img alt="alt" src="image/ex write.png" >
+                    <img alt="alt" src="image/ex write.png"style="max-width: 85vw !important">
                     <p>
                         this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using `read`
                     </p>
-                    <img alt="alt" src="image/read 1.png" >
+                    <img alt="alt" src="image/read 1.png"style="max-width: 85vw !important">
                     <p>
                         this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
                         called ‘result’, therefore ‘result’ is now <span style="color: yellow;">1838</span>
@@ -433,12 +433,12 @@
             <section id="instructions">
                 <hr>
                 <h1>Instructions</h1>
-                <ol style="list-style-type: disc;">
+                <ol style="list-style-type: disc; padding-left: 20px" >
                     <section id="read">
                         <h2><li><b>Read</b></li></h2>
                         <p class="ti">
                             Read a value from a cell<br>
-                            <img alt="alt" src="image/read.png" ><br>
+                            <img alt="alt" src="image/read.png"style="max-width: 85vw !important"><br>
                             Essentially the same with read but it writes instead
                             Example: the “result” variable is 10, then it will write “10” to ‘cell1’ at 0
                             Can also be directly written using a number instead of a variable.
@@ -448,7 +448,7 @@
                         <h2><li><b>Write</b></li></h2>
                         <p>
                             Write a value to a cell<br>
-                            <img alt="alt" src="image/write.png" ><br>
+                            <img alt="alt" src="image/write.png"style="max-width: 85vw !important"><br>
                             Essentially the same with read but it writes instead<br>
                             Example: the “result” variable is 10, then it will write “10” to ‘cell1’ at 0<br>
                             Can also be directly written using a number instead of a variable.
@@ -463,7 +463,7 @@
                             <li><b>Clear</b></li>
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
-                                <img alt="alt" src="image/draw clear.png" style="max-width: 80vw !important;"><br>
+                                <img alt="alt" src="image/draw clear.png" style="max-width: 80vw !important"><br>
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
@@ -473,7 +473,7 @@
                             
                             <p class="ti">
                                 Sets the entire screen to a specific color<br>
-                                <img alt="alt" src="image/draw color.png" style="max-width: 80vw !important;"><br>
+                                <img alt="alt" src="image/draw color.png"style="max-width: 80vw !important"><br>
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
@@ -838,9 +838,9 @@
                             <span style="color: yellow;">56</span> / <span style="color: yellow;">22</span> / <span style="color: yellow;">11</span> / <span style="color: yellow;">254</span> (as of v146), respectively, they are a constant.<br>
                             For the inverse operation, sensor @id of the object<br>
                             Example:<br>
-                            <img alt="alt" src="image/lookup.png"><br>
+                            <img alt="alt" src="image/lookup.png" style="max-width: 85vw !important;"><br>
                             This operation is looking up item with an id of 1, which is lead, therefore “result” will then be lead, lead is NOT a string, its an object, same as ‘<span style="color: yellow;">@lead</span>’, which can be used for things like sensor<br>
-                            <img alt="alt" src="image/lookup1.png"><br>
+                            <img alt="alt" src="image/lookup1.png" style="max-width: 85vw !important;"><br>
                             Lookup are usually used with an incrementing variable<br>
                             Lists of IDs can be found in the <a href="#appendix">Appendix</a>
                         </p>
@@ -851,7 +851,7 @@
                             Packs RGBA color into a single number, is usually used with <a href="#draw col"><mark class="draw">draw col</mark></a> and <a href="#control color">control color</a><br>
                             Since it's a single number it can be stored to 1 address on <a href="#cell">cells/banks</a>, 
                             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
-                            <img alt="alt" src="image/pack color.png"><br>
+                            <img alt="alt" src="image/pack color.png" style="max-width: 85vw !important;"><br>
                             <a href="#draw">RGBA</a> is their respective color, can also be directly written with a 
                             number, value is from 0 (dimmest) to 1 (brightest)
                                 
@@ -943,8 +943,8 @@
                         unlike the name say, <mark class="unit">unit bind</mark> instruction itself 
                         does not bind, <mark class="unit">unit control</mark>, <mark class="unit">unit radar</mark>, <mark class="unit">unit locate</mark> are what binds unit.
                         <br> <mark class="unit">unit bind</mark> just gets a unit's <a href="building reference">reference</a> and puts it in a variable called<span style="color: yellow;"> @unit</span>
-                        <br><img alt="alt" src="image/bind.png">
-                        <img alt="alt" src="image/bind2.png"><br>
+                        <br><img alt="alt" src="image/bind.png" style="max-width: 85vw !important;">
+                        <img alt="alt" src="image/bind2.png" style="max-width: 85vw !important;"><br>
                         If you hover your mouse on either the unit or the 
                         processor you will see a yellow box showing what unit 
                         the processor is binding or what processor the unit is 
@@ -982,7 +982,7 @@
                         the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
                         When looped (meaning the <mark class="unit">unit bind</mark> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
                         Here’s a visualization : the red box indicates that the unit is in the <span style="color: yellow;">@unit</span> variable<br>
-                        <img alt="alt" src="image/vis bind.gif" ><br>
+                        <img alt="alt" src="image/vis bind.gif" style="max-width: 85vw !important;"><br>
                         Don’t worry about instruction line 1,2,3,they are there just to make the code not 1 instruction, to more easily visualize it.<br>
                         Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in <span style="color: yellow;">@unit</span> meaning <span style="color: yellow;">@unit</span> is now “mega#1”, and so on with “mega#2 , 3 , 4”<br><br>
 
@@ -1453,7 +1453,7 @@
                     <ol style="list-style-type: disc;">
                         <section id="get-block">
                         <h2><li>Get block</li></h2>
-                        <img alt="alt" src="image/get block.png" >
+                        <img alt="alt" src="image/get block.png" style="max-width: 85vw !important;" >
                         <p>
                             “result” the output
                             <br>`get` what to get, can be:
@@ -1466,7 +1466,7 @@
                         </section>
                         <section id="set-block">
                         <h2><li>Set Block</li></h2>
-                        <img alt="alt" src="image/set block.png" >
+                        <img alt="alt" src="image/set block.png" style="max-width: 85vw !important;">
                         <p>
                             `set` what type to set, can be : 
                             <br><span class="spin">“floor” set the floor to the specified name and Coordinate
@@ -1479,7 +1479,7 @@
                         </section>
                         <section id="spawn-unit">
                             <h2><li>Spawn Unit</li></h2>
-                            <img alt="alt" src="image/spawn unit.png" >
+                            <img alt="alt" src="image/spawn unit.png" style="max-width: 85vw !important;">
                             <p>
                                 “result”, the output, unit reference
                                 <br>`spawn` what unit to spawn
@@ -1490,7 +1490,7 @@
                         </section>
                         <section id="apply-status">
                             <h2><li>Apply Status</li></h2>
-                            <img alt="alt" src="image/apply status.png" >
+                            <img alt="alt" src="image/apply status.png" style="max-width: 85vw !important;">
                             <p>
                                 `apply` or `clear`, apply or clear
                                 <br>`wet` what status to apply to the unit
@@ -1500,11 +1500,11 @@
                         </section>
                         <section id="spawn-wave">
                         <h2><li>Spawn Wave</li></h2>
-                        <img alt="alt" src="image/spawn wave.png" >
+                        <img alt="alt" src="image/spawn wave.png" style="max-width: 85vw !important;">
                         </section>
                         <section id="set-rule">
                             <h2><li>Set Rule</li></h2>
-                            <img alt="alt" src="image/set rule.png" >
+                            <img alt="alt" src="image/set rule.png" style="max-width: 85vw !important;">
                             <p>
                                 currentWaveTime
                                 <br><span class="spin">change the current wave timer, in seconds</span>
@@ -1553,17 +1553,17 @@
                         </section>
                         <section id="flush-message">
                             <h2><li>Flush Message</li></h2>
-                            <img alt="alt" src="image/flush message.png" >
+                            <img alt="alt" src="image/flush message.png" style="max-width: 85vw !important;">
                             <p>
                                 display a message on player’s screen from the text buffer, will wait until the previous message finishes
                                 <br><br>`announce` center of the screen
-                                <br><img alt="alt" src="image/message.png" >
+                                <br><img alt="alt" src="image/message.png" style="max-width: 85vw !important;">
                                 <br><br>`notify` top of the screen
-                                <br><img alt="alt" src="image/message 3.png" >
+                                <br><img alt="alt" src="image/message 3.png" style="max-width: 85vw !important;">
                                 <br><br>`toast`
-                                <br><img alt="alt" src="image/message 4.png" >
+                                <br><img alt="alt" src="image/message 4.png" style="max-width: 85vw !important;">
                                 <br><br>`mission`
-                                <br><img alt="alt" src="image/message 2.png" >
+                                <br><img alt="alt" src="image/message 2.png" style="max-width: 85vw !important;">
                             </p>
                         </section>
                         <section id="cut-scene">
@@ -1578,14 +1578,14 @@
                         </section>
                         <section id="effect">
                             <h2><li>Effect</li></h2>
-                            <img alt="alt" src="image/effect.png" >
+                            <img alt="alt" src="image/effect.png" style="max-width: 85vw !important;">
                             <p>
                                 display a particle effect on the world, you can click the `warn` to view every available effect
                             </p>
                         </section>
                         <section id="explosion">
                             <h2><li>Explosion</li></h2>
-                            <img alt="alt" src="image/explosion.png" >
+                            <img alt="alt" src="image/explosion.png" style="max-width: 85vw !important;">
                             <p>
                                 create an explosion
                                 <br><span class="spin">`team` what team the explosion belong to, explosion cannot harm ally blocks
@@ -1606,7 +1606,7 @@
                         </section>
                         <section id="fetch">
                             <h2><li>Fetch</li></h2>
-                            <img alt="alt" src="image/fetch.png" >
+                            <img alt="alt" src="image/fetch.png" style="max-width: 85vw !important;">
                             <p>
                                 get unit, player, core, building, and outputs their reference to “result”, by index
                             <br>    <span class="spin">`team` what team to fetch the object
@@ -1619,14 +1619,14 @@
                         </section>
                         <section id="sync">
                             <h2><li>Sync</li></h2>
-                            <img alt="alt" src="image/sycn.png" >
+                            <img alt="alt" src="image/sycn.png" style="max-width: 85vw !important;">
                             <p>
                                 sync a variable across all devices, used mainly in multiplayer, to avoid desyncing
                             </p>
                         </section>
                         <section id="set-flag">
                             <h2><li>Set Flag</li></h2>
-                            <img alt="alt" src="image/set flag.png" >
+                            <img alt="alt" src="image/set flag.png" style="max-width: 85vw !important;">
                             <p>
                                 set a global flag / global variable, flag content can only be 0 or 1, true or false
                                 <br>flag name is enclosed by `<mark class="lg"> " </mark>`
@@ -1635,7 +1635,7 @@
                         </section>
                         <section id="get-flag">
                             <h2><li>Get Flag</li></h2>
-                            <img alt="alt" src="image/getflag.png" >
+                            <img alt="alt" src="image/getflag.png" style="max-width: 85vw !important;">
                             <p>
                                 read the flag/variable created by <mark class="wp">set flag</mark>
                                 <br>reads the content of the flag
@@ -1644,7 +1644,7 @@
                         </section>
                         <section id="set-prop">
                             <h2><li>Set Prop</li></h2>
-                            <img alt="alt" src="image/set prop.png" >
+                            <img alt="alt" src="image/set prop.png" style="max-width: 85vw !important;">
                             <p>
                                 sets the properties of a unit or building
                                 <br><span class="spin">`of` unit/building Reference
@@ -1704,8 +1704,8 @@
                     <br>the pattern is {0-9}
                     <br>
                     <br>example:
-                    <br><img alt="alt" src="image/format.png" >
-                    <img alt="alt" src="image/format 1.png" >
+                    <br><img alt="alt" src="image/format.png" style="max-width: 75vw !important;">
+                    <img alt="alt" src="image/format 1.png" style="max-width: 75vw !important;">
                     <br>the first format will take {0} and the second format will take {1}
                 </p>
                 <br>
@@ -1936,7 +1936,7 @@
                 <a href="https://youtu.be/UD7AST0ZX2Y" class="ytlink">DDA Raycasting</a>
                 <img alt="alt" src="image/raycasting 2.gif" >
                 <h2>Perspective Projection</h2>
-                <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="width: 400px;">Perspective Projection | Mindustry</a>
+                <a href="https://youtu.be/vjEZ9k-h_pA" class="ytlink" style="max-width: 90vw; width: 400px;">Perspective Projection | Mindustry</a>
                 <img alt="alt" src="image/perspective projection.gif" >
                 <img alt="alt" src="image/spinning birb.gif" >
                 <h2>Power Monitor with Numbers</h2>
@@ -1987,7 +1987,7 @@
                     </section>
                 <section id="environment">
                     <h2>Environment</h2>
-                    <table>
+                    <table style="font-size: small;">
                         <tbody>
                             <tr>
                                 <td>@air</td>
@@ -2335,7 +2335,7 @@
                 <section id="blocks-and-items">
                     <h2>Blocks and Items</h2>
                     <h2>Blocks</h2>
-                    <table>
+                    <table style="font-size: smaller;">
                         <tbody>
                             <tr>
                                 <td>@graphite-press</td>
