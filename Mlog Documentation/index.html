@@ -1920,13 +1920,39 @@
                         </li>
                         <br>
                         <li>Vectors
-                            
+                            <br>Vector is defined by a : Location, Direction, and Magnitude
+                            <br>Location is self-explanatory, the location of the vector in space
+                            <br>Direction is where the vector is pointing at
+                            <br>Magnitude is how long the vector is
+                            <br>for example : there's a vector at (10,10) with direction of (1,0), since the X component of the direction is 1 and Y is 0 
+                            this means the vector is pointing straight to the right with a magnitude of 1
+                            <br>how do we know this?
+                            <br>again, there's a vector at (10,10) with direction of (1,0) to get where its pointing assume the vector location is (0,0) for the time being
+                            then draw a point with the direction as its location (1,0), now you have 2 points, from the vector location draw a line/arrow to the second point
+                            you get a vector
+                            <br>to get the magnitude we have to do some calculation:
+                            <br><mark class="lg">Magnitude = &radic;(D<sub>x</sub>)<sup>2</sup> + (D<sub>y</sub>)<sup>2</sup></mark>
+                            <br>or you can use mindustry built in instruction the <mark class="op">op len</mark> by putting D<sub>x</sub> and D<sub>y</sub>
+
                         </li>
                     </ul>
                 </section>
+                <section id="link-itself">
+                    <h2>Linking a processor to itself</h2>
+                    <p class="ti">
+                        normally <mark class="control">control enabled @this 0</mark>, doesn't work, but if you link the processor to itself it does
+                        <br>to link a processor to itself you either need a modified schematic file or using the console:
+                        <br><mark class="lg">Vars.world.tile(x, y).build.links.add(new LogicBlock.LogicLink(x, y, "processor1", true))</mark>
+                        <br>replace the x and y to the coordinates of the processor, and paste it to the console, this will make the processor link it self
+                        <br>now <mark class="control">control enabled @this 0</mark> will work,
+                        <br>there might be some other uses for it, but i haven't found any, if you do feel free to contact me so i can update this
+                    </p>
+
+                </section>
+                <hr>
             </section>
             <section id="self-promotion">
-                <h1>Self Promotion</h1>
+                <h1 style="font-size: 35px;">Self Promotion</h1>
                 <h2>My Micro Processor only Bad Apple!!!</h2>
                 <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
                 <img alt="alt" src="image/bad apple.gif" >
@@ -1945,7 +1971,7 @@
             <section id="appendix">
 
                 <hr>
-                <h1>Appendix</h2>
+                <h1 style="font-size: 35px;">Appendix</h2>
 
                 <h2 id="mloginvention">Mlog Invention</h2>
                 is in a seperate page <a href="MlogInvention/index.html">Yrueii.github.io/Mlog Documentation/MlogInvention</a>
