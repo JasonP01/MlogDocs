@@ -6,9 +6,7 @@ function submitText() {
     const mcode = document.getElementById("input").value
     if (mcode) {
         let lines = mcode.split(/\r?\n/);
-        console.log(lines)
         lines = lines.filter(line => line.trim() && !line.trim().startsWith("#"));
-        console.log(lines)
         let jumpList = [];
         let lmcode = "";
         lines.forEach((line, index) => {
