@@ -1936,19 +1936,34 @@
                         </li>
                         <br>
                         <li>Vectors
-                            <br>Vector is defined by a : Location, Direction, and Magnitude
-                            <br>Location is self-explanatory, the location of the vector in space
+                            <br>Vector is defined by a : Direction, and Magnitude
                             <br>Direction is where the vector is pointing at
                             <br>Magnitude is how long the vector is
-                            <br>for example : there's a vector at (10,10) with direction of (1,0), since the X component of the direction is 1 and Y is 0 
+                            <br>for example : a vector with direction of (1,0), since the X component of the direction is 1 and Y is 0 
                             this means the vector is pointing straight to the right with a magnitude of 1
                             <br>how do we know this?
-                            <br>again, there's a vector at (10,10) with direction of (1,0) to get where its pointing assume the vector location is (0,0) for the time being
-                            then draw a point with the direction as its location (1,0), now you have 2 points, from the vector location draw a line/arrow to the second point
-                            you get a vector
+                            <br>assume the vector base is (0,0) then draw a point with 
+                            the direction as its location (1,0), now you have 2 points, from the vector 
+                            base draw a line/arrow to the second point, now you know where the vector is pointing
                             <br>to get the magnitude we have to do some calculation:
                             <br><mark class="lg">Magnitude = &radic;(D<sub>x</sub>)<sup>2</sup> + (D<sub>y</sub>)<sup>2</sup></mark>
                             <br>or you can use mindustry built in instruction the <mark class="op">op len</mark> by putting D<sub>x</sub> and D<sub>y</sub>
+                            <br>
+                            <br>for 2 points in space how do we get a vector from one to another?
+                            <br>if you remember vector is just a point pointing to another point in space
+                            <br>point A : (10,10) point B : (15,20), let's say you want to get a vector from A to B
+                            <br>you only need to get the displacement from A to B, this can be easily calculated by just subtracting each component from each point
+                            <br>C = (B<sub>x</sub> - A<sub>x</sub>), (B<sub>y</sub> - A<sub>y</sub>)
+                            <br>C = (5,10), thats it, C is now a vector
+                            <br>if you add C to A the location of A will now become B, add it again it will be at another point of (20,30)
+                            <br>
+                            <br>what is the use of vector?, imagine you have a ball, you throw it directly upwards with the speed of let's say 
+                            10 unit/second, that ball now have a vector of (0,10), vector can be used to determined an object velocity
+                            <br>in programming, you have a point that you want to move, unlike reality you cannot move an object with infinite precision
+                            , you can only step through (usually per tick), you want to move it 12 units to the right per second, its simple, just add (12,0) to your
+                            point every second, you might say it looks like its jumping not moving, well we really can't get an object to move in the digital world like in reality
+                            only the illusion of moving, so you want to add the vector to your point in quicker succession with smaller magnitude, let's say 60 times per seconds
+                            you want to add (0.2,0) to your point every 1/60th of a second to get it to move 12 units in 1 second
 
                         </li>
                     </ul>
