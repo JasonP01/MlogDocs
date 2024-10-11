@@ -12,8 +12,8 @@ languages i know, in scale of 1 - 10
   
 - MLOG 9.5/10  
 - Python 5/10  
-- Java 1.5/10
-- JavaScript 1/10 
+- Java 2/10
+- JavaScript 2/10 
 - HTML 6/10  
-- CSS 4/10  
+- CSS 6/10  
 
