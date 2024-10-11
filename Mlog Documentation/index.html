@@ -1628,7 +1628,7 @@
                             <br>    <span class="spin">`team` what team to fetch the object
                             <br>    `#` index, starts at 0, 0 being the first object
                             <br>    unitCount, playerCount, coreCount, buildCount, gets the total count of currently alive/available object in the world</span>
-                            <br>when an object dies the last unit index will replace the object index that dies
+                            <br>when an object dies the last object index will replace the object index that dies
                             <br>for example: you have 10 conveyors indexed from 1-10, conveyor #5 is deconstructed, conveyor 
                             <br>#10 will the become #5, then a new placed conveyor will become #10
                             </p>
@@ -1806,7 +1806,7 @@
                     <br>the width/height numbers are in blocks
                     <br>example:
                     <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
-                    <br>a maxed zoomed in screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
+                    <br>a maxed zoomed out screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
                     <br>if the object is not a player/doesn't have a camera returns 0
                 </p>
                 <br>
