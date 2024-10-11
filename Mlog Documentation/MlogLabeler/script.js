@@ -23,7 +23,7 @@ function submitText() {
             if (jumpList.includes(index)) {
                 lmcode += "j" + String(index) + ":" + "\n";
             }
-            if (firstWord === "jump") {
+            if (firstWord === "jump" && !isNaN(words[1])) {
                 lmcode +=`    ${words[0]} j${words[1]} ${words.slice(2).join(" ")}\n`
             } else {
                 // lmcode += "    " + (words.join(" ")) + "\n";
