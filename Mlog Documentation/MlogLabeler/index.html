@@ -67,6 +67,29 @@
             white-space: pre-wrap;
         }
 
+        .toggled {
+        background-color: #4CAF50;
+        color: white;
+        }
+
+        .untoggled {
+        background-color: red;
+        color: white;
+        }
+
+        button:hover.untoggled {
+            background-color: #971111;
+        }
+
+        #status {
+        opacity: 1;
+        color: rgb(0, 255, 0);
+        }
+
+        /* .visible {
+        opacity: 0 !important;
+        } */
+            
     </style>
 </head>
 <body 
@@ -85,11 +108,14 @@
         <p style="font-size: larger;">Input</p>
         <textarea id="input" placeholder="Enter Mlog Code here"></textarea>
         <br><button onclick="submitText()">Submit</button>
+        <button id="toggleButton" class="toggled" onclick="toggleButton()">Indent</button>
     </div> 
 
     <div style="display: inline-block;vertical-align: top;">
         <p style="font-size: larger;">Output</p>
         <textarea id="output" placeholder="Output here"></textarea>
+        <br><button onclick="copy()">Copy</button>
+        <p id="status"></p>
     </div>
     
     
