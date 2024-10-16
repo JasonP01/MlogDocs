@@ -1075,6 +1075,9 @@
                             <h3><li><b>ItemTake</b></li></h3>
                             <p class="ti">
                                 Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu,
+                                <br><mark class="lg">from</mark> a <a href="#building-reference">building reference</a>
+                                <br><mark class="lg">amount</mark> is how many to take
+                                <br>a unit can only carry 1 type item at a time
                                 <br>Unit have to be within <span style="color: yellow;">5.625 + [block size] / 2</span> tiles of the targeted block, else it does nothing,
                                 <br>to take the maximum amount the unit can take just put a large number like 999,
                                 <br>Unit has an interaction limit of 1.5 seconds, meaning it can only take/drop item every 1.5 seconds.
@@ -1091,7 +1094,7 @@
                             </p>
                             <h3><li><b>PayEnter</b></li></h3>
                             <p class="ti">
-                                Land/enter on a building that accept payload, like reconstructor
+                                Land/enter on a building directly below the unit, that accept payload, like reconstructor
                             </p>
                             <h3><li><b>Mine</b></li></h3>
                             <p class="ti">
@@ -1114,6 +1117,11 @@
                                 <mark class="lg">type</mark> is an output, it will output the type of block to the variable<br>
                                 <mark class="lg">building</mark> is an output, it will output the <a href="#building-reference">building reference</a> to the variable<br>
                                 <mark class="lg">floor</mark> is an output, it will output the type of floor to the variable
+                                <br>
+                                <br>when getBlock-ing a cell,bank, or a display you can still write/draw to them even if the unit is no longer present, 
+                                only the building reference is needed for these blocks, this means you can get them once and then unbind/move the unit
+                                your variable of <mark class="lg">building</mark> will remain until either you overwrite it or the processor is refreshed.
+                                <br>however you can't enable/disable or config getBlock-ed buildings,
                             </p>
                             <h3><li><b>Within</b></li></h3>
                             <p class="ti">
@@ -2367,7 +2375,7 @@
                     <br>    6 - 255 = unnamed</span>
                     <br>
                     <br>@type
-                    <br>    <span class="spin">the object’s name (not reference), eg, for router returns `@router` , not a string</span>
+                    <br>    <span class="spin">returns the object’s <a href="#contentname">content name</a> (not reference), eg, for router returns `@router` , not a string</span>
                     <br>@flag
                     <br>    <span class="spin">the object’s flags; returns number, unit can be flagged with `ucontrol flag`</span>
                     <br>@controlled
@@ -2385,7 +2393,10 @@
                     <br>@payloadType
                     <br>    <span class="spin">name of payload, will return only the last picked up payload, returns name</span>
                     <br>@id
-                    <br>    <span class="spin">returns the object ID, returns integer</span>
+                    <br>    <span class="spin">
+                                returns the <a href="#contentname">content name</a> ID, returns integer
+                                <br>(a <a href="#building-reference">reference</a> <b>does not</b> have an @id)
+                            </span>
                     <br>@enabled
                     <br>    <span class="spin">whether the object is enabled or not, returns boolean; 1 is enabled, 0 is disabled</span>
                     <br>@config
