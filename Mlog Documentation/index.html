@@ -104,6 +104,9 @@
                 <li class="indent2"><a href="#normal-processor" class="sidebar-link">Normal Processor</a></li>
                 <li class="indent2"><a href="#world-processor" class="sidebar-link">World Processor</a></li>
                 <li class="indent1"><a href="#lookup-ids" class="sidebar-link">Lookup Id(s)</a></li>
+                <li class="indent1"><a href="#dblockbehaviour" class="sidebar-link">Disabled block behaviour</a></li>
+                <li class="indent1"><a href="#dblockbehaviour" class="sidebar-link"></a>.</li>
+                <li class="indent1"><a href="#dblockbehaviour" class="sidebar-link"></a>.</li>
             </ul>
         </aside>
         <aside class="sidebar-right" id="sidebar-right">
@@ -607,6 +610,7 @@
                                 <br><mark class="lg">of</mark> a <a href="#building-reference">block reference</a>
                                 <br><mark class="lg">to</mark> (state), <span style="color: yellow;">1</span> / <span style="color: yellow;">true</span> enable, <span style="color: yellow;">0</span> / <span style="color: yellow;">false</span> disable, 
                                 <br>when disabling a processor it pauses code execution until re-enabled again, resuming at the line number where it was disabled
+                                <br><a href="#dblockbehaviour">here is a list of blocks behaviour when disabled</a>
                             </p>
                             <li>Shoot</li>
                             <p class="ti">
@@ -3609,9 +3613,63 @@
                     <br>8 = @gallium
                     <br>9 = @nitrogen
                     <br>10 = @arkycite
-
-
                 </section>
+            </section>
+
+            <section id="dblockbehaviour">
+                <h1>Disabled block Behaviour</h1>
+                <ul>
+                    Most blocks will just stop working entirely, however not all, here are some blocks that behave differently when disabled
+                    <li>
+                        Sorter
+                        <br>will turn into inverted sorter, which can be used as a item flow controller
+                    </li>
+                    <li>
+                        Inverted sorter
+                        <br>will turn into normal sorter, which can be used as a item flow controller
+                    </li>
+                    <li>
+                        Overflow gate
+                        <br>will turn into Underflow gate, which can be used as a item flow controller
+                    </li>
+                    <li>
+                        Underflow gate
+                        <br>will turn into Overflow gate, which can be used as a item flow controller
+                    </li>
+                    <li>
+                        Router
+                        <br>will stop items from passing through
+                    </li>
+                    <li>
+                        Bridge 
+                        <br>will stop transfering items, but still accepts items
+                    </li>
+                    <li>
+                        Battery
+                        <br>will stop charging but still conduct electricity
+                    </li>
+                    <li>
+                        Blocks with electricity
+                        <br>will stop working but still conduct electricity
+                    </li>
+                    <li>
+                        Battery Diode
+                        <br>Will stop flowing electricity to the other net, can be used as a power line cutter
+                    </li>
+                    <li>
+                        Turrets
+                        <br>Will just stop (shooting, moving), will still accept ammo
+                    </li>
+                    <li>
+                        Launch Pad
+                        <br>if its in cooldown will stop cooldown from progressing, still accepts items
+                        <br>if its not in cooldown will still launch if items are full
+                    </li>
+                    <li>
+                        Processors
+                        <br>will stop executing lines, when re-enabled will continue at the line it was disabled at
+                    </li>
+                </ul>
             </section>
         
         </main>
