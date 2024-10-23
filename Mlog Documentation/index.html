@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Mindustry logic wiki, Mlog documentation, covering everything about mindustry logic">
-    <meta name="keywords" content="mindustry logic, logic, mlog documentation, logic wiki, mindustry logic wiki">
+    <meta name="keywords" content="mindustry logic, logic, mlog documentation, logic wiki, mindustry logic wiki, mlog wiki,">
     <title>Mlog Documentation</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="image\micro-processor.png" type="image/png">
@@ -18,6 +18,12 @@
                 <li><a href="#foreword" class="sidebar-link">Foreword</a></li>
                 <li><a href="#introduction" class="sidebar-link">Introduction</a></li>
                 <li><a href="#glossary" class="sidebar-link">Glossary</a></li>
+                <li class="indent1"><a href="#integers" class="sidebar-link">Integers</a></li>
+                <li class="indent1"><a href="#float" class="sidebar-link">Float</a></li>
+                <li class="indent1"><a href="#boolean" class="sidebar-link">Boolean</a></li>
+                <li class="indent1"><a href="#strings" class="sidebar-link">Strings</a></li>
+                <li class="indent1"><a href="#building-reference" class="sidebar-link">Block or Unit Reference</a></li>
+                <li class="indent1"><a href="#contentname" class="sidebar-link">Content name</a></li>
                 <li><a href="#basic-concept" class="sidebar-link">Basic Concept</a></li>
                 <li class="indent1"><a href="#processors" class="sidebar-link">Processors</a></li>
                 <li class="indent1"><a href="#processors-ui" class="sidebar-link">Processor's UI</a></li>
@@ -157,20 +163,28 @@
                 <hr>
                 <h1><b>Glossary</b></h1>
                 <p style="font-size: 23px;">Data types<br>
+                    <section id="integers" style="margin-bottom: 0;">
                     <p><b>Integers</b></p>
                         <p class="ti"><a href="https://en.wikipedia.org/wiki/Integer" >Integers</a> are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.</p>
+                    </section>
+                    <section id="float" style="margin-bottom: 0;">
                     <p><b>Float</b></p>
                         <p class="ti">Opposite of integers, decimal numbers, 1.001, are float.</p>
+                    </section>
+                    <section id="boolean" style="margin-bottom: 0;">
                     <p><b>Boolean</b></p>
                         <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
+                    </section>
+                    <section id="strings" style="margin-bottom: 0;">
                     <p><b>Strings</b></p>
                         <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
+                    </section>
                     <section id="building-reference" style="margin-bottom: 0;">
                     <p><b>Block or Unit Reference</b></p>
                         <p class="ti">
                             every block and unit has a unique reference, so every block and unit can be differentiated from 
                             each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
-                            in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#@unit" >@unit</a>,
+                            in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
                             they can also be written to a normal variable
                         </p>
                     </section>
@@ -294,7 +308,7 @@
                             <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
                             <p>
                                 Since this <mark class="op">set</mark> instruction is at line 10, the `<span style="color: aqua;">x</span>` variable will be 11.
-                                Another usage example is: <a href="#@counter array" > @counter Array.</a>
+                                Another usage example is: <a href="#counter-array" > @counter Array.</a>
                             </p>
                             <li><b>@this</b></li>
                                 <p style="margin-top: 5px;" class="ti">
@@ -303,11 +317,11 @@
                                      uses building reference can be replaced by this, so instead of
                                       ‘processor1’ you can write “@this” for this processor
                                 </p>
-                            <li><b><a href="#@unit" >@unit</a></b></li>
+                            <li><b><a href="#unit" >@unit</a></b></li>
                             <p style="margin-top: 5px;" class="ti">	
                                 <b>@unit</b> shows the current unit that is stored in the processor as the 
                                 result of the <mark class="unit">unit bind</mark> instruction. 
-                                For more information go <a href="#controlling units" >Controlling Units</a>
+                                For more information go <a href="#controlling-units" >Controlling Units</a>
                             </p>
                             <li><b>@thisx and @thisy</b></li>
                             <p style="margin-top: 5px;" class="ti">
@@ -489,7 +503,7 @@
                                 <br>Value can be from 0 (dimmest) to 255 (brightest)
                             </p>
                             
-                            <section id="draw col">
+                            <section id="draw-col">
                             <li><b>col</b></li>
                             <p class="ti">
                                 Same as color, but use hex color code instead of RGB color code
@@ -634,7 +648,7 @@
                                 and of course it only supports units it meant to create, if you put other unit name that it cant create it will just deselect all unit
                             </p>
                             </p>
-                            <section id="control color">
+                            <section id="control-color">
                             <li>Color</li>
                             <p class="ti">
                                 Change the color of Illuminator block
@@ -655,7 +669,7 @@
                                 Since order is 1, the unit gotten is the closest to that building<br>
                             Cannot get multiple units at the same time<br>
                             Order cannot be change to look for metrics in the middle e.g 0.5<br>
-                            Will output the unit reference to `<span style="color: aqua;">result</span>`
+                            Will output the <a href="#building-reference">unit reference</a> to `<span style="color: aqua;">result</span>`
                         </p>
                     </section>
                     <section id="sensor">
@@ -665,7 +679,7 @@
                             <img alt="alt" src="image/sensor.png"style="max-width: 88vw !important;"><br>
                             `<span style="color: aqua;">results</span>` is your named variable<br>
                             “<span style="color: yellow;">@copper</span>” is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
-                            “block1” building reference, it is what object to get the data from, can also be a <a href="#controlling units">unit reference</a><br>
+                            “block1” building reference, it is what object to get the data from, can also be a <a href="#controlling-units">unit reference</a><br>
                             Example:<br>
                             <img alt="alt" src="image/sensor 1.png"style="max-width: 88vw !important;"><br>
                             This will get the amount of copper in ‘vault1’, the number will be stored in the variable `<span style="color: aqua;">result</span>`, let’s say the vault has 10 coppers, therefore ‘result’ will be 10
@@ -863,7 +877,7 @@
                     <section id="pack-color">
                         <h2><li><b>Pack Color</b></li></h2>
                         <p class="ti">
-                            Packs RGBA color into a single number, is usually used with <a href="#draw col"><mark class="draw">draw col</mark></a> and <a href="#control color">control color</a><br>
+                            Packs RGBA color into a single number, is usually used with <a href="#draw-col"><mark class="draw">draw col</mark></a> and <a href="#control-color">control color</a><br>
                             Since it's a single number it can be stored to 1 address on <a href="#cell">cells/banks</a>, 
                             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
                             <img alt="alt" src="image/pack color.png" style="max-width: 85vw !important;"><br>
@@ -895,7 +909,7 @@
                         <h2><li><b>End</b></li></h2>
                         <p class="ti">
                             End the process, when a processor run this line it will go back to 0 as if it reach the 
-                            <a href="#how processor run its code">end of the instruction</a>, similar to <mark class="jump">jump always 0</mark>
+                            <a href="#how-processor-run-its-code">end of the instruction</a>, similar to <mark class="jump">jump always 0</mark>
                         </p>
                     </section>
                     <section id="jump">
@@ -946,7 +960,7 @@
                 <hr>
                 <h1>Controlling Units</h1>
                 <ol style="list-style-type: disc;">
-                    <section id="@unit">
+                    <section id="unit">
                         <h3><li><b>@unit</b></li></h3>
                         <p class="ti">
                             Can only store 1 unit at any given time, stores the unit reference, 
@@ -958,7 +972,7 @@
                         <p class="ti">
                             unlike the name say, <mark class="unit">unit bind</mark> instruction itself 
                             does not bind, <mark class="unit">unit control</mark>, <mark class="unit">unit radar</mark>, <mark class="unit">unit locate</mark> are what binds unit.
-                            <br> <mark class="unit">unit bind</mark> just gets a unit's <a href="building reference">reference</a> and puts it in a variable called<span style="color: yellow;"> @unit</span>
+                            <br> <mark class="unit">unit bind</mark> just gets a unit's <a href="#building-reference">reference</a> and puts it in a variable called<span style="color: yellow;"> @unit</span>
                             <br><img alt="alt" src="image/bind.png" style="max-width: 85vw !important;">
                             <img alt="alt" src="image/bind2.png" style="max-width: 85vw !important;"><br>
                             If you hover your mouse on either the unit or the 
@@ -994,16 +1008,26 @@
                 <section id="unit-bind">
                     <h1><li><b>Unit Bind</b></li></h1>
                     <p class="ti">
-                        Bind 1 unit and put its reference in the <span style="color: yellow;">@unit</span> variable,<br> 
-                        When binding a unit <span style="color: yellow;">@[type]</span> it will bind in an order<br>
+                        Bind 1 unit and put its reference in the <span style="color: yellow;">@unit</span> variable,
+                        <br> 
+                        When binding a unit <span style="color: yellow;">@[type]</span> it will bind in an order
+                        <br>
                         the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
                         When looped (meaning the <mark class="unit">unit bind</mark> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
                         Here’s a visualization : the red box indicates that the unit is in the <span style="color: yellow;">@unit</span> variable<br>
-                        <img alt="alt" src="image/vis bind.gif" style="max-width: 85vw !important;"><br>
+                        <img alt="alt" src="image/vis bind.gif" style="max-width: 85vw !important;">
+                        <br>
                         Don’t worry about instruction line 1,2,3,they are there just to make the code not 1 instruction, to more easily visualize it.<br>
-                        Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in <span style="color: yellow;">@unit</span> meaning <span style="color: yellow;">@unit</span> is now “mega#1”, and so on with “mega#2 , 3 , 4”<br><br>
-
-                        Unit bind can also be used to bind unit reference directly, to get unit reference you have to bind <span style="color: yellow;">@[type]</span> first then save <span style="color: yellow;">@unit</span> to a variable, for example `<span style="color: aqua;">u1</span>`, now `<span style="color: aqua;">u1</span>` holds 1 unit reference, you then can directly bind `<span style="color: aqua;">u1</span>` using unit bind
+                        Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in 
+                        <span style="color: yellow;">@unit</span> meaning <span style="color: yellow;">@unit</span> 
+                        is now “mega#1”, and so on with “mega#2 , 3 , 4”
+                        <br>
+                        <br>
+                        Unit bind can also be used with a variable that stores a unit reference to bind that specific unit directly,
+                        <br>for example the <mark class="control">radar</mark> instruction can output a unit reference to a variable, you can 
+                        use that variable for <mark class="unit">ubind</mark>, 
+                        <br>another example after binding a <span style="color: yellow;">@[type]</span> with <mark class="unit">ubind</mark> you can save 
+                        <span style="color: yellow;">@unit</span> to another variable, then rebind that unit with the variable
 
                         
                     </p>
@@ -1221,7 +1245,7 @@
                     <p>
                         <img alt="alt" src="image/vis getlink.gif" style="width: 600px;"> <img alt="alt" src="image/getlink ex.jpg">
                         <br>line 0 : <a href="#sensor">sensor</a> for @enabled in `<span style="color: aqua;">switch1</span>`, stores the state in the `<span style="color: aqua;">switch</span>` variable
-                        <br>line 1 : <a href="#get link">getlink</a> with `<span style="color: aqua;">link</span>`, which is an <a href="#incrementing-variable">incrementing variable</a>
+                        <br>line 1 : <a href="#get-link">getlink</a> with `<span style="color: aqua;">link</span>`, which is an <a href="#incrementing-variable">incrementing variable</a>
                         <br>line 2 : <a href="#sensor">sensor</a> for @type in <span style="color: aqua;">block</span> for later
                         <br>line 3 : <a href="#incrementing-variable">increment</a> the variable `<span style="color: aqua;">link</span>`
                         <br>line 4 : resets the variable `<span style="color: aqua;">link</span>` when it reached `@links` using the % operator
@@ -1233,10 +1257,10 @@
                     <h2>Shuttle Logic</h2>
                     <img alt="alt" src="image/vis shuttle.gif" >
                     <p>
-                        Line 0 : <a href="#unit bind">bind</a> a flare
-                        <br>Line 1 : <a href="#unit locate">locate</a> an ally core, outputs its coordinates to `<span style="color: aqua;">cx</span>,<span style="color: aqua;">cy</span>`, and building reference to `<span style="color: aqua;">core</span>`
+                        Line 0 : <a href="#unit-bind">bind</a> a flare
+                        <br>Line 1 : <a href="#unit-locate">locate</a> an ally core, outputs its coordinates to `<span style="color: aqua;">cx</span>,<span style="color: aqua;">cy</span>`, and building reference to `<span style="color: aqua;">core</span>`
                         <br>Line 2 - 3 : get the coordinates of the linked vault using <a href="#sensor">sensor</a>
-                        <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#@totalitems">@totalItems</a> from <span style="color: yellow;">@unit</span> to get the amount of items the unit are currently carrying
+                        <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#totalitems">@totalItems</a> from <span style="color: yellow;">@unit</span> to get the amount of items the unit are currently carrying
                         <br>Line 5 : a conditional <a href="#jump">jump</a>, jump to (move to core) and take item if the item the unit are currently carrying is 0
                         <br>Else jump to move to (vault and drop item)</span>
                         <br>Line 6-7: <a href="#move">move</a> to vault and take item from vault
@@ -1294,7 +1318,7 @@
                     <h3>Tabs and newlines</h3>
                     <img alt="alt" src="image/labels.png" >
                     <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
-                    <p>List of mlog <a href="#text form instruction">instruction in text form</a></p>
+                    <p>List of mlog <a href="#text-form-instruction">instruction in text form</a></p>
                 </section>
                 <section id="transpiler">
                     <h1>Transpiler</h1>
@@ -1567,7 +1591,7 @@
                                 <br>unitHealth
                                     <br><span class="spin">set the multiplier of unit health, does not actually change unit max health, increase
                                     resistance instead, actual damage received = (damage received / unitHealth)
-                                    as for ‘damage received’ check <a href="#damage calculation">damage calculation</a></span>
+                                    as for ‘damage received’ check <a href="#damage-calculation">damage calculation</a></span>
                                 <br>unitCost
                                     <br><span class="spin">set multiplier of unit construction cost</span>
                                 <br>unitDamage
@@ -2298,7 +2322,7 @@
                 </section>
                 <section id="sensors">
                     <h2>Sensors</h2>
-                    <br id="@totalitems">@totalItems
+                    <br id="totalitems">@totalItems
                     <br>    <span class="spin">total items the object is currently holding; returns integer</span>
                     <br>@firstItem
                     <br>    <span class="spin">the first item the object is currently holding</span>
