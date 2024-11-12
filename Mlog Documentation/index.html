@@ -555,8 +555,10 @@
                             </p>
                             <li><b>Image</b></li>
                             <p class="ti">
-                                Draws an image of something from the game with <a href="#contentname">content name</a>, such as <span style="color: yellow;">@dagger</span> or <span style="color: yellow;">@copper</span> with its center as its origin<br>
-                                <img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
+                                Draws an image of something from the game with <a href="#contentname">content name</a>, such as <span style="color: yellow;">@dagger</span> or <span style="color: yellow;">@copper</span> with its center as its origin,
+                                <br>if it draws a picture of (oh no) that means whatever you're trying to draw either doesn't exist or not supported, the only work around is drawing it manually,
+                                though the <a href="#bleeding-edge">Bleeding Edge</a> version supports more content
+                                <br><img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
                                 x,y is the of coordinates<br>
                                 image is what image it will draw, you put object name here, like @dagger<br>
                                 size is the size of the image<br>
@@ -1718,6 +1720,11 @@
                     <br><span style="font-size: larger;">BE feature are subject to <span style="color: red;">change</span>, therefore i cannot make sure these information are up to date</span>
                 </p>
                 <br>
+                <h2><li>Draw image</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    Draw image now supports more contents, like floors (@salt, @ice) and more
+                </p>
+                <br>
                 <h2><li>Draw print</li></h2>
                 <p class="spin" style="margin-left: 20px;">
                     Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
@@ -1771,7 +1778,8 @@
                     <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>.
                     <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
                     <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
-                    <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span></span>
+                    <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span>
+                    <br>    or c3 : <span style="color: yellow;">2 ^ (-12 / 12)</span> = <span style="color: yellow;">0.5</span></span>
                     <br>pan pans the sound to the left or right
                     <br>limit, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
                 </p>
@@ -1789,21 +1797,48 @@
                 <h2><li>Make Marker</li></h2>
                 <p class="spin" style="margin-left: 20px;">
                     Makes a Marker
-                    <br>id is numeric identity of the Marker, id can be from 0 to 19999
+                    <br>a marker is an entity in the map that shows content to the user, for example when you select a unit (shift + drag click) a diamond
+                    shaped box appear around that unit, that is a marker, or when you tell a unit to move a line appears, that is also considered a marker,
+                    the floating text in the beginning tutorial is also a marker.
+                    <br>
+                    <br><mark class="lg">id</mark> is numeric identity of the Marker, id can be from 0 to 19999
                     <br>meaning a world/map can only have 20.000 markers
+                    <br>game created markers like the examples above doesn't intervere with player made markers
                     <br>
-                    <br>currently there is a <span style="color: red;">bug</span> with the `replace` argument where it <span style="color: red;">replaces</span> other markers than the specified id
-                    <br>advice is : don't enable the `replace` argument, keep it 0 / false
+                    <br><mark class="lg">replace</mark> determines whether this marker will replace exsisting previous markers that has the same id 
+                    <br>currently there is a <span style="color: red;">bug</span> with the <mark class="lg">replace</mark> argument where it <span style="color: red;">replaces</span> other markers than the specified id
+                    <br>it is recommended to just keep it false
                     <br>
-                    <br>
-                    <b>Texture</b>, makes a marker for a Texture.
+                    <br><b>Texture</b>, makes a marker for a Texture.
                     <br>initially invisible until texture is defined, using <mark class="wp">setmarker texture</mark>.
                     <br>texture can be anything that is available in the game.
                     <br>
+                    <br><b>Quad</b>, are quadrilateral / a 4 sided polygon.
+                    <br>a quad has 4 vertices and 4 sides.
+                    <br>each vertices position can be set using <mark class="wp">setmarker posi</mark>.
                     <br>
-                    <b>Quad</b>, are quadrilateral.
-                    <br>quad has 4 vertices.
-                    <br>each vertices can be set using <mark class="wp">setmarker posi</mark>.
+                    <div style="display: flex; flex-wrap: wrap;" >
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/quad.png" alt="" height="200px">
+                        <figcaption>Default quad</figcaption>
+                    </figure>
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/quad router.png" alt="" height="200px">
+                        <figcaption>Quad with texture and uvi</figcaption>
+                    </figure>
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/quad colori.png" alt="" height="200px">
+                        <figcaption>Stretched Quad with colori</figcaption>
+                    </figure>
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/raycast.png" alt="" height="200px">
+                        <figcaption>Raycast displayed using quads</figcaption>
+                    </figure>
+                    </div>
+                    
+                    <br>texture is initially just pure white, can be defined with <mark class="wp">setmarker texture</mark>,
+                    <br>then needs to be further defined with <mark class="wp">setmarker uvi</mark> to set the texture location within the quad.
+                    
                 </p>
                 <br>
                 <h2><li>Set Marker</li></h2>
@@ -1811,7 +1846,7 @@
                     Sets a property of a marker with the specified id.
                     <br>
                     <br>
-                    <b>Texture</b>, sets the texure of a marker.
+                    <b>texture</b>, sets the texure of a marker.
                     <br>the `printFlush` argument are boolean,
                     <br>when true it uses the text in the text buffer as the name,
                     <br>otherwise uses the `name` argument.
@@ -1819,13 +1854,29 @@
                     <br>can also be file name, like <span style="color: yellow;">"item-copper"</span>, when using a file name remember to put them in quotes,
                     <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
                     <br>
-                    <br>
-                    <b>Posi</b>, sets the vertices location of a quad, location are world x,y location
+                    <br><b>posi</b>, sets the vertices location of a quad, location are world x,y location
                     <br>with index from 0-3
                     <br>each index repesents each vertices
                     <br>
+                    <br><b>uvi</b>, sets each vertices of the texture relative to the quad (UV Mapping with index)
+                    <br>with index from 0-3
+                    <br>each index repesents each vertices, example:
+                    <br>#0 (0,0)
+                    <br>#1 (1,0)
+                    <br>#2 (1,1)
+                    <br>#3 (0,1)
+                    <br>will sets each texture vertices exactly where the quad vertices are, this means texture will stretch/reform to the quad shapes
+                    
                     <br>
-                    <b>Color</b>, change the color of the marker.
+                    <br><b>colori</b>, similar to uvi, if indexes are set to different colors; color will gradient from one to the other
+                    <br>with index from 0-3
+                    <br>each index repesents each vertices, example:
+                    <br>#0 (0,0)
+                    <br>#1 (1,0)
+                    <br>#2 (1,1)
+                    <br>#3 (0,1)
+                    <br>will set
+                    <br><b>color</b>, change the color of the marker.
                     <br>color only tints the color of the marker,
                     <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
                     <br>since quad doesn't have a color quad will take the full color the specified color.
