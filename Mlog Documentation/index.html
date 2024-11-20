@@ -15,16 +15,23 @@
         <aside class="sidebar" id="sidebar">
             <ul>
                 <h2>Table of Contents</h2>
-                <li><a href="#foreword" class="sidebar-link">Foreword</a></li>
-                <li><a href="#introduction" class="sidebar-link">Introduction</a></li>
-                <li><a href="#glossary" class="sidebar-link">Glossary</a></li>
+                <li class="sub-title">
+                    <a href="#foreword" class="sidebar-link">   
+                        <div class="text-line-container"> <!-- This is a line after text effect -->
+                            <span class="text-line">Foreword</span> <!-- unused because idk if it looks good -->
+                            <span class="line"></span>
+                        </div>
+                    </a>
+                </li>
+                <li class="sub-title"><a href="#introduction" class="sidebar-link">Introduction</a></li>
+                <li class="sub-title"><a href="#glossary" class="sidebar-link">Glossary</a></li>
                 <li class="indent1"><a href="#integers" class="sidebar-link">Integers</a></li>
                 <li class="indent1"><a href="#float" class="sidebar-link">Float</a></li>
                 <li class="indent1"><a href="#boolean" class="sidebar-link">Boolean</a></li>
                 <li class="indent1"><a href="#strings" class="sidebar-link">Strings</a></li>
                 <li class="indent1"><a href="#building-reference" class="sidebar-link">Block or Unit Reference</a></li>
                 <li class="indent1"><a href="#contentname" class="sidebar-link">Content name</a></li>
-                <li><a href="#basic-concept" class="sidebar-link">Basic Concept</a></li>
+                <li class="sub-title"><a href="#basic-concept" class="sidebar-link">Basic Concept</a></li>
                 <li class="indent1"><a href="#processors" class="sidebar-link">Processors</a></li>
                 <li class="indent1"><a href="#processors-ui" class="sidebar-link">Processor's UI</a></li>
                 <li class="indent1"><a href="#how-processor-run-its-code" class="sidebar-link">How Processors run its code</a></li>
@@ -33,8 +40,12 @@
                 <li class="indent1"><a href="#built-in-variables" class="sidebar-link">Built in Variables</a></li>
                 <li class="indent1"><a href="#constants" class="sidebar-link">Constant</a></li>
                 <li class="indent1"><a href="#buffers" class="sidebar-link">Buffers</a></li>
-                <li><a href="#blocks" class="sidebar-link">Blocks</a></li>
-                <li><a href="#instructions" class="sidebar-link">Instructions</a></li>
+                <li class="sub-title"><a href="#blocks" class="sidebar-link">Blocks</a></li>
+                <li class="indent1"><a href="#message" class="sidebar-link">Message</a></li>
+                <li class="indent1"><a href="#switch" class="sidebar-link">Switch</a></li>
+                <li class="indent1"><a href="#display" class="sidebar-link">Displays</a></li>
+                <li class="indent1"><a href="#cell" class="sidebar-link">Cells/Banks</a></li>
+                <li class="sub-title"><a href="#instructions" class="sidebar-link">Instructions</a></li>
                 <li class="indent1"><a href="#read" class="sidebar-link">Read</a></li>
                 <li class="indent1"><a href="#write" class="sidebar-link">Write</a></li>
                 <li class="indent1"><a href="#draw" class="sidebar-link">Draw</a></li>
@@ -53,22 +64,22 @@
                 <li class="indent1"><a href="#stop" class="sidebar-link">Stop</a></li>
                 <li class="indent1"><a href="#end" class="sidebar-link">End</a></li>
                 <li class="indent1"><a href="#jump" class="sidebar-link">Jump</a></li>
-                <li><a href="#controlling-units" class="sidebar-link">Controlling Units</a></li>
+                <li class="sub-title"><a href="#controlling-units" class="sidebar-link">Controlling Units</a></li>
                 <li class="indent1"><a href="#unit-bind" class="sidebar-link">Unit Bind</a></li>
                 <li class="indent1"><a href="#unit-control" class="sidebar-link">Unit Control</a></li>
                 <li class="indent1"><a href="#unit-radar" class="sidebar-link">Unit Radar</a></li>
                 <li class="indent1"><a href="#unit-locate" class="sidebar-link">Unit Locate</a></li>
-                <li><a href="#simple-logic-examples" class="sidebar-link">Simple Logic Examples</a></li>
+                <li class="sub-title"><a href="#simple-logic-examples" class="sidebar-link">Simple Logic Examples</a></li>
                 <li class="indent1"><a href="#universal-switch" class="sidebar-link">Universal Switch</a></li>
                 <li class="indent1"><a href="#shuttle-logic" class="sidebar-link">Shuttle Logic</a></li>
                 <li class="indent1"><a href="#thorium-reactor-fail-safe" class="sidebar-link">Thorium Reactor Fail Safe</a></li>
                 <li class="indent1"><a href="#counter-array" class="sidebar-link">@counter Array</a></li>
-                <li><a href="#advanced" class="sidebar-link">Advanced</a></li>
+                <li class="sub-title"><a href="#advanced" class="sidebar-link">Advanced</a></li>
                 <li class="indent1"><a href="#writing-in-text-editor" class="sidebar-link">Writing in text editor</a></li>
                 <li class="indent1"><a href="#transpiler" class="sidebar-link">Transpiler</a></li>
                 <li class="indent1"><a href="#mods" class="sidebar-link">Mods</a></li>
                 <li class="indent1"><a href="#subframe" class="sidebar-link">Antithreading / Subframe</a></li>
-                <li><a href="#world-logic" class="sidebar-link">World Logic (WIP)</a></li>
+                <li class="sub-title"><a href="#world-logic" class="sidebar-link">World Logic (WIP)</a></li>
                 <li class="indent1"><a href="#how-to-get-world-processor" class="sidebar-link">How to get World Processor</a></li>
                 <li class="indent1"><a href="#get-block" class="sidebar-link">Get Block</a></li>
                 <li class="indent1"><a href="#set-block" class="sidebar-link">Set Block</a></li>
@@ -86,8 +97,8 @@
                 <li class="indent1"><a href="#get-flag" class="sidebar-link">Get Flag</a></li>
                 <li class="indent1"><a href="#set-flag" class="sidebar-link">Set Flag</a></li>
                 <li class="indent1"><a href="#set-prop" class="sidebar-link">Set Prop</a></li>
-                <li><a href="#bleeding-edge" class="sidebar-link">Bleeding Edge(WIP)</a></li>
-                <li><a href="#extras" class="sidebar-link">Extras</a></li>
+                <li class="sub-title"><a href="#bleeding-edge" class="sidebar-link">Bleeding Edge(WIP)</a></li>
+                <li class="sub-title"><a href="#extras" class="sidebar-link">Extras</a></li>
                 <li class="indent1"><a href="#mindustry-coordinate-system" class="sidebar-link">Mindustry Coordinate System</a></li>
                 <li class="indent1"><a href="#you-cannot-spawn-scathe-missile" class="sidebar-link">You cannot spawn Scathe missles</a></li>
                 <li class="indent1"><a href="#modded-items-and-draw-image" class="sidebar-link">Modded items and Draw Image</a></li>
@@ -97,8 +108,8 @@
                 <li class="indent1"><a href="#damage-calculation" class="sidebar-link">Damage calculation   </a></li>
                 <li class="indent1"><a href="#math" class="sidebar-link">Math</a></li>
                 <li class="indent1"><a href="#self-linking-processor" class="sidebar-link">Self linking processor</a></li>
-                <li><a href="#self-promotion" class="sidebar-link">Self promotion</a></li>
-                <li><a href="#appendix" class="sidebar-link">Appendix</a></li>
+                <li class="sub-title"><a href="#self-promotion" class="sidebar-link">Self promotion</a></li>
+                <li class="sub-title"><a href="#appendix" class="sidebar-link">Appendix</a></li>
                 <li class="indent1"><a href="#mloginvention" class="sidebar-link">Mlog Invention</a></li>
                 <li class="indent1"><a href="#built-in-variables1" class="sidebar-link">Built in Variables</a></li>
                 <li class="indent2"><a href="#global" class="sidebar-link">Global</a></li>
@@ -407,19 +418,30 @@
             <section id="blocks">
             <h1>Blocks</h1>
                 <ol style="list-style-type: disc;">
-                    <li>Message</li>
-                    <p class="ti" style="margin-top: 5px;">
-                        Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
-                    </p>
-                    <li>Switch</li>
-                    <p class="ti" style="margin-top: 5px;">
-                        Has 2 states, enabled and disabled / 1 and 0, state can be read using Sensor 
-                        instruction, and can also be controlled with Control instruction.
-                    </p>
-                    <li>Logic displays and Large</li>
-                    <p class="ti" style="margin-top: 5px;">
-                        Is used with Draw and Draw Flush, display resolution can be seen in the game's info menu.
-                    </p>
+                    <section id="message">
+                        <li>Message</li>
+                        <p class="ti" style="margin-top: 5px;">
+                            Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
+                            <br>has 220 characters limit (including spaces)
+                            <br>will only show its text when hovered
+                        </p>
+                    </section>
+                    <section id="switch">
+                        <li>Switch</li>
+                        <p class="ti" style="margin-top: 5px;">
+                            Has 2 states, enabled and disabled / 1 and 0, state can be read using Sensor 
+                            instruction, and can also be controlled with Control instruction.
+                        </p>
+                    </section>
+                    <section id="display">
+                        <li>Logic displays and Large</li>
+                        <p class="ti" style="margin-top: 5px;">
+                            Is used with Draw and Draw Flush, 
+                            <br> Normal display has a 88 * 88 resolution
+                            <br> Large display has a 176 * 176 resolution
+                            <br> the border (Bezel) is 8 pixels
+                        </p>
+                    </section>
                     <section id="cell">
                     <li>Memory cell and Memory Bank</li>
                     <p class="ti" style="margin: 5px;">
