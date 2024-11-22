@@ -2427,7 +2427,10 @@
                     <br>@heat
                     <br>    <span class="spin">heat of object, like heat in thorium reactor / force projector, returns number</span>
                     <br>@efficiency
-                    <br>
+                    <br>    <span class="spin">efficiency of a block depending its resources, eg, a block needs 100 power but there's only 50, efficiency will 
+                                return 0.5, or 15 liquid but there's only 7, will return 0.46. returns number
+                                <br>not affected by floor type, eg thermal generator on magma rock, or water extractor on ice (still return 1)
+                            </span>
                     <br>@progress
                     <br>    <span class="spin">progress of an object, eg, launch pad when on their cooldown, foreshadow when on their cooldown; returns number, 0 - 1</span>
                     <br>@timescale
