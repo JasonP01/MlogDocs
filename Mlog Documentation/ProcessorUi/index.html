@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor UI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div id="wizardMenu" class="menu">
+        <div class="wizard-content">
+            <h2>Add</h2>
+            <hr>
+            <div class="addButtons">
+                <p style="font-size: large;">Input & Output</p>
+                <div class="iNo">
+                    <button class="addItems">Read</button>
+                    <button class="addItems">Write</button>
+                    <button class="addItems">Draw</button>
+                    <button class="addItems">Print</button>
+                    <button class="addItems">Format</button>
+                </div>
+                <hr>
+                <p style="font-size: large;">Block Control</p>
+                <div class="blockControl">
+                    <button class="addItems">Draw Flush</button>
+                    <button class="addItems">Print Flush</button>
+                    <button class="addItems">Get Link</button>
+                    <button class="addItems">Control</button>
+                    <button class="addItems">Radar</button>
+                    <button class="addItems">Sensor</button>
+                </div>
+                <hr>
+                <p style="font-size: large;">Operation</p>
+                <div class="operation">
+                    <button class="addItems">Set</button>
+                    <button class="addItems">Operation</button>
+                    <button class="addItems">Lookup</button>
+                    <button class="addItems">Pack Color</button>
+                </div>
+                <hr>
+                <p style="font-size: large;">Flow Control</p>
+                <div class="flowControl">
+                    <button class="addItems">Wait</button>
+                    <button class="addItems">Stop</button>
+                    <button class="addItems">End</button>
+                    <button class="addItems">Jump</button>
+                </div>
+                <hr>
+                <p style="font-size: large;">Unit Control</p>
+                <div class="unitControl">
+                    <button class="addItems">Unit Bind</button>
+                    <button class="addItems">Unit Control</button>
+                    <button class="addItems">Unit Radar</button>
+                    <button class="addItems">Unit Locate</button>
+                </div>
+            </div>
+            <br>
+        <button id="closeMenuBtn" style="justify-content: center;">Close</button>
+        </div>
+    </div>
+    <div class="container"></div>
+</body>
+<footer>
+    <button id="addItems">Add Items</button>
+    <button id="openMenuBtn">+ Add...</button>
+</footer>
+</html>
