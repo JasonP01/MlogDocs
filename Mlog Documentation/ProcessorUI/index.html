@@ -10,10 +10,9 @@
 <body>
     <div id="wizardMenu" class="menu">
         <div class="wizard-content">
-            <h2>Add</h2>
-            <hr>
+            <!-- <h2>Add</h2> -->
             <div class="addButtons">
-                <p style="font-size: large;">Input & Output</p>
+                <div class="wizard-title">Input & Output<div class="line"></div></div>
                 <div class="iNo">
                     <button class="addItems">Read</button>
                     <button class="addItems">Write</button>
@@ -21,8 +20,7 @@
                     <button class="addItems">Print</button>
                     <button class="addItems">Format</button>
                 </div>
-                <hr>
-                <p style="font-size: large;">Block Control</p>
+                <div class="wizard-title">Block Control<div class="line"></div></div>
                 <div class="blockControl">
                     <button class="addItems">Draw Flush</button>
                     <button class="addItems">Print Flush</button>
@@ -31,24 +29,21 @@
                     <button class="addItems">Radar</button>
                     <button class="addItems">Sensor</button>
                 </div>
-                <hr>
-                <p style="font-size: large;">Operation</p>
+                <div class="wizard-title">Operation<div class="line"></div></div>
                 <div class="operation">
                     <button class="addItems">Set</button>
                     <button class="addItems">Operation</button>
                     <button class="addItems">Lookup</button>
                     <button class="addItems">Pack Color</button>
                 </div>
-                <hr>
-                <p style="font-size: large;">Flow Control</p>
+                <div class="wizard-title">Flow Control<div class="line"></div></div>
                 <div class="flowControl">
                     <button class="addItems">Wait</button>
                     <button class="addItems">Stop</button>
                     <button class="addItems">End</button>
                     <button class="addItems">Jump</button>
                 </div>
-                <hr>
-                <p style="font-size: large;">Unit Control</p>
+                <div class="wizard-title">Unit Control<div class="line"></div></div>
                 <div class="unitControl">
                     <button class="addItems">Unit Bind</button>
                     <button class="addItems">Unit Control</button>
@@ -57,13 +52,14 @@
                 </div>
             </div>
             <br>
-        <button id="closeMenuBtn" style="justify-content: center;">Close</button>
+            <button id="closeMenuBtn" style="justify-content: center;">Close</button>
         </div>
     </div>
     <div class="container"></div>
 </body>
 <footer>
     <button id="addItems">Add Items</button>
-    <button id="openMenuBtn">+ Add...</button>
+    <button id="openWizard">+ Add...</button>
 </footer>
 </html>
+<span style="text-wrap: 1;"
