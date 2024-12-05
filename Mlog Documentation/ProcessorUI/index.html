@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Processor UI</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
@@ -52,14 +52,105 @@
                 </div>
             </div>
             <br>
-            <button id="closeMenuBtn" style="justify-content: center;">Close</button>
+            <button class="closeMenuBtn" onclick="closeWizard()"">Close</button>
+        </div>
+    </div>
+    <div id="sensorMenuOutside" class="menu" onclick="closeMenu()">
+        <div id="sensorMenu" class="sensorMenu">
+            <div>@totalItems</div>
+            <div>@firstItem</div>
+            <div>@totalLiquids</div>
+            <div>@totalPower</div>
+            <div>@itemCapacity</div>
+            <div>@liquidCapacity</div>
+            <div>@powerCapacity</div>
+            <div>@powerNetStored</div>
+            <div>@powerNetCapacity</div>
+            <div>@powerNetIn</div>
+            <div>@powerNetOut</div>
+            <div>@ammo</div>
+            <div>@ammoCapacity</div>
+            <div>@health</div>
+            <div>@maxHealth</div>
+            <div>@heat</div>
+            <div>@efficiency</div>
+            <div>@progress</div>
+            <div>@timescale</div>
+            <div>@rotation</div>
+            <div>@x</div>
+            <div>@y</div>
+            <div>@shootX</div>
+            <div>@shootY</div>
+            <div>@size</div>
+            <div>@dead</div>
+            <div>@range</div>
+            <div>@shooting</div>
+            <div>@boosting</div>
+            <div>@mineX</div>
+            <div>@mineY</div>
+            <div>@mining</div>
+            <div>@speed</div>
+            <div>@team</div>
+            <div>@type</div>
+            <div>@flag</div>
+            <div>@controlled</div>
+            <div>@controller</div>
+            <div>@name</div>
+            <div>@payloadCount</div>
+            <div>@payloadType</div>
+            <div>@id</div>
+            <div>@enabled</div>
+            <div>@config</div>
+            <div>@color</div>
+        </div>
+        <div id="opMenu" class="opMenu">
+            <div>+</div>
+            <div>-</div>
+            <div>*</div>
+            <div>/</div>
+            <div>//</div>
+            <div>%</div>
+            <div>^</div>
+            <div>sqrt</div>
+            <div>==</div>
+            <div>not</div>
+            <div>and</div>
+            <div><</div>
+            <div>></div>
+            <div><=</div>
+            <div>>=</div>
+            <div>log</div>
+            <div>log10</div>
+            <div>abs</div>
+            <div>floor</div>
+            <div>ceil</div>
+            <div>or</div>
+            <div>b-and</div>
+            <div>xor</div>
+            <div>flip</div>
+            <div>max</div>
+            <div>min</div>
+            <div>angle</div>
+            <div>anglediff</div>
+            <div>len</div>
+            <div>noise</div>
+            <div>rand</div>
+            <div>sin</div>
+            <div>cos</div>
+            <div>tan</div>
+            <div>asin</div>
+            <div>acos</div>
+            <div>atan</div>
         </div>
     </div>
     <div class="container"></div>
 </body>
 <footer>
-    <button id="addItems">Add Items</button>
-    <button id="openWizard">+ Add...</button>
+    <!-- <button id="addItems">Add Items</button> -->
+    <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>
+    <button class="addItemsMenu" id="openWizard" onclick="openWizard()">+ Add...</button>
 </footer>
+
 </html>
-<span style="text-wrap: 1;"
+
+
