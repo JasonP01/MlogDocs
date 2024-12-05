@@ -39,6 +39,44 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.pencilMenu {
+    max-height: 20px;
+    max-width: 20px;
+    cursor: pointer;
+}
+
+.sensorMenu, .opMenu {
+    display: none;
+    position: absolute;
+    background-color: black;
+    overflow-y: scroll;
+    max-height: 80vh;
+    color: white;
+    border: 5px solid #3c2f2f;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+    cursor: pointer;
+}
+    .sensorMenu div:hover, .opMenu div:hover {
+        background-color: #3c2f2f;
+        padding: 2px 10px 2px 10px;
+    }
+    .sensorMenu div {
+        padding: 2px 7px 2px 7px;
+    }
+    .sensorMenu::-webkit-scrollbar, .opMenu::-webkit-scrollbar {
+        width: 12px; /* Set the width of the scrollbar */
+        height: 12px;
+    }
+    .sensorMenu::-webkit-scrollbar-track, .opMenu::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    .sensorMenu::-webkit-scrollbar-thumb, .opMenu:-webkit-scrollbar-thumb {
+        background-color:#3c2f2f; /* Make the thumb background transparent */
+    }
+
+
 .line {
     width: 100%; 
     text-align: center; 
@@ -76,6 +114,50 @@ body {
     background-color:rgb(67, 67, 67) !important;
     border-radius: 5px;
 }
+
+.closeMenuBtn {
+    background: black;
+    color: white;
+    border:none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: cursive;
+    font-size: large;
+    outline-style:solid;
+    outline-width: 5px;
+    margin-left: 10px;
+    width:fit-content;
+    padding: 5px 20px 5px 20px;
+    height: fit-content;
+    outline-color: #1a1a1a;
+}
+
+.addItemsMenu, .exportCode {
+    background: black;
+    color: white;
+    border:none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: cursive;
+    font-size: x-large;
+    outline-style:solid;
+    outline-width: 5px;
+    margin-left: 10px;
+    width:fit-content;
+    min-width: 100px;
+    min-height: 30px;
+    padding: 10px;
+    height: fit-content;
+    outline-color: #1a1a1a;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+
 
 .operation button, .operation {
     color: #877bad !important;
@@ -162,6 +244,14 @@ body {
     border-radius: 10px;
     
 }
+
+
+
+
+
+
+
+
 
 
 .iNo-container {
