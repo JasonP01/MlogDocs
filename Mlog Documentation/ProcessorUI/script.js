@@ -536,17 +536,17 @@ function exportCode(){
             codeParent.forEach(code => {
                 codeElements = code.querySelectorAll('span');
                 codeElements.forEach(code => {
-                    if (code.className && !code.classList.contains('dontInclude')){
+                    if (code.classList.contains('editable') && !code.classList.contains('dontInclude') && (getComputedStyle(code)).display === 'block'){
                         codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
                     }
                 });
             });
         };
     });
-    navigator.clipboard.writeText(codeEx).then(function() {
-        alert("Text copied to clipboard!");
-    }).catch(function(error) {
-        alert("Failed to copy text: " + error);
-    });
+    navigator.clipboard.writeText(codeEx)
+    document.getElementById('alert').classList.remove("alertShow")
+    setTimeout(() => {
+        document.getElementById('alert').classList.add("alertShow"); // Fade in by changing opacity
+    }, 1000);
 }
 
