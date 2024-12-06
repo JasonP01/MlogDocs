@@ -25,7 +25,27 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+}
 
+.alert {
+    position: fixed;
+    color: white;
+    top: 30px;
+    background-color:#1a1a1a;
+    width: 400px;
+    height: 80px;
+    text-align: center;
+    line-height: 4;
+    font-size: larger;
+    border-radius: 20px;
+    border: 7px solid #3c2f2f;
+    opacity: 1;
+    z-index: 1;
+}
+
+.alertShow{
+    opacity: 0;
+    transition: opacity 1s ease-in; 
 }
 .wizard-content {
     background-color: rgb(0, 0, 0);
