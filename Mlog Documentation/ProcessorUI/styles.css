@@ -161,27 +161,27 @@ footer {
 
 .operation button, .operation {
     color: #877bad !important;
-    text-decoration-color: #877bad !important;
+    border-color: #877bad !important;
 }
 
 .iNo button, .iNo {
     color: #a08a8a !important;
-    text-decoration-color: #a08a8a !important;
+    border-color: #a08a8a !important;
 }
 
 .blockControl button, .blockControl {
     color: #d4816b !important;
-    text-decoration-color: #d4816b !important;
+    border-color: #d4816b !important;
 }
 
 .flowControl button, .flowControl{
     color: #6bb2b2 !important;
-    text-decoration-color: #6bb2b2 !important;
+    border-color: #6bb2b2 !important;
 }
 
 .unitControl button, .unitControl{
     color: #c7b59d !important;
-    text-decoration-color: #c7b59d !important;
+    border-color: #c7b59d !important;
 }
 
 
@@ -196,10 +196,21 @@ footer {
 
 .editable {
     cursor: text;
-    text-decoration: underline;
+    /* text-decoration: underline;
     text-decoration-thickness: 2.5px;
-    text-underline-offset: 6px;
+    text-underline-offset: 6px; */
+    border-bottom: 3px solid;
     color: #ffffff !important;
+    min-width: 15px;
+}
+
+.editable:focus {
+    outline: 2px solid gray;
+    border-radius: 7px
+}
+
+.toggleableField {
+    display: none;
 }
 
 .block-header {
@@ -240,8 +251,8 @@ footer {
 }
 
 .block-content .code span{
-    padding: 7px 5px;
-    border-radius: 10px;
+    padding: 4px 5px;
+    /* border-radius: 10px; */
     
 }
 

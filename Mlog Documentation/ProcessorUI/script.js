@@ -64,6 +64,10 @@ buttons.forEach(button => {
                         <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">enabled</span>
                         <span>of</span>
                         <span class="editable blockControl" contenteditable="true">block1</span>
+                        <span class="toggleableField">x</span>
+                        <span class="editable blockControl toggleableField" contenteditable="true">0</span>
+                        <span class="toggleableField">y</span>
+                        <span class="editable blockControl toggleableField" contenteditable="true">0</span>
                         <span>to</span>
                         <span class="editable blockControl" contenteditable="true">0</span>`
                 break;
@@ -225,6 +229,7 @@ function Delete() {
     if (parentContainer) {
         parentContainer.remove(); 
     }
+    updateLineNumber();
 }
 
 function copy() {
@@ -257,7 +262,7 @@ function popUpMenu(event,id){
     Gid = id;
     console.log(Gid)
     const sensorMenu = document.getElementById(Gid);
-    console.log(sensorMenu)
+    // console.log(sensorMenu)
     bgclickedMenu = sensorMenu.parentElement
     sensorMenu.style.display = 'block';
     bgclickedMenu.style.display = 'flex'
@@ -265,8 +270,8 @@ function popUpMenu(event,id){
     // Position the menu where the span was clicked
     const menuWidth = sensorMenu.offsetWidth;
     const menuHeight = sensorMenu.offsetHeight;
-    console.log(menuWidth)
-    console.log(menuHeight)
+    // console.log(menuWidth)
+    // console.log(menuHeight)
 
     // Calculate the position so the menu opens in the middle of the cursor
     const posX = event.clientX + window.scrollX;
@@ -275,14 +280,15 @@ function popUpMenu(event,id){
     // Set the menu's position with adjustments to center it
     sensorMenu.style.top = `${posY - menuHeight / 2}px`;
     sensorMenu.style.left = `${posX - menuWidth / 2}px`;
-    console.log("kajshdg")
+    // console.log("kajshdg")
 
     const container = document.getElementById(Gid);
-    container.addEventListener('click', function(event) {
-        if (event.target && event.target.matches('div')) { // Check if a div was clicked
-            selectOption(event); // Call selectOption
-        }
-    });
+    if (!container.hasClick) {
+        container.addEventListener('click', function(event) {
+            selectOption(event); 
+        });
+        container.hasClick = true;
+    }
 }
 
 function selectOption(event) {
@@ -294,6 +300,24 @@ function selectOption(event) {
     }
     const option = event.target.textContent
     span.textContent = option;
+
+    console.log(option)
+    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
+    switch (option){
+        case 'shoot':
+            fields.forEach(field => {
+                field.style.display = 'block';
+            })
+            break;
+        case 'enabled':
+        case 'shootp':
+        case 'config':
+        case 'color':
+            fields.forEach(field => {
+                field.style.display = 'none';
+            })
+            break;
+    }
     closeMenu();
 }
 
@@ -349,7 +373,6 @@ function exportCode(){
                     break;
                 case 'Sensor':
                     codeEx += "sensor "
-
                     break;
                 case 'Set':
                     codeEx += "set "
