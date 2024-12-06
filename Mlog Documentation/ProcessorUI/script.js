@@ -30,7 +30,7 @@ buttons.forEach(button => {
                         <span class="editable iNo" contenteditable="true">0</span>`
                 break;
             case 'Draw':
-                code = `<span class="editable iNo" contenteditable="true">clear</span>
+                code = `<span class="editable iNo" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">clear</span>
                         <span>r</span>
                         <span class="editable iNo" contenteditable="true">0</span>
                         <span>g</span>
@@ -61,7 +61,7 @@ buttons.forEach(button => {
                 break;
             case 'Control':
                 code = `<span>set</span>
-                        <span class="editable blockControl" contenteditable="true">enabled</span>
+                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">enabled</span>
                         <span>of</span>
                         <span class="editable blockControl" contenteditable="true">block1</span>
                         <span>to</span>
@@ -71,15 +71,15 @@ buttons.forEach(button => {
                 code = `<span>from</span>
                         <span class="editable blockControl" contenteditable="true">turret1</span>
                         <span>target</span>
-                        <span class="editable blockControl" contenteditable="true">enemy</span>
+                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
                         <span>and</span>
-                        <span class="editable blockControl" contenteditable="true">any</span>
+                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                         <span>and</span>
-                        <span class="editable blockControl" contenteditable="true">any</span>
+                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                         <span>order</span>
                         <span class="editable blockControl" contenteditable="true">1</span>
                         <span>sort</span>
-                        <span class="editable blockControl" contenteditable="true">distance</span>
+                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
                         <span>output</span>
                         <span class="editable blockControl" contenteditable="true">result</span>`
                 break;
@@ -107,7 +107,7 @@ buttons.forEach(button => {
                 code = `<span class="editable operation" contenteditable="true">result</span>
                         <span>=</span>
                         <span>lookup</span>
-                        <span class="editable operation" contenteditable="true">item</span>
+                        <span class="editable operation" contenteditable="true" onclick="popUpMenu(event,'lookupMenu')">item</span>
                         <span>#</span>
                         <span class="editable operation" contenteditable="true">0</span>`
 
@@ -134,15 +134,15 @@ buttons.forEach(button => {
             case 'Jump':
                 code = `<span>if</span>
                         <span class="editable flowControl" contenteditable="true">x</span>
-                        <span class="editable flowControl" contenteditable="true">not</span>
+                        <span class="editable flowControl" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')">not</span>
                         <span class="editable flowControl" contenteditable="true">false</span>`
                 break;
             case 'Unit Bind':
                 code = `<span>type</span>
-                        <span class="editable unitControl" contenteditable="true">@poly</span>`
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">@poly</span>`
                 break;
             case 'Unit Control':
-                code = `<span class="editable unitControl" contenteditable="true">move</span>
+                code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">move</span>
                         <span>x</span>
                         <span class="editable unitControl" contenteditable="true">0</span>
                         <span>y</span>
@@ -150,23 +150,23 @@ buttons.forEach(button => {
                 break;
             case 'Unit Radar':
                 code = `<span>target</span>
-                        <span class="editable unitControl" contenteditable="true">enemy</span>
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
                         <span>and</span>
-                        <span class="editable unitControl" contenteditable="true">any</span>
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                         <span>and</span>
-                        <span class="editable unitControl" contenteditable="true">any</span>
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                         <span>order</span>
                         <span class="editable unitControl" contenteditable="true">1</span>
                         <span>sort</span>
-                        <span class="editable unitControl" contenteditable="true">distance</span>
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
                         <span>output</span>
                         <span class="editable unitControl" contenteditable="true">result</span>`
                 break;
             case 'Unit Locate':
                 code = `<span>find</span>
-                        <span class="editable unitControl" contenteditable="true">building</span>
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">building</span>
                         <span>group</span>
-                        <span class="editable unitControl" contenteditable="true">core</span>
+                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
                         <span>enemy</span>
                         <span class="editable unitControl" contenteditable="true">true</span>
                         <span>outX</span>

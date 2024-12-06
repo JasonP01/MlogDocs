@@ -45,7 +45,7 @@ body {
     cursor: pointer;
 }
 
-.sensorMenu, .opMenu {
+.popUpMenu {
     display: none;
     position: absolute;
     background-color: black;
@@ -58,21 +58,21 @@ body {
     z-index: 1000;
     cursor: pointer;
 }
-    .sensorMenu div:hover, .opMenu div:hover {
+    .popUpMenu div:hover{
         background-color: #3c2f2f;
         padding: 2px 10px 2px 10px;
     }
-    .sensorMenu div {
+    .popUpMenu div {
         padding: 2px 7px 2px 7px;
     }
-    .sensorMenu::-webkit-scrollbar, .opMenu::-webkit-scrollbar {
+    .popUpMenu::-webkit-scrollbar{
         width: 12px; /* Set the width of the scrollbar */
         height: 12px;
     }
-    .sensorMenu::-webkit-scrollbar-track, .opMenu::-webkit-scrollbar-track {
+    .popUpMenu::-webkit-scrollbar-track{
         background-color: transparent;
     }
-    .sensorMenu::-webkit-scrollbar-thumb, .opMenu:-webkit-scrollbar-thumb {
+    .popUpMenu::-webkit-scrollbar-thumb{
         background-color:#3c2f2f; /* Make the thumb background transparent */
     }
 

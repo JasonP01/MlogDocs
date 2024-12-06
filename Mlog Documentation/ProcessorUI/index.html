@@ -56,7 +56,7 @@
         </div>
     </div>
     <div id="sensorMenuOutside" class="menu" onclick="closeMenu()">
-        <div id="sensorMenu" class="sensorMenu">
+        <div id="sensorMenu" class="popUpMenu">
             <div>@totalItems</div>
             <div>@firstItem</div>
             <div>@totalLiquids</div>
@@ -103,7 +103,7 @@
             <div>@config</div>
             <div>@color</div>
         </div>
-        <div id="opMenu" class="opMenu">
+        <div id="opMenu" class="popUpMenu">
             <div>+</div>
             <div>-</div>
             <div>*</div>
@@ -141,6 +141,166 @@
             <div>asin</div>
             <div>acos</div>
             <div>atan</div>
+        </div>
+        <div id="drawMenu" class="popUpMenu">
+            <div>clear</div>
+            <div>color</div>
+            <div>col</div>
+            <div>stroke</div>
+            <div>line</div>
+            <div>rect</div>
+            <div>lineRect</div>
+            <div>poly</div>
+            <div>linePoly</div>
+            <div>triangle</div>
+            <div>image</div>
+            <div>print</div>
+            <div>translate</div>
+            <div>scale</div>
+            <div>rotate</div>
+            <div>reset</div>
+        </div>
+        <div id="controlMenu" class="popUpMenu">
+            <div>enabled</div>
+            <div>shoot</div>
+            <div>shootp</div>
+            <div>config</div>
+            <div>color</div>
+        </div>
+        <div id="radarMenuTarget" class="popUpMenu">
+            <div>any</div>
+            <div>enemy</div>
+            <div>ally</div>
+            <div>player</div>
+            <div>attacker</div>
+            <div>flying</div>
+            <div>boss</div>
+            <div>ground</div>
+        </div>
+        <div id="radarMenuSort" class="popUpMenu">
+            <div>distance</div>
+            <div>health</div>
+            <div>shield</div>
+            <div>armor</div>
+            <div>maxHealth</div>
+        </div>
+        <div id="lookupMenu" class="popUpMenu">
+            <div>block</div>
+            <div>unit</div>
+            <div>item</div>
+            <div>liquid</div>
+        </div>
+        <div id="jumpMenu" class="popUpMenu">
+            <div>==</div>
+            <div>not</div>
+            <div><</div>
+            <div><=</div>
+            <div>></div>
+            <div>>=</div>
+            <div>===</div>
+            <div>always</div>
+        </div>
+        <div id="ubindMenu" class="popUpMenu">
+            <div>@dagger</div>	
+            <div>@mace</div>	
+            <div>@fortress</div>
+            <div>@scepter</div>	
+            <div>@reign</div>	
+            <div>@nova</div>
+            <div>@pulsar</div>	
+            <div>@quasar</div>	
+            <div>@vela</div>
+            <div>@corvus</div>	
+            <div>@crawler</div>	
+            <div>@atrax</div>
+            <div>@spiroct</div>	
+            <div>@arkyid</div>	
+            <div>@toxopid</div>
+            <div>@flare</div>	
+            <div>@horizon</div>	
+            <div>@zenith</div>
+            <div>@antumbra</div>	
+            <div>@eclipse</div>	
+            <div>@mono</div>
+            <div>@poly</div>	
+            <div>@mega</div>	
+            <div>@quad</div>
+            <div>@oct</div>	
+            <div>@risso</div>	
+            <div>@minke</div>
+            <div>@bryde</div>	
+            <div>@sei</div>	
+            <div>@omura</div>
+            <div>@retusa</div>	
+            <div>@oxynoe</div>	
+            <div>@cyerce</div>
+            <div>@aegires</div>	
+            <div>@navanax</div>	
+            <div>@alpha</div>
+            <div>@beta</div>	
+            <div>@gamma</div>	
+            <div>@stell</div>
+            <div>@locus</div>	
+            <div>@precept</div>	
+            <div>@vanquish</div>
+            <div>@conquer</div>	
+            <div>@merui</div>	
+            <div>@cleroi</div>
+            <div>@anthicus</div>	
+            <div>@anthicus-missile</div>
+            <div>@tecta</div>
+            <div>@collaris</div>	
+            <div>@elude</div>	
+            <div>@avert</div>
+            <div>@obviate</div>	
+            <div>@quell</div>	
+            <div>@quell-missile</div>
+            <div>@disrupt</div>	
+            <div>@disrupt-missile</div>
+            <div>@renale</div>
+            <div>@latum</div>	
+            <div>@evoke</div>	
+            <div>@incite</div>
+            <div>@emanate</div>	
+            <div>@scathe-missile</div>
+        </div>
+        <div id="ucontrolMenu" class="popUpMenu">
+            <div>ucontrol</div>
+            <div>stop</div>
+            <div>move</div>
+            <div>approach</div> 
+            <div>pathfind</div> 
+            <div>autoPathfind</div>
+            <div>boost</div> 
+            <div>target</div> 
+            <div>targetp</div> 
+            <div>itemDrop</div> 
+            <div>itemTake</div> 
+            <div>payDrop</div>
+            <div>payTake</div> 
+            <div>payEnter</div>
+            <div>mine</div> 
+            <div>flag</div> 
+            <div>build</div> 
+            <div>getBlock</div> 
+            <div>within</div> 
+            <div>unbind</div>
+        </div>
+        <div id="ulocateFindMenu" class="popUpMenu">
+            <div>building</div>
+            <div>ore</div>
+            <div>spawn</div>
+            <div>damaged</div> 
+        </div>
+        <div id="ulocateGroupMenu" class="popUpMenu">
+            <div>core</div>
+            <div>storage</div>
+            <div>generator</div>
+            <div>turret</div>
+            <div>factory</div>
+            <div>repair</div>
+            <div>battery</div>
+            <div>reactor</div>
         </div>
     </div>
     <div class="container"></div>
