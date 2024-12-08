@@ -25,6 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+    user-select: none;
 }
 
 .alert {
@@ -41,6 +42,7 @@ body {
     border: 7px solid #3c2f2f;
     opacity: 1;
     z-index: 1;
+    display: none;
 }
 
 .alertShow{
@@ -57,12 +59,14 @@ body {
     border-radius: 10px;
     width: 330px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    user-select: none;
 }
 
 .pencilMenu {
     max-height: 20px;
     max-width: 20px;
     cursor: pointer;
+    user-select: none;
 }
 
 .popUpMenu {
@@ -77,6 +81,7 @@ body {
     padding: 10px;
     z-index: 1000;
     cursor: pointer;
+    user-select: none;
 }
     .popUpMenu div:hover{
         background-color: #3c2f2f;
@@ -113,6 +118,7 @@ body {
     color: #5b5b5b;
     font-weight: 600;
     padding-top: 10px;
+    user-select: none;
 }
 
 .addButtons button {
@@ -129,10 +135,12 @@ body {
     padding: 0px;
     margin: 0px;
     font-family:cursive;
+    user-select: none;
 }
 .addButtons button:hover {
     background-color:rgb(67, 67, 67) !important;
     border-radius: 5px;
+    user-select: none;
 }
 
 .closeMenuBtn {
@@ -237,7 +245,10 @@ footer {
     display: flex;
     justify-content: space-between;
     margin-bottom: 4px;
+    padding-top: 13px;
     font-weight: bold;
+    user-select: none;
+    margin: 0;
 }
 
 .block-header .controls {
@@ -288,7 +299,7 @@ footer {
 .iNo-container {
     background-color: #a08a8a;
     border-radius: 5px;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     color: #fff;
     min-width: 50vw;
     max-width: 85vw;
@@ -301,7 +312,7 @@ footer {
 .blockControl-container {
     background-color: #a66b5d;
     border-radius: 5px;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     color: #fff;
     min-width: 50vw;
     max-width: 85vw;
@@ -315,7 +326,7 @@ footer {
 .operation-container {
     background-color: #877bad;
     border-radius: 5px;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;;
     color: #fff;
     min-width: 50vw;
     max-width: 85vw;
@@ -328,7 +339,7 @@ footer {
 .flowControl-container {
     background-color: #6bb2b2;
     border-radius: 5px;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;;
     color: #fff;
     min-width: 50vw;
     max-width: 85vw;
@@ -341,7 +352,7 @@ footer {
 .unitControl-container {
     background-color: #c7b59d;
     border-radius: 5px;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     color: #fff;
     min-width: 50vw;
     max-width: 85vw;

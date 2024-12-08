@@ -207,7 +207,7 @@ buttons.forEach(button => {
                     </div>
                 </div>
             </div>`
-        )
+        );
         updateLineNumber();
 
     });
@@ -220,6 +220,9 @@ function updateLineNumber() {
         const lineNumberElement = containerr.querySelector('#lineNumber');
         if (lineNumberElement) {
             lineNumberElement.textContent = index-1;
+        }
+        if (!containerr.hasDown){
+            MouseDown(containerr.querySelector('.block-header'),containerr)
         }
     });
 }
@@ -326,9 +329,73 @@ function closeMenu() {
     bgclickedMenu.style.display = 'none'
 }
 
+// drag event
+var elementDragged;
+let offsetX, offsetY, isDragging = false;
+let closestElement = null;
+let closestDistance = Infinity;
+var counter = 0;
+document.addEventListener('mousemove', (e) => {
+    (document.getElementById('debugText2')).textContent = isDragging;
+    if (isDragging) {
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+        elementDragged.style.left = `${x}px`;
+        elementDragged.style.top = `${y}px`;
+        elementDragged.style.position = 'absolute'
+        elementDragged.style.zIndex = '2';
+        const targets = document.querySelectorAll('.container');
+        closestDistance = Infinity;
+        closestElement = null;
+        targets.forEach(target => {
+            if (target != elementDragged){
+                const rect = target.getBoundingClientRect();
+                const targetX = rect.left + rect.width / 2; 
+                const targetY = rect.top + rect.height / 2; 
 
-  // Close the wizard menu when the close button is clicked
-// document.getElementById('closeMenuBtn').addEventListener('click', closeWizard);
+                const distance = Math.sqrt(
+                Math.pow(e.clientX - targetX, 2) +
+                Math.pow(e.clientY - targetY, 2)
+                );
+        
+                if (distance < closestDistance) {
+                closestDistance = distance;
+                closestElement = target;
+                }
+                counter++;
+                (document.getElementById('debugText3')).textContent = (closestElement).textContent;
+                (document.getElementById('debugText')).textContent = counter;
+            }
+        });
+    }
+}); 
+
+function MouseDown(blocks,parent) {
+    parent.hasDown = true;
+    blocks.addEventListener('mousedown', (e) => {
+        if (document.elementFromPoint(e.clientX, e.clientY) == blocks){
+            isDragging = true;
+            elementDragged = e.target.closest('.container')
+            offsetX = e.clientX - elementDragged.offsetLeft;
+            offsetY = e.clientY - elementDragged.offsetTop;
+            // blocks.style.cursor = 'grabbing';
+        }
+    });
+}
+
+document.addEventListener('mouseup', (e) => {
+    isDragging = false;
+    if (elementDragged) {
+        elementDragged.style.position = ''
+        elementDragged.style.zIndex = '0';
+        document.body.insertBefore(elementDragged, (closestElement).nextSibling);
+        elementDragged = null;
+        updateLineNumber();
+    }
+    
+});
+
+
 
 function exportCode(){
     codeEx = ""
@@ -545,8 +612,13 @@ function exportCode(){
     });
     navigator.clipboard.writeText(codeEx)
     document.getElementById('alert').classList.remove("alertShow")
+    document.getElementById('alert').style.display = 'block'
     setTimeout(() => {
-        document.getElementById('alert').classList.add("alertShow"); // Fade in by changing opacity
+        document.getElementById('alert').classList.add("alertShow");
+        setTimeout(() => {
+            document.getElementById('alert').style.display = 'none'
+        }, 1000);
     }, 1000);
+
 }
 
