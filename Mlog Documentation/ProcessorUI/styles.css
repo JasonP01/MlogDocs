@@ -4,7 +4,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: fit-content;
+    height: 100vh;
     margin: 0;
     font-family: 'Courier New', Courier, monospace;
 }
