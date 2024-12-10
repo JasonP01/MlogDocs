@@ -31,14 +31,18 @@ buttons.forEach(button => {
                 break;
             case 'Draw':
                 code = `<span class="editable iNo" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">clear</span>
-                        <span>r</span>
-                        <span class="editable iNo" contenteditable="true">0</span>
-                        <span>g</span>
-                        <span class="editable iNo" contenteditable="true">0</span>
-                        <span>b</span>
-                        <span class="editable iNo" contenteditable="true">0</span>
-                        <span class="editable iNo" contenteditable="true" style="display:none;">0</span>
-                        <span class="editable iNo" contenteditable="true" style="display:none;">0</span>`
+                        <span class="toggleableField" id="field1" style=display:block;>r</span>
+                        <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
+                        <span class="toggleableField" id="field2" style=display:block;>g</span>
+                        <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+                        <span class="toggleableField" id="field3" style=display:block;>b</span>
+                        <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style=display:block;>0</span>
+                        <span class="toggleableField" id="field4">a</span>
+                        <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">0</span>
+                        <span class="toggleableField" id="field5">a</span>
+                        <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">0</span>
+                        <span class="toggleableField" id="field6">a</span>
+                        <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">0</span>`
                 break;
             case 'Print':
                 code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
@@ -139,7 +143,8 @@ buttons.forEach(button => {
                 code = `<span>if</span>
                         <span class="editable flowControl" contenteditable="true">x</span>
                         <span class="editable flowControl" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')">not</span>
-                        <span class="editable flowControl" contenteditable="true">false</span>`
+                        <span class="editable flowControl" contenteditable="true">false</span>
+                        <canvas id="jumpArrow"></canvas>`
                 break;
             case 'Unit Bind':
                 code = `<span>type</span>
@@ -224,6 +229,25 @@ function updateLineNumber() {
         if (!containerr.hasDown){
             MouseDown(containerr.querySelector('.block-header'),containerr)
         }
+
+        // JUMP ARROW VISUAL (WIP)
+        const canvas = containerr.querySelector('#jumpArrow');
+        if (canvas){
+            const ctx = canvas.getContext('2d');
+            const point1 = { x: 0, y: 0 }; 
+            const point2 = { x: 10, y: 10 }; 
+            const containerrRect = containerr.getBoundingClientRect();
+            const containerrX = containerrRect.left + containerrRect.width / 2; 
+            const containerrY = containerrRect.top + containerrRect.height / 2; 
+
+            // Set up the line drawing
+            ctx.strokeStyle = 'white'
+            ctx.lineWidth = 5
+            ctx.beginPath();
+            ctx.moveTo(point1.x, point1.y);
+            ctx.lineTo(point2.x, point2.y);
+            ctx.stroke();
+        }
     });
 }
 
@@ -258,77 +282,6 @@ function openWizard() {
     document.getElementById('wizardMenu').style.display = 'flex';
 }
 
-var clickedMenu;
-var bgclickedMenu;
-var Gid;
-function popUpMenu(event,id){
-    Gid = id;
-    console.log(Gid)
-    const sensorMenu = document.getElementById(Gid);
-    // console.log(sensorMenu)
-    bgclickedMenu = sensorMenu.parentElement
-    sensorMenu.style.display = 'block';
-    bgclickedMenu.style.display = 'flex'
-    clickedMenu = event.target;
-    // Position the menu where the span was clicked
-    const menuWidth = sensorMenu.offsetWidth;
-    const menuHeight = sensorMenu.offsetHeight;
-    // console.log(menuWidth)
-    // console.log(menuHeight)
-
-    // Calculate the position so the menu opens in the middle of the cursor
-    const posX = event.clientX + window.scrollX;
-    const posY = event.clientY + window.scrollY;
-
-    // Set the menu's position with adjustments to center it
-    sensorMenu.style.top = `${posY - menuHeight / 2}px`;
-    sensorMenu.style.left = `${posX - menuWidth / 2}px`;
-    // console.log("kajshdg")
-
-    const container = document.getElementById(Gid);
-    if (!container.hasClick) {
-        container.addEventListener('click', function(event) {
-            selectOption(event); 
-        });
-        container.hasClick = true;
-    }
-}
-
-function selectOption(event) {
-    let span;
-    if (clickedMenu.tagName == 'IMG'){
-        span = clickedMenu.previousElementSibling
-    } else {
-        span = clickedMenu
-    }
-    const option = event.target.textContent
-    span.textContent = option;
-
-    console.log(option)
-    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
-    switch (option){
-        case 'shoot':
-            fields.forEach(field => {
-                field.style.display = 'block';
-            })
-            break;
-        case 'enabled':
-        case 'shootp':
-        case 'config':
-        case 'color':
-            fields.forEach(field => {
-                field.style.display = 'none';
-            })
-            break;
-    }
-    closeMenu();
-}
-
-function closeMenu() {
-    document.getElementById(Gid).style.display = 'none';
-    bgclickedMenu.style.display = 'none'
-}
-
 // drag event
 var elementDragged;
 let offsetX, offsetY, isDragging = false;
@@ -344,29 +297,7 @@ document.addEventListener('mousemove', (e) => {
         elementDragged.style.top = `${y}px`;
         elementDragged.style.position = 'absolute'
         elementDragged.style.zIndex = '2';
-        const targets = document.querySelectorAll('.container');
-        closestDistance = Infinity;
-        closestElement = null;
-        targets.forEach(target => {
-            if (target != elementDragged){
-                const rect = target.getBoundingClientRect();
-                const targetX = rect.left + rect.width / 2; 
-                const targetY = rect.top + rect.height / 2; 
 
-                const distance = Math.sqrt(
-                Math.pow(e.clientX - targetX, 2) +
-                Math.pow(e.clientY - targetY, 2)
-                );
-        
-                if (distance < closestDistance) {
-                closestDistance = distance;
-                closestElement = target;
-                }
-                counter++;
-                (document.getElementById('debugText3')).textContent = (closestElement).textContent;
-                (document.getElementById('debugText')).textContent = counter;
-            }
-        });
     }
 }); 
 
@@ -385,6 +316,29 @@ function MouseDown(blocks,parent) {
 
 document.addEventListener('mouseup', (e) => {
     isDragging = false;
+    const targets = document.querySelectorAll('.container');
+    closestDistance = Infinity;
+    closestElement = null;
+    targets.forEach(target => {
+        if (target != elementDragged){
+            const rect = target.getBoundingClientRect();
+            const targetX = rect.left + rect.width / 2; 
+            const targetY = rect.top + rect.height / 2; 
+
+            const distance = Math.sqrt(
+            Math.pow(e.clientX - targetX, 2) +
+            Math.pow(e.clientY - targetY, 2)
+            );
+    
+            if (distance < closestDistance) {
+            closestDistance = distance;
+            closestElement = target;
+            }
+            counter++;
+            (document.getElementById('debugText3')).textContent = (closestElement).textContent;
+            (document.getElementById('debugText')).textContent = counter;
+        }
+    });
     if (elementDragged) {
         elementDragged.style.position = ''
         elementDragged.style.zIndex = '0';
@@ -394,6 +348,373 @@ document.addEventListener('mouseup', (e) => {
     }
     
 });
+
+var clickedMenu;
+var bgclickedMenu;
+var Gid;
+var performanceStart;
+var performanceEnd;
+function popUpMenu(event,id){
+    Gid = id;
+    // console.log(Gid)
+    const sensorMenu = document.getElementById(Gid);
+    // console.log(sensorMenu)
+    bgclickedMenu = sensorMenu.parentElement
+    sensorMenu.style.display = 'block';
+    bgclickedMenu.style.display = 'flex'
+    clickedMenu = event.target;
+    // Position the menu where the span was clicked
+    const menuWidth = sensorMenu.offsetWidth;
+    const menuHeight = sensorMenu.offsetHeight;
+    // console.log(menuWidth)
+    // console.log(menuHeight)
+
+    // Calculate the position so the menu opens in the middle of the cursor
+    const posX = event.clientX //+ window.scrollX;
+    const posY = event.clientY //+ window.scrollY;
+
+    // Set the menu's position with adjustments to center it
+    sensorMenu.style.top = `${posY - menuHeight / 2}px`;
+    sensorMenu.style.left = `${posX - menuWidth / 2}px`;
+    // console.log("kajshdg")
+
+    const container = document.getElementById(Gid);
+    if (!container.hasClick) {
+        container.addEventListener('click', function(event) {
+            selectOption(event,id); 
+        });
+        container.hasClick = true;
+    }
+}
+
+const clickHandler = (event) => popUpMenu(event, 'drawMenuAlign');
+function selectOption(event,id) {
+    performanceStart = performance.now();
+    let span;
+    if (clickedMenu.tagName == 'IMG'){
+        span = clickedMenu.previousElementSibling
+    } else {
+        span = clickedMenu
+    }
+    const option = event.target.textContent
+    let targetId = event.target.id
+    span.textContent = option;
+
+    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
+
+    // Draw instruction related function
+    function rbgaFieldText(field) {
+        // if (['field1', 'field1Value', 'field2', 'field2Value', 'field3', 'field3Value', 'field4', 'field4Value'].includes(field.id)){
+            switch (field.id){
+                case 'field1':
+                    field.textContent = 'r'
+                    break;
+                case 'field2':
+                    field.textContent = 'g'
+                    break;
+                case 'field3':
+                    field.textContent = 'b'
+                    break;
+                case 'field4':
+                    field.textContent = 'a'
+                    break;}}
+    function removeField3Event(field) {
+        field.hasEvent = false;
+        field.removeEventListener('click', clickHandler);
+    }
+    if (id == "drawMenu" && option != "print") {
+        removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
+    }
+
+    switch (option){
+        case 'shoot':
+            fields.forEach(field => {
+                field.style.display = 'block';
+            })
+            break;
+        case 'enabled':
+        case 'shootp':
+        case 'config':
+            break;
+        case 'clear':
+            fields.forEach(field => {
+                if (['field1', 'field2', 
+                    'field3', 'field1Value', 
+                    'field2Value', 'field3Value'].includes(field.id)){
+                    rbgaFieldText(field);
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'color':
+            if (targetId) {
+                switch (targetId){
+                    case 'controlColor':
+                    fields.forEach(field => {
+                        field.style.display = 'none';
+                    })
+                    case 'drawColor':
+                    fields.forEach(field => {
+                        if (['field1', 'field2', 
+                            'field3', 'field4', 
+                            'field1Value', 'field2Value', 
+                            'field3Value', 'field4Value'].includes(field.id)){
+                            rbgaFieldText(field);
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                }
+            }
+            break;
+        case 'col':
+            fields.forEach(field => {
+                if (['field1', 'field1Value'].includes(field.id)){
+                    if (field.id == 'field1'){
+                        field.textContent = 'color'
+                    }
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'stroke':
+            fields.forEach(field => {
+                if (['field1Value'].includes(field.id)){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'line':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'x2'
+                            break;
+                        case 'field4':
+                            field.textContent = 'y2'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'rect':
+        case 'lineRect':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'width'
+                            break;
+                        case 'field4':
+                            field.textContent = 'height'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'poly':
+        case 'linePoly':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value', 
+                    'field5', 'field5Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'sides'
+                            break;
+                        case 'field4':
+                            field.textContent = 'radius'
+                            break;
+                        case 'field5':
+                            field.textContent = 'rotation'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'triangle':
+            fields.forEach(field => {
+                if (field.id){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'x2'
+                            break;
+                        case 'field4':
+                            field.textContent = 'y2'
+                            break;
+                        case 'field5':
+                            field.textContent = 'x3'
+                            break;
+                        case 'field6':
+                            field.textContent = 'y3'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'image':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value', 
+                    'field5', 'field5Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'image'
+                            break;
+                        case 'field4':
+                            field.textContent = 'size'
+                            break;
+                        case 'field5':
+                            field.textContent = 'rotation'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'print':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'align'
+                            break;
+                        case 'field3Value':
+                            field.textContent = "center"
+                            if (!(field.hasEvent)){
+                                field.hasEvent = true
+                                field.addEventListener('click', clickHandler);
+                            }
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'translate':
+        case 'scale':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'rotate':
+            fields.forEach(field => {
+                if (['field1', 'field1Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'degrees'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'reset':
+            fields.forEach(field => {
+                field.style.display = 'none';
+            })
+            break;
+    }
+    
+    closeMenu();
+}
+
+function closeMenu() {
+    document.getElementById(Gid).style.display = 'none';
+    event.stopPropagation();
+    bgclickedMenu.style.display = 'none'
+    console.log("22");
+    performanceEnd = performance.now();
+    (document.getElementById('debugText4')).textContent = (`Execution time: ${performanceEnd - performanceStart} milliseconds`);
+    console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
+    console.log("adfgsd");
+}
 
 
 

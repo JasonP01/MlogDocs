@@ -4,7 +4,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: fit-content;
     margin: 0;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -34,6 +34,7 @@ body {
     top: 30px;
     background-color:#1a1a1a;
     width: 400px;
+    max-width: 80vw;
     height: 80px;
     text-align: center;
     line-height: 4;
@@ -230,6 +231,7 @@ footer {
     border-bottom: 3px solid;
     color: #ffffff !important;
     min-width: 15px;
+    user-select: all !important;
 }
 
 .editable:focus {
@@ -283,8 +285,21 @@ footer {
 
 .block-content .code span{
     padding: 4px 5px;
+    user-select: none;
     /* border-radius: 10px; */
     
+}
+
+canvas {
+    position: absolute;
+    left: 100%;
+    /* top: 50%; */
+    background-color: none;
+    width: auto;
+    height: -100px;
+    color: white !important;
+    pointer-events: none;
+    z-index: 4;
 }
 
 
