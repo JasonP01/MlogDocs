@@ -315,37 +315,42 @@ function MouseDown(blocks,parent) {
 }
 
 document.addEventListener('mouseup', (e) => {
-    isDragging = false;
-    const targets = document.querySelectorAll('.container');
-    closestDistance = Infinity;
-    closestElement = null;
-    targets.forEach(target => {
-        if (target != elementDragged){
-            const rect = target.getBoundingClientRect();
-            const targetX = rect.left + rect.width / 2; 
-            const targetY = rect.top + rect.height / 2; 
-
-            const distance = Math.sqrt(
-            Math.pow(e.clientX - targetX, 2) +
-            Math.pow(e.clientY - targetY, 2)
-            );
-    
-            if (distance < closestDistance) {
-            closestDistance = distance;
-            closestElement = target;
+    const pfstart = performance.now();
+    if (isDragging) {
+        isDragging = false;
+        const targets = document.querySelectorAll('.container');
+        closestDistance = Infinity;
+        closestElement = null;
+        targets.forEach(target => {
+            if (target != elementDragged){
+                const rect = target.getBoundingClientRect();
+                const targetX = rect.left + rect.width / 2; 
+                const targetY = rect.top + rect.height / 2; 
+                const distance = Math.sqrt(
+                Math.pow(e.clientX - targetX, 2) +
+                Math.pow(e.clientY - targetY, 2)
+                );
+        
+                if (distance < closestDistance) {
+                closestDistance = distance;
+                closestElement = target;
+                }
+                counter++;
+                (document.getElementById('debugText3')).textContent = (closestElement).textContent;
+                (document.getElementById('debugText')).textContent = counter;
             }
-            counter++;
-            (document.getElementById('debugText3')).textContent = (closestElement).textContent;
-            (document.getElementById('debugText')).textContent = counter;
+        });
+        if (elementDragged) {
+            elementDragged.style.position = ''
+            elementDragged.style.zIndex = '0';
+            document.body.insertBefore(elementDragged, (closestElement).nextSibling);
+            elementDragged = null;
+            updateLineNumber();
         }
-    });
-    if (elementDragged) {
-        elementDragged.style.position = ''
-        elementDragged.style.zIndex = '0';
-        document.body.insertBefore(elementDragged, (closestElement).nextSibling);
-        elementDragged = null;
-        updateLineNumber();
+        const pfend = performance.now();
+        (document.getElementById('debugText5')).textContent = (`drag performance: ${pfend - pfstart} milliseconds`);
     }
+
     
 });
 

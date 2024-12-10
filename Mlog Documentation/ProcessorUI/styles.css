@@ -4,9 +4,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    min-height:90vh;
+    margin: 5vh;
     font-family: 'Courier New', Courier, monospace;
+    overflow:auto;
 }
 
 .container {
