@@ -66,14 +66,14 @@ buttons.forEach(button => {
             case 'Control':
                 code = `<span>set</span>
                         <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">enabled</span>
-                        <span>of</span>
-                        <span class="editable blockControl" contenteditable="true">block1</span>
-                        <span class="toggleableField">x</span>
-                        <span class="editable blockControl toggleableField" contenteditable="true">0</span>
-                        <span class="toggleableField">y</span>
-                        <span class="editable blockControl toggleableField" contenteditable="true">0</span>
-                        <span>to</span>
-                        <span class="editable blockControl" contenteditable="true">0</span>`
+                        <span id="field1">of</span>
+                        <span class="editable blockControl" id="field1Value" contenteditable="true">block1</span>
+                        <span class="toggleableField" id="field2" style=display:block;>to</span>
+                        <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+                        <span class="toggleableField" id="field3">y</span>
+                        <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true">0</span>
+                        <span class="toggleableField" id="field4">to</span>
+                        <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true">0</span>`
                 break;
             case 'Radar':
                 code = `<span>from</span>
@@ -152,10 +152,16 @@ buttons.forEach(button => {
                 break;
             case 'Unit Control':
                 code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">move</span>
-                        <span>x</span>
-                        <span class="editable unitControl" contenteditable="true">0</span>
-                        <span>y</span>
-                        <span class="editable unitControl" contenteditable="true">0</span>`
+                        <span class="toggleableField" id="field1" style=display:block;>x</span>
+                        <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
+                        <span class="toggleableField" id="field2" style=display:block;>y</span>
+                        <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+                        <span class="toggleableField" id="field3">x</span>
+                        <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">0</span>
+                        <span class="toggleableField" id="field4">y</span>
+                        <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">0</span>
+                        <span class="toggleableField" id="field5">y</span>
+                        <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">0</span>`
                 break;
             case 'Unit Radar':
                 code = `<span>target</span>
@@ -192,7 +198,11 @@ buttons.forEach(button => {
                         wrong, refresh or contact me</span>`
         }
         
-        containers = document.querySelectorAll('.container');
+        if (document.querySelector('.container')){
+            containers = document.querySelectorAll('.container')
+        }else {
+            containers = document.querySelectorAll('.placeHolder')
+        }
         const lastContainer = containers[containers.length - 1];
         lastContainer.insertAdjacentHTML('afterend', `
             <div class="container">
@@ -224,7 +234,7 @@ function updateLineNumber() {
     containers.forEach((containerr, index) => {
         const lineNumberElement = containerr.querySelector('#lineNumber');
         if (lineNumberElement) {
-            lineNumberElement.textContent = index-1;
+            lineNumberElement.textContent = index;
         }
         if (!containerr.hasDown){
             MouseDown(containerr.querySelector('.block-header'),containerr)
@@ -285,8 +295,6 @@ function openWizard() {
 // drag event
 var elementDragged;
 let offsetX, offsetY, isDragging = false;
-let closestElement = null;
-let closestDistance = Infinity;
 var counter = 0;
 document.addEventListener('mousemove', (e) => {
     (document.getElementById('debugText2')).textContent = isDragging;
@@ -319,8 +327,8 @@ document.addEventListener('mouseup', (e) => {
     if (isDragging) {
         isDragging = false;
         const targets = document.querySelectorAll('.container');
-        closestDistance = Infinity;
-        closestElement = null;
+        let closestDistance = Infinity;
+        let closestElement = null;
         targets.forEach(target => {
             if (target != elementDragged){
                 const rect = target.getBoundingClientRect();
@@ -350,27 +358,25 @@ document.addEventListener('mouseup', (e) => {
         const pfend = performance.now();
         (document.getElementById('debugText5')).textContent = (`drag performance: ${pfend - pfstart} milliseconds`);
     }
-
-    
 });
 
 var clickedMenu;
 var bgclickedMenu;
-var Gid;
+var popUpMenuElement;
 var performanceStart;
 var performanceEnd;
 function popUpMenu(event,id){
-    Gid = id;
-    // console.log(Gid)
-    const sensorMenu = document.getElementById(Gid);
+
+    popUpMenuElement = document.getElementById(id);
+
     // console.log(sensorMenu)
-    bgclickedMenu = sensorMenu.parentElement
-    sensorMenu.style.display = 'block';
+    bgclickedMenu = popUpMenuElement.parentElement
+    popUpMenuElement.style.display = 'block';
     bgclickedMenu.style.display = 'flex'
     clickedMenu = event.target;
     // Position the menu where the span was clicked
-    const menuWidth = sensorMenu.offsetWidth;
-    const menuHeight = sensorMenu.offsetHeight;
+    const menuWidth = popUpMenuElement.offsetWidth;
+    const menuHeight = popUpMenuElement.offsetHeight;
     // console.log(menuWidth)
     // console.log(menuHeight)
 
@@ -379,16 +385,15 @@ function popUpMenu(event,id){
     const posY = event.clientY //+ window.scrollY;
 
     // Set the menu's position with adjustments to center it
-    sensorMenu.style.top = `${posY - menuHeight / 2}px`;
-    sensorMenu.style.left = `${posX - menuWidth / 2}px`;
+    popUpMenuElement.style.top = `${posY - menuHeight / 2}px`;
+    popUpMenuElement.style.left = `${posX - menuWidth / 2}px`;
     // console.log("kajshdg")
 
-    const container = document.getElementById(Gid);
-    if (!container.hasClick) {
-        container.addEventListener('click', function(event) {
+    if (!popUpMenuElement.hasClick) {
+        popUpMenuElement.addEventListener('click', function(event) {
             selectOption(event,id); 
         });
-        container.hasClick = true;
+        popUpMenuElement.hasClick = true;
     }
 }
 
@@ -431,15 +436,61 @@ function selectOption(event,id) {
         removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
     }
 
+    // Switch case for every pop up menu context that changes its instruction fields 
+    //(there might be a better way but unless its performance is not >10ms its fine)
     switch (option){
-        case 'shoot':
+        case 'enabled':
+        case 'config':
             fields.forEach(field => {
-                field.style.display = 'block';
+                if (['field2', 'field2Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field2':
+                            field.textContent = "to"
+                    }
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
             })
             break;
-        case 'enabled':
+        case 'shoot':
+            fields.forEach(field => {
+                if (['field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value'].includes(field.id)){
+                    switch (field.id){
+                        case 'field2':
+                            field.textContent = "x"
+                            break;
+                        case 'field3':
+                            field.textContent = "y"
+                            break;
+                        case 'field4':
+                            field.textContent = "shoot"
+                    }
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
         case 'shootp':
-        case 'config':
+            fields.forEach(field => {
+                if (['field2', 'field2Value', 
+                    'field3', 'field3Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field2':
+                            field.textContent = "unit"
+                            break;
+                        case 'field3':
+                            field.textContent = "shoot"
+                            break;
+                    }
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
             break;
         case 'clear':
             fields.forEach(field => {
@@ -454,12 +505,22 @@ function selectOption(event,id) {
             })
             break;
         case 'color':
+            // Since there are 2 'color'
             if (targetId) {
                 switch (targetId){
                     case 'controlColor':
-                    fields.forEach(field => {
-                        field.style.display = 'none';
-                    })
+                        fields.forEach(field => {
+                            if (['field2', 'field2Value'].includes(field.id)){
+                                switch (field.id){
+                                    case 'field2':
+                                        field.textContent = "to"
+                                }
+                                field.style.display = 'block';
+                            } else {
+                                field.style.display = 'none';
+                            }
+                        })
+                        break;
                     case 'drawColor':
                     fields.forEach(field => {
                         if (['field1', 'field2', 
@@ -700,28 +761,303 @@ function selectOption(event,id) {
                 }
             })
             break;
+
+        // Unit control section
         case 'reset':
+        case 'idle':
+        case 'stop':
+        case 'autoPathfind':
+        case 'payDrop':
+        case 'payEnter':
+        case 'unbind':
             fields.forEach(field => {
                 field.style.display = 'none';
             })
             break;
+        case 'move':
+        case 'pathfind':
+        case 'mine':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'approach':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'radius'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'boost':
+            fields.forEach(field => {
+                if (['field1', 'field1Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'enable'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'target':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'shoot'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'targetp':
+        fields.forEach(field => {
+            if (['field1', 'field1Value', 
+                'field2', 'field2Value',].includes(field.id)){
+                switch (field.id){
+                    case 'field1':
+                        field.textContent = 'unit'
+                        break;
+                    case 'field2':
+                        field.textContent = 'shoot'
+                        break;
+                } 
+                field.style.display = 'block';
+            } else {
+                field.style.display = 'none';
+            }
+        })
+        break;
+        case 'itemDrop':
+        fields.forEach(field => {
+            if (['field1', 'field1Value', 
+                'field2', 'field2Value',].includes(field.id)){
+                switch (field.id){
+                    case 'field1':
+                        field.textContent = 'to'
+                        break;
+                    case 'field2':
+                        field.textContent = 'amount'
+                        break;
+                } 
+                field.style.display = 'block';
+            } else {
+                field.style.display = 'none';
+            }
+        })
+        break;
+        case 'itemTake':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value',
+                    'field3', 'field3Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'from'
+                            break;
+                        case 'field2':
+                            field.textContent = 'item'
+                            break;
+                        case 'field3':
+                            field.textContent = 'amount'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'payTake':
+            fields.forEach(field => {
+                if (['field1', 'field1Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'takeUnits'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'itemTake':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value',
+                    'field3', 'field3Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'from'
+                            break;
+                        case 'field2':
+                            field.textContent = 'item'
+                            break;
+                        case 'field3':
+                            field.textContent = 'amount'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'flag':
+        fields.forEach(field => {
+            if (['field1', 'field1Value',].includes(field.id)){
+                switch (field.id){
+                    case 'field1':
+                        field.textContent = 'value'
+                        break;
+                } 
+                field.style.display = 'block';
+            } else {
+                field.style.display = 'none';
+            }
+        })
+        break;
+        case 'build':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value',
+                    'field3', 'field3Value',
+                    'field4', 'field4Value',
+                    'field5', 'field5Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'block'
+                            break;
+                        case 'field4':
+                            field.textContent = 'rotation'
+                            break;
+                        case 'field5':
+                            field.textContent = 'config'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'getBlock':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value',
+                    'field3', 'field3Value',
+                    'field4', 'field4Value',
+                    'field5', 'field5Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'type'
+                            break;
+                        case 'field4':
+                            field.textContent = 'building'
+                            break;
+                        case 'field5':
+                            field.textContent = 'floor'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'within':
+            fields.forEach(field => {
+                if (['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value',
+                    'field4', 'field4Value',].includes(field.id)){
+                    switch (field.id){
+                        case 'field1':
+                            field.textContent = 'x'
+                            break;
+                        case 'field2':
+                            field.textContent = 'y'
+                            break;
+                        case 'field3':
+                            field.textContent = 'radius'
+                            break;
+                        case 'field4':
+                            field.textContent = 'result'
+                            break;
+                    } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
     }
-    
-    closeMenu();
+    closeMenu(event);
 }
 
-function closeMenu() {
-    document.getElementById(Gid).style.display = 'none';
+function closeMenu(event) {
+    popUpMenuElement.style.display = 'none';
     event.stopPropagation();
     bgclickedMenu.style.display = 'none'
-    console.log("22");
     performanceEnd = performance.now();
     (document.getElementById('debugText4')).textContent = (`Execution time: ${performanceEnd - performanceStart} milliseconds`);
     console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
-    console.log("adfgsd");
 }
-
-
 
 function exportCode(){
     codeEx = ""
@@ -731,200 +1067,86 @@ function exportCode(){
         insSpan = container.querySelector('span');
         if (insSpan){
             codeEx += '\n'
-            instType = insSpan.textContent;
-            // console.log(instType);
-            switch (instType) {
-                case 'Read':
-                    codeEx += "read "
-                    break;
-                case 'Write':
-                    codeEx += "write "
-                    break;
-                case 'Draw':
-                    codeEx += "draw "
-                    break;
-                case 'Print':
-                    codeEx += "print "
-                    break;
-                case 'Format':
-                    codeEx += "format "
-                    break;
-                case 'Draw Flush':
-                    codeEx += "drawflush "
-                    break;
-                case 'Print Flush':
-                    codeEx += "printflush "
-                    break;
-                case 'Get Link':
-                    codeEx += "getlink "
-                    break;
-                case 'Control':
-                    codeEx += "control "
-                    break;
-                case 'Radar':
-                    codeEx += "radar "
-                    break;
-                case 'Sensor':
-                    codeEx += "sensor "
-                    break;
-                case 'Set':
-                    codeEx += "set "
-                    break;
-                case "Operation":
-                    codeEx += "op "
-                    operator = container.querySelector('.dontInclude')
-                    OperatorString = (operator.textContent.replace(/\s+/g, ''));
-                    switch (OperatorString){
-                        case "+":
-                            codeEx += 'add '
-                            break;
-                        case "-":
-                            codeEx += 'sub '
-                            break;
-                        case "*":
-                            codeEx += 'mul '
-                            break;
-                        case "/":
-                            codeEx += 'div '
-                            break;
-                        case "//":
-                            codeEx += 'idiv '
-                            break;
-                        case "%":
-                            codeEx += 'mod '
-                            break;
-                        case "^":
-                            codeEx += 'pow '
-                            break;
-                        case "==":
-                            codeEx += 'equal '
-                            break;
-                        case "not":
-                            codeEx += 'notEqual '
-                            break;
-                        case "and":
-                            codeEx += 'land '
-                            break;
-                        case "<":
-                            codeEx += 'lessThan '
-                            break;
-                        case "<=":
-                            codeEx += 'lessThanEqual '
-                            break;
-                        case ">":
-                            codeEx += 'greaterThan '
-                            break;
-                        case ">=":
-                            codeEx += 'greaterThanEqua '
-                            break;
-                        case "===":
-                            codeEx += 'strictEqual '
-                            break;
-                        case "<<":
-                            codeEx += 'shl '
-                            break;    
-                        case ">>":
-                            codeEx += 'shr '
-                            break;
-                        case "or":
-                            codeEx += 'or '
-                            break;
-                        case "b-and":
-                            codeEx += 'and '
-                            break;
-                        case "flip":
-                            codeEx += 'not '
-                            break;
-                        case "max":
-                            codeEx += 'max '
-                            break;
-                        case "min":
-                            codeEx += 'min '
-                            break;
-                        case "angle":
-                            codeEx += 'angle '
-                            break;
-                        case "anglediff":
-                            codeEx += 'angleDiff '
-                            break;
-                        case "len":
-                            codeEx += 'len '
-                            break;
-                        case "noise":
-                            codeEx += 'noise '
-                            break;
-                        case "abs":
-                            codeEx += 'abs '
-                            break;
-                        case "log":
-                            codeEx += 'log '
-                            break;
-                        case "log10":
-                            codeEx += 'log10 '
-                            break;
-                        case "floor":
-                            codeEx += 'floor '
-                            break;
-                        case "ceil":
-                            codeEx += 'ceil '
-                            break;
-                        case "sqrt":
-                            codeEx += 'sqrt '
-                            break;
-                        case "rand":
-                            codeEx += 'rand '
-                            break;
-                        case "sin":
-                            codeEx += 'sin '
-                            break;
-                        case "cos":
-                            codeEx += 'cos '
-                            break;
-                        case "tan":
-                            codeEx += 'tan '
-                            break;
-                        case "asin":
-                            codeEx += 'asin '
-                            break;
-                        case "acos":
-                            codeEx += 'acos '
-                            break;
-                        case "atan":
-                            codeEx += 'atan '
-                            break;    
-                    }
-                    break;
-                case 'Lookup':
-                    codeEx += "lookup "
-                    break;
-                case 'Pack Color':
-                    codeEx += "packcolor "
-                    break;
-                case 'Wait':
-                    codeEx += "wait "
-                    break;
-                case 'Stop':
-                    codeEx += "stop "
-                    break;
-                case 'End':
-                    codeEx += "end "
-                    break;
-                case 'Jump':
-                    codeEx += "jump "
-                    break;
-                case 'Unit Bind':
-                    codeEx += "ubind "
-                    break;
-                case 'Unit Control':
-                    codeEx += "ucontrol "
-                    break;
-                case 'Unit Radar':
-                    codeEx += "uradar "
-                    break;
-                case 'Unit Locate':
-                    codeEx += "ulocate "
-                    break;
+            let instType = insSpan.textContent;
+            console.log(instType);
+            const instTypeMap = {
+                'Read'          : 'read ',
+                'Write'         : 'write ',
+                'Draw'          : 'draw ',
+                'Print'         : 'print ',
+                'Format'        : 'format ',
+                'Draw Flush'    : 'drawflush ',
+                'Print Flush'   : 'printflush ',
+                'Get Link'      : 'getlink ',
+                'Control'       : 'control ',
+                'Radar'         : 'radar ',
+                'Sensor'        : 'sensor ',
+                'Set'           : 'set ',
+                'Lookup'        : 'lookup ',
+                'Pack Color'    : 'packcolor ',
+                'Wait'          : 'wait ',
+                'Stop'          : 'stop ',
+                'End'           : 'end ',
+                'Jump'          : 'jump ',
+                'Unit Bind'     : 'ubind ',
+                'Unit Control'  : 'ucontrol ',
+                'Unit Radar'    : 'uradar ',
+                'Unit Locate'   : 'ulocate ',
+            } 
+            if (instTypeMap[instType] !== undefined){
+                codeEx += instTypeMap[instType];
+            }
+            console.log(instTypeMap[instType]);
+            if (instType == 'Operation'){
+                codeEx += "op "
+                operator = container.querySelector('.dontInclude')
+                OperatorString = (operator.textContent.replace(/\s+/g, ''));
+                const operatorMap = {
+                    "+"         : 'add ',
+                    "-"         : 'sub ',
+                    "*"         : 'mul ',
+                    "/"         : 'div ',
+                    "//"        : 'idiv ',
+                    "%"         : 'mod ',
+                    "^"         : 'pow ',
+                    "=="        : 'equal ',
+                    "not"       : 'notEqual ',
+                    "and"       : 'land ',
+                    "<"         : 'lessThan ',
+                    "<="        : 'lessThanEqual ',
+                    ">"         : 'greaterThan ',
+                    ">="        : 'greaterThanEqua ',
+                    "==="       : 'strictEqual ',
+                    "<<"        : 'shl ',
+                    ">>"        : 'shr ',
+                    "or"        : 'or ',
+                    "b-and"     : 'and ',
+                    "xor"       : 'xor ',
+                    "flip"      : 'not ',
+                    "max"       : 'max ',
+                    "min"       : 'min ',
+                    "angle"     : 'angle ',
+                    "anglediff" : 'angleDiff ',
+                    "len"       : 'len ',
+                    "noise"     : 'noise ',
+                    "abs"       : 'abs ',
+                    "log"       : 'log ',
+                    "log10"     : 'log10 ',
+                    "floor"     : 'floor ',
+                    "ceil"      : 'ceil ',
+                    "sqrt"      : 'sqrt ',
+                    "rand"      : 'rand ',
+                    "sin"       : 'sin ',
+                    "cos"       : 'cos ',
+                    "tan"       : 'tan ',
+                    "asin"      : 'asin ',
+                    "acos"      : 'acos ',
+                    "atan"      : 'atan '
+                };
+                if (operatorMap[OperatorString] !== undefined) {
+                    codeEx += operatorMap[OperatorString];
                 }
+            }
             codeParent = container.querySelectorAll('.code');
             codeParent.forEach(code => {
                 codeElements = code.querySelectorAll('span');

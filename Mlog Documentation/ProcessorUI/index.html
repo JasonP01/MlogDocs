@@ -86,7 +86,7 @@
             <button class="closeMenuBtn" onclick="closeWizard()"">Close</button>
         </div>
     </div>
-    <div id="sensorMenuOutside" class="menu" onclick="closeMenu()">
+    <div id="popUpMenuOutside" class="menu" onclick="closeMenu(event)">
         <div id="sensorMenu" class="popUpMenu">
             <div>@totalItems</div>
             <div>@firstItem</div>
@@ -307,7 +307,7 @@
             <div>@scathe-missile</div>
         </div>
         <div id="ucontrolMenu" class="popUpMenu">
-            <div>ucontrol</div>
+            <div>idle</div>
             <div>stop</div>
             <div>move</div>
             <div>approach</div> 
@@ -345,7 +345,7 @@
             <div>reactor</div>
         </div>
     </div>
-    <div class="container"></div>
+    <div class="placeHolder"></div>
     <!-- debug container -->
     <!-- <div class="container">
         <div class="blockControl-container">
