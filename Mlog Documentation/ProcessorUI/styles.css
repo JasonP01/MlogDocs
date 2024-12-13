@@ -64,14 +64,28 @@ body {
 .wizard-content {
     background-color: rgb(0, 0, 0);
     color: rgb(248, 248, 248);
-    padding: 20px;
+    padding: 0.5vw;
     outline-style: solid;
     outline-width: 5px;
     outline-color: rgb(80, 80, 80);
     border-radius: 10px;
-    width: 330px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     user-select: none;
+    width: fit-content;
+    max-height: 80vh;
+    overflow: scroll;
+    font-size: clamp(14px, 10vw, 18px);
+}
+
+.wizard-content::-webkit-scrollbar{
+    width: 12px; /* Set the width of the scrollbar */
+    height: 12px;
+}
+.wizard-content::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+.wizard-content::-webkit-scrollbar-thumb{
+    background-color:#3c2f2f; /* Make the thumb background transparent */
 }
 
 .pencilMenu {
@@ -117,20 +131,22 @@ body {
 .line {
     width: 100%; 
     text-align: center; 
-    border-bottom: 5px solid #5b5b5b; 
+    border-bottom: 4px solid #5b5b5b; 
     line-height: 0.1em;
     margin: 10px 0 20px; 
 }
 
 .wizard-title {
-    font-size: large; 
     display: flex; 
     white-space: nowrap;
     gap: 10px;
     color: #5b5b5b;
     /* font-weight: 600; */
-    padding-top: 10px;
+    padding: 1vh 1vw 0px 1vw;
+    padding-bottom: clamp(8px, 1.5vw, 10px);
+    font-size: clamp(12px, 2vw, 18px);
     user-select: none;
+    height: 3vh;
 }
 
 .addButtons button {
@@ -139,14 +155,12 @@ body {
     background: none;
     -webkit-text-stroke-width: 0.54px;
     -webkit-text-stroke-color: rgb(76, 76, 76);
-    font-size:medium;
-    /* font-weight: 1000; */
     cursor: pointer;
-    width: 100px;
-    height: 35px;
-    padding: 0px;
+    width: 100%;
     margin: 0px;
     user-select: none;
+    padding: clamp(5px, 1.5vw,10px);
+    font-size: clamp(12px, 2vw, 18px);
 }
 .addButtons button:hover {
     background-color:rgb(67, 67, 67) !important;
@@ -176,7 +190,7 @@ body {
     border:none;
     border-radius: 10px;
     cursor: pointer;
-    font-size: x-large;
+    font-size: calc(10px + 1vw);
     outline-style:solid;
     outline-width: 5px;
     margin-left: 10px;
@@ -186,6 +200,7 @@ body {
     padding: 10px;
     height: fit-content;
     outline-color: #1a1a1a;
+    max-width: 50vw;
 }
 
 footer {
@@ -194,14 +209,19 @@ footer {
     margin-bottom: 20px;
 }
 
-
+.gridButton {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+}
 
 .operation button, .operation {
     color: #877bad !important;
     border-color: #877bad !important;
 }
 
-.iNo button, .iNo {
+.iNo button, .ino {
     color: #a08a8a !important;
     border-color: #a08a8a !important;
 }
@@ -309,14 +329,6 @@ canvas {
     pointer-events: none;
     z-index: 4;
 }
-
-
-
-
-
-
-
-
 
 
 .iNo-container {

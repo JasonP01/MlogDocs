@@ -6,7 +6,7 @@ buttons.forEach(button => {
         divParent = button.parentElement;
         // console.log('divParent')
         // console.log(divParent)
-        type = divParent.className;
+        type = divParent.classList[0];
         // console.log('type')
         // console.log(type)
         closeWizard();
@@ -141,9 +141,10 @@ buttons.forEach(button => {
                 break;
             case 'Jump':
                 code = `<span>if</span>
-                        <span class="editable flowControl" contenteditable="true">x</span>
+                        <span class="editable flowControl toggleableField" id="field1Value" contenteditable="true">0</span>
+                        <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>x</span>
                         <span class="editable flowControl" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')">not</span>
-                        <span class="editable flowControl" contenteditable="true">false</span>
+                        <span class="editable flowControl toggleableField" id="field3Value" contenteditable="true" style=display:block;>false</span>
                         <canvas id="jumpArrow"></canvas>`
                 break;
             case 'Unit Bind':
@@ -293,40 +294,73 @@ function openWizard() {
 }
 
 // drag event
-var elementDragged;
+let elementDragged;
 let offsetX, offsetY, isDragging = false;
-var counter = 0;
-document.addEventListener('mousemove', (e) => {
+let counter = 0;
+let lastX;
+let lastY;
+const handleMove = (e) => {
     (document.getElementById('debugText2')).textContent = isDragging;
     if (isDragging) {
-        const x = e.clientX - offsetX;
-        const y = e.clientY - offsetY;
+        let x;
+        let y;
+        if (e.type === 'mousemove' || e.type === 'mousedown') {
+            x = e.clientX;
+            y = e.clientY;
+        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
+            x = e.touches[0].clientX;
+            y = e.touches[0].clientY;
+            lastX = x;
+            lastY = y;
+        }
+        (document.getElementById('debugText6')).textContent = x;
+        (document.getElementById('debugText7')).textContent = y;
+        x = x - offsetX;
+        y = y - offsetY;
         elementDragged.style.left = `${x}px`;
         elementDragged.style.top = `${y}px`;
         elementDragged.style.position = 'absolute'
         elementDragged.style.zIndex = '2';
 
     }
-}); 
+}; 
+document.addEventListener('mousemove', handleMove)
+document.addEventListener('touchmove', handleMove)
+    
+
 
 function MouseDown(blocks,parent) {
-    parent.hasDown = true;
-    blocks.addEventListener('mousedown', (e) => {
-        if (document.elementFromPoint(e.clientX, e.clientY) == blocks){
+    const handleStart = (e) => {
+        let x;
+        let y;
+        if (e.type === 'mousemove' || e.type === 'mousedown') {
+            x = e.clientX;
+            y = e.clientY;
+        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
+            x = e.touches[0].clientX;
+            y = e.touches[0].clientY;
+
+        }
+        if (document.elementFromPoint(x, y) == blocks){
             isDragging = true;
             elementDragged = e.target.closest('.container')
-            offsetX = e.clientX - elementDragged.offsetLeft;
-            offsetY = e.clientY - elementDragged.offsetTop;
+            offsetX = x - elementDragged.offsetLeft;
+            offsetY = y - elementDragged.offsetTop;
             // blocks.style.cursor = 'grabbing';
         }
-    });
+    };
+    parent.hasDown = true;
+    blocks.addEventListener('mousedown', handleStart)
+    blocks.addEventListener('touchstart', handleStart)
 }
 
-document.addEventListener('mouseup', (e) => {
+const handleEnd = (e) => {
     const pfstart = performance.now();
     if (isDragging) {
         isDragging = false;
-        const targets = document.querySelectorAll('.container');
+        const targets = [...document.querySelectorAll('.container')]; // Convert NodeList to Array
+        const placeHolder = document.querySelector('.placeHolder');
+        targets.push(placeHolder); // Add the new element to the array
         let closestDistance = Infinity;
         let closestElement = null;
         targets.forEach(target => {
@@ -334,9 +368,18 @@ document.addEventListener('mouseup', (e) => {
                 const rect = target.getBoundingClientRect();
                 const targetX = rect.left + rect.width / 2; 
                 const targetY = rect.top + rect.height / 2; 
+                let x;
+                let y;
+                if (e.type === 'mouseup') {
+                    x = e.clientX;
+                    y = e.clientY;
+                } else if (e.type === 'touchend') {
+                    x = lastX;
+                    y = lastY;
+                }
                 const distance = Math.sqrt(
-                Math.pow(e.clientX - targetX, 2) +
-                Math.pow(e.clientY - targetY, 2)
+                Math.pow(x - targetX, 2) +
+                Math.pow(y - targetY, 2)
                 );
         
                 if (distance < closestDistance) {
@@ -358,7 +401,10 @@ document.addEventListener('mouseup', (e) => {
         const pfend = performance.now();
         (document.getElementById('debugText5')).textContent = (`drag performance: ${pfend - pfstart} milliseconds`);
     }
-});
+};
+
+document.addEventListener('mouseup',handleEnd)
+document.addEventListener('touchend',handleEnd)
 
 var clickedMenu;
 var bgclickedMenu;
@@ -1040,6 +1086,33 @@ function selectOption(event,id) {
                             field.textContent = 'result'
                             break;
                     } 
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'always':
+            fields.forEach(field => {
+                if (['field1Value', 
+                    'field2Value',
+                    'field3Value',].includes(field.id)){
+                    field.style.display = 'none';
+                } else {
+                    field.style.display = 'block';
+                }
+            })
+            break;
+        case '==':
+        case 'not':
+        case '<':
+        case '<=':
+        case '>':
+        case '>=':
+        case '===':
+            fields.forEach(field => {
+                if (['field2Value', 
+                    'field3Value',].includes(field.id)){
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';

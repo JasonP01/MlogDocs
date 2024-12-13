@@ -39,12 +39,18 @@
     <div class="alert alertShow" id="alert">
         Code Copied to clipboard!
     </div>
+    <div style="position: fixed; color: rgba(255, 0, 0, 0.082); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
+            As this is a rather large project I cannot be absolutely sure
+            that there are no bugs, if you think something is not right
+            whether its not intuitive, weird design, or unuseable for any reason
+            don't hesitate to contact me (Discord : Yruei)
+    </div>
     <div id="wizardMenu" class="menu">
         <div class="wizard-content">
             <!-- <h2>Add</h2> -->
             <div class="addButtons">
                 <div class="wizard-title">Input & Output<div class="line"></div></div>
-                <div class="iNo">
+                <div class="iNo gridButton">
                     <button class="addItems">Read</button>
                     <button class="addItems">Write</button>
                     <button class="addItems">Draw</button>
@@ -52,7 +58,7 @@
                     <button class="addItems">Format</button>
                 </div>
                 <div class="wizard-title">Block Control<div class="line"></div></div>
-                <div class="blockControl">
+                <div class="blockControl gridButton">
                     <button class="addItems">Draw Flush</button>
                     <button class="addItems">Print Flush</button>
                     <button class="addItems">Get Link</button>
@@ -61,21 +67,21 @@
                     <button class="addItems">Sensor</button>
                 </div>
                 <div class="wizard-title">Operation<div class="line"></div></div>
-                <div class="operation">
+                <div class="operation gridButton">
                     <button class="addItems">Set</button>
                     <button class="addItems">Operation</button>
                     <button class="addItems">Lookup</button>
                     <button class="addItems">Pack Color</button>
                 </div>
                 <div class="wizard-title">Flow Control<div class="line"></div></div>
-                <div class="flowControl">
+                <div class="flowControl gridButton">
                     <button class="addItems">Wait</button>
                     <button class="addItems">Stop</button>
                     <button class="addItems">End</button>
                     <button class="addItems">Jump</button>
                 </div>
                 <div class="wizard-title">Unit Control<div class="line"></div></div>
-                <div class="unitControl">
+                <div class="unitControl gridButton">
                     <button class="addItems">Unit Bind</button>
                     <button class="addItems">Unit Control</button>
                     <button class="addItems">Unit Radar</button>
