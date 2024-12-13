@@ -1,3 +1,14 @@
+
+@font-face {
+    font-family: 'Audiowide';
+    src: url('../font/Audiowide-Regular.ttf') format('truetype'); 
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: "Audiowide", sans-serif;
+}
 body {
     background-color: #000;
     display:flex;
@@ -6,7 +17,6 @@ body {
     align-items: center;
     min-height:90vh;
     margin: 5vh;
-    font-family: 'Courier New', Courier, monospace;
     overflow:auto;
 }
 
@@ -118,7 +128,7 @@ body {
     white-space: nowrap;
     gap: 10px;
     color: #5b5b5b;
-    font-weight: 600;
+    /* font-weight: 600; */
     padding-top: 10px;
     user-select: none;
 }
@@ -130,13 +140,12 @@ body {
     -webkit-text-stroke-width: 0.54px;
     -webkit-text-stroke-color: rgb(76, 76, 76);
     font-size:medium;
-    font-weight: 1000;
+    /* font-weight: 1000; */
     cursor: pointer;
     width: 100px;
     height: 35px;
     padding: 0px;
     margin: 0px;
-    font-family:cursive;
     user-select: none;
 }
 .addButtons button:hover {
@@ -151,7 +160,6 @@ body {
     border:none;
     border-radius: 10px;
     cursor: pointer;
-    font-family: cursive;
     font-size: large;
     outline-style:solid;
     outline-width: 5px;
@@ -168,7 +176,6 @@ body {
     border:none;
     border-radius: 10px;
     cursor: pointer;
-    font-family: cursive;
     font-size: x-large;
     outline-style:solid;
     outline-width: 5px;
@@ -249,7 +256,7 @@ footer {
     justify-content: space-between;
     margin-bottom: 4px;
     padding-top: 13px;
-    font-weight: bold;
+    /* font-weight: bold; */
     user-select: none;
     margin: 0;
 }

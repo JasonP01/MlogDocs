@@ -17,3 +17,6 @@ languages i know, in scale of 1 - 10
 - HTML 6/10  
 - CSS 6/10  
 
+## Fonts
+- The fonts used in this project are licensed under the SIL Open Font License. See [font/ofl.txt](font/ofl.txt) for details.
+
