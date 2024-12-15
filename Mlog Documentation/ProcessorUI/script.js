@@ -458,22 +458,6 @@ function selectOption(event,id) {
 
     const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
 
-    // Draw instruction related function
-    function rbgaFieldText(field) {
-        // if (['field1', 'field1Value', 'field2', 'field2Value', 'field3', 'field3Value', 'field4', 'field4Value'].includes(field.id)){
-            switch (field.id){
-                case 'field1':
-                    field.textContent = 'r'
-                    break;
-                case 'field2':
-                    field.textContent = 'g'
-                    break;
-                case 'field3':
-                    field.textContent = 'b'
-                    break;
-                case 'field4':
-                    field.textContent = 'a'
-                    break;}}
     function removeField3Event(field) {
         field.hasEvent = false;
         field.removeEventListener('click', clickHandler);
@@ -484,178 +468,112 @@ function selectOption(event,id) {
 
     // Switch case for every pop up menu context that changes its instruction fields 
     //(there might be a better way but unless its performance is not >10ms its fine)
-    switch (option){
-        case 'enabled':
-        case 'config':
-            fields.forEach(field => {
-                if (['field2', 'field2Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field2':
-                            field.textContent = "to"
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'shoot':
-            fields.forEach(field => {
-                if (['field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field2':
-                            field.textContent = "x"
-                            break;
-                        case 'field3':
-                            field.textContent = "y"
-                            break;
-                        case 'field4':
-                            field.textContent = "shoot"
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'shootp':
-            fields.forEach(field => {
-                if (['field2', 'field2Value', 
-                    'field3', 'field3Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field2':
-                            field.textContent = "unit"
-                            break;
-                        case 'field3':
-                            field.textContent = "shoot"
-                            break;
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'clear':
-            fields.forEach(field => {
-                if (['field1', 'field2', 
-                    'field3', 'field1Value', 
-                    'field2Value', 'field3Value'].includes(field.id)){
-                    rbgaFieldText(field);
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'color':
-            // Since there are 2 'color'
-            if (targetId) {
-                switch (targetId){
-                    case 'controlColor':
-                        fields.forEach(field => {
-                            if (['field2', 'field2Value'].includes(field.id)){
-                                switch (field.id){
-                                    case 'field2':
-                                        field.textContent = "to"
-                                }
-                                field.style.display = 'block';
-                            } else {
-                                field.style.display = 'none';
-                            }
-                        })
-                        break;
-                    case 'drawColor':
-                    fields.forEach(field => {
-                        if (['field1', 'field2', 
-                            'field3', 'field4', 
-                            'field1Value', 'field2Value', 
-                            'field3Value', 'field4Value'].includes(field.id)){
-                            rbgaFieldText(field);
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
-                }
+    const same_EnCf = {
+        fields: ['field2', 'field2Value'],
+        labels: {field2: 'to'}
+    }
+    const rbgaFieldText = {field1: 'r',field2: 'g',field3: 'b',field4: 'a'};
+    let dp_color;
+    if (option == 'color'){
+        if (targetId == 'controlColor'){
+            dp_color = {
+                fields: ['field2', 'field2Value'],
+                labels: {field2: 'to'}
             }
-            break;
-        case 'col':
-            fields.forEach(field => {
-                if (['field1', 'field1Value'].includes(field.id)){
-                    if (field.id == 'field1'){
-                        field.textContent = 'color'
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'stroke':
-            fields.forEach(field => {
-                if (['field1Value'].includes(field.id)){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'line':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
+        }else if (targetId == 'drawColor') {
+            dp_color = {
+                fields: ['field1', 'field2', 
+                        'field3', 'field4', 
+                        'field1Value', 'field2Value', 
+                        'field3Value', 'field4Value'],
+                labels: rbgaFieldText
+            }
+        }
+    }
+    const same_RlR = {
+        fields: ['field1', 'field1Value', 
+                'field2', 'field2Value', 
+                'field3', 'field3Value', 
+                'field4', 'field4Value'],
+        labels: {field1: 'x',
+                field2: 'y',
+                field3: 'width',
+                field4: 'height',}
+    }
+    const same_PlP = {
+        fields: ['field1', 'field1Value', 
+                'field2', 'field2Value', 
+                'field3', 'field3Value', 
+                'field4', 'field4Value', 
+                'field5', 'field5Value'],
+        labels: {field1: 'x',
+                field2: 'y',
+                field3: 'sides',
+                field4: 'radius',
+                field4: 'rotation',}
+    }
+
+    const fieldConfigs = {
+        enabled: same_EnCf,
+        config: same_EnCf,
+        shoot: {
+            fields: ['field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value'],
+            labels: {field2: 'x',
+                    field3: 'y',
+                    field4: 'shoot',
+            },
+        },
+        shootp: {
+            fields: ['field2', 'field2Value', 
+                    'field3', 'field3Value',],
+            labels: {field2: 'unit',
+                    field3: 'shoot'}
+        },
+        clear: {
+            fields: ['field1', 'field2', 
+                    'field3', 'field1Value', 
+                    'field2Value', 'field3Value'],
+            labels: rbgaFieldText
+        },
+        color: dp_color,
+        col: {
+            fields: ['field1', 'field1Value'],
+            labels: {field1: 'color'}
+        },
+        stroke: {
+            fields: ['field1Value'],
+        },
+        line: {
+            fields: ['field1', 'field1Value', 
                     'field2', 'field2Value', 
                     'field3', 'field3Value', 
-                    'field4', 'field4Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'x2'
-                            break;
-                        case 'field4':
-                            field.textContent = 'y2'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'rect':
-        case 'lineRect':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'width'
-                            break;
-                        case 'field4':
-                            field.textContent = 'height'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
+                    'field4', 'field4Value'],
+            labels: {field1: 'x',
+                    field2: 'y',
+                    field3: 'x2',
+                    field4: 'y2',}
+        },
+        rect: same_RlR,
+        lineRect: same_RlR,
+        poly: same_RlR,
+        linePoly: same_RlR,
+    }
+
+    fields.forEach(field => {
+        const config = fieldConfigs[option];
+        if (config && config.fields.includes(field.id)) {
+            if (config.labels?.[field.id]){
+                field.textContent = config.labels[field.id];
+            }
+            field.style.display = 'block';
+        } else {
+            field.style.display = 'none';
+        }
+    });
+
+    switch (option){
         case 'poly':
         case 'linePoly':
             fields.forEach(field => {
