@@ -209,7 +209,7 @@ buttons.forEach(button => {
             <div class="container">
                 <div class="${type}-container">
                     <div class="block-header">
-                        <span>${buttonText}</span>
+                        <span class="headerText">${buttonText}</span>
                         <div class="controls">
                             <span id="lineNumber">1</span>
                             <span onclick="copy()">⚪</span>
@@ -295,6 +295,7 @@ function openWizard() {
 
 // drag event
 let elementDragged;
+let closestContainer = null;
 let offsetX, offsetY, isDragging = false;
 let counter = 0;
 let lastX;
@@ -313,6 +314,31 @@ const handleMove = (e) => {
             lastX = x;
             lastY = y;
         }
+        
+        closestContainer = null;
+        let nY = y - 10;
+        
+        while (!closestContainer && nY > 0) {
+            const elements = document.elementsFromPoint(window.innerWidth / 2, nY);
+            for (const tes of elements) {
+                if (tes !== elementDragged && tes.classList.contains('container')) {
+                    closestContainer = tes;
+                    break; 
+                }
+            }
+            nY -= 30;
+        }
+        if (!closestContainer){
+            closestContainer = document.querySelector('.placeHolder')
+        }
+        
+        (document.getElementById('debugText8')).textContent = closestContainer?.textContent;
+        let preview = closestContainer.nextSibling
+        if (preview.className !== 'placementPreview'){
+            (document.querySelector('.placementPreview'))?.remove();
+            closestContainer.insertAdjacentHTML('afterend', `<div class="placementPreview" style=height:${(elementDragged.offsetHeight-40)}px;></div>`)
+        }
+
         (document.getElementById('debugText6')).textContent = x;
         (document.getElementById('debugText7')).textContent = y;
         x = x - offsetX;
@@ -358,43 +384,47 @@ const handleEnd = (e) => {
     const pfstart = performance.now();
     if (isDragging) {
         isDragging = false;
-        const targets = [...document.querySelectorAll('.container')]; // Convert NodeList to Array
-        const placeHolder = document.querySelector('.placeHolder');
-        targets.push(placeHolder); // Add the new element to the array
-        let closestDistance = Infinity;
-        let closestElement = null;
-        targets.forEach(target => {
-            if (target != elementDragged){
-                const rect = target.getBoundingClientRect();
-                const targetX = rect.left + rect.width / 2; 
-                const targetY = rect.top + rect.height / 2; 
-                let x;
-                let y;
-                if (e.type === 'mouseup') {
-                    x = e.clientX;
-                    y = e.clientY;
-                } else if (e.type === 'touchend') {
-                    x = lastX;
-                    y = lastY;
-                }
-                const distance = Math.sqrt(
-                Math.pow(x - targetX, 2) +
-                Math.pow(y - targetY, 2)
-                );
+        // const targets = [...document.querySelectorAll('.container')]; // Convert NodeList to Array
+        // const placeHolder = document.querySelector('.placeHolder');
+        // targets.push(placeHolder); // Add the new element to the array
+        // let closestDistance = Infinity;
+        // let closestElement = null;
+        // targets.forEach(target => {
+        //     if (target != elementDragged){
+        //         const rect = target.getBoundingClientRect();
+        //         const targetX = rect.left + rect.width / 2; 
+        //         const targetY = rect.top + rect.height / 2; 
+        //         let x;
+        //         let y;
+        //         if (e.type === 'mouseup') {
+        //             x = e.clientX;
+        //             y = e.clientY;
+        //         } else if (e.type === 'touchend') {
+        //             x = lastX;
+        //             y = lastY;
+        //         }
+        //         const distance = Math.sqrt(
+        //         Math.pow(x - targetX, 2) +
+        //         Math.pow(y - targetY, 2)
+        //         );
         
-                if (distance < closestDistance) {
-                closestDistance = distance;
-                closestElement = target;
-                }
-                counter++;
-                (document.getElementById('debugText3')).textContent = (closestElement).textContent;
-                (document.getElementById('debugText')).textContent = counter;
-            }
-        });
+        //         if (distance < closestDistance) {
+        //         closestDistance = distance;
+        //         closestElement = target;
+        //         }
+        //         counter++;
+        //         (document.getElementById('debugText3')).textContent = (closestElement).textContent;
+        //         (document.getElementById('debugText')).textContent = counter;
+        //     }
+        // });
         if (elementDragged) {
             elementDragged.style.position = ''
             elementDragged.style.zIndex = '0';
-            document.body.insertBefore(elementDragged, (closestElement).nextSibling);
+            const previews = document.querySelectorAll('.placementPreview')
+            previews.forEach(preview => {
+                preview.remove();
+            })
+            document.body.insertBefore(elementDragged, (closestContainer).nextSibling);
             elementDragged = null;
             updateLineNumber();
         }
