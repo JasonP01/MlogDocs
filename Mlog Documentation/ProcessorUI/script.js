@@ -557,13 +557,43 @@ function selectOption(event,id) {
         },
         rect: same_RlR,
         lineRect: same_RlR,
-        poly: same_RlR,
-        linePoly: same_RlR,
+        poly: same_PlP,
+        linePoly: same_PlP,
+        triangle: {
+            fields: true,
+            labels: {field1: 'x',
+                    field2: 'y',
+                    field3: 'x2',
+                    field4: 'y2',
+                    field5: 'x3',
+                    field6: 'y3',}
+        },
+        image: {
+            fields: ['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value', 
+                    'field4', 'field4Value', 
+                    'field5', 'field5Value'],
+            labels: {field1: 'x',
+                    field2: 'y',
+                    field3: 'image',
+                    field4: 'size',
+                    field5: 'rotation',}
+        },
+        print: {
+            fields: ['field1', 'field1Value', 
+                    'field2', 'field2Value', 
+                    'field3', 'field3Value'],
+            labels: {field1: 'x',
+                    field2: 'y',
+                    field3: 'align',
+                    field4: 'center',}
+        },
     }
 
     fields.forEach(field => {
         const config = fieldConfigs[option];
-        if (config && config.fields.includes(field.id)) {
+        if (config && (config.fields === true || config.fields.includes(field.id))) {
             if (config.labels?.[field.id]){
                 field.textContent = config.labels[field.id];
             }
@@ -574,96 +604,6 @@ function selectOption(event,id) {
     });
 
     switch (option){
-        case 'poly':
-        case 'linePoly':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value', 
-                    'field5', 'field5Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'sides'
-                            break;
-                        case 'field4':
-                            field.textContent = 'radius'
-                            break;
-                        case 'field5':
-                            field.textContent = 'rotation'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'triangle':
-            fields.forEach(field => {
-                if (field.id){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'x2'
-                            break;
-                        case 'field4':
-                            field.textContent = 'y2'
-                            break;
-                        case 'field5':
-                            field.textContent = 'x3'
-                            break;
-                        case 'field6':
-                            field.textContent = 'y3'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'image':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value', 
-                    'field5', 'field5Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'image'
-                            break;
-                        case 'field4':
-                            field.textContent = 'size'
-                            break;
-                        case 'field5':
-                            field.textContent = 'rotation'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
         case 'print':
             fields.forEach(field => {
                 if (['field1', 'field1Value', 
