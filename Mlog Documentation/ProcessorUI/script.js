@@ -1,233 +1,243 @@
 
 const buttons = document.querySelectorAll('.addItems');
 buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        buttonText = button.textContent;
-        divParent = button.parentElement;
-        // console.log('divParent')
-        // console.log(divParent)
-        type = divParent.classList[0];
-        // console.log('type')
-        // console.log(type)
-        closeWizard();
-        
-        //Switch for every instruction type
-        switch (buttonText) {
-            case 'Read':
-                code = `<span>read</span>
-                        <span class="editable iNo" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span class="editable iNo" contenteditable="true">cell1</span>
-                        <span>at</span>
-                        <span class="editable iNo" contenteditable="true">0</span>`
-                break;
-            case 'Write':
-                code = `<span>write</span>
-                        <span class="editable iNo" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span class="editable iNo" contenteditable="true">cell1</span>
-                        <span>at</span>
-                        <span class="editable iNo" contenteditable="true">0</span>`
-                break;
-            case 'Draw':
-                code = `<span class="editable iNo" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">clear</span>
-                        <span class="toggleableField" id="field1" style=display:block;>r</span>
-                        <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
-                        <span class="toggleableField" id="field2" style=display:block;>g</span>
-                        <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
-                        <span class="toggleableField" id="field3" style=display:block;>b</span>
-                        <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style=display:block;>0</span>
-                        <span class="toggleableField" id="field4">a</span>
-                        <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">0</span>
-                        <span class="toggleableField" id="field5">a</span>
-                        <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">0</span>
-                        <span class="toggleableField" id="field6">a</span>
-                        <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">0</span>`
-                break;
-            case 'Print':
-                code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
-                break;
-            case 'Format':
-                code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
-                break;
-            case 'Draw Flush':
-                code = `<span>to</span>
-                        <span class="editable blockControl" contenteditable="true">display1</span>`
-                break;
-            case 'Print Flush':
-                code = `<span>to</span>
-                        <span class="editable blockControl" contenteditable="true">message1</span>`
-                break;
-            case 'Get Link':
-                code = `<span class="editable blockControl" contenteditable="true">result</span>
-                        <span>= link#</span>
-                        <span class="editable blockControl" contenteditable="true">0</span>`
-                break;
-            case 'Control':
-                code = `<span>set</span>
-                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">enabled</span>
-                        <span id="field1">of</span>
-                        <span class="editable blockControl" id="field1Value" contenteditable="true">block1</span>
-                        <span class="toggleableField" id="field2" style=display:block;>to</span>
-                        <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
-                        <span class="toggleableField" id="field3">y</span>
-                        <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true">0</span>
-                        <span class="toggleableField" id="field4">to</span>
-                        <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true">0</span>`
-                break;
-            case 'Radar':
-                code = `<span>from</span>
-                        <span class="editable blockControl" contenteditable="true">turret1</span>
-                        <span>target</span>
-                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
-                        <span>and</span>
-                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
-                        <span>and</span>
-                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
-                        <span>order</span>
-                        <span class="editable blockControl" contenteditable="true">1</span>
-                        <span>sort</span>
-                        <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
-                        <span>output</span>
-                        <span class="editable blockControl" contenteditable="true">result</span>`
-                break;
-            case 'Sensor':
-                code = `<span class="editable blockControl" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
-                        <img src="pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
-                        <span>in</span>
-                        <span class="editable blockControl" contenteditable="true">block1</span>`
-                break;
-            case 'Set':
-                code = `<span class="editable operation" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span class="editable operation" contenteditable="true">a</span>`
-                break;
-            case 'Operation':
-                code = `<span class="editable operation" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span class="editable operation" contenteditable="true">a</span>
-                        <span class="editable operation dontInclude" onclick="popUpMenu(event,'opMenu')">*</span>
-                        <span class="editable operation" contenteditable="true">b</span>`
-                break;
-            case 'Lookup':
-                code = `<span class="editable operation" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span>lookup</span>
-                        <span class="editable operation" contenteditable="true" onclick="popUpMenu(event,'lookupMenu')">item</span>
-                        <span>#</span>
-                        <span class="editable operation" contenteditable="true">0</span>`
+    button.addEventListener('click', () => addInstruction(button))
+});
+    
+function addInstruction(button){
+    if (typeof button == 'string'){
+        buttons.forEach(bbuton => {
+            if (bbuton.textContent == button){
+                button = bbuton
+            }
+        })
 
-                break;
-            case 'Pack Color':
-                code = `<span class="editable operation" contenteditable="true">result</span>
-                        <span>=</span>
-                        <span>pack</span>
-                        <span class="editable operation" contenteditable="true">1</span>
-                        <span class="editable operation" contenteditable="true">0</span>
-                        <span class="editable operation" contenteditable="true">0</span>
-                        <span class="editable operation" contenteditable="true">1</span>`
-                break;
-            case 'Wait':
-                code = `<span class="editable flowControl" contenteditable="true">result</span>
-                        <span>sec</span>`
-                break;
-            case 'Stop':
-                code = ``
-                break;
-            case 'End':
-                code = ``
-                break;
-            case 'Jump':
-                code = `<span>if</span>
-                        <span class="editable flowControl toggleableField" id="field1Value" contenteditable="true">0</span>
-                        <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>x</span>
-                        <span class="editable flowControl" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')">not</span>
-                        <span class="editable flowControl toggleableField" id="field3Value" contenteditable="true" style=display:block;>false</span>
-                        <canvas id="jumpArrow"></canvas>`
-                break;
-            case 'Unit Bind':
-                code = `<span>type</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">@poly</span>`
-                break;
-            case 'Unit Control':
-                code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">move</span>
-                        <span class="toggleableField" id="field1" style=display:block;>x</span>
-                        <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
-                        <span class="toggleableField" id="field2" style=display:block;>y</span>
-                        <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
-                        <span class="toggleableField" id="field3">x</span>
-                        <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">0</span>
-                        <span class="toggleableField" id="field4">y</span>
-                        <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">0</span>
-                        <span class="toggleableField" id="field5">y</span>
-                        <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">0</span>`
-                break;
-            case 'Unit Radar':
-                code = `<span>target</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
-                        <span>and</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
-                        <span>and</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
-                        <span>order</span>
-                        <span class="editable unitControl" contenteditable="true">1</span>
-                        <span>sort</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
-                        <span>output</span>
-                        <span class="editable unitControl" contenteditable="true">result</span>`
-                break;
-            case 'Unit Locate':
-                code = `<span>find</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">building</span>
-                        <span>group</span>
-                        <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
-                        <span>enemy</span>
-                        <span class="editable unitControl" contenteditable="true">true</span>
-                        <span>outX</span>
-                        <span class="editable unitControl" contenteditable="true">outx</span>
-                        <span>outY</span>
-                        <span class="editable unitControl" contenteditable="true">outy</span>
-                        <span>found</span>
-                        <span class="editable unitControl" contenteditable="true">found</span>
-                        <span>building</span>
-                        <span class="editable unitControl" contenteditable="true">building</span>`
-                break;
-            default:
-                code = `<span>if you see this that means something went 
-                        wrong, refresh or contact me</span>`
-        }
-        
-        if (document.querySelector('.container')){
-            containers = document.querySelectorAll('.container')
-        }else {
-            containers = document.querySelectorAll('.placeHolder')
-        }
-        const lastContainer = containers[containers.length - 1];
-        lastContainer.insertAdjacentHTML('afterend', `
-            <div class="container">
-                <div class="${type}-container">
-                    <div class="block-header">
-                        <span class="headerText">${buttonText}</span>
-                        <div class="controls">
-                            <span id="lineNumber">1</span>
-                            <span onclick="copy()">⚪</span>
-                            <span onclick="Delete()">✕</span>
-                        </div>
-                    </div>
-                    <div class="block-content">
-                        <div class="code">
-                            ${code}
-                        </div>
+    }
+    buttonText = button.textContent;
+    divParent = button.parentElement;
+    // console.log('divParent')
+    // console.log(divParent)
+    type = divParent.classList[0];
+    // console.log('type')
+    // console.log(type)
+    closeWizard();
+    
+    //Switch for every instruction type
+    switch (buttonText) {
+        case 'Read':
+            code = `<span>read</span>
+                    <span class="editable iNo" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span class="editable iNo" contenteditable="true">cell1</span>
+                    <span>at</span>
+                    <span class="editable iNo" contenteditable="true">0</span>`
+            break;
+        case 'Write':
+            code = `<span>write</span>
+                    <span class="editable iNo" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span class="editable iNo" contenteditable="true">cell1</span>
+                    <span>at</span>
+                    <span class="editable iNo" contenteditable="true">0</span>`
+            break;
+        case 'Draw':
+            code = `<span class="editable iNo" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">clear</span>
+                    <span class="toggleableField" id="field1" style=display:block;>r</span>
+                    <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field2" style=display:block;>g</span>
+                    <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field3" style=display:block;>b</span>
+                    <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field4">a</span>
+                    <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">0</span>
+                    <span class="toggleableField" id="field5">a</span>
+                    <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">0</span>
+                    <span class="toggleableField" id="field6">a</span>
+                    <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">0</span>`
+            break;
+        case 'Print':
+            code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
+            break;
+        case 'Format':
+            code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
+            break;
+        case 'Draw Flush':
+            code = `<span>to</span>
+                    <span class="editable blockControl" contenteditable="true">display1</span>`
+            break;
+        case 'Print Flush':
+            code = `<span>to</span>
+                    <span class="editable blockControl" contenteditable="true">message1</span>`
+            break;
+        case 'Get Link':
+            code = `<span class="editable blockControl" contenteditable="true">result</span>
+                    <span>= link#</span>
+                    <span class="editable blockControl" contenteditable="true">0</span>`
+            break;
+        case 'Control':
+            code = `<span>set</span>
+                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">enabled</span>
+                    <span id="field1">of</span>
+                    <span class="editable blockControl" id="field1Value" contenteditable="true">block1</span>
+                    <span class="toggleableField" id="field2" style=display:block;>to</span>
+                    <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field3">y</span>
+                    <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true">0</span>
+                    <span class="toggleableField" id="field4">to</span>
+                    <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true">0</span>`
+            break;
+        case 'Radar':
+            code = `<span>from</span>
+                    <span class="editable blockControl" contenteditable="true">turret1</span>
+                    <span>target</span>
+                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
+                    <span>and</span>
+                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span>and</span>
+                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span>order</span>
+                    <span class="editable blockControl" contenteditable="true">1</span>
+                    <span>sort</span>
+                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
+                    <span>output</span>
+                    <span class="editable blockControl" contenteditable="true">result</span>`
+            break;
+        case 'Sensor':
+            code = `<span class="editable blockControl" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
+                    <img src="pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
+                    <span>in</span>
+                    <span class="editable blockControl" contenteditable="true">block1</span>`
+            break;
+        case 'Set':
+            code = `<span class="editable operation" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span class="editable operation" contenteditable="true">a</span>`
+            break;
+        case 'Operation':
+            code = `<span class="editable operation" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span class="editable operation" contenteditable="true">a</span>
+                    <span class="editable operation dontInclude" onclick="popUpMenu(event,'opMenu')">*</span>
+                    <span class="editable operation" contenteditable="true">b</span>`
+            break;
+        case 'Lookup':
+            code = `<span class="editable operation" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span>lookup</span>
+                    <span class="editable operation" contenteditable="true" onclick="popUpMenu(event,'lookupMenu')">item</span>
+                    <span>#</span>
+                    <span class="editable operation" contenteditable="true">0</span>`
+
+            break;
+        case 'Pack Color':
+            code = `<span class="editable operation" contenteditable="true">result</span>
+                    <span>=</span>
+                    <span>pack</span>
+                    <span class="editable operation" contenteditable="true">1</span>
+                    <span class="editable operation" contenteditable="true">0</span>
+                    <span class="editable operation" contenteditable="true">0</span>
+                    <span class="editable operation" contenteditable="true">1</span>`
+            break;
+        case 'Wait':
+            code = `<span class="editable flowControl" contenteditable="true">result</span>
+                    <span>sec</span>`
+            break;
+        case 'Stop':
+            code = ``
+            break;
+        case 'End':
+            code = ``
+            break;
+        case 'Jump':
+            code = `<span>if</span>
+                    <span class="editable flowControl toggleableField" id="field1Value" contenteditable="true">0</span>
+                    <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>x</span>
+                    <span class="editable flowControl" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')">not</span>
+                    <span class="editable flowControl toggleableField" id="field3Value" contenteditable="true" style=display:block;>false</span>
+                    <canvas id="jumpArrow"></canvas>`
+            break;
+        case 'Unit Bind':
+            code = `<span>type</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">@poly</span>`
+            break;
+        case 'Unit Control':
+            code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">move</span>
+                    <span class="toggleableField" id="field1" style=display:block;>x</span>
+                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field2" style=display:block;>y</span>
+                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field3">x</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">0</span>
+                    <span class="toggleableField" id="field4">y</span>
+                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">0</span>
+                    <span class="toggleableField" id="field5">y</span>
+                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">0</span>`
+            break;
+        case 'Unit Radar':
+            code = `<span>target</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
+                    <span>and</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span>and</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span>order</span>
+                    <span class="editable unitControl" contenteditable="true">1</span>
+                    <span>sort</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
+                    <span>output</span>
+                    <span class="editable unitControl" contenteditable="true">result</span>`
+            break;
+        case 'Unit Locate':
+            code = `<span>find</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">building</span>
+                    <span>group</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
+                    <span>enemy</span>
+                    <span class="editable unitControl" contenteditable="true">true</span>
+                    <span>outX</span>
+                    <span class="editable unitControl" contenteditable="true">outx</span>
+                    <span>outY</span>
+                    <span class="editable unitControl" contenteditable="true">outy</span>
+                    <span>found</span>
+                    <span class="editable unitControl" contenteditable="true">found</span>
+                    <span>building</span>
+                    <span class="editable unitControl" contenteditable="true">building</span>`
+            break;
+        default:
+            code = `<span>if you see this that means something went 
+                    wrong, refresh or contact me</span>`
+    }
+    
+    if (document.querySelector('.container')){
+        containers = document.querySelectorAll('.container')
+    }else {
+        containers = document.querySelectorAll('.placeHolder')
+    }
+    const lastContainer = containers[containers.length - 1];
+    lastContainer.insertAdjacentHTML('afterend', `
+        <div class="container">
+            <div class="${type}-container">
+                <div class="block-header">
+                    <span class="headerText">${buttonText}</span>
+                    <div class="controls">
+                        <span id="lineNumber">1</span>
+                        <span onclick="copy(event)">⚪</span>
+                        <span onclick="Delete(event)">✕</span>
                     </div>
                 </div>
-            </div>`
-        );
-        updateLineNumber();
+                <div class="block-content">
+                    <div class="code">
+                        ${code}
+                    </div>
+                </div>
+            </div>
+        </div>`
+    );
+    updateLineNumber();
 
-    });
-});
+    };
 
 //count and update line number on instruction
 function updateLineNumber() {
@@ -262,16 +272,16 @@ function updateLineNumber() {
     });
 }
 
-function Delete() {
-    const parentContainer = event.target.closest('.container');
+function Delete(e) {
+    const parentContainer = e.target.closest('.container');
     if (parentContainer) {
-        parentContainer.remove(); 
+        parentContainer.remove();
     }
     updateLineNumber();
 }
 
-function copy() {
-    const parentContainer = event.target.closest('.container');
+function copy(e) {
+    const parentContainer = e.target.closest('.container');
     if (parentContainer) {
         const copyCode = parentContainer.outerHTML; 
         parentContainer.insertAdjacentHTML('afterend', copyCode)
@@ -282,16 +292,61 @@ function copy() {
 function closeWizard() {
     document.getElementById('wizardMenu').style.display = 'none';
 }
-// listens for esc key if pressed close wizard menu
-document.addEventListener('keydown',function(){
-    if (event.key === 'Escape') {
-        closeWizard();
-    }
-})
 
 function openWizard() {
     document.getElementById('wizardMenu').style.display = 'flex';
 }
+
+// keybinds
+document.addEventListener('keydown',(e) =>{
+    const wizardMenu = document.getElementById('wizardMenu');
+    const isVisible = wizardMenu.style.display === 'flex';
+    if (e.key === 'Escape' || (isVisible && e.key === 'F2')) {
+        closeWizard();
+        console.log('work');
+    }else if (e.key === 'F2' && !isVisible) {
+        console.log('work1');
+        openWizard();
+    }else if (isVisible) {
+        switch (e.key) {
+            case '1':
+                addInstruction('Read')
+                break;
+            case '2':
+                addInstruction('Write')
+                break;
+            case '3':
+                addInstruction('Draw')
+                break;
+            case '4':
+                addInstruction('Print')
+                break;
+            case '5':
+                addInstruction('Format')
+                break;
+            case 'q':
+                addInstruction('Draw Flush')
+                break;
+            case 'w':
+                addInstruction('Print Flush')
+                break;
+            case 'e':
+                addInstruction('Get Link')
+                break;
+            case 'r':
+                addInstruction('Control')
+                break;
+            case 't':
+                addInstruction('Radar')
+                break;
+            case 'y':
+                addInstruction('Sensor')
+                break;
+            
+        }
+    }
+})
+
 
 // drag event
 let elementDragged;
