@@ -152,11 +152,14 @@ function addInstruction(button){
             break;
         case 'Jump':
             code = `<span>if</span>
-                    <span class="editable flowControl toggleableField" id="field1Value" contenteditable="true">0</span>
                     <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>x</span>
-                    <span class="editable flowControl" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')">not</span>
-                    <span class="editable flowControl toggleableField" id="field3Value" contenteditable="true" style=display:block;>false</span>
-                    <canvas id="jumpArrow"></canvas>`
+                    <span class="editable flowControl dontInclude" id="field3Value" onclick="popUpMenu(event,'jumpMenu')">not</span>
+                    <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style=display:block;>false</span>
+                    <div class="jumpTo">
+                        <span>Jump To</span>
+                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true">4</span>
+                    </div>
+                    <canvas class="jumpArrow" width=60></canvas>`
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -241,6 +244,7 @@ function addInstruction(button){
 
 //count and update line number on instruction
 function updateLineNumber() {
+    let jumpIns = [];
     containers = document.querySelectorAll('.container');
     containers.forEach((containerr, index) => {
         const lineNumberElement = containerr.querySelector('#lineNumber');
@@ -250,31 +254,77 @@ function updateLineNumber() {
         if (!containerr.hasDown){
             MouseDown(containerr.querySelector('.block-header'),containerr)
         }
-
-        // JUMP ARROW VISUAL (WIP)
-        const canvas = containerr.querySelector('#jumpArrow');
-        if (canvas){
-            const ctx = canvas.getContext('2d');
-            const containerrRect = containerr.getBoundingClientRect();
-            const destinations = document.querySelectorAll('#lineNumber');
-            destination.forEach(destination => {
-                destination.textContent
-            })
-            const desRect = destination.getBoundingClientRect();
-            const distance = containerrRect.top - desRect.top;
-            console.log(distance);
-            const containerrX = containerrRect.left + containerrRect.width / 2; 
-            const containerrY = containerrRect.top + containerrRect.height / 2; 
-
-            // Set up the line drawing
-            ctx.strokeStyle = 'white'
-            ctx.lineWidth = 5
-            ctx.beginPath();
-            ctx.moveTo(0, 50);
-            ctx.lineTo(100, 50);
-            ctx.stroke();
+        if ((containerr.querySelector('.headerText')).textContent == 'Jump'){
+            jumpIns.push(containerr)
         }
     });
+    // console.log(jumpIns);
+
+    // JUMP ARROW VISUAL (WIP)
+    jumpIns.forEach(jump => {
+        const canvas = jump.querySelector('.jumpArrow');
+        console.log(canvas);
+
+        const ctx = canvas.getContext('2d');
+        const containerrRect = jump.getBoundingClientRect();
+        const destinations = document.querySelectorAll('#lineNumber');
+        let destinationTarget; 
+        destinations.forEach(destination => {
+            if (destination.textContent == (jump.querySelector('#field1Value')).textContent) {
+                destinationTarget = destination
+            }
+        })
+        const desRect = destinationTarget?.getBoundingClientRect(); 
+        let distance = containerrRect.top - desRect?.top
+        const containerrY = containerrRect.height / 3; 
+        if (distance > 0){
+            canvas.style.bottom = (`${containerrY}px`)
+            canvas.style.top = ''
+        }else {
+            canvas.style.top = (`${containerrY}px`)
+            canvas.style.bottom = ''
+        }
+        distance = Math.abs(distance)
+        canvas.height = distance+20
+
+        // im so lazy so optimize this, point is it works
+        ctx.strokeStyle = 'white'
+        ctx.lineWidth = 5
+        if (canvas.style.bottom === ''){
+            ctx.beginPath()
+            ctx.moveTo(10, distance+10)
+            ctx.bezierCurveTo(50, distance/0.95, 50, distance/1024, 0, 10)
+            ctx.stroke()
+            ctx.closePath()
+            ctx.beginPath()
+            const bottom = distance+20
+            ctx.moveTo(10,bottom - 5)
+            ctx.lineTo(10,bottom - 15)
+            ctx.lineTo(0,bottom - 10)
+            ctx.closePath()
+            ctx.fillStyle = 'white';
+            ctx.fill()
+            ctx.stroke();
+        } else {
+            ctx.beginPath()
+            ctx.moveTo(0, distance + 20)
+            ctx.bezierCurveTo(50, distance/1.05, 50, distance/1024, 10, 10)
+            ctx.stroke()
+            ctx.closePath()
+            ctx.beginPath()
+            ctx.moveTo(10,5)
+            ctx.lineTo(10,15)
+            ctx.lineTo(0,10)
+            ctx.closePath()
+            ctx.fillStyle = 'white';
+            ctx.fill()
+            ctx.stroke();
+        }
+        // ctx.quadraticCurveTo(100, distance/2, 0, 0);
+
+    })
+    
+    
 }
 
 function Delete(e) {
@@ -399,6 +449,11 @@ const handleMove = (e) => {
         elementDragged.style.top = `${y}px`;
         elementDragged.style.position = 'absolute'
         elementDragged.style.zIndex = '2';
+        let canvas = elementDragged.querySelector('.jumpArrow')
+        if (canvas){
+            ctx = elementDragged.querySelector('.jumpArrow').getContext('2d')
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
 
     }
 }; 
@@ -476,7 +531,7 @@ const handleEnd = (e) => {
             previews.forEach(preview => {
                 preview.remove();
             })
-            document.body.insertBefore(elementDragged, (closestContainer).nextSibling);
+            document.body.insertBefore(elementDragged, (closestContainer)?.nextSibling);
             elementDragged = null;
             updateLineNumber();
         }
@@ -1178,7 +1233,8 @@ function selectOption(event,id) {
             fields.forEach(field => {
                 if (['field1Value', 
                     'field2Value',
-                    'field3Value',].includes(field.id)){
+                    'field3Value',
+                    'field4Value',].includes(field.id)){
                     field.style.display = 'none';
                 } else {
                     field.style.display = 'block';
@@ -1194,7 +1250,8 @@ function selectOption(event,id) {
         case '===':
             fields.forEach(field => {
                 if (['field2Value', 
-                    'field3Value',].includes(field.id)){
+                    'field3Value',
+                    'field4Value',].includes(field.id)){
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';
@@ -1214,40 +1271,85 @@ function closeMenu(event) {
     console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
 }
 
+
+const operatorMap = {
+    "+"         : 'add ',
+    "-"         : 'sub ',
+    "*"         : 'mul ',
+    "/"         : 'div ',
+    "//"        : 'idiv ',
+    "%"         : 'mod ',
+    "^"         : 'pow ',
+    "=="        : 'equal ',
+    "not"       : 'notEqual ',
+    "and"       : 'land ',
+    "<"         : 'lessThan ',
+    "<="        : 'lessThanEqual ',
+    ">"         : 'greaterThan ',
+    ">="        : 'greaterThanEqua ',
+    "==="       : 'strictEqual ',
+    "<<"        : 'shl ',
+    ">>"        : 'shr ',
+    "or"        : 'or ',
+    "b-and"     : 'and ',
+    "xor"       : 'xor ',
+    "flip"      : 'not ',
+    "max"       : 'max ',
+    "min"       : 'min ',
+    "angle"     : 'angle ',
+    "anglediff" : 'angleDiff ',
+    "len"       : 'len ',
+    "noise"     : 'noise ',
+    "abs"       : 'abs ',
+    "log"       : 'log ',
+    "log10"     : 'log10 ',
+    "floor"     : 'floor ',
+    "ceil"      : 'ceil ',
+    "sqrt"      : 'sqrt ',
+    "rand"      : 'rand ',
+    "sin"       : 'sin ',
+    "cos"       : 'cos ',
+    "tan"       : 'tan ',
+    "asin"      : 'asin ',
+    "acos"      : 'acos ',
+    "atan"      : 'atan ',
+    "always"      : 'always '
+};
+
+let instTypeMap = {
+    'Read'          : 'read ',
+    'Write'         : 'write ',
+    'Draw'          : 'draw ',
+    'Print'         : 'print ',
+    'Format'        : 'format ',
+    'Draw Flush'    : 'drawflush ',
+    'Print Flush'   : 'printflush ',
+    'Get Link'      : 'getlink ',
+    'Control'       : 'control ',
+    'Radar'         : 'radar ',
+    'Sensor'        : 'sensor ',
+    'Set'           : 'set ',
+    'Lookup'        : 'lookup ',
+    'Pack Color'    : 'packcolor ',
+    'Wait'          : 'wait ',
+    'Stop'          : 'stop ',
+    'End'           : 'end ',
+    'Unit Bind'     : 'ubind ',
+    'Unit Control'  : 'ucontrol ',
+    'Unit Radar'    : 'uradar ',
+    'Unit Locate'   : 'ulocate ',
+} 
 function exportCode(){
     codeEx = ""
     containers = document.querySelectorAll('.container');
-    // console.log(containers);
     containers.forEach(container => {
         insSpan = container.querySelector('span');
         if (insSpan){
             codeEx += '\n'
             let instType = insSpan.textContent;
-            console.log(instType);
-            const instTypeMap = {
-                'Read'          : 'read ',
-                'Write'         : 'write ',
-                'Draw'          : 'draw ',
-                'Print'         : 'print ',
-                'Format'        : 'format ',
-                'Draw Flush'    : 'drawflush ',
-                'Print Flush'   : 'printflush ',
-                'Get Link'      : 'getlink ',
-                'Control'       : 'control ',
-                'Radar'         : 'radar ',
-                'Sensor'        : 'sensor ',
-                'Set'           : 'set ',
-                'Lookup'        : 'lookup ',
-                'Pack Color'    : 'packcolor ',
-                'Wait'          : 'wait ',
-                'Stop'          : 'stop ',
-                'End'           : 'end ',
-                'Jump'          : 'jump ',
-                'Unit Bind'     : 'ubind ',
-                'Unit Control'  : 'ucontrol ',
-                'Unit Radar'    : 'uradar ',
-                'Unit Locate'   : 'ulocate ',
-            } 
+            if (container.querySelector('.headerText').textContent == 'Jump'){
+                instTypeMap['Jump'] = `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
+            }
             if (instTypeMap[instType] !== undefined){
                 codeEx += instTypeMap[instType];
             }
@@ -1256,48 +1358,6 @@ function exportCode(){
                 codeEx += "op "
                 operator = container.querySelector('.dontInclude')
                 OperatorString = (operator.textContent.replace(/\s+/g, ''));
-                const operatorMap = {
-                    "+"         : 'add ',
-                    "-"         : 'sub ',
-                    "*"         : 'mul ',
-                    "/"         : 'div ',
-                    "//"        : 'idiv ',
-                    "%"         : 'mod ',
-                    "^"         : 'pow ',
-                    "=="        : 'equal ',
-                    "not"       : 'notEqual ',
-                    "and"       : 'land ',
-                    "<"         : 'lessThan ',
-                    "<="        : 'lessThanEqual ',
-                    ">"         : 'greaterThan ',
-                    ">="        : 'greaterThanEqua ',
-                    "==="       : 'strictEqual ',
-                    "<<"        : 'shl ',
-                    ">>"        : 'shr ',
-                    "or"        : 'or ',
-                    "b-and"     : 'and ',
-                    "xor"       : 'xor ',
-                    "flip"      : 'not ',
-                    "max"       : 'max ',
-                    "min"       : 'min ',
-                    "angle"     : 'angle ',
-                    "anglediff" : 'angleDiff ',
-                    "len"       : 'len ',
-                    "noise"     : 'noise ',
-                    "abs"       : 'abs ',
-                    "log"       : 'log ',
-                    "log10"     : 'log10 ',
-                    "floor"     : 'floor ',
-                    "ceil"      : 'ceil ',
-                    "sqrt"      : 'sqrt ',
-                    "rand"      : 'rand ',
-                    "sin"       : 'sin ',
-                    "cos"       : 'cos ',
-                    "tan"       : 'tan ',
-                    "asin"      : 'asin ',
-                    "acos"      : 'acos ',
-                    "atan"      : 'atan '
-                };
                 if (operatorMap[OperatorString] !== undefined) {
                     codeEx += operatorMap[OperatorString];
                 }
