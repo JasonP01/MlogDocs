@@ -255,9 +255,14 @@ function updateLineNumber() {
         const canvas = containerr.querySelector('#jumpArrow');
         if (canvas){
             const ctx = canvas.getContext('2d');
-            const point1 = { x: 0, y: 0 }; 
-            const point2 = { x: 10, y: 10 }; 
             const containerrRect = containerr.getBoundingClientRect();
+            const destinations = document.querySelectorAll('#lineNumber');
+            destination.forEach(destination => {
+                destination.textContent
+            })
+            const desRect = destination.getBoundingClientRect();
+            const distance = containerrRect.top - desRect.top;
+            console.log(distance);
             const containerrX = containerrRect.left + containerrRect.width / 2; 
             const containerrY = containerrRect.top + containerrRect.height / 2; 
 
@@ -265,8 +270,8 @@ function updateLineNumber() {
             ctx.strokeStyle = 'white'
             ctx.lineWidth = 5
             ctx.beginPath();
-            ctx.moveTo(point1.x, point1.y);
-            ctx.lineTo(point2.x, point2.y);
+            ctx.moveTo(0, 50);
+            ctx.lineTo(100, 50);
             ctx.stroke();
         }
     });
@@ -298,6 +303,31 @@ function openWizard() {
 }
 
 // keybinds
+keybindMap = {
+    '1': 'Read',
+    '2': 'Write',
+    '3': 'Draw',
+    '4': 'Print',
+    '5': 'Format',
+    'q': 'Draw Flush',
+    'w': 'Print Flush',
+    'e': 'Get Link',
+    'r': 'Control',
+    't': 'Radar',
+    'y': 'Sensor',
+    'a': 'Set',
+    's': 'Operation',
+    'd': 'Lookup',
+    'f': 'Pack Color',
+    'z': 'Wait',
+    'x': 'Stop',
+    'c': 'End',
+    'v': 'Jump',
+    'p': 'Unit Bind',
+    'o': 'Unit Control',
+    'i': 'Unit Radar',
+    'u': 'Unit Locate',
+}
 document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
     const isVisible = wizardMenu.style.display === 'flex';
@@ -308,41 +338,8 @@ document.addEventListener('keydown',(e) =>{
         console.log('work1');
         openWizard();
     }else if (isVisible) {
-        switch (e.key) {
-            case '1':
-                addInstruction('Read')
-                break;
-            case '2':
-                addInstruction('Write')
-                break;
-            case '3':
-                addInstruction('Draw')
-                break;
-            case '4':
-                addInstruction('Print')
-                break;
-            case '5':
-                addInstruction('Format')
-                break;
-            case 'q':
-                addInstruction('Draw Flush')
-                break;
-            case 'w':
-                addInstruction('Print Flush')
-                break;
-            case 'e':
-                addInstruction('Get Link')
-                break;
-            case 'r':
-                addInstruction('Control')
-                break;
-            case 't':
-                addInstruction('Radar')
-                break;
-            case 'y':
-                addInstruction('Sensor')
-                break;
-            
+        if (keybindMap[e.key]){
+            addInstruction(keybindMap[e.key])
         }
     }
 })
