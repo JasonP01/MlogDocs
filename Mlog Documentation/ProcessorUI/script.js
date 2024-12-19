@@ -160,7 +160,7 @@ function addInstruction(button){
                         <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true">4</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
-                    <img src="pencil.png" alt="" class="jumpArrowTriangle">`
+                    <img src="pencil.png" alt="" class="jumpArrowTriangle" draggable="false">`
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -406,20 +406,24 @@ let offsetX, offsetY, isDragging, isDraggingJump = false;
 let counter = 0;
 let lastX;
 let lastY;
+
+function getMouseCoords(e) {
+    if (e.type === 'mousemove' || e.type === 'mousedown' || e.type === 'mouseup') {
+        x = e.clientX;
+        y = e.clientY;
+    } else if (e.type === 'touchmove' || e.type === 'touchstart' || e.type === 'touchend') {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
+        lastX = x;
+        lastY = y;
+    }
+    return {x, y}
+}
+
 const handleMove = (e) => {
     (document.getElementById('debugText2')).textContent = isDragging;
     if (isDragging) {
-        let x;
-        let y;
-        if (e.type === 'mousemove' || e.type === 'mousedown') {
-            x = e.clientX;
-            y = e.clientY;
-        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
-            x = e.touches[0].clientX;
-            y = e.touches[0].clientY;
-            lastX = x;
-            lastY = y;
-        }
+        let {x, y} = getMouseCoords(e)
         
         closestContainer = null;
         let nY = y - 10;
@@ -459,17 +463,7 @@ const handleMove = (e) => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     }else if (isDraggingJump) {
-        let x;
-        let y;
-        if (e.type === 'mousemove' || e.type === 'mousedown') {
-            x = e.clientX;
-            y = e.clientY;
-        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
-            x = e.touches[0].clientX;
-            y = e.touches[0].clientY;
-            lastX = x;
-            lastY = y;
-        }
+        let {x, y} = getMouseCoords(e)
         
         x = x - offsetX;
         y = y - offsetY;
@@ -486,15 +480,7 @@ document.addEventListener('touchmove', handleMove)
 
 function MouseDown(blocks,parent) {
     const handleStart = (e) => {
-        let x;
-        let y;
-        if (e.type === 'mousemove' || e.type === 'mousedown') {
-            x = e.clientX;
-            y = e.clientY;
-        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
-            x = e.touches[0].clientX;
-            y = e.touches[0].clientY;
-        }
+        const {x, y} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDragging = true;
             elementDragged = e.target.closest('.container')
@@ -504,21 +490,12 @@ function MouseDown(blocks,parent) {
         }
     };
     const handleStartJump = (e) => {
-        let x;
-        let y;
-        if (e.type === 'mousemove' || e.type === 'mousedown') {
-            x = e.clientX;
-            y = e.clientY;
-        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
-            x = e.touches[0].clientX;
-            y = e.touches[0].clientY;
-        }
+        const {x, y} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDraggingJump = true;
             elementDragged = e.target.closest('.jumpArrowTriangle')
             offsetX = x - elementDragged.offsetLeft;
             offsetY = y - elementDragged.offsetTop;
-            // blocks.style.cursor = 'grabbing';
         }
     };
     if (blocks.tagName == 'DIV') {
@@ -534,8 +511,7 @@ function MouseDown(blocks,parent) {
 
 const handleEnd = (e) => {
     const pfstart = performance.now();
-    if (isDragging) {
-        isDragging = false;
+    if (isDragging || isDraggingJump) {
         // const targets = [...document.querySelectorAll('.container')]; // Convert NodeList to Array
         // const placeHolder = document.querySelector('.placeHolder');
         // targets.push(placeHolder); // Add the new element to the array
@@ -572,11 +548,24 @@ const handleEnd = (e) => {
         if (elementDragged) {
             elementDragged.style.position = ''
             elementDragged.style.zIndex = '0';
-            const previews = document.querySelectorAll('.placementPreview')
-            previews.forEach(preview => {
-                preview.remove();
-            })
-            document.body.insertBefore(elementDragged, (closestContainer)?.nextSibling);
+            if (isDragging == true) {
+                isDragging = false;
+                const previews = document.querySelectorAll('.placementPreview')
+                previews.forEach(preview => {
+                    preview.remove();
+                })
+                document.body.insertBefore(elementDragged, (closestContainer)?.nextSibling);
+            } else {
+                isDraggingJump = false;
+                elementDragged.style.top = 'auto'
+                elementDragged.style.left = 'auto'
+                const {x, y} = getMouseCoords(e)
+                const element = document.elementFromPoint(x, y);
+                const container = element.closest('.container')
+                lineNumberElement = container.querySelector('.lineNumber')
+                lineNumber = lineNumber.textContent
+                console.log(lineNumber);
+            }
             elementDragged = null;
             updateLineNumber();
         }
