@@ -299,6 +299,15 @@ footer {
     padding-right: 20px;
 }
 
+.jumpArrowTriangle {
+    position: absolute;
+    right: 0;
+    max-height: 20px;
+    max-width: 20px;
+    cursor: grab;
+    user-select: none;
+}
+
 .block-header {
     display: flex;
     justify-content: space-between;

@@ -159,7 +159,8 @@ function addInstruction(button){
                         <span>Jump To</span>
                         <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true">4</span>
                     </div>
-                    <canvas class="jumpArrow" width=60></canvas>`
+                    <canvas class="jumpArrow" width=60></canvas>
+                    <img src="pencil.png" alt="" class="jumpArrowTriangle">`
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -253,6 +254,9 @@ function updateLineNumber() {
         }
         if (!containerr.hasDown){
             MouseDown(containerr.querySelector('.block-header'),containerr)
+        }
+        if (!containerr.hasDownJump){
+            MouseDown(containerr.querySelector('.jumpArrowTriangle'),containerr)
         }
         if ((containerr.querySelector('.headerText')).textContent == 'Jump'){
             jumpIns.push(containerr)
@@ -398,7 +402,7 @@ document.addEventListener('keydown',(e) =>{
 // drag event
 let elementDragged;
 let closestContainer = null;
-let offsetX, offsetY, isDragging = false;
+let offsetX, offsetY, isDragging, isDraggingJump = false;
 let counter = 0;
 let lastX;
 let lastY;
@@ -454,7 +458,25 @@ const handleMove = (e) => {
             ctx = elementDragged.querySelector('.jumpArrow').getContext('2d')
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
-
+    }else if (isDraggingJump) {
+        let x;
+        let y;
+        if (e.type === 'mousemove' || e.type === 'mousedown') {
+            x = e.clientX;
+            y = e.clientY;
+        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
+            x = e.touches[0].clientX;
+            y = e.touches[0].clientY;
+            lastX = x;
+            lastY = y;
+        }
+        
+        x = x - offsetX;
+        y = y - offsetY;
+        elementDragged.style.left = `${x}px`;
+        elementDragged.style.top = `${y}px`;
+        elementDragged.style.position = 'absolute'
+        elementDragged.style.zIndex = '2';
     }
 }; 
 document.addEventListener('mousemove', handleMove)
@@ -472,7 +494,6 @@ function MouseDown(blocks,parent) {
         } else if (e.type === 'touchmove' || e.type === 'touchstart') {
             x = e.touches[0].clientX;
             y = e.touches[0].clientY;
-
         }
         if (document.elementFromPoint(x, y) == blocks){
             isDragging = true;
@@ -482,9 +503,33 @@ function MouseDown(blocks,parent) {
             // blocks.style.cursor = 'grabbing';
         }
     };
-    parent.hasDown = true;
-    blocks.addEventListener('mousedown', handleStart)
-    blocks.addEventListener('touchstart', handleStart)
+    const handleStartJump = (e) => {
+        let x;
+        let y;
+        if (e.type === 'mousemove' || e.type === 'mousedown') {
+            x = e.clientX;
+            y = e.clientY;
+        } else if (e.type === 'touchmove' || e.type === 'touchstart') {
+            x = e.touches[0].clientX;
+            y = e.touches[0].clientY;
+        }
+        if (document.elementFromPoint(x, y) == blocks){
+            isDraggingJump = true;
+            elementDragged = e.target.closest('.jumpArrowTriangle')
+            offsetX = x - elementDragged.offsetLeft;
+            offsetY = y - elementDragged.offsetTop;
+            // blocks.style.cursor = 'grabbing';
+        }
+    };
+    if (blocks.tagName == 'DIV') {
+        parent.hasDown = true;
+        blocks.addEventListener('mousedown', handleStart)
+        blocks.addEventListener('touchstart', handleStart)
+    } else if (blocks.tagName == 'IMG') {
+        parent.hasDownJump = true;
+        blocks.addEventListener('mousedown', handleStartJump)
+        blocks.addEventListener('touchstart', handleStartJump)
+    }
 }
 
 const handleEnd = (e) => {
