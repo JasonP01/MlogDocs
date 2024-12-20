@@ -1538,3 +1538,6 @@ function exportCode(){
 // console.log('asdlkgjasdg');
 
 
+window.onload = () => {
+    document.getElementById('loadingAlert').style.display = 'none'
+}

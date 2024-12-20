@@ -25,6 +25,37 @@ body {
     touch-action: none;
 }
 
+.loading {
+    position: fixed; 
+    color: rgb(255, 255, 255); 
+    background-color: #0d0d0d;
+    border-radius: 20px;
+    border: #3c2f2f solid 10px;
+    width: 50vw;
+    height: 30vh;
+    font-size: calc(20px + 1vw); 
+    text-align: center; 
+    justify-content: center ;
+    user-select: none; 
+    overflow-wrap: break-word; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+}
+
+.loadingSub {
+    position: absolute;
+    width: 100%;
+    color: rgb(255, 255, 255); 
+    font-size: clamp(12px, 1.5vw, 20px); 
+    text-align: center; 
+    bottom: 1.5vh;
+    user-select: none; 
+    overflow-wrap: break-word; 
+}
+
 .container {
     display: block; 
     user-select: text;
