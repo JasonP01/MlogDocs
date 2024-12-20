@@ -157,7 +157,7 @@ function addInstruction(button){
                     <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style=display:block;>false</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
-                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true">4</span>
+                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false">-1</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
                     <img src="pencil.png" alt="" class="jumpArrowTriangle" draggable="false">`
@@ -244,6 +244,7 @@ function addInstruction(button){
     };
 
 //count and update line number on instruction
+
 function updateLineNumber() {
     let jumpIns = [];
     containers = document.querySelectorAll('.container');
@@ -255,19 +256,22 @@ function updateLineNumber() {
         if (!containerr.hasDown){
             MouseDown(containerr.querySelector('.block-header'),containerr)
         }
-        if (!containerr.hasDownJump){
+        if (!containerr.hasDownJump && containerr.querySelector('.jumpTo')){
             MouseDown(containerr.querySelector('.jumpArrowTriangle'),containerr)
         }
         if ((containerr.querySelector('.headerText')).textContent == 'Jump'){
             jumpIns.push(containerr)
         }
     });
+    updateJumpArrow(jumpIns)
     // console.log(jumpIns);
+}
 
     // JUMP ARROW VISUAL (WIP)
+function updateJumpArrow(jumpIns) {
     jumpIns.forEach(jump => {
         const canvas = jump.querySelector('.jumpArrow');
-        console.log(canvas);
+        // console.log(canvas);
 
         const ctx = canvas.getContext('2d');
         const containerrRect = jump.getBoundingClientRect();
@@ -288,8 +292,10 @@ function updateLineNumber() {
             canvas.style.top = (`${containerrY}px`)
             canvas.style.bottom = ''
         }
+        canvas.style.left = ''
         distance = Math.abs(distance)
         canvas.height = distance+20
+        canvas.width = 100
 
         // im so lazy so optimize this, point is it works
         ctx.strokeStyle = 'white'
@@ -297,7 +303,7 @@ function updateLineNumber() {
         if (canvas.style.bottom === ''){
             ctx.beginPath()
             ctx.moveTo(10, distance+10)
-            ctx.bezierCurveTo(50, distance/0.95, 50, distance/1024, 0, 10)
+            ctx.bezierCurveTo(100, distance/0.95, 100, distance/1024, 0, 10)
             ctx.stroke()
             ctx.closePath()
             ctx.beginPath()
@@ -312,7 +318,7 @@ function updateLineNumber() {
         } else {
             ctx.beginPath()
             ctx.moveTo(0, distance + 20)
-            ctx.bezierCurveTo(50, distance/1.05, 50, distance/1024, 10, 10)
+            ctx.bezierCurveTo(100, distance/1.05, 100, distance/1024, 10, 10)
             ctx.stroke()
             ctx.closePath()
             ctx.beginPath()
@@ -324,12 +330,10 @@ function updateLineNumber() {
             ctx.fill()
             ctx.stroke();
         }
-        // ctx.quadraticCurveTo(100, distance/2, 0, 0);
-
+    // ctx.quadraticCurveTo(100, distance/2, 0, 0);
     })
-    
-    
 }
+    
 
 function Delete(e) {
     const parentContainer = e.target.closest('.container');
@@ -387,9 +391,9 @@ document.addEventListener('keydown',(e) =>{
     const isVisible = wizardMenu.style.display === 'flex';
     if (e.key === 'Escape' || (isVisible && e.key === 'F2')) {
         closeWizard();
-        console.log('work');
+        // console.log('work');
     }else if (e.key === 'F2' && !isVisible) {
-        console.log('work1');
+        // console.log('work1');
         openWizard();
     }else if (isVisible) {
         if (keybindMap[e.key]){
@@ -412,18 +416,59 @@ function getMouseCoords(e) {
         x = e.clientX;
         y = e.clientY;
     } else if (e.type === 'touchmove' || e.type === 'touchstart' || e.type === 'touchend') {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-        lastX = x;
-        lastY = y;
+        try {
+            x = e.touches[0].clientX;
+            y = e.touches[0].clientY;
+            lastX = x;
+            lastY = y;
+        } catch(error) {
+            x = lastX
+            y = lastY
+        }
     }
-    return {x, y}
+    sy = y + window.scrollY
+    return {x, y, sy}
+}
+
+let isScrollingUp = false;
+let isScrollingDown = false;
+
+function scrollPage() {
+    if (isScrollingUp) {
+        window.scrollBy(0, -10);
+        requestAnimationFrame(scrollPage);
+    }
+    if (isScrollingDown) {
+        window.scrollBy(0, 10);
+        requestAnimationFrame(scrollPage);
+    }
+}
+
+function isScroll(y){
+    if (y < 100) {
+        if (!isScrollingUp) {
+            isScrollingUp = true;
+            scrollPage();
+        }
+    } else {
+            isScrollingUp = false;
+    }
+    if (y > (window.innerHeight - 100)) {
+        if (!isScrollingDown) {
+            isScrollingDown = true;
+            scrollPage();
+        }
+    } else {
+            isScrollingDown = false;
+    }
 }
 
 const handleMove = (e) => {
     (document.getElementById('debugText2')).textContent = isDragging;
     if (isDragging) {
-        let {x, y} = getMouseCoords(e)
+        let {x, y, sy} = getMouseCoords(e)
+        
+        isScroll(y)
         
         closestContainer = null;
         let nY = y - 10;
@@ -451,10 +496,8 @@ const handleMove = (e) => {
 
         (document.getElementById('debugText6')).textContent = x;
         (document.getElementById('debugText7')).textContent = y;
-        x = x - offsetX;
-        y = y - offsetY;
-        elementDragged.style.left = `${x}px`;
-        elementDragged.style.top = `${y}px`;
+        elementDragged.style.left = `${x - offsetX}px`;
+        elementDragged.style.top = `${sy - offsetY}px`;
         elementDragged.style.position = 'absolute'
         elementDragged.style.zIndex = '2';
         let canvas = elementDragged.querySelector('.jumpArrow')
@@ -463,14 +506,108 @@ const handleMove = (e) => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
     }else if (isDraggingJump) {
-        let {x, y} = getMouseCoords(e)
+        let {x, y, sy} = getMouseCoords(e)
+
+        isScroll(y)
         
-        x = x - offsetX;
-        y = y - offsetY;
-        elementDragged.style.left = `${x}px`;
-        elementDragged.style.top = `${y}px`;
+        elementDragged.style.left = `${x - offsetX}px`;
+        elementDragged.style.top = `${sy - offsetY}px`;
         elementDragged.style.position = 'absolute'
         elementDragged.style.zIndex = '2';
+        
+        jump = elementDragged.closest('.container')
+        canvas = jump.querySelector('.jumpArrow')
+        
+        jumpRect = jump.getBoundingClientRect()
+        canvasRect = canvas.getBoundingClientRect()
+        jumpRectRight = jumpRect.right
+        jumpRectLeft = jumpRect.left
+        jumpRectMiddle = jumpRect.bottom - jumpRect.height / 2
+        canvasWidth = x - jumpRectRight
+        AcanvasWidth = Math.abs(canvasWidth)
+        // console.log(x);
+        // console.log(jumpRectRight);
+        canvasHeight = y - jumpRectMiddle
+        AcanvasHeight = Math.abs(canvasHeight)
+        let curveTo;
+        let moveTo;
+        let plus = 0
+        let q3 = false
+        if (canvasHeight < 0) {
+            canvas.style.bottom = `50%`
+            canvas.style.top = ''
+            moveTo = [
+                0, AcanvasHeight
+            ]
+            curveTo = [
+                70, AcanvasHeight - 20,
+                AcanvasWidth + 70, 20,
+                AcanvasWidth, 10
+            ]
+            plus = 40
+        } else {
+            
+            if (canvasWidth > 0) {
+                moveTo = [
+                    0, 0
+                ]
+                curveTo = [
+                    70 , 20,
+                    AcanvasWidth + 70, AcanvasHeight + 20,
+                    AcanvasWidth, AcanvasHeight
+                ]
+                plus = 40
+            } else {
+                q3 = true
+                moveTo = [
+                    AcanvasWidth, 0
+                ]
+                curveTo = [
+                    AcanvasWidth + 70, 20,
+                    70, AcanvasHeight - 20, 
+                    0, AcanvasHeight
+                ]
+                plus = 0
+            }
+            canvas.style.top = `50%`
+            canvas.style.bottom = ''
+
+        }
+        canvas.height = Math.abs(canvasHeight)
+
+        if  (canvasWidth < 0){
+            canvas.style.right = '-60px'
+            canvas.style.left = 'auto'
+            if (q3 == false){
+                moveTo = [
+                    AcanvasWidth, AcanvasHeight
+                ]
+                curveTo = [
+                    AcanvasWidth + 70, AcanvasHeight - 20,
+                    70, 20,
+                    0, 10
+                ]
+                plus = 0
+            }
+        }else {
+            canvas.style.left = `100%`
+            canvas.style.right = ''
+
+        }
+        canvas.width = Math.abs(canvasWidth) + 60
+        const ctx = canvas.getContext('2d');
+        
+        ctx.strokeStyle = 'white'
+        ctx.lineWidth = 5
+
+        ctx.beginPath()
+        ctx.moveTo(moveTo[0],moveTo[1])
+        ctx.bezierCurveTo(curveTo[0], curveTo[1], 
+                        curveTo[2], curveTo[3],
+                        curveTo[4], curveTo[5])
+        ctx.stroke()
+        ctx.closePath()
+
     }
 }; 
 document.addEventListener('mousemove', handleMove)
@@ -480,22 +617,22 @@ document.addEventListener('touchmove', handleMove)
 
 function MouseDown(blocks,parent) {
     const handleStart = (e) => {
-        const {x, y} = getMouseCoords(e)
+        const {x, y, sy} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDragging = true;
             elementDragged = e.target.closest('.container')
             offsetX = x - elementDragged.offsetLeft;
-            offsetY = y - elementDragged.offsetTop;
+            offsetY = sy - elementDragged.offsetTop;
             // blocks.style.cursor = 'grabbing';
         }
     };
     const handleStartJump = (e) => {
-        const {x, y} = getMouseCoords(e)
+        const {x, y, sy} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDraggingJump = true;
             elementDragged = e.target.closest('.jumpArrowTriangle')
             offsetX = x - elementDragged.offsetLeft;
-            offsetY = y - elementDragged.offsetTop;
+            offsetY = sy - elementDragged.offsetTop;
         }
     };
     if (blocks.tagName == 'DIV') {
@@ -512,39 +649,6 @@ function MouseDown(blocks,parent) {
 const handleEnd = (e) => {
     const pfstart = performance.now();
     if (isDragging || isDraggingJump) {
-        // const targets = [...document.querySelectorAll('.container')]; // Convert NodeList to Array
-        // const placeHolder = document.querySelector('.placeHolder');
-        // targets.push(placeHolder); // Add the new element to the array
-        // let closestDistance = Infinity;
-        // let closestElement = null;
-        // targets.forEach(target => {
-        //     if (target != elementDragged){
-        //         const rect = target.getBoundingClientRect();
-        //         const targetX = rect.left + rect.width / 2; 
-        //         const targetY = rect.top + rect.height / 2; 
-        //         let x;
-        //         let y;
-        //         if (e.type === 'mouseup') {
-        //             x = e.clientX;
-        //             y = e.clientY;
-        //         } else if (e.type === 'touchend') {
-        //             x = lastX;
-        //             y = lastY;
-        //         }
-        //         const distance = Math.sqrt(
-        //         Math.pow(x - targetX, 2) +
-        //         Math.pow(y - targetY, 2)
-        //         );
-        
-        //         if (distance < closestDistance) {
-        //         closestDistance = distance;
-        //         closestElement = target;
-        //         }
-        //         counter++;
-        //         (document.getElementById('debugText3')).textContent = (closestElement).textContent;
-        //         (document.getElementById('debugText')).textContent = counter;
-        //     }
-        // });
         if (elementDragged) {
             elementDragged.style.position = ''
             elementDragged.style.zIndex = '0';
@@ -560,11 +664,20 @@ const handleEnd = (e) => {
                 elementDragged.style.top = 'auto'
                 elementDragged.style.left = 'auto'
                 const {x, y} = getMouseCoords(e)
-                const element = document.elementFromPoint(x, y);
-                const container = element.closest('.container')
-                lineNumberElement = container.querySelector('.lineNumber')
-                lineNumber = lineNumber.textContent
-                console.log(lineNumber);
+                const elements = document.elementsFromPoint(x, y);
+                let element;
+                for (const elemen of elements) {
+                    if (elemen.className == 'container'){
+                        element = elemen
+                        break;
+                    }
+                }
+                const container = element?.closest('.container')
+                lineNumberElement = container?.querySelector('#lineNumber')
+                lineNumber = lineNumberElement?.textContent
+                parent = elementDragged.closest('.container')
+                thisLineNumber = parent.querySelector('#field1Value')
+                thisLineNumber.textContent = lineNumber
             }
             elementDragged = null;
             updateLineNumber();
@@ -1416,6 +1529,12 @@ function exportCode(){
             document.getElementById('alert').style.display = 'none'
         }, 1000);
     }, 1000);
-
+    // localStorage.setItem('key1', 'value1');
 }
+
+
+// const value = localStorage.getItem('key1');
+// console.log(value);
+// console.log('asdlkgjasdg');
+
 

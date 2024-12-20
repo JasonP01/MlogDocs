@@ -22,6 +22,7 @@ body {
     min-height:90vh;
     margin: 5vh;
     overflow:auto;
+    touch-action: none;
 }
 
 .container {
