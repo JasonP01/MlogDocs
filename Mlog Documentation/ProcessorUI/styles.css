@@ -70,13 +70,13 @@ body {
     /* background-color: #a08a8a; */
     border: white solid 5px;
     border-radius: 5px;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 5px 5px 5px;
     min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     position: relative;
     height: 75px;
-    margin-bottom:20px ;
+    margin-bottom:10px ;
 }
 
 .menu {
@@ -333,9 +333,9 @@ footer {
 
 .jumpArrowTriangle {
     position: absolute;
-    right: 0;
-    max-height: 20px;
-    max-width: 20px;
+    right: -10px;
+    max-height: 25px;
+    max-width: 25px;
     cursor: grab;
     user-select: none;
 }
@@ -389,6 +389,7 @@ footer {
     gap: 5px;
     align-items: center;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .block-content .code span{
@@ -407,73 +408,74 @@ canvas {
     width: auto;
     color: white !important;
     z-index: 4;
+    /* border: white 3px solid; */
 }
 
 
 .iNo-container {
     background-color: #a08a8a;
     border-radius: 5px;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 5px 5px 5px;
     color: #fff;
     min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-size: 14px;
     position: relative;
-    margin-bottom:20px ;
+    margin-bottom:10px ;
 }
 
 .blockControl-container {
-    background-color: #a66b5d;
+    background-color: #d4816b;
     border-radius: 5px;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 5px 5px 5px;
     color: #fff;
     min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-size: 14px;
     position: relative;
-    margin-bottom:20px ;
+    margin-bottom:10px ;
 }
 
 
 .operation-container {
     background-color: #877bad;
     border-radius: 5px;
-    padding: 0px 10px 10px 10px;;
+    padding: 0px 5px 5px 5px;;
     color: #fff;
     min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-size: 14px;
     position: relative;
-    margin-bottom:20px ;
+    margin-bottom:10px ;
 }
 
 .flowControl-container {
     background-color: #6bb2b2;
     border-radius: 5px;
-    padding: 0px 10px 10px 10px;;
+    padding: 0px 5px 5px 5px;;
     color: #fff;
     min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-size: 14px;
     position: relative;
-    margin-bottom:20px ;
+    margin-bottom:10px ;
 }
 
 .unitControl-container {
     background-color: #c7b59d;
     border-radius: 5px;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 5px 5px 5px;
     color: #fff;
     min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-size: 14px;
     position: relative;
-    margin-bottom:20px ;
+    margin-bottom:10px ;
 }
     
     

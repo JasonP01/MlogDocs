@@ -88,19 +88,19 @@ function addInstruction(button){
             break;
         case 'Radar':
             code = `<span>from</span>
-                    <span class="editable blockControl" contenteditable="true">turret1</span>
+                    <span class="editable blockControl" contenteditable="true" id="field1Value">turret1</span>
                     <span>target</span>
-                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
+                    <span class="editable blockControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
                     <span>and</span>
-                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable blockControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                     <span>and</span>
-                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable blockControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                     <span>order</span>
-                    <span class="editable blockControl" contenteditable="true">1</span>
+                    <span class="editable blockControl" contenteditable="true" id="field5Value">1</span>
                     <span>sort</span>
-                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
+                    <span class="editable blockControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
                     <span>output</span>
-                    <span class="editable blockControl" contenteditable="true">result</span>`
+                    <span class="editable blockControl" contenteditable="true" id="field7Value">result</span>`
             break;
         case 'Sensor':
             code = `<span class="editable blockControl" contenteditable="true">result</span>
@@ -160,7 +160,7 @@ function addInstruction(button){
                         <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false">-1</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
-                    <img src="pencil.png" alt="" class="jumpArrowTriangle" draggable="false">`
+                    <img src="triangle.png" alt="" class="jumpArrowTriangle" draggable="false">`
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -274,22 +274,22 @@ function updateJumpArrow(jumpIns) {
         // console.log(canvas);
 
         const ctx = canvas.getContext('2d');
-        const containerrRect = jump.getBoundingClientRect();
+        const containerrRect = (jump.closest('.container')).getBoundingClientRect();
         const destinations = document.querySelectorAll('#lineNumber');
         let destinationTarget; 
         destinations.forEach(destination => {
             if (destination.textContent == (jump.querySelector('#field1Value')).textContent) {
-                destinationTarget = destination
+                destinationTarget = destination.closest('.container')
             }
         })
         const desRect = destinationTarget?.getBoundingClientRect(); 
-        let distance = containerrRect.top - desRect?.top
+        let distance = (containerrRect.top + containerrRect.height / 2) - (desRect?.top + desRect?.height / 2)
         const containerrY = containerrRect.height / 3; 
         if (distance > 0){
-            canvas.style.bottom = (`${containerrY}px`)
+            canvas.style.bottom = `10%`
             canvas.style.top = ''
         }else {
-            canvas.style.top = (`${containerrY}px`)
+            canvas.style.top = `10%`
             canvas.style.bottom = ''
         }
         canvas.style.left = ''
@@ -308,23 +308,23 @@ function updateJumpArrow(jumpIns) {
             ctx.closePath()
             ctx.beginPath()
             const bottom = distance+20
-            ctx.moveTo(10,bottom - 5)
-            ctx.lineTo(10,bottom - 15)
-            ctx.lineTo(0,bottom - 10)
+            ctx.moveTo(15,bottom - 5)
+            ctx.lineTo(15,bottom - 15)
+            ctx.lineTo(5,bottom - 10)
             ctx.closePath()
             ctx.fillStyle = 'white';
             ctx.fill()
             ctx.stroke();
         } else {
             ctx.beginPath()
-            ctx.moveTo(0, distance + 20)
+            ctx.moveTo(0, distance + 10)
             ctx.bezierCurveTo(100, distance/1.05, 100, distance/1024, 10, 10)
             ctx.stroke()
             ctx.closePath()
             ctx.beginPath()
-            ctx.moveTo(10,5)
-            ctx.lineTo(10,15)
-            ctx.lineTo(0,10)
+            ctx.moveTo(15,5)
+            ctx.lineTo(15,15)
+            ctx.lineTo(5,10)
             ctx.closePath()
             ctx.fillStyle = 'white';
             ctx.fill()
@@ -434,11 +434,11 @@ let isScrollingUp = false;
 let isScrollingDown = false;
 
 function scrollPage() {
-    if (isScrollingUp) {
+    if (isScrollingUp && (isDragging || isDraggingJump)) {
         window.scrollBy(0, -10);
         requestAnimationFrame(scrollPage);
     }
-    if (isScrollingDown) {
+    if (isScrollingDown  && (isDragging || isDraggingJump)) {
         window.scrollBy(0, 10);
         requestAnimationFrame(scrollPage);
     }
@@ -451,7 +451,7 @@ function isScroll(y){
             scrollPage();
         }
     } else {
-            isScrollingUp = false;
+        isScrollingUp = false;
     }
     if (y > (window.innerHeight - 100)) {
         if (!isScrollingDown) {
@@ -459,7 +459,7 @@ function isScroll(y){
             scrollPage();
         }
     } else {
-            isScrollingDown = false;
+        isScrollingDown = false;
     }
 }
 
@@ -514,78 +514,82 @@ const handleMove = (e) => {
         elementDragged.style.top = `${sy - offsetY}px`;
         elementDragged.style.position = 'absolute'
         elementDragged.style.zIndex = '2';
+        elementDragged.style.transform = 'rotate(180deg)'
         
         jump = elementDragged.closest('.container')
+        arrow = jump.querySelector('.jumpArrowTriangle')
         canvas = jump.querySelector('.jumpArrow')
         
         jumpRect = jump.getBoundingClientRect()
-        canvasRect = canvas.getBoundingClientRect()
+        arrowRect = arrow.getBoundingClientRect()
+        arrowX = arrowRect.left + arrowRect.width / 2
+        arrowY = arrowRect.top + arrowRect.height / 2
         jumpRectRight = jumpRect.right
         jumpRectLeft = jumpRect.left
         jumpRectMiddle = jumpRect.bottom - jumpRect.height / 2
-        canvasWidth = x - jumpRectRight
+        canvasWidth = arrowX - jumpRectRight
         AcanvasWidth = Math.abs(canvasWidth)
         // console.log(x);
         // console.log(jumpRectRight);
-        canvasHeight = y - jumpRectMiddle
+        canvasHeight = arrowY - jumpRectMiddle
         AcanvasHeight = Math.abs(canvasHeight)
         let curveTo;
         let moveTo;
         let plus = 0
         let q3 = false
         if (canvasHeight < 0) {
-            canvas.style.bottom = `50%`
+            canvas.style.bottom = `5%`
             canvas.style.top = ''
             moveTo = [
-                0, AcanvasHeight
+                0, AcanvasHeight + 20
             ]
             curveTo = [
                 70, AcanvasHeight - 20,
                 AcanvasWidth + 70, 20,
-                AcanvasWidth, 10
+                AcanvasWidth + 10, 10
             ]
             plus = 40
         } else {
             
             if (canvasWidth > 0) {
                 moveTo = [
-                    0, 0
+                    0, 10
                 ]
                 curveTo = [
                     70 , 20,
                     AcanvasWidth + 70, AcanvasHeight + 20,
-                    AcanvasWidth, AcanvasHeight
+                    AcanvasWidth + 10, AcanvasHeight
                 ]
                 plus = 40
             } else {
                 q3 = true
                 moveTo = [
-                    AcanvasWidth, 0
+                    AcanvasWidth + 5, 10
                 ]
                 curveTo = [
                     AcanvasWidth + 70, 20,
-                    70, AcanvasHeight - 20, 
-                    0, AcanvasHeight
+                    70, AcanvasHeight + 20, 
+                    15, AcanvasHeight
                 ]
                 plus = 0
             }
-            canvas.style.top = `50%`
+            canvas.style.top = `5%`
             canvas.style.bottom = ''
 
         }
-        canvas.height = Math.abs(canvasHeight)
+        canvas.height = Math.abs(canvasHeight) + 30
 
         if  (canvasWidth < 0){
             canvas.style.right = '-60px'
             canvas.style.left = 'auto'
             if (q3 == false){
                 moveTo = [
-                    AcanvasWidth, AcanvasHeight
+                    AcanvasWidth + 5, AcanvasHeight + 20
                 ]
                 curveTo = [
                     AcanvasWidth + 70, AcanvasHeight - 20,
-                    70, 20,
-                    0, 10
+                    70, 0,
+                    10, 10
                 ]
                 plus = 0
             }
@@ -652,6 +656,7 @@ const handleEnd = (e) => {
         if (elementDragged) {
             elementDragged.style.position = ''
             elementDragged.style.zIndex = '0';
+            elementDragged.style.transform = ''
             if (isDragging == true) {
                 isDragging = false;
                 const previews = document.querySelectorAll('.placementPreview')
@@ -1473,7 +1478,6 @@ let instTypeMap = {
     'Print Flush'   : 'printflush ',
     'Get Link'      : 'getlink ',
     'Control'       : 'control ',
-    'Radar'         : 'radar ',
     'Sensor'        : 'sensor ',
     'Set'           : 'set ',
     'Lookup'        : 'lookup ',
@@ -1494,30 +1498,34 @@ function exportCode(){
         if (insSpan){
             codeEx += '\n'
             let instType = insSpan.textContent;
-            if (container.querySelector('.headerText').textContent == 'Jump'){
-                instTypeMap['Jump'] = `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
-            }
-            if (instTypeMap[instType] !== undefined){
+            if (instTypeMap?.[instType]){
                 codeEx += instTypeMap[instType];
-            }
-            console.log(instTypeMap[instType]);
-            if (instType == 'Operation'){
-                codeEx += "op "
-                operator = container.querySelector('.dontInclude')
-                OperatorString = (operator.textContent.replace(/\s+/g, ''));
-                if (operatorMap[OperatorString] !== undefined) {
-                    codeEx += operatorMap[OperatorString];
+                exportFields()
+            } else {
+                if (instType == 'Jump'){
+                    codeEx += `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
+                }
+                if (instType == 'Operation'){
+                    codeEx += "op "
+                    operator = container.querySelector('.dontInclude')
+                    OperatorString = (operator.textContent.replace(/\s+/g, ''));
+                    if (operatorMap[OperatorString] !== undefined) {
+                        codeEx += operatorMap[OperatorString];
+                    }
+                    exportFields()
+                }
+                if (instType == 'Radar'){
+                    codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
                 }
             }
-            codeParent = container.querySelectorAll('.code');
-            codeParent.forEach(code => {
-                codeElements = code.querySelectorAll('span');
+            function exportFields(){
+                codeElements = container.querySelectorAll('span');
                 codeElements.forEach(code => {
                     if (code.classList.contains('editable') && !code.classList.contains('dontInclude') && (getComputedStyle(code)).display === 'block'){
                         codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
                     }
                 });
-            });
+            }
         };
     });
     navigator.clipboard.writeText(codeEx)
