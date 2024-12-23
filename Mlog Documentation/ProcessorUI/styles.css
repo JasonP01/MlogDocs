@@ -154,7 +154,7 @@ body {
     display: none;
     position: absolute;
     background-color: black;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: 80vh;
     color: white;
     border: 5px solid #3c2f2f;
@@ -174,7 +174,13 @@ body {
     }
     #sensorMenu div div:hover{
         background-color: #3c2f2f;
-        padding: 2px 10px 2px 10px;
+        margin-left: 10px;
+    }
+    #sensorMenuButtons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
     }
     .popUpMenu div {
         padding: 2px 7px 2px 7px;
@@ -189,6 +195,27 @@ body {
     .popUpMenu::-webkit-scrollbar-thumb{
         background-color:#3c2f2f; /* Make the thumb background transparent */
     }
+    .popUpMenu img{
+        max-width: 20%;
+        min-width: 20%;
+    }
+    .popUpMenu div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #sensorMenu div{
+        display: initial;
+        justify-content: initial;
+        align-items: initial;
+    }
+    .popUpMenu #variables div, .popUpMenu #liquids div, .popUpMenu #items div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
 
 
 .line {
@@ -342,8 +369,8 @@ footer {
 .jumpArrowTriangle {
     position: absolute;
     right: -10px;
-    max-height: 25px;
-    max-width: 25px;
+    max-height: 30px;
+    max-width: 30px;
     cursor: grab;
     user-select: none;
 }
@@ -415,7 +442,7 @@ canvas {
     background-color: none;
     width: auto;
     color: white !important;
-    z-index: 4;
+    z-index: 5;
     /* border: white 3px solid; */
 }
 

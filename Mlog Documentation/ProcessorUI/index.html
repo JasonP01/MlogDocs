@@ -108,9 +108,11 @@
     </div>
     <div id="popUpMenuOutside" class="menu" onclick="closeMenu(event)">
         <div id="sensorMenu" class="popUpMenu">
-            <button onclick="subSensorMenu(0)">as</button>
-            <button onclick="subSensorMenu(1)">as</button>
-            <button onclick="subSensorMenu(2)">as</button>
+            <div id="sensorMenuButtons">
+                <img src="image/triangle.png" onclick="subSensorMenu(1)" alt="i cant find the item image on the game source">
+                <img src="image/liquid.png" onclick="subSensorMenu(2)" alt="">
+                <img src="image/tree.png" onclick="subSensorMenu(0)" alt="">
+            </div>
             <div id="variables">
                 <div>@totalItems</div>
                 <div>@firstItem</div>
@@ -158,11 +160,42 @@
                 <div>@config</div>
                 <div>@color</div>
             </div>
-            <div id="items">
-                <div>asdf</div>
+            <div id="items" style="display: none;">
+                <div>@copper</div>
+                <div>@lead</div>
+                <div>@metaglass</div>
+                <div>@graphite</div>
+                <div>@sand</div>
+                <div>@coal</div>
+                <div>@titanium</div>
+                <div>@thorium</div>
+                <div>@scrap</div>
+                <div>@silicon</div>
+                <div>@plastanium</div>
+                <div>@phase-fabric</div>
+                <div>@surge-alloy</div>
+                <div>@spore-pod</div>
+                <div>@blast-compound</div>
+                <div>@pyratite</div>
+                <div>@beryllium</div>
+                <div>@tungsten</div>
+                <div>@oxide</div>
+                <div>@carbide</div>
+                <div>@fissile-matter</div>
+                <div>@dormant-cyst</div>
+                <div>@gallium</div>
             </div>
-            <div id="liquids">
-                <div>liqueid</div>
+            <div id="liquids" style="display: none;">
+                <div>@water</div>
+                <div>@slag</div>
+                <div>@oil</div>
+                <div>@cryofluid</div>
+                <div>@neoplasm</div>
+                <div>@arkycite</div>
+                <div>@ozone</div>
+                <div>@hydrogen</div>
+                <div>@nitrogen</div>
+                <div>@cyanogen</div>
             </div>
         </div>
         <div id="opMenu" class="popUpMenu">

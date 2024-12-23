@@ -106,7 +106,7 @@ function addInstruction(button){
             code = `<span class="editable blockControl" contenteditable="true">result</span>
                     <span>=</span>
                     <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
-                    <img src="pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
                     <span>in</span>
                     <span class="editable blockControl" contenteditable="true">block1</span>`
             break;
@@ -160,7 +160,7 @@ function addInstruction(button){
                         <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false">-1</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
-                    <img src="triangle.png" alt="" class="jumpArrowTriangle" draggable="false">`
+                    <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -201,7 +201,7 @@ function addInstruction(button){
                     <span>enemy</span>
                     <span class="editable unitControl" contenteditable="true">true</span>
                     <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
-                    <img src="pencil.png" alt="" onclick="popUpMenu(event,'oreMenu')" class="pencilMenu">
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'oreMenu')" class="pencilMenu">
                     <span>outX</span>
                     <span class="editable unitControl" contenteditable="true">outx</span>
                     <span>outY</span>
@@ -657,7 +657,11 @@ const handleEnd = (e) => {
     if (isDragging || isDraggingJump) {
         if (elementDragged) {
             elementDragged.style.position = ''
-            elementDragged.style.zIndex = '0';
+            if (isDragging) {
+                elementDragged.style.zIndex = '';
+            }else {
+                elementDragged.style.zIndex = '6';
+            }
             elementDragged.style.transform = ''
             if (isDragging == true) {
                 isDragging = false;
@@ -744,24 +748,24 @@ function popUpMenu(event,id){
 }
 
 function subSensorMenu(type){
+    variables = document.getElementById('variables')
+    items = document.getElementById('items')
+    liquids = document.getElementById('liquids')
     switch (type){
-        case 1:
-            variables = document.getElementById('variables')
+        case 0:
             variables.style.display = 'block'
-            variables.nextSibling.style.display = 'none'
-            variables.nextSibling.nextSibling.style.display = 'none'
+            items.style.display = 'none'
+            liquids.style.display = 'none'
+            break;
+        case 1:
+            variables.style.display = 'none'
+            items.style.display = 'block'
+            liquids.style.display = 'none'
             break;
         case 2:
-            variables = document.getElementById('variables')
             variables.style.display = 'none'
-            variables.nextSibling.style.display = 'block'
-            variables.nextSibling.nextSibling.style.display = 'none'
-            break;
-        case 3:
-            variables = document.getElementById('variables')
-            variables.style.display = 'none'
-            variables.nextSibling.style.display = 'none'
-            variables.nextSibling.nextSibling.style.display = 'block'
+            items.style.display = 'none'
+            liquids.style.display = 'block'
             break;
     }
 }
@@ -769,21 +773,23 @@ function subSensorMenu(type){
 const clickHandler = (event) => popUpMenu(event, 'drawMenuAlign');
 function selectOption(event,id) {
     performanceStart = performance.now();
+    event.stopPropagation();
     let span;
     if (clickedMenu.tagName == 'IMG'){
         span = clickedMenu.previousElementSibling
     } else {
         span = clickedMenu
     }
-    if (event.target.tagName == 'BUTTON') {
-        console.log('buttonnn');
+
+    let targetId = event.target.id
+    
+    if (event.target.tagName == 'IMG' || targetId != '') {
         return
     }
-    console.log('asdfasdfsefasef');
+    
     const option = event.target.textContent
-    let targetId = event.target.id
     span.textContent = option;
-    console.log(event.target.tagName);
+    console.log(event.target);
 
     const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
 
