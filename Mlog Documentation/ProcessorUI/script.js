@@ -123,12 +123,12 @@ function addInstruction(button){
                     <span class="editable operation" contenteditable="true">b</span>`
             break;
         case 'Lookup':
-            code = `<span class="editable operation" contenteditable="true">result</span>
+            code = `<span class="editable operation" contenteditable="true" id="field1Value">result</span>
                     <span>=</span>
                     <span>lookup</span>
-                    <span class="editable operation" contenteditable="true" onclick="popUpMenu(event,'lookupMenu')">item</span>
+                    <span class="editable operation" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'lookupMenu')">item</span>
                     <span>#</span>
-                    <span class="editable operation" contenteditable="true">0</span>`
+                    <span class="editable operation" contenteditable="true" id="field3Value">0</span>`
 
             break;
         case 'Pack Color':
@@ -200,6 +200,8 @@ function addInstruction(button){
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
                     <span>enemy</span>
                     <span class="editable unitControl" contenteditable="true">true</span>
+                    <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
+                    <img src="pencil.png" alt="" onclick="popUpMenu(event,'oreMenu')" class="pencilMenu">
                     <span>outX</span>
                     <span class="editable unitControl" contenteditable="true">outx</span>
                     <span>outY</span>
@@ -722,6 +724,15 @@ function popUpMenu(event,id){
     // Set the menu's position with adjustments to center it
     popUpMenuElement.style.top = `${posY - menuHeight / 2}px`;
     popUpMenuElement.style.left = `${posX - menuWidth / 2}px`;
+
+    const poprect = popUpMenuElement.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (poprect.left < 0) popUpMenuElement.style.left = '0px';
+    if (poprect.top < 0) popUpMenuElement.style.top = '0px';
+    if (poprect.right > viewportWidth) popUpMenuElement.style.left = `${viewportWidth - poprect.width}px`;
+    if (poprect.bottom > viewportHeight) popUpMenuElement.style.top = `${viewportHeight - poprect.height}px`;
     // console.log("kajshdg")
 
     if (!popUpMenuElement.hasClick) {
@@ -729,6 +740,29 @@ function popUpMenu(event,id){
             selectOption(event,id); 
         });
         popUpMenuElement.hasClick = true;
+    }
+}
+
+function subSensorMenu(type){
+    switch (type){
+        case 1:
+            variables = document.getElementById('variables')
+            variables.style.display = 'block'
+            variables.nextSibling.style.display = 'none'
+            variables.nextSibling.nextSibling.style.display = 'none'
+            break;
+        case 2:
+            variables = document.getElementById('variables')
+            variables.style.display = 'none'
+            variables.nextSibling.style.display = 'block'
+            variables.nextSibling.nextSibling.style.display = 'none'
+            break;
+        case 3:
+            variables = document.getElementById('variables')
+            variables.style.display = 'none'
+            variables.nextSibling.style.display = 'none'
+            variables.nextSibling.nextSibling.style.display = 'block'
+            break;
     }
 }
 
@@ -741,9 +775,15 @@ function selectOption(event,id) {
     } else {
         span = clickedMenu
     }
+    if (event.target.tagName == 'BUTTON') {
+        console.log('buttonnn');
+        return
+    }
+    console.log('asdfasdfsefasef');
     const option = event.target.textContent
     let targetId = event.target.id
     span.textContent = option;
+    console.log(event.target.tagName);
 
     const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
 
@@ -765,7 +805,7 @@ function selectOption(event,id) {
                     break;}}
     function removeField3Event(field) {
         field.hasEvent = false;
-        field.removeEventListener('click', clickHandler);
+        field.removeEventListener('click', (clickHandler));
     }
     if (id == "drawMenu" && option != "print") {
         removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
@@ -1393,6 +1433,17 @@ function selectOption(event,id) {
                 }
             })
             break;
+        case '':
+            fields.forEach(field => {
+                if (['field2Value', 
+                    'field3Value',
+                    'field4Value',].includes(field.id)){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
         case '==':
         case 'not':
         case '<':
@@ -1415,6 +1466,7 @@ function selectOption(event,id) {
 }
 
 function closeMenu(event) {
+    console.log('close');
     popUpMenuElement.style.display = 'none';
     event.stopPropagation();
     bgclickedMenu.style.display = 'none'
@@ -1480,7 +1532,6 @@ let instTypeMap = {
     'Control'       : 'control ',
     'Sensor'        : 'sensor ',
     'Set'           : 'set ',
-    'Lookup'        : 'lookup ',
     'Pack Color'    : 'packcolor ',
     'Wait'          : 'wait ',
     'Stop'          : 'stop ',
@@ -1516,6 +1567,9 @@ function exportCode(){
                 }
                 if (instType == 'Radar'){
                     codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
+                }
+                if (instType == 'Lookup'){
+                    codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field3Value')?.textContent}`
                 }
             }
             function exportFields(){

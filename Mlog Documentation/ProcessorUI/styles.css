@@ -168,6 +168,14 @@ body {
         background-color: #3c2f2f;
         padding: 2px 10px 2px 10px;
     }
+    #sensorMenu div:hover{
+        background-color: initial;
+        padding: 2px 7px 2px 7px;
+    }
+    #sensorMenu div div:hover{
+        background-color: #3c2f2f;
+        padding: 2px 10px 2px 10px;
+    }
     .popUpMenu div {
         padding: 2px 7px 2px 7px;
     }
