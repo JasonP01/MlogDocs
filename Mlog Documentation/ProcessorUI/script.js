@@ -181,17 +181,17 @@ function addInstruction(button){
             break;
         case 'Unit Radar':
             code = `<span>target</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
+                    <span class="editable unitControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
                     <span>and</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable unitControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                     <span>and</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable unitControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
                     <span>order</span>
-                    <span class="editable unitControl" contenteditable="true">1</span>
+                    <span class="editable unitControl" contenteditable="true" id="field5Value">1</span>
                     <span>sort</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
+                    <span class="editable unitControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
                     <span>output</span>
-                    <span class="editable unitControl" contenteditable="true">result</span>`
+                    <span class="editable unitControl" contenteditable="true" id="field7Value">result</span>`
             break;
         case 'Unit Locate':
             code = `<span>find</span>
@@ -783,9 +783,9 @@ function selectOption(event,id) {
 
     let targetId = event.target.id
     
-    if (event.target.tagName == 'IMG' || targetId != '') {
+    if (event.target.tagName == 'IMG' || event.target.className == "popUpMenu") {
         return
-    }
+        }
     
     const option = event.target.textContent
     span.textContent = option;
@@ -1496,7 +1496,7 @@ const operatorMap = {
     "<"         : 'lessThan ',
     "<="        : 'lessThanEqual ',
     ">"         : 'greaterThan ',
-    ">="        : 'greaterThanEqua ',
+    ">="        : 'greaterThanEqual ',
     "==="       : 'strictEqual ',
     "<<"        : 'shl ',
     ">>"        : 'shr ',
@@ -1523,7 +1523,7 @@ const operatorMap = {
     "asin"      : 'asin ',
     "acos"      : 'acos ',
     "atan"      : 'atan ',
-    "always"      : 'always '
+    "always"    : 'always '
 };
 
 let instTypeMap = {
@@ -1544,7 +1544,6 @@ let instTypeMap = {
     'End'           : 'end ',
     'Unit Bind'     : 'ubind ',
     'Unit Control'  : 'ucontrol ',
-    'Unit Radar'    : 'uradar ',
     'Unit Locate'   : 'ulocate ',
 } 
 function exportCode(){
@@ -1575,7 +1574,10 @@ function exportCode(){
                     codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
                 }
                 if (instType == 'Lookup'){
-                    codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field3Value')?.textContent}`
+                    codeEx += `lookup ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field3Value')?.textContent}`
+                }
+                if (instType == 'Unit Radar'){
+                    codeEx += `uradar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} 0 ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
                 }
             }
             function exportFields(){

@@ -156,34 +156,35 @@ body {
     background-color: black;
     overflow-y: auto;
     max-height: 80vh;
+    min-width: 220px;
     color: white;
     border: 5px solid #3c2f2f;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 0px;
     z-index: 1000;
     cursor: pointer;
     user-select: none;
 }
     .popUpMenu div:hover{
         background-color: #3c2f2f;
-        padding: 2px 10px 2px 10px;
+        padding: 2px 10px 2px 5px;
     }
     #sensorMenu div:hover{
         background-color: initial;
-        padding: 2px 7px 2px 7px;
+        padding: 2px 7px 2px 3px;
     }
     #sensorMenu div div:hover{
         background-color: #3c2f2f;
         margin-left: 10px;
     }
     #sensorMenuButtons {
-        display: flex;
-        justify-content: center;
+        display: flex !important;
+        justify-content: space-between !important;
         align-items: center;
         width: 100%;
     }
     .popUpMenu div {
-        padding: 2px 7px 2px 7px;
+        padding: 2px 7px 2px 3px;
     }
     .popUpMenu::-webkit-scrollbar{
         width: 12px; /* Set the width of the scrollbar */
@@ -195,9 +196,17 @@ body {
     .popUpMenu::-webkit-scrollbar-thumb{
         background-color:#3c2f2f; /* Make the thumb background transparent */
     }
-    .popUpMenu img{
-        max-width: 20%;
-        min-width: 20%;
+    .popUpMenu img {
+        max-width: 27%;
+        min-width: 27%;
+        padding: 10px;
+        box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+        transition: transform 0.3s ease; /* Add transition for smooth scaling */
+    }
+
+    .popUpMenu img:hover {
+        border: solid 3px white;
+        transform: scale(1.1); /* Scale the image up slightly on hover */
     }
     .popUpMenu div{
         display: flex;
