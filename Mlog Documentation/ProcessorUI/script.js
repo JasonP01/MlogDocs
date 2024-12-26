@@ -362,6 +362,14 @@ function openWizard() {
     document.getElementById('wizardMenu').style.display = 'flex';
 }
 
+function openHelpWizard() {
+    document.getElementById('helpMenu').style.display = 'flex';
+}
+
+function closeHelpWizard() {
+    document.getElementById('helpMenu').style.display = 'none';
+}
+
 // keybinds
 keybindMap = {
     '1': 'Read',
@@ -383,16 +391,17 @@ keybindMap = {
     'x': 'Stop',
     'c': 'End',
     'v': 'Jump',
-    'p': 'Unit Bind',
-    'o': 'Unit Control',
-    'i': 'Unit Radar',
-    'u': 'Unit Locate',
+    'u': 'Unit Bind',
+    'i': 'Unit Control',
+    'o': 'Unit Radar',
+    'p': 'Unit Locate',
 }
 document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
     const isVisible = wizardMenu.style.display === 'flex';
-    if (e.key === 'Escape' || (isVisible && e.key === 'F2')) {
+    if ((e.key === 'Escape' && isVisible) || (isVisible && e.key === 'F2')) {
         closeWizard();
+        closeHelpWizard();
         // console.log('work');
     }else if (e.key === 'F2' && !isVisible) {
         // console.log('work1');
@@ -400,6 +409,17 @@ document.addEventListener('keydown',(e) =>{
     }else if (isVisible) {
         if (keybindMap[e.key]){
             addInstruction(keybindMap[e.key])
+        }
+    }
+    if (!isVisible) {
+        if (e.ctrlKey && e.altKey && e.key === 's'){
+            EnableCursor();
+        }else if (e.key === 'ArrowUp' || e.key === 'ArrowDown'){
+            moveCursor(e);
+        }else if (e.shiftKey){
+            selectContainer();
+        }else if (e.key === 'Escape'){
+            deselectContainer();
         }
     }
 })
@@ -1481,6 +1501,102 @@ function closeMenu(event) {
     console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
 }
 
+let cursorContainer
+function EnableCursor(){
+    if (!cursorContainer){
+        cursorContainer = document.querySelector('.container')
+        cursorContainer.classList.add('cursor') 
+    }else if (cursorContainer){
+        cursorContainer.classList.remove('cursor')
+        cursorContainer = null
+    }
+}
+
+let directionDown
+function moveCursor(key){
+    if (key.key == 'ArrowDown'){
+        let next
+        directionDown = true
+        function moveCursorDown(){
+            cursorContainer.classList.remove('cursor')
+            next.classList.add('cursor')
+            cursorContainer = next
+            if (key.shiftKey){
+                selectContainer();
+            } else {
+                deselectContainer();
+            }
+        }
+        next = cursorContainer.nextElementSibling
+        if (next?.classList.contains('container')){
+            moveCursorDown()
+        }else if (cursorContainer.parentElement.className.includes('group')){
+            next = cursorContainer.parentElement.nextElementSibling
+            if (next?.classList.contains('container')){
+                moveCursorDown()
+            }else {
+                return
+            }
+        }else{
+            return
+        }
+    }else if (key.key == 'ArrowUp'){
+        let previous
+        directionDown = false
+        function moveCursorUp(){
+            cursorContainer.classList.remove('cursor')
+            previous.classList.add('cursor')
+            cursorContainer = previous
+            if (key.shiftKey){
+            selectContainer();
+            } else {
+            deselectContainer();
+            }
+        }
+        previous = cursorContainer.previousElementSibling
+        if (previous?.classList.contains('container')){
+            moveCursorUp()
+        }else if (cursorContainer.parentElement.className.includes('group')){
+            previous = cursorContainer.parentElement.previousElementSibling
+            if (previous?.classList.contains('container')){
+                moveCursorUp()
+            }else {
+                return
+            }
+        }else{
+            return
+        }
+    }
+}
+
+let selectedDiv;
+function selectContainer(){
+    cursorContainer.classList.add('selected')
+    if (!selectedDiv){
+        selectedDiv = document.createElement('div');
+        selectedDiv.classList.add('group');
+    }
+    cursorContainer.insertAdjacentElement('afterend', selectedDiv);
+
+    if (directionDown == true){  
+        selectedDiv.appendChild(cursorContainer);
+    }else{
+        selectedDiv.insertBefore(cursorContainer, selectedDiv.firstChild);
+    }
+    
+}
+
+function deselectContainer(){
+    if (selectedDiv) {
+        while (selectedDiv.firstChild) {
+            selectedDiv.parentNode.insertBefore(selectedDiv.firstChild, selectedDiv);
+        }
+        selectedDiv.remove();
+    }
+    document.querySelectorAll('.selected').forEach(selected => {
+        selected.classList.remove('selected')
+    })
+}
 
 const operatorMap = {
     "+"         : 'add ',

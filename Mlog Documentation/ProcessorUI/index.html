@@ -59,6 +59,74 @@
             </div>
         </div>
     </div>
+    <div id="helpMenu" class="menu">
+        <div class="helpContent">
+            <ul>
+                <h3>Keybinds</h3>
+                <li>F1 : Open Help Menu</li>
+                <li>F2 : Open add Menu</li>
+                    <ul>
+                        <li>1 : Read</li>
+                        <li>2 : Write</li>
+                        <li>3 : Draw</li>
+                        <li>4 : Print</li>
+                        <li>5 : Format</li>
+                        <li>Q : Draw Flush</li>
+                        <li>W : Print Flush</li>
+                        <li>E : Get Link</li>
+                        <li>R : Control</li>
+                        <li>T : Radar</li>
+                        <li>Y : Sensor</li>
+                        <li>A : Set</li>
+                        <li>S : Operation</li>
+                        <li>D : Lookup</li>
+                        <li>F : Pack Color</li>
+                        <li>Z : Wait</li>
+                        <li>X : Stop</li>
+                        <li>C : End</li>
+                        <li>V : Jump</li>
+                        <li>U : Unit Bind</li>
+                        <li>I : Unit Control</li>
+                        <li>O : Unit Radar</li>
+                        <li>P : Unit Locate</li>
+                    </ul>
+                <li>Ctrl + Alt + S : Toggle Cursor mode</li>
+                <ul>
+                    While in Cursor Mode (STILL WORK IN PROGRESS)
+                    <li>Up Arrow : Go up an instruction</li>
+                    <li>Down Arrow : Go down an instruction</li>
+                    <li>Left Arrow : Move to the previous field</li>
+                    <li>Right Arrow : Move to the next field</li>
+                    <li>Shift + Arrow Up/Down : Select multiple instructions</li>
+                    <li>Delete : Delete the selected instruction(s)</li>
+                    <li>Ctrl + C : Copy the selected instruction(s)</li>
+                    <li>Ctrl + X : Cut the selected instruction(s)</li>
+                    <li>Ctrl + V : Paste the copied instruction(s)</li>
+                    <li>Alt + Arrow Up/Down : move the selected in instruction(s)</li>
+                </ul>
+            </ul>
+            <br>
+            <!-- <ul>
+            <h3>Instructions</h3>
+            <li>Use arrow keys to navigate through instructions.</li>
+            <li>Press Tab to cycle through fields on the selected instruction.</li>
+            <li>Use drag and drop to move instructions.</li>
+            <li>Press Delete to remove the selected instruction.</li>
+            <li>Press Enter to add a new instruction below the selected one.</li>
+            </ul> -->
+            <br>
+            <ul>
+            <h3>Saving and Loading</h3>
+            <li>Use the menu to save and load your code using localStorage.</li>
+            </ul>
+            <br>
+            <ul>
+            <h3>Additional Features</h3>
+            <li>Label blocks for jump instructions.</li>
+            <li>Optional instructions: while, for, long operation.</li>
+            </ul>
+        </div>
+    </div>
     <div id="wizardMenu" class="menu">
         <div class="wizard-content">
             <!-- <h2>Add</h2> -->
@@ -442,6 +510,7 @@
 </body>
 <footer>
     <!-- <button id="addItems">Add Items</button> -->
+    <button class="help" id="help" onclick="openHelpWizard()">Help</button>
     <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>
     <button class="addItemsMenu" id="openWizard" onclick="openWizard()">+ Add...</button>
 </footer>
