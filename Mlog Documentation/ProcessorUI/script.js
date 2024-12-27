@@ -196,12 +196,13 @@ function addInstruction(button){
         case 'Unit Locate':
             code = `<span>find</span>
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">building</span>
-                    <span>group</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
-                    <span>enemy</span>
-                    <span class="editable unitControl" contenteditable="true">true</span>
-                    <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
-                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'oreMenu')" class="pencilMenu">
+                    <span class="toggleableField" id="field1" style=display:block;>group</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" style=display:block; onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
+                    <span class="toggleableField" id="field2" style=display:block;>enemy</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" style=display:block;>true</span>
+                    <span class="toggleableField" id="field3">ore</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">@copper</span>
+                    <img src="image/pencil.png" alt="" id="field3" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu toggleableField">
                     <span>outX</span>
                     <span class="editable unitControl" contenteditable="true">outx</span>
                     <span>outY</span>
@@ -229,7 +230,7 @@ function addInstruction(button){
                     <span class="headerText">${buttonText}</span>
                     <div class="controls">
                         <span id="lineNumber">1</span>
-                        <span onclick="copy(event)">⚪</span>
+                        <img src="image/copy.png" alt="" onclick="copy(event)" class="copyButton">
                         <span onclick="Delete(event)">✕</span>
                     </div>
                 </div>
@@ -398,12 +399,14 @@ keybindMap = {
 }
 document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
-    const isVisible = wizardMenu.style.display === 'flex';
+    const helpMenu = document.getElementById('helpMenu');
+    const isVisible = wizardMenu.style.display === 'flex' || helpMenu.style.display === 'flex';
     if ((e.key === 'Escape' && isVisible) || (isVisible && e.key === 'F2')) {
         closeWizard();
         closeHelpWizard();
         // console.log('work');
     }else if (e.key === 'F2' && !isVisible) {
+        document.activeElement.blur();
         // console.log('work1');
         openWizard();
     }else if (isVisible) {
@@ -414,12 +417,42 @@ document.addEventListener('keydown',(e) =>{
     if (!isVisible) {
         if (e.ctrlKey && e.altKey && e.key === 's'){
             EnableCursor();
-        }else if (e.key === 'ArrowUp' || e.key === 'ArrowDown'){
-            moveCursor(e);
-        }else if (e.shiftKey){
-            selectContainer();
-        }else if (e.key === 'Escape'){
-            deselectContainer();
+        }else if (cursorContainer){
+            if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && !e.altKey){
+                console.log('work1');
+                e.preventDefault();
+                document.activeElement.blur();
+                moveCursor(e);
+            }else if (e.shiftKey){
+                document.activeElement.blur();
+                selectContainer();
+            }else if (e.key === 'Escape'){
+                document.activeElement.blur();
+                deselectContainer();
+            }else if (e.key === 'Tab' || e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+                e.preventDefault();
+                focusNextField(e.key);
+            }else if (e.key === 'Delete'){
+                document.activeElement.blur();
+                deleteContainer();
+            }else if (e.ctrlKey && e.key === 'c'){
+                document.activeElement.blur();
+                copyContainer();
+            }else if (e.ctrlKey && e.key === 'v'){
+                document.activeElement.blur();
+                pasteContainer();
+            }else if (e.ctrlKey && e.key === 'x'){
+                document.activeElement.blur();
+                cutContainer();
+            }else if (e.ctrlKey && e.key === 'a'){
+                e.preventDefault();
+                document.activeElement.blur();
+                selectAllContainers();
+            }else if(e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')){
+                console.log('work');
+                document.activeElement.blur();
+                moveContainer(e.key);
+            }
         }
     }
 })
@@ -646,6 +679,7 @@ function MouseDown(blocks,parent) {
         const {x, y, sy} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDragging = true;
+            deselectContainer();
             elementDragged = e.target.closest('.container')
             offsetX = x - elementDragged.offsetLeft;
             offsetY = sy - elementDragged.offsetTop;
@@ -656,6 +690,7 @@ function MouseDown(blocks,parent) {
         const {x, y, sy} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDraggingJump = true;
+            deselectContainer();
             elementDragged = e.target.closest('.jumpArrowTriangle')
             offsetX = x - elementDragged.offsetLeft;
             offsetY = sy - elementDragged.offsetTop;
@@ -698,7 +733,7 @@ const handleEnd = (e) => {
                 const elements = document.elementsFromPoint(x, y);
                 let element;
                 for (const elemen of elements) {
-                    if (elemen.className == 'container'){
+                    if (elemen.classList.contains('container')) {
                         element = elemen
                         break;
                     }
@@ -726,6 +761,24 @@ var bgclickedMenu;
 var popUpMenuElement;
 var performanceStart;
 var performanceEnd;
+function positionPopUpMenu(event, id, ignoreCursor) {
+    const menu = document.getElementById(id);
+    const menuWidth = menu.offsetWidth;
+    const menuHeight = menu.offsetHeight;
+    if (!ignoreCursor) {
+        const posX = event.clientX;
+        const posY = event.clientY;
+        menu.style.top = `${posY - menuHeight / 2}px`;
+        menu.style.left = `${posX - menuWidth / 2}px`;
+    }
+    const poprect = menu.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    if (poprect.left < 0) menu.style.left = '0px';
+    if (poprect.top < 0) menu.style.top = '0px';
+    if (poprect.right > viewportWidth) menu.style.left = `${viewportWidth - poprect.width}px`;
+    if (poprect.bottom > viewportHeight) menu.style.top = `${viewportHeight - poprect.height}px`;
+}
 function popUpMenu(event,id){
 
     popUpMenuElement = document.getElementById(id);
@@ -735,29 +788,8 @@ function popUpMenu(event,id){
     popUpMenuElement.style.display = 'block';
     bgclickedMenu.style.display = 'flex'
     clickedMenu = event.target;
-    // Position the menu where the span was clicked
-    const menuWidth = popUpMenuElement.offsetWidth;
-    const menuHeight = popUpMenuElement.offsetHeight;
-    // console.log(menuWidth)
-    // console.log(menuHeight)
 
-    // Calculate the position so the menu opens in the middle of the cursor
-    const posX = event.clientX //+ window.scrollX;
-    const posY = event.clientY //+ window.scrollY;
-
-    // Set the menu's position with adjustments to center it
-    popUpMenuElement.style.top = `${posY - menuHeight / 2}px`;
-    popUpMenuElement.style.left = `${posX - menuWidth / 2}px`;
-
-    const poprect = popUpMenuElement.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-
-    if (poprect.left < 0) popUpMenuElement.style.left = '0px';
-    if (poprect.top < 0) popUpMenuElement.style.top = '0px';
-    if (poprect.right > viewportWidth) popUpMenuElement.style.left = `${viewportWidth - poprect.width}px`;
-    if (poprect.bottom > viewportHeight) popUpMenuElement.style.top = `${viewportHeight - poprect.height}px`;
-    // console.log("kajshdg")
+    positionPopUpMenu(event, id);
 
     if (!popUpMenuElement.hasClick) {
         popUpMenuElement.addEventListener('click', function(event) {
@@ -767,7 +799,7 @@ function popUpMenu(event,id){
     }
 }
 
-function subSensorMenu(type){
+function subSensorMenu(type,event){
     variables = document.getElementById('variables')
     items = document.getElementById('items')
     liquids = document.getElementById('liquids')
@@ -788,6 +820,7 @@ function subSensorMenu(type){
             liquids.style.display = 'block'
             break;
     }
+    positionPopUpMenu(event, 'sensorMenu', true)
 }
 
 const clickHandler = (event) => popUpMenu(event, 'drawMenuAlign');
@@ -1447,6 +1480,31 @@ function selectOption(event,id) {
                 }
             })
             break;
+        case 'ore':
+            fields.forEach(field => {
+                if (['field3', 'field3Value'].includes(field.id)){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'building':
+            fields.forEach(field => {
+                if (['field1', 'field1Value',
+                    'field2', 'field2Value'].includes(field.id)){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
+        case 'damaged':
+        case 'spawn':
+            fields.forEach(field => {
+                field.style.display = 'none';
+            })
+            break;
         case 'always':
             fields.forEach(field => {
                 if (['field1Value', 
@@ -1514,6 +1572,10 @@ function EnableCursor(){
 
 let directionDown
 function moveCursor(key){
+    const rect = cursorContainer.getBoundingClientRect();
+    if (rect.top < 0 || rect.bottom > window.innerHeight) {
+        cursorContainer.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+    }
     if (key.key == 'ArrowDown'){
         let next
         directionDown = true
@@ -1567,23 +1629,42 @@ function moveCursor(key){
             return
         }
     }
+    if (currentFocusIndex > limitFocusIndex){
+        currentFocusIndex -= 1
+    }
+
 }
 
 let selectedDiv;
 function selectContainer(){
-    cursorContainer.classList.add('selected')
-    if (!selectedDiv){
-        selectedDiv = document.createElement('div');
-        selectedDiv.classList.add('group');
-    }
-    cursorContainer.insertAdjacentElement('afterend', selectedDiv);
+    if (document.activeElement == document.body){
+        cursorContainer.classList.add('selected')
+        if (!selectedDiv){
+            selectedDiv = document.createElement('div');
+            selectedDiv.classList.add('group');
+        }
+        cursorContainer.insertAdjacentElement('afterend', selectedDiv);
 
-    if (directionDown == true){  
-        selectedDiv.appendChild(cursorContainer);
-    }else{
-        selectedDiv.insertBefore(cursorContainer, selectedDiv.firstChild);
+        if (directionDown == true){
+            selectedDiv.appendChild(cursorContainer);
+        }else{
+            selectedDiv.insertBefore(cursorContainer, selectedDiv.firstChild);
+        }
     }
-    
+}
+
+function selectAllContainers(){
+    console.log('iwrk');
+    const containers = document.querySelectorAll('.container')
+    containers.forEach(container => {
+        container.classList.add('selected')
+        if (!selectedDiv){
+            selectedDiv = document.createElement('div');
+            selectedDiv.classList.add('group');
+        }
+        container.insertAdjacentElement('afterend', selectedDiv);
+        selectedDiv.appendChild(container);
+    })
 }
 
 function deselectContainer(){
@@ -1596,7 +1677,122 @@ function deselectContainer(){
     document.querySelectorAll('.selected').forEach(selected => {
         selected.classList.remove('selected')
     })
+    selectedDiv = null
 }
+let currentFocusIndex = 0;
+let limitFocusIndex
+let focusableElements
+function focusNextField(direction){
+    if (!focusableElements || (focusableElements[0]?.closest('.container')) != cursorContainer){
+        focusableElements = cursorContainer.querySelectorAll('.editable')
+    }
+    limitFocusIndex = currentFocusIndex
+    if (direction == 'ArrowRight' || direction == 'Tab'){
+        currentFocusIndex += 1
+    } else if (direction == 'ArrowLeft'){
+        currentFocusIndex -= 1
+    }
+    if (focusableElements.length > 0) {
+        currentFocusIndex = Math.abs((currentFocusIndex) % focusableElements.length);
+    }
+    console.log(focusableElements);
+    console.log(currentFocusIndex);
+    focusableElements[currentFocusIndex].focus();
+    
+
+}
+
+function deleteContainer(){
+    if (selectedDiv?.classList.contains('group')){
+        if (selectedDiv.nextElementSibling.classList.contains('container')) {
+            next = selectedDiv.nextElementSibling;
+        } else {
+            next = selectedDiv.previousElementSibling;
+        }
+        next.classList.add('cursor') 
+        selectedDiv.remove()
+        selectedDiv = null
+        cursorContainer = next
+    }else if (cursorContainer.classList.contains('container')){
+        if (cursorContainer.nextElementSibling.classList.contains('container')) {
+            next = cursorContainer.nextElementSibling;
+        } else {
+            next = cursorContainer.previousElementSibling;
+        }
+        next.classList.add('cursor') 
+        cursorContainer.remove()
+        cursorContainer = next
+    }
+    updateLineNumber();
+    
+}
+let clone;
+function copyContainer(){
+    if (selectedDiv){
+        clone = selectedDiv.cloneNode(true)
+    }else if (cursorContainer){
+        clone = cursorContainer.cloneNode(true)
+    }
+    updateLineNumber();
+    return clone
+}
+
+function cutContainer() {
+    if (selectedDiv) {
+        clone = selectedDiv.cloneNode(true);
+        if (selectedDiv.nextElementSibling.classList.contains('container')) {
+            next = selectedDiv.nextElementSibling;
+        } else {
+            next = selectedDiv.previousElementSibling;
+        }
+        next.classList.add('cursor');
+        selectedDiv.remove();
+        selectedDiv = null;
+        cursorContainer = next;
+    } else if (cursorContainer) {
+        clone = cursorContainer.cloneNode(true);
+        if (cursorContainer.nextElementSibling.classList.contains('container')) {
+            next = cursorContainer.nextElementSibling;
+        } else {
+            next = cursorContainer.previousElementSibling;
+        }
+        next.classList.add('cursor');
+        cursorContainer.remove();
+        cursorContainer = next;
+    }
+    updateLineNumber();
+}
+
+function pasteContainer(){
+    if (clone) {
+        const clonedContainers = Array.from(clone.querySelectorAll('.container')).reverse();
+        clonedContainers.forEach(clonedElement => {
+            const newClone = clonedElement.cloneNode(true);
+            newClone.classList.remove('selected', 'cursor');
+            cursorContainer.insertAdjacentElement('afterend', newClone);
+        });
+    }
+    deselectContainer();
+    updateLineNumber();
+}
+
+function moveContainer(direction){
+    if (!selectedDiv){
+        return
+    }
+    if (direction == 'ArrowUp'){
+        const previousSibling = selectedDiv.previousElementSibling;
+        if (previousSibling.classList.contains('container')) {
+            selectedDiv.parentNode.insertBefore(selectedDiv, previousSibling);
+        }
+    }else if (direction == 'ArrowDown'){
+        const nextSibling = selectedDiv.nextElementSibling;
+        if (nextSibling.classList.contains('container')) {
+            selectedDiv.parentNode.insertBefore(nextSibling, selectedDiv);
+        }
+    }
+}
+
 
 const operatorMap = {
     "+"         : 'add ',
@@ -1660,9 +1856,9 @@ let instTypeMap = {
     'End'           : 'end ',
     'Unit Bind'     : 'ubind ',
     'Unit Control'  : 'ucontrol ',
-    'Unit Locate'   : 'ulocate ',
 } 
 function exportCode(){
+    deselectContainer();
     codeEx = ""
     containers = document.querySelectorAll('.container');
     containers.forEach(container => {
@@ -1672,7 +1868,7 @@ function exportCode(){
             let instType = insSpan.textContent;
             if (instTypeMap?.[instType]){
                 codeEx += instTypeMap[instType];
-                exportFields()
+                exportFields(0)
             } else {
                 if (instType == 'Jump'){
                     codeEx += `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
@@ -1684,7 +1880,7 @@ function exportCode(){
                     if (operatorMap[OperatorString] !== undefined) {
                         codeEx += operatorMap[OperatorString];
                     }
-                    exportFields()
+                    exportFields(0)
                 }
                 if (instType == 'Radar'){
                     codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
@@ -1695,11 +1891,15 @@ function exportCode(){
                 if (instType == 'Unit Radar'){
                     codeEx += `uradar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} 0 ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
                 }
+                if (instType == 'Unit Locate'){
+                    codeEx += `ulocate `
+                    exportFields(1)
+                }
             }
-            function exportFields(){
+            function exportFields(ignoreInvisable){
                 codeElements = container.querySelectorAll('span');
                 codeElements.forEach(code => {
-                    if (code.classList.contains('editable') && !code.classList.contains('dontInclude') && (getComputedStyle(code)).display === 'block'){
+                    if (code.classList.contains('editable') && !code.classList.contains('dontInclude') && (ignoreInvisable || (getComputedStyle(code)).display === 'block')) {
                         codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
                     }
                 });

@@ -286,7 +286,7 @@ body {
 }
 
 .cursor {
-    border: white 3px solid;
+    border: #ffe07a 5px solid;
 }
 
 /* .selected {
@@ -297,7 +297,6 @@ body {
     position: relative;
     border: #00ffff 10px solid;
     border-radius: 10px;
-    z-index: 999;
 }
 
 .addButtons button {
@@ -471,6 +470,13 @@ footer {
     text-align: center;
     line-height: 18px;
     cursor: pointer;
+}
+.controls img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: black;
+    border-radius: 20%;
 }
 
 .block-content {
