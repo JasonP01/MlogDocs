@@ -19,6 +19,10 @@
     <!-- this is a git test -->
 </head>
 <body>
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <ul>
@@ -620,6 +624,38 @@
                                 <img alt="alt" src="image/print color.png" style="max-width: 80vw !important;"><br>
                                 You can either put color names or hexadecimal color code<br>
                                 Example of HEX color code is [#FF0000] for red, you can simply search “hex color picker” on google to choose your own color
+                            </p>
+                            <li><b>Emoji/icons</b></li>
+                            <p class="ti">
+                                Not really Mlog related but worth mentioning,
+                                <br>
+                                Mindustry utilizes a specific range within the private use area of Unicode, these can be found on 
+                                the source code :
+                                <a style="overflow-wrap: anywhere;" href="https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4">
+                                    https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4
+                                </a>
+                                <br>
+                                which are: <br>
+                                                                               
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                             
+                                <br>
+                                these might just look like boxes to you, but they are actually valid characters when pasted into the game
+                                <br>other than this, Mindustry also supports some public unicode characters, though what of and in what range is unknown
+                                , attempting to paste unsuported characters will just show nothing.
+                                <br>Here what they look like in game:
+                                <br><img src="image/unicode.png" alt="" style="max-width: 75vw !important;">
                             </p>
                         </ol>
                     </section>

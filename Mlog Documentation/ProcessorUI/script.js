@@ -233,7 +233,7 @@ function addInstruction(button){
                     <div class="controls">
                         <span id="lineNumber">1</span>
                         <img src="image/copy.png" alt="" onclick="copy(event)" class="copyButton">
-                        <span onclick="Delete(event)">✕</span>
+                        <span class="close" onclick="Delete(event)">&times;</span>
                     </div>
                 </div>
                 <div class="block-content">

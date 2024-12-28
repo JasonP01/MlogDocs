@@ -25,6 +25,17 @@ body {
     touch-action: none;
 }
 
+body::-webkit-scrollbar{
+    width: 18px; /* Set the width of the scrollbar */
+    height: 12px;
+}
+body::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+body::-webkit-scrollbar-thumb{
+    background-color:#2b2b2b; /* Make the thumb background transparent */
+}
+
 .loading {
     position: fixed; 
     color: rgb(255, 255, 255); 
@@ -372,7 +383,7 @@ footer {
     border-color: #877bad !important;
 }
 
-.iNo button, .ino {
+.iNo button, .iNo {
     color: #a08a8a !important;
     border-color: #a08a8a !important;
 }
@@ -463,20 +474,35 @@ footer {
 }
 
 .block-header .controls span {
-    width: 15px;
-    height: 15px;
-    background-color: #3c2f2f;
-    display: block;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 25px !important;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: 0.3s;
     cursor: pointer;
 }
-.controls img {
-    width: 24px;
-    height: 24px;
+
+.close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 3em !important;
+    font-weight: bold;
+    transition: 0.3s;
     cursor: pointer;
-    filter: brightness(0);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.controls img {
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    /* filter: brightness(0); */
     border-radius: 20%;
 }
 

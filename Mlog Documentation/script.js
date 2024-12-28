@@ -142,3 +142,36 @@ function triggerGlow1(section) {
   void section.offsetWidth;
   section.classList.add('glow-section');
 }
+
+// Get the modal
+const modal = document.getElementById('imageModal');
+
+// Get the image and insert it inside the modal
+const modalImg = document.getElementById('modalImage');
+
+// Get the <span> element that closes the modal
+const span = document.getElementsByClassName('close')[0];
+
+// Add click event to all images
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('click', function() {
+    modal.style.display = 'flex';
+    modalImg.src = this.src;
+  });
+});
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// Add zoom functionality
+modalImg.addEventListener('click', function() {
+  this.classList.toggle('zoom');
+});
+
+modal.addEventListener('click', function(event) {
+  if (event.target === modal) {
+    modal.style.display = 'none';
+  }
+});

@@ -3,13 +3,73 @@
     scroll-behavior:smooth;
   } */
 
-body {
+  @font-face {
+    font-family: 'Audiowide';
+    src: url('./font/Audiowide-Regular.ttf') format('truetype'); 
+    /* font-weight: 400; */
+    /* font-style: normal; */
+}
+
+* {
+    /* font-family: "Audiowide", sans-serif; */ /* this is mindustry font but it looks weird */
+    /* font-weight: 100; */
     font-family: Arial, sans-serif;
+}
+
+body {
     font-size: 15px;
     margin: 0;
     padding: 0;
     display: flex;
     background-color: rgb(62, 59, 73);
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners */
+}
+
+.modal {
+    display: none;
+    position: fixed; 
+    z-index: 1003;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+.modal-content.zoom {
+    transform: scale(1.5);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 1004;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .container {
