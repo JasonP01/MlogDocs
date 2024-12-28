@@ -423,6 +423,10 @@ document.addEventListener('keydown',(e) =>{
             addInstruction(keybindMap[e.key])
         }
     }
+    if (e.key === 'Enter') {
+        e.preventDefault
+        document.activeElement.blur();
+    }
     if (!isVisible) {
         if (e.ctrlKey && e.altKey && e.key === 's'){
             EnableCursor();
