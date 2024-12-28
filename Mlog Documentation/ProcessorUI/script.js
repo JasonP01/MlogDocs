@@ -1,4 +1,6 @@
-
+//####################################################################################################################################
+// add instruction function
+//####################################################################################################################################
 const buttons = document.querySelectorAll('.addItems');
 buttons.forEach(button => {
     button.addEventListener('click', () => addInstruction(button))
@@ -337,7 +339,9 @@ function updateJumpArrow(jumpIns) {
     })
 }
     
-
+//####################################################################################################################################
+// instructions controls function
+//####################################################################################################################################
 function Delete(e) {
     const parentContainer = e.target.closest('.container');
     if (parentContainer) {
@@ -355,6 +359,9 @@ function copy(e) {
     updateLineNumber();
 }
 
+//####################################################################################################################################
+// wizard function 
+//####################################################################################################################################
 function closeWizard() {
     document.getElementById('wizardMenu').style.display = 'none';
 }
@@ -371,7 +378,9 @@ function closeHelpWizard() {
     document.getElementById('helpMenu').style.display = 'none';
 }
 
-// keybinds
+//####################################################################################################################################
+// Keybinds
+//####################################################################################################################################
 keybindMap = {
     '1': 'Read',
     '2': 'Write',
@@ -457,7 +466,9 @@ document.addEventListener('keydown',(e) =>{
 })
 
 
-// drag event
+//####################################################################################################################################
+// instruction and jump arrow Drag Event,
+//####################################################################################################################################
 let elementDragged;
 let closestContainer = null;
 let offsetX, offsetY, isDragging, isDraggingJump = false;
@@ -755,6 +766,10 @@ const handleEnd = (e) => {
 document.addEventListener('mouseup',handleEnd)
 document.addEventListener('touchend',handleEnd)
 
+
+//####################################################################################################################################
+// instruction fields popupmenu
+//####################################################################################################################################
 var clickedMenu;
 var bgclickedMenu;
 var popUpMenuElement;
@@ -1558,6 +1573,12 @@ function closeMenu(event) {
     console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
 }
 
+
+//####################################################################################################################################
+// selection keybinds event
+//####################################################################################################################################
+// the term "cursor" is the highlighed block/instruction (the one that is indicated by an orange outline)
+// also this whole section is a mess and needs to be refactored (maybe)
 let cursorContainer
 function EnableCursor(){
     if (!cursorContainer){
@@ -1793,6 +1814,9 @@ function moveContainer(direction){
 }
 
 
+//####################################################################################################################################
+// Export functions
+//####################################################################################################################################
 const operatorMap = {
     "+"         : 'add ',
     "-"         : 'sub ',
