@@ -119,7 +119,7 @@ function addInstruction(button){
             code = `<span class="editable operation" contenteditable="true">result</span>
                     <span>=</span>
                     <span class="editable operation" contenteditable="true">a</span>
-                    <span class="editable operation dontInclude" onclick="popUpMenu(event,'opMenu')">*</span>
+                    <span class="editable operation dontInclude" contenteditable="true" onclick="popUpMenu(event,'opMenu')">*</span>
                     <span class="editable operation" contenteditable="true">b</span>`
             break;
         case 'Lookup':
@@ -419,20 +419,18 @@ document.addEventListener('keydown',(e) =>{
             EnableCursor();
         }else if (cursorContainer){
             if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && !e.altKey){
-                console.log('work1');
                 e.preventDefault();
                 document.activeElement.blur();
                 moveCursor(e);
             }else if (e.shiftKey){
-                document.activeElement.blur();
                 selectContainer();
             }else if (e.key === 'Escape'){
                 document.activeElement.blur();
                 deselectContainer();
-            }else if (e.key === 'Tab' || e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+            }else if (e.key === 'Tab' ||(e.altKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft'))){
                 e.preventDefault();
                 focusNextField(e.key);
-            }else if (e.key === 'Delete'){
+            }else if (e.key === 'Delete' && document.activeElement.tagName == 'BODY'){
                 document.activeElement.blur();
                 deleteContainer();
             }else if (e.ctrlKey && e.key === 'c'){
@@ -444,7 +442,8 @@ document.addEventListener('keydown',(e) =>{
             }else if (e.ctrlKey && e.key === 'x'){
                 document.activeElement.blur();
                 cutContainer();
-            }else if (e.ctrlKey && e.key === 'a'){
+            }else if (e.ctrlKey && e.key === 'a' && document.activeElement.tagName == 'BODY'){
+                deselectContainer();
                 e.preventDefault();
                 document.activeElement.blur();
                 selectAllContainers();
@@ -1637,7 +1636,7 @@ function moveCursor(key){
 
 let selectedDiv;
 function selectContainer(){
-    if (document.activeElement == document.body){
+    if (document.activeElement.tagName == 'BODY'){
         cursorContainer.classList.add('selected')
         if (!selectedDiv){
             selectedDiv = document.createElement('div');
@@ -1650,11 +1649,12 @@ function selectContainer(){
         }else{
             selectedDiv.insertBefore(cursorContainer, selectedDiv.firstChild);
         }
+    }else {
+        return
     }
 }
 
 function selectAllContainers(){
-    console.log('iwrk');
     const containers = document.querySelectorAll('.container')
     containers.forEach(container => {
         container.classList.add('selected')
@@ -1695,8 +1695,6 @@ function focusNextField(direction){
     if (focusableElements.length > 0) {
         currentFocusIndex = Math.abs((currentFocusIndex) % focusableElements.length);
     }
-    console.log(focusableElements);
-    console.log(currentFocusIndex);
     focusableElements[currentFocusIndex].focus();
     
 
@@ -1791,6 +1789,7 @@ function moveContainer(direction){
             selectedDiv.parentNode.insertBefore(nextSibling, selectedDiv);
         }
     }
+    updateLineNumber();
 }
 
 
