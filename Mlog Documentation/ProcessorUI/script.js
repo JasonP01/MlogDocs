@@ -378,6 +378,20 @@ function closeHelpWizard() {
     document.getElementById('helpMenu').style.display = 'none';
 }
 
+function openSaveMenu(){
+    document.getElementById('saveMenu').style.display = 'flex';
+}
+
+function closeSaveMenu(fromFrontend,e){
+    if (fromFrontend){
+    if (e.target.classList.contains('menu')) {
+        document.getElementById('saveMenu').style.display = 'none';
+    }
+    }else {
+        document.getElementById('saveMenu').style.display = 'none';
+    }
+}
+
 //####################################################################################################################################
 // Keybinds
 //####################################################################################################################################
@@ -409,10 +423,12 @@ keybindMap = {
 document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
     const helpMenu = document.getElementById('helpMenu');
-    const isVisible = wizardMenu.style.display === 'flex' || helpMenu.style.display === 'flex';
+    const saveMenu = document.getElementById('saveMenu');
+    const isVisible = wizardMenu.style.display === 'flex' || helpMenu.style.display === 'flex' || saveMenu.style.display === 'flex';
     if ((e.key === 'Escape' && isVisible) || (isVisible && e.key === 'F2')) {
         closeWizard();
         closeHelpWizard();
+        closeSaveMenu();
         // console.log('work');
     }else if (e.key === 'F2' && !isVisible) {
         document.activeElement.blur();
@@ -461,7 +477,6 @@ document.addEventListener('keydown',(e) =>{
                 document.activeElement.blur();
                 selectAllContainers();
             }else if(e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')){
-                console.log('work');
                 document.activeElement.blur();
                 moveContainer(e.key);
             }
@@ -560,9 +575,13 @@ const handleMove = (e) => {
         let preview = closestContainer.nextSibling
         if (preview.className !== 'placementPreview'){
             (document.querySelector('.placementPreview'))?.remove();
-            closestContainer.insertAdjacentHTML('afterend', `<div class="placementPreview" style=height:${(elementDragged.offsetHeight-40)}px;></div>`)
+            closestContainer.insertAdjacentHTML('afterend', 
+                `<div class="placementPreview" 
+                style=height:${
+                    (elementDragged.offsetHeight)- 20}px;></div>`)
+            // the value 20 is from :
+            //(window.getComputedStyle(elementDragged.querySelector('DIV')).marginBottom) - placementPreview {border-width} * 2;
         }
-
         (document.getElementById('debugText6')).textContent = x;
         (document.getElementById('debugText7')).textContent = y;
         elementDragged.style.left = `${x - offsetX}px`;
@@ -1942,8 +1961,30 @@ function exportCode(){
             document.getElementById('alert').style.display = 'none'
         }, 1000);
     }, 1000);
-    // localStorage.setItem('key1', 'value1');
 }
+
+
+// TODO give an option for the user to paste their code manually to a field if they reject clipboard access
+// with a menu
+// and remember choice
+function importCode(){
+    try {
+        const text = navigator.clipboard.readText();
+        document.getElementById('clipboardContent').innerText = `Clipboard content: ${text}`;
+    } catch (err) {
+        // console.error('Failed to read clipboard contents: ', err);
+        document.getElementById('alert1').classList.remove("alertShow")
+        document.getElementById('alert1').style.display = 'block'
+        setTimeout(() => {
+            document.getElementById('alert1').classList.add("alertShow");
+            setTimeout(() => {
+                document.getElementById('alert1').style.display = 'none'
+            }, 1000);
+        }, 4000);
+    }
+}
+
+
 
 
 // const value = localStorage.getItem('key1');

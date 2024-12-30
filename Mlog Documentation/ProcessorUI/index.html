@@ -43,7 +43,12 @@
     <div class="alert alertShow" id="alert">
         Code Copied to clipboard!
     </div>
-    <div style="position: fixed; color: rgba(255, 0, 0, 0.082); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
+    <div class="alert alertShow" id="alert1">
+        Unable to read clipboard...
+        <br>
+        Paste manually instead? <button>Paste manually</button>
+    </div>
+    <div style="position: fixed; color: rgba(255, 0, 0, 0.185); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
             As this is a rather large project I cannot be absolutely sure
             that there are no bugs, if you think something is not right
             whether its not intuitive, weird design, or unuseable for any reason
@@ -60,6 +65,15 @@
             </div>
         </div>
     </div>
+    <div id="saveMenu" class="menu" onclick="closeSaveMenu(1,event)">
+        <div class="saveMenu">
+            <button class="button" id="saveCurrent" onclick="saveCurrent()">Save Current</button>
+            <button class="button" id="loadSelected" onclick="loadCurrent()">Load Selected</button>
+            <button class="button" id="deleteSelected" onclick="deleteCurrent()">Delete Selected</button>
+            <br>
+            <span style="background-color: red;">(STILL WORK IN PROGRESS)</span>
+        </div>
+    </div>
     <div id="helpMenu" class="menu" onclick="closeHelpWizard()">
         <div class="helpContent">
             <div style="text-align: center;">
@@ -74,7 +88,6 @@
                 <br>
                 <br>
                 <span style="background-color: red;">(STILL WORK IN PROGRESS)</span>
-
             </p>
             <ul>
                 <h3>Keybinds</h3>
@@ -131,14 +144,14 @@
             </ul> -->
             <br>
             <ul>
-            <h3>Saving and Loading</h3>
-            <li>Use the menu to save and load your code using localStorage.</li>
+                <h3>Saving and Loading</h3>
+                <li>Use the menu to save and load your code using localStorage.</li>
             </ul>
             <br>
             <ul>
-            <h3>Additional Features</h3>
-            <li>Label blocks for jump instructions.</li>
-            <li>Optional instructions: while, for, long operation.</li>
+                <h3>Additional Features</h3>
+                <li>Label blocks for jump instructions.</li>
+                <li>Optional instructions: while, for, long operation.</li>
             </ul>
             <button class="closeMenuBtn" onclick="closeHelpWizard()"">Close</button>
         </div>
@@ -526,7 +539,9 @@
 </body>
 <footer>
     <!-- <button id="addItems">Add Items</button> -->
+    <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Save</button>
     <button class="help" id="help" onclick="openHelpWizard()">Help</button>
+    <button class="button" id="importCode" onclick="importCode()">Import Code</button>
     <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>
     <button class="addItemsMenu" id="openWizard" onclick="openWizard()">+ Add...</button>
 </footer>

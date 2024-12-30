@@ -105,6 +105,21 @@ body::-webkit-scrollbar-thumb{
     background-color: #3c2f2f;
 }
 
+.saveMenu {
+    background-color: rgb(0, 0, 0);
+    color: rgb(248, 248, 248);
+    padding: 0.5vw;
+    outline-style: solid;
+    outline-width: 5px;
+    outline-color: rgb(80, 80, 80);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    width: fit-content;
+    max-height: 80vh;
+    font-size: clamp(14px, 10vw, 18px);
+}
+
 .container {
     display: block; 
     user-select: text;
@@ -150,9 +165,10 @@ body::-webkit-scrollbar-thumb{
     background-color:#1a1a1a;
     width: 400px;
     max-width: 80vw;
-    height: 80px;
+    height: fit-content;
+    padding: 1em;
     text-align: center;
-    line-height: 4;
+    line-height: 2;
     font-size: larger;
     border-radius: 20px;
     border: 7px solid #3c2f2f;
@@ -346,7 +362,7 @@ body::-webkit-scrollbar-thumb{
     outline-color: #1a1a1a;
 }
 
-.addItemsMenu, .exportCode, .help {
+.button, .addItemsMenu, .exportCode, .help, .saveButton {
     background: black;
     color: white;
     border:none;
