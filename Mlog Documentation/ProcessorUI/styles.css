@@ -105,7 +105,7 @@ body::-webkit-scrollbar-thumb{
     background-color: #3c2f2f;
 }
 
-.saveMenu {
+.saveMenu, .pasteMenu {
     background-color: rgb(0, 0, 0);
     color: rgb(248, 248, 248);
     padding: 0.5vw;
@@ -119,6 +119,20 @@ body::-webkit-scrollbar-thumb{
     max-height: 80vh;
     font-size: clamp(14px, 10vw, 18px);
 }
+
+.pasteBox {
+    width: clamp(40vw, calc(1000px - 110vw / 3), 80vw);
+    height: 50vh; 
+    text-align: left; 
+    border: 3px white solid;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: clamp(14px, 10vw, 18px);
+    margin: 20px;
+}
+
 
 .container {
     display: block; 
@@ -181,6 +195,12 @@ body::-webkit-scrollbar-thumb{
     opacity: 0;
     transition: opacity 1s ease-in; 
 }
+
+#alert1:hover {
+    display: block;
+    opacity: 1;
+}
+
 .wizard-content {
     background-color: rgb(0, 0, 0);
     color: rgb(248, 248, 248);
@@ -612,6 +632,32 @@ canvas {
 
 .unitControl-container {
     background-color: #c7b59d;
+    border-radius: 5px;
+    padding: 0px 5px 5px 5px;
+    color: #fff;
+    min-width: clamp(300px, 60vw, 1000px);
+    max-width: 60vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    font-size: 14px;
+    position: relative;
+    margin-bottom:10px ;
+}
+
+.noop-container {
+    background-color: #3c3c3c;
+    border-radius: 5px;
+    padding: 0px 5px 5px 5px;
+    color: #fff;
+    min-width: clamp(300px, 60vw, 1000px);
+    max-width: 60vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    font-size: 14px;
+    position: relative;
+    margin-bottom:10px ;
+}
+
+.label-container {
+    background-color: #c64d4d;
     border-radius: 5px;
     padding: 0px 5px 5px 5px;
     color: #fff;

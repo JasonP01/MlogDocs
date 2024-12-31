@@ -40,21 +40,27 @@
     <div id="debugText9" style="color: white; position: fixed; top: 120px; left: 1px; z-index: 10;">
         debug text
     </div>
+    <div style="position: fixed; color: rgba(255, 0, 0, 0.185); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
+        As this is a rather large project I cannot be absolutely sure
+        that there are no bugs, if you think something is not right
+        whether its not intuitive, weird design, or unuseable for any reason
+        don't hesitate to contact me (Discord : Yruei)
+    </div>
     <div class="alert alertShow" id="alert">
         Code Copied to clipboard!
     </div>
     <div class="alert alertShow" id="alert1">
         Unable to read clipboard...
         <br>
-        Paste manually instead? <button>Paste manually</button>
+        Paste manually instead? <button class="button" id="pasteManually" onclick="openPasteMenu()" style="font-size: 0.8em; border: 3px gray solid;">Paste manually</button>
     </div>
-    <div style="position: fixed; color: rgba(255, 0, 0, 0.185); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
-            As this is a rather large project I cannot be absolutely sure
-            that there are no bugs, if you think something is not right
-            whether its not intuitive, weird design, or unuseable for any reason
-            don't hesitate to contact me (Discord : Yruei)
+    <div id="pasteMenu" class="menu" onclick="closePasteMenu(1,event)" >
+        <div class="pasteMenu" style="text-align: center;">
+            <span>Paste your code here <br></span>
+            <textarea contenteditable="true" class="pasteBox" placeholder="asdfasdfadf" id="pasteBox"></textarea> <br>
+            <button class="button" id="pasteManually" onclick="importCode(1)" style="font-size: 1em;">Import</button>
+        </div>
     </div>
-    
     <div id="loadingAlert" class="menu" style="display: block;">
         <div class="loading">
             Loading.... 

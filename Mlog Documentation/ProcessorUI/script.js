@@ -6,20 +6,25 @@ buttons.forEach(button => {
     button.addEventListener('click', () => addInstruction(button))
 });
     
-function addInstruction(button){
+function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8){
     if (typeof button == 'string'){
         buttons.forEach(bbuton => {
             if (bbuton.textContent == button){
                 button = bbuton
             }
         })
-
     }
-    buttonText = button.textContent;
-    divParent = button.parentElement;
-    // console.log('divParent')
-    // console.log(divParent)
-    type = divParent.classList[0];
+    buttonText = button?.textContent;
+    divParent = button?.parentElement;
+    if (button == 'noop'){
+        type = 'noop'
+        buttonText = 'noop'
+    }else if (button == 'label') {
+        type = 'label'
+        buttonText = 'Label'
+    }else {
+        type = divParent?.classList[0];
+    }
     // console.log('type')
     // console.log(type)
     closeWizard();
@@ -28,122 +33,121 @@ function addInstruction(button){
     switch (buttonText) {
         case 'Read':
             code = `<span>read</span>
-                    <span class="editable iNo" contenteditable="true">result</span>
+                    <span class="editable iNo" contenteditable="true">${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable iNo" contenteditable="true">cell1</span>
+                    <span class="editable iNo" contenteditable="true">${field2 || 'cell1'}</span>
                     <span>at</span>
-                    <span class="editable iNo" contenteditable="true">0</span>`
+                    <span class="editable iNo" contenteditable="true">${field3 || '0'}</span>`
             break;
         case 'Write':
             code = `<span>write</span>
-                    <span class="editable iNo" contenteditable="true">result</span>
+                    <span class="editable iNo" contenteditable="true">${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable iNo" contenteditable="true">cell1</span>
+                    <span class="editable iNo" contenteditable="true">${field2 || 'cell1'}</span>
                     <span>at</span>
-                    <span class="editable iNo" contenteditable="true">0</span>`
+                    <span class="editable iNo" contenteditable="true">${field3 || '0'}</span>`
             break;
         case 'Draw':
             code = `<span class="editable iNo" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">clear</span>
-                    <span class="toggleableField" id="field1" style=display:block;>r</span>
-                    <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
-                    <span class="toggleableField" id="field2" style=display:block;>g</span>
-                    <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
-                    <span class="toggleableField" id="field3" style=display:block;>b</span>
-                    <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style=display:block;>0</span>
+                    <span class="toggleableField" id="field1" style="display:block;">r</span>
+                    <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field1 || '0'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;">g</span>
+                    <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
+                    <span class="toggleableField" id="field3" style="display:block;">b</span>
+                    <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
                     <span class="toggleableField" id="field4">a</span>
-                    <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">0</span>
+                    <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">${field4 || '0'}</span>
                     <span class="toggleableField" id="field5">a</span>
-                    <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">0</span>
+                    <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">${field5 || '0'}</span>
                     <span class="toggleableField" id="field6">a</span>
-                    <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">0</span>`
+                    <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">${field6 || '0'}</span>`
             break;
         case 'Print':
-            code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
+            code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
         case 'Format':
-            code = `<span class="editable iNo" contenteditable="true">"frog"</span>`
+            code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
         case 'Draw Flush':
             code = `<span>to</span>
-                    <span class="editable blockControl" contenteditable="true">display1</span>`
+                    <span class="editable blockControl" contenteditable="true">${field1 || 'display1'}</span>`
             break;
         case 'Print Flush':
             code = `<span>to</span>
-                    <span class="editable blockControl" contenteditable="true">message1</span>`
+                    <span class="editable blockControl" contenteditable="true">${field1 || 'message1'}</span>`
             break;
         case 'Get Link':
-            code = `<span class="editable blockControl" contenteditable="true">result</span>
+            code = `<span class="editable blockControl" contenteditable="true">${field1 || 'result'}</span>
                     <span>= link#</span>
-                    <span class="editable blockControl" contenteditable="true">0</span>`
+                    <span class="editable blockControl" contenteditable="true">${field2 || '0'}</span>`
             break;
         case 'Control':
             code = `<span>set</span>
-                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">enabled</span>
+                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">${field1 || 'enabled'}</span>
                     <span id="field1">of</span>
-                    <span class="editable blockControl" id="field1Value" contenteditable="true">block1</span>
-                    <span class="toggleableField" id="field2" style=display:block;>to</span>
-                    <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
-                    <span class="toggleableField" id="field3">y</span>
-                    <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true">0</span>
-                    <span class="toggleableField" id="field4">to</span>
-                    <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true">0</span>`
+                    <span class="editable blockControl" id="field1Value" contenteditable="true">${field2 || 'block1'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;">to</span>
+                    <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
+                    <span class="toggleableField" id="field3"></span>
+                    <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true">${field4 || '0'}</span>
+                    <span class="toggleableField" id="field4"></span>
+                    <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>`
             break;
         case 'Radar':
             code = `<span>from</span>
-                    <span class="editable blockControl" contenteditable="true" id="field1Value">turret1</span>
+                    <span class="editable blockControl" contenteditable="true" id="field1Value">${field5 || 'turret1'}</span>
                     <span>target</span>
-                    <span class="editable blockControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
+                    <span class="editable blockControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">${field1 || 'enemy'}</span>
                     <span>and</span>
-                    <span class="editable blockControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable blockControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">${field2 || 'any'}</span>
                     <span>and</span>
-                    <span class="editable blockControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable blockControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">${field3 || 'any'}</span>
                     <span>order</span>
-                    <span class="editable blockControl" contenteditable="true" id="field5Value">1</span>
+                    <span class="editable blockControl" contenteditable="true" id="field5Value">${field6 || '1'}</span>
                     <span>sort</span>
-                    <span class="editable blockControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
+                    <span class="editable blockControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">${field4 || 'distance'}</span>
                     <span>output</span>
-                    <span class="editable blockControl" contenteditable="true" id="field7Value">result</span>`
+                    <span class="editable blockControl" contenteditable="true" id="field7Value">${field7 || 'result'}</span>`
             break;
         case 'Sensor':
-            code = `<span class="editable blockControl" contenteditable="true">result</span>
+            code = `<span class="editable blockControl" contenteditable="true">${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable blockControl dontInclude" contenteditable="true">@copper</span>
+                    <span class="editable blockControl dontInclude" contenteditable="true">${field3 || '@copper'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
                     <span>in</span>
-                    <span class="editable blockControl" contenteditable="true">block1</span>`
+                    <span class="editable blockControl" contenteditable="true">${field2 || 'block1'}</span>`
             break;
         case 'Set':
-            code = `<span class="editable operation" contenteditable="true">result</span>
+            code = `<span class="editable operation" contenteditable="true">${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable operation" contenteditable="true">a</span>`
+                    <span class="editable operation" contenteditable="true">${field2 || 'a'}</span>`
             break;
         case 'Operation':
-            code = `<span class="editable operation" contenteditable="true">result</span>
+            code = `<span class="editable operation" contenteditable="true">${field2 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable operation" contenteditable="true">a</span>
-                    <span class="editable operation dontInclude" contenteditable="true" onclick="popUpMenu(event,'opMenu')">*</span>
-                    <span class="editable operation" contenteditable="true">b</span>`
+                    <span class="editable operation" contenteditable="true">${field3 || 'a'}</span>
+                    <span class="editable operation dontInclude" contenteditable="true" onclick="popUpMenu(event,'opMenu')">${field1 || '*'}</span>
+                    <span class="editable operation" contenteditable="true">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
-            code = `<span class="editable operation" contenteditable="true" id="field1Value">result</span>
+            code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
                     <span>=</span>
                     <span>lookup</span>
-                    <span class="editable operation" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'lookupMenu')">item</span>
+                    <span class="editable operation" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'lookupMenu')">${field1 || 'item'}</span>
                     <span>#</span>
-                    <span class="editable operation" contenteditable="true" id="field3Value">0</span>`
-
+                    <span class="editable operation" contenteditable="true" id="field3Value">${field3 || '0'}</span>`
             break;
         case 'Pack Color':
-            code = `<span class="editable operation" contenteditable="true">result</span>
+            code = `<span class="editable operation" contenteditable="true">${field1 || 'result'}</span>
                     <span>=</span>
                     <span>pack</span>
-                    <span class="editable operation" contenteditable="true">1</span>
-                    <span class="editable operation" contenteditable="true">0</span>
-                    <span class="editable operation" contenteditable="true">0</span>
-                    <span class="editable operation" contenteditable="true">1</span>`
+                    <span class="editable operation" contenteditable="true">${field2 || '1'}</span>
+                    <span class="editable operation" contenteditable="true">${field3 || '0'}</span>
+                    <span class="editable operation" contenteditable="true">${field4 || '0'}</span>
+                    <span class="editable operation" contenteditable="true">${field5 || '1'}</span>`
             break;
         case 'Wait':
-            code = `<span class="editable flowControl" contenteditable="true">result</span>
+            code = `<span class="editable flowControl" contenteditable="true">${field1 || 'result'}</span>
                     <span>sec</span>`
             break;
         case 'Stop':
@@ -154,65 +158,73 @@ function addInstruction(button){
             break;
         case 'Jump':
             code = `<span>if</span>
-                    <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>x</span>
-                    <span class="editable flowControl dontInclude" id="field3Value" onclick="popUpMenu(event,'jumpMenu')">not</span>
-                    <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style=display:block;>false</span>
+                    <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || 'x'}</span>
+                    <span class="editable flowControl dontInclude" id="field3Value" onclick="popUpMenu(event,'jumpMenu')">${field2 || 'not'}</span>
+                    <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;">${field4 || 'false'}</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
-                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false">-1</span>
+                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false">${field1 || '-1'}</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
                     <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
             break;
         case 'Unit Bind':
             code = `<span>type</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">@poly</span>`
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">${field1 || '@poly'}</span>`
             break;
         case 'Unit Control':
-            code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">move</span>
-                    <span class="toggleableField" id="field1" style=display:block;>x</span>
-                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style=display:block;>0</span>
-                    <span class="toggleableField" id="field2" style=display:block;>y</span>
-                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style=display:block;>0</span>
+            code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">${field1 || 'move'}</span>
+                    <span class="toggleableField" id="field1" style="display:block;">x</span>
+                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;">y</span>
+                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
                     <span class="toggleableField" id="field3">x</span>
-                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">0</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">${field4 || '0'}</span>
                     <span class="toggleableField" id="field4">y</span>
-                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">0</span>
+                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>
                     <span class="toggleableField" id="field5">y</span>
-                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">0</span>`
+                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">${field6 || '0'}</span>`
             break;
         case 'Unit Radar':
             code = `<span>target</span>
-                    <span class="editable unitControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">enemy</span>
+                    <span class="editable unitControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">${field1 || 'enemy'}</span>
                     <span>and</span>
-                    <span class="editable unitControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable unitControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">${field2 || 'any'}</span>
                     <span>and</span>
-                    <span class="editable unitControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">any</span>
+                    <span class="editable unitControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">${field3 || 'any'}</span>
                     <span>order</span>
-                    <span class="editable unitControl" contenteditable="true" id="field5Value">1</span>
+                    <span class="editable unitControl" contenteditable="true" id="field5Value">${field6 || '1'}</span>
                     <span>sort</span>
-                    <span class="editable unitControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">distance</span>
+                    <span class="editable unitControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">${field4 || 'distance'}</span>
                     <span>output</span>
-                    <span class="editable unitControl" contenteditable="true" id="field7Value">result</span>`
+                    <span class="editable unitControl" contenteditable="true" id="field7Value">${field7 || 'result'}</span>`
             break;
         case 'Unit Locate':
             code = `<span>find</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">building</span>
-                    <span class="toggleableField" id="field1" style=display:block;>group</span>
-                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" style=display:block; onclick="popUpMenu(event,'ulocateGroupMenu')">core</span>
-                    <span class="toggleableField" id="field2" style=display:block;>enemy</span>
-                    <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" style=display:block;>true</span>
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">${field1 || 'building'}</span>
+                    <span class="toggleableField" id="field1" style="display:block;">group</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" style="display:block;" onclick="popUpMenu(event,'ulocateGroupMenu')">${field2 || 'core'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;">enemy</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" style="display:block;">${field3 || 'true'}</span>
                     <span class="toggleableField" id="field3">ore</span>
-                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">@copper</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">${field4 || '@copper'}</span>
                     <img src="image/pencil.png" alt="" id="field3" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu toggleableField">
                     <span>outX</span>
-                    <span class="editable unitControl" contenteditable="true">outx</span>
+                    <span class="editable unitControl" contenteditable="true">${field5 || 'outx'}</span>
                     <span>outY</span>
-                    <span class="editable unitControl" contenteditable="true">outy</span>
+                    <span class="editable unitControl" contenteditable="true">${field6 || 'outy'}</span>
                     <span>found</span>
-                    <span class="editable unitControl" contenteditable="true">found</span>
+                    <span class="editable unitControl" contenteditable="true">${field7 || 'found'}</span>
                     <span>building</span>
-                    <span class="editable unitControl" contenteditable="true">building</span>`
+                    <span class="editable unitControl" contenteditable="true">${field8 || 'building'}</span>`
+            break;
+        case 'noop':
+            code = `<span>No Operation</span>`
+            break;
+        // idk, i haven't thought about how would i do label yet, but probably not like this
+        // so im not gonna continue implementing it
+        case 'Label':
+            code = `<span>${field1}</span>`
             break;
         default:
             code = `<span>if you see this that means something went 
@@ -244,7 +256,12 @@ function addInstruction(button){
             </div>
         </div>`
     );
-    updateLineNumber();
+
+    if (update == 0){
+        return
+    } else {
+        updateLineNumber();
+    }
 
     };
 
@@ -272,7 +289,6 @@ function updateLineNumber() {
     // console.log(jumpIns);
 }
 
-    // JUMP ARROW VISUAL (WIP)
 function updateJumpArrow(jumpIns) {
     jumpIns.forEach(jump => {
         const canvas = jump.querySelector('.jumpArrow');
@@ -281,15 +297,11 @@ function updateJumpArrow(jumpIns) {
         const ctx = canvas.getContext('2d');
         const containerrRect = (jump.closest('.container')).getBoundingClientRect();
         const destinations = document.querySelectorAll('#lineNumber');
-        let destinationTarget; 
-        destinations.forEach(destination => {
-            if (destination.textContent == (jump.querySelector('#field1Value')).textContent) {
-                destinationTarget = destination.closest('.container')
-            }
-        })
+
+        const destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
+
         const desRect = destinationTarget?.getBoundingClientRect(); 
         let distance = (containerrRect.top + containerrRect.height / 2) - (desRect?.top + desRect?.height / 2)
-        const containerrY = containerrRect.height / 3; 
         if (distance > 0){
             canvas.style.bottom = `10%`
             canvas.style.top = ''
@@ -392,6 +404,20 @@ function closeSaveMenu(fromFrontend,e){
     }
 }
 
+function openPasteMenu(){
+    document.getElementById('pasteMenu').style.display = 'flex';
+}
+
+function closePasteMenu(fromFrontend,e){
+    if (fromFrontend){
+        if (e.target.classList.contains('menu')) {
+            document.getElementById('pasteMenu').style.display = 'none';
+        }
+        }else {
+            document.getElementById('pasteMenu').style.display = 'none';
+        }
+}
+
 //####################################################################################################################################
 // Keybinds
 //####################################################################################################################################
@@ -429,6 +455,7 @@ document.addEventListener('keydown',(e) =>{
         closeWizard();
         closeHelpWizard();
         closeSaveMenu();
+        closePasteMenu();
         // console.log('work');
     }else if (e.key === 'F2' && !isVisible) {
         document.activeElement.blur();
@@ -1881,7 +1908,49 @@ const operatorMap = {
     "asin"      : 'asin ',
     "acos"      : 'acos ',
     "atan"      : 'atan ',
-    "always"    : 'always '
+    "always"    : 'always ',
+
+    'add'               : 'add ',
+    'sub'               : 'sub ',
+    'mul'               : 'mul ',
+    'div'               : 'div ',
+    'idiv'              : 'idiv ',
+    'mod'               : 'mod ',
+    'pow'               : 'pow ',
+    'equal'             : 'equal ',
+    'notEqual'          : 'notEqual ',
+    'land'              : 'land ',
+    'lessThan'          : 'lessThan ',
+    'lessThanEqual'     : 'lessThanEqual ',
+    'greaterThan'       : 'greaterThan ',
+    'greaterThanEqual'  : 'greaterThanEqual ',
+    'strictEqual'       : 'strictEqual ',
+    'shl'               : 'shl ',
+    'shr'               : 'shr ',
+    'or'                : 'or ',
+    'and'               : 'and ',
+    'xor'               : 'xor ',
+    'not'               : 'not ',
+    'max'               : 'max ',
+    'min'               : 'min ',
+    'angle'             : 'angle ',
+    'angleDiff'         : 'angleDiff ',
+    'len'               : 'len ',
+    'noise'             : 'noise ',
+    'abs'               : 'abs ',
+    'log'               : 'log ',
+    'log10'             : 'log10 ',
+    'floor'             : 'floor ',
+    'ceil'              : 'ceil ',
+    'sqrt'              : 'sqrt ',
+    'rand'              : 'rand ',
+    'sin'               : 'sin ',
+    'cos'               : 'cos ',
+    'tan'               : 'tan ',
+    'asin'              : 'asin ',
+    'acos'              : 'acos ',
+    'atan'              : 'atan ',
+    'always'            : 'always ',
 };
 
 let instTypeMap = {
@@ -1918,6 +1987,7 @@ function exportCode(){
             } else {
                 if (instType == 'Jump'){
                     codeEx += `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
+                    exportFields(0)
                 }
                 if (instType == 'Operation'){
                     codeEx += "op "
@@ -1964,24 +2034,93 @@ function exportCode(){
 }
 
 
+let instTypeMapR = {
+    'read'      : 'Read',
+    'write'     : 'Write',
+    'draw'      : 'Draw',
+    'print'     : 'Print',
+    'format'    : 'Format',
+    'drawflush' : 'Draw Flush',
+    'printflush': 'Print Flush',
+    'getlink'   : 'Get Link',
+    'control'   : 'Control',
+    'radar'     : 'Radar',
+    'sensor'    : 'Sensor',
+    'set'       : 'Set',
+    'op'        : 'Operation',
+    'lookup'    : 'Lookup',
+    'packcolor' : 'Pack Color',
+    'wait'      : 'Wait',
+    'stop'      : 'Stop',
+    'end'       : 'End',
+    'jump'      : 'Jump',
+    'ubind'     : 'Unit Bind',
+    'ucontrol'  : 'Unit Control',
+    'uradar'    : 'Unit Radar',
+    'ulocate'   : 'Unit Locate'
+} 
+
 // TODO give an option for the user to paste their code manually to a field if they reject clipboard access
 // with a menu
-// and remember choice
-function importCode(){
-    try {
-        const text = navigator.clipboard.readText();
-        document.getElementById('clipboardContent').innerText = `Clipboard content: ${text}`;
-    } catch (err) {
-        // console.error('Failed to read clipboard contents: ', err);
-        document.getElementById('alert1').classList.remove("alertShow")
-        document.getElementById('alert1').style.display = 'block'
-        setTimeout(() => {
-            document.getElementById('alert1').classList.add("alertShow");
+// and remember choice 
+async function importCode(manual){
+    let code
+    if (manual != 1){
+        try {
+            code = await navigator.clipboard.readText();
+            // document.getElementById('clipboardContent').innerText = `Clipboard content: ${code}`;
+        } catch (err) {
+            // console.error('Failed to read clipboard contents: ', err);
+            document.getElementById('alert1').classList.remove("alertShow")
+            document.getElementById('alert1').style.display = 'block'
+    
+            // let timeLeft = 4000; // In milliseconds
+            // const endTime = Date.now() + timeLeft; // Calculate when the timer should end
+            
+            // const timer = setInterval(() => {
+            //   const now = Date.now();
+            //   timeLeft = Math.max(0, endTime - now); // Calculate remaining time
+            
+            //   document.getElementById('debugText8').textContent = (timeLeft / 1000).toFixed(3); // Display in seconds with milliseconds
+            
+            //   if (timeLeft <= 0) {
+            //     clearInterval(timer);
+            //     document.getElementById('debugText8').textContent = "Time's up!";
+            //   }
+            // }, 10); // Update every 10ms for smoother display
+    
             setTimeout(() => {
-                document.getElementById('alert1').style.display = 'none'
-            }, 1000);
-        }, 4000);
+                document.getElementById('alert1').classList.add("alertShow");
+                setTimeout(() => {
+                    document.getElementById('alert1').style.display = 'none'
+                }, 1000);
+            }, 4000);
+            return
+        }
+    }else {
+        code = document.getElementById('pasteBox').value
     }
+    // console.log(code);
+    document.querySelectorAll('.container').forEach(e => e.remove());
+    let lines = code.split(/\r?\n/);
+    lines = lines.filter(line => line.trim() && !line.trim().startsWith("#"));
+    // console.log(lines);
+    lines.forEach((line, index) => {
+        let words = line.trim().split(/\s+/);
+        type = instTypeMapR[words[0]]
+        if (type){
+            // console.log(type);
+            addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8])
+        } else {
+            if (words[0].endsWith(":")){
+                addInstruction('label', 0, words[0].replace(":",""))
+            } else {
+                addInstruction('noop', 0)
+            }
+        }
+    });
+    updateLineNumber()
+    closePasteMenu()
 }
 
 
@@ -1995,3 +2134,4 @@ function importCode(){
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
 }
+
