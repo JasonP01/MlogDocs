@@ -2,17 +2,16 @@
 // add instruction function
 //####################################################################################################################################
 const buttons = document.querySelectorAll('.addItems');
+const buttonMap = new Map(
+    Array.from(buttons, b => [b.textContent, b])
+);
 buttons.forEach(button => {
     button.addEventListener('click', () => addInstruction(button))
 });
     
 function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8){
-    if (typeof button == 'string'){
-        buttons.forEach(bbuton => {
-            if (bbuton.textContent == button){
-                button = bbuton
-            }
-        })
+    if (typeof button === 'string') {
+        button = buttonMap.get(button) || button;
     }
     buttonText = button?.textContent;
     divParent = button?.parentElement;
@@ -1732,8 +1731,8 @@ function selectAllContainers(){
         if (!selectedDiv){
             selectedDiv = document.createElement('div');
             selectedDiv.classList.add('group');
+            container.insertAdjacentElement('afterend', selectedDiv);
         }
-        container.insertAdjacentElement('afterend', selectedDiv);
         selectedDiv.appendChild(container);
     })
 }
