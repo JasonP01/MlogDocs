@@ -133,6 +133,19 @@ body::-webkit-scrollbar-thumb{
     margin: 20px;
 }
 
+.nameBox {
+    width: 300px;
+    min-width: 20vw;
+    max-width: 90vw;
+    text-align: left; 
+    border: 3px white solid;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: transparent;
+    color: white;
+    font-size: clamp(14px, 10vw, 18px);
+}
+
 
 .container {
     display: block; 
@@ -661,12 +674,25 @@ canvas {
     border-radius: 5px;
     padding: 0px 5px 5px 5px;
     color: #fff;
-    min-width: clamp(300px, 60vw, 1000px);
+    min-width: calc(clamp(300px, 60vw, 1000px) + 30px);
     max-width: 60vw;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     font-size: 14px;
     position: relative;
     margin-bottom:10px ;
+    margin-right: 30px;
+    transform: scaleX(1.01);
+    transform-origin: right center;
 }
-    
-    
+/* .label-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -28px;
+    width: 30px;
+    height: 100%;
+    background-color: #c64d4d;
+    border-radius: 5px;
+  }
+     */
+

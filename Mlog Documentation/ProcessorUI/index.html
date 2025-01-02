@@ -73,7 +73,15 @@
     </div>
     <div id="saveMenu" class="menu" onclick="closeSaveMenu(1,event)">
         <div class="saveMenu">
-            <button class="button" id="saveCurrent" onclick="saveCurrent()">Save Current</button>
+            <div>asdfasdfasdfsdfasdf</div>
+            <div id="name" class="menu" onclick="closeNameMenu(1,event)">
+                <div class="saveMenu" style="padding: 1vw;">
+                    <div>Save Code</div>
+                    <textarea name="Name" id="Name" placeholder="Enter Name" class="nameBox"></textarea><br><br>
+                    <button class="button" id="Save" onclick="saveCurrent()" style="font-size: 1em; padding: 5px;">save</button>
+                </div>
+            </div>
+            <button class="button" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
             <button class="button" id="loadSelected" onclick="loadCurrent()">Load Selected</button>
             <button class="button" id="deleteSelected" onclick="deleteCurrent()">Delete Selected</button>
             <br>
@@ -545,7 +553,7 @@
 </body>
 <footer>
     <!-- <button id="addItems">Add Items</button> -->
-    <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Save</button>
+    <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Saves</button>
     <button class="help" id="help" onclick="openHelpWizard()">Help</button>
     <button class="button" id="importCode" onclick="importCode()">Import Code</button>
     <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>

@@ -28,6 +28,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
     // console.log(type)
     closeWizard();
     
+    let exclude = 0
     //Switch for every instruction type
     switch (buttonText) {
         case 'Read':
@@ -222,13 +223,16 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         // idk, i haven't thought about how would i do label yet, but probably not like this
         // so im not gonna continue implementing it
+        // i implemented it anyway
         case 'Label':
-            code = `<span>${field1}</span>`
+            code = `<span contenteditable="true" id="field1">${field1}</span>`
+            exclude = 1
             break;
         default:
             code = `<span>if you see this that means something went 
                     wrong, refresh or contact me</span>`
     }
+
     
     if (document.querySelector('.container')){
         containers = document.querySelectorAll('.container')
@@ -236,13 +240,14 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         containers = document.querySelectorAll('.placeHolder')
     }
     const lastContainer = containers[containers.length - 1];
+    
     lastContainer.insertAdjacentHTML('afterend', `
-        <div class="container">
+        <div class="container" ${exclude === 1 ? 'id=\"exclude\"' : ''}>
             <div class="${type}-container">
                 <div class="block-header">
                     <span class="headerText">${buttonText}</span>
                     <div class="controls">
-                        <span id="lineNumber">1</span>
+                        ${exclude === 1 ? '' : '<span id="lineNumber"></span>'}
                         <img src="image/copy.png" alt="" onclick="copy(event)" class="copyButton">
                         <span class="close" onclick="Delete(event)">&times;</span>
                     </div>
@@ -268,7 +273,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
 
 function updateLineNumber() {
     let jumpIns = [];
-    containers = document.querySelectorAll('.container');
+    containers = document.querySelectorAll('.container:not(#exclude)'); //can use :has() but i heard its not supported in older browser
     containers.forEach((containerr, index) => {
         const lineNumberElement = containerr.querySelector('#lineNumber');
         if (lineNumberElement) {
@@ -284,6 +289,13 @@ function updateLineNumber() {
             jumpIns.push(containerr)
         }
     });
+
+    labels = document.querySelectorAll('.container#exclude') //i know this is a shitty fix
+    labels.forEach(label => {
+        if(!label.hasDown){
+            MouseDown(label.querySelector('.block-header'),label)
+        }
+    })
     updateJumpArrow(jumpIns)
     // console.log(jumpIns);
 }
@@ -297,7 +309,17 @@ function updateJumpArrow(jumpIns) {
         const containerrRect = (jump.closest('.container')).getBoundingClientRect();
         const destinations = document.querySelectorAll('#lineNumber');
 
-        const destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
+        let destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
+        if (!destinationTarget){
+            labels = document.querySelectorAll('.container#exclude')
+            if (labels){
+                labels.forEach(label => {
+                    if (label.querySelector('#field1').textContent == jump.querySelector('#field1Value').textContent){
+                        destinationTarget = label
+                    }
+                })
+            }
+        }
 
         const desRect = destinationTarget?.getBoundingClientRect(); 
         let distance = (containerrRect.top + containerrRect.height / 2) - (desRect?.top + desRect?.height / 2)
@@ -417,6 +439,24 @@ function closePasteMenu(fromFrontend,e){
         }
 }
 
+function closeNameMenu(fromFrontend,e){
+    if (e){
+        e.stopPropagation()
+    }
+    if (fromFrontend){
+        if (e.target.classList.contains('menu')) {
+            document.getElementById('name').style.display = 'none';
+        }
+        }else {
+            document.getElementById('name').style.display = 'none';
+        }
+}
+
+function openNameMenu(){
+    document.getElementById('name').style.display = 'flex';
+}
+
+
 //####################################################################################################################################
 // Keybinds
 //####################################################################################################################################
@@ -449,18 +489,20 @@ document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
     const helpMenu = document.getElementById('helpMenu');
     const saveMenu = document.getElementById('saveMenu');
-    const isVisible = wizardMenu.style.display === 'flex' || helpMenu.style.display === 'flex' || saveMenu.style.display === 'flex';
-    if ((e.key === 'Escape' && isVisible) || (isVisible && e.key === 'F2')) {
+    const isVisibleAdd = wizardMenu.style.display === 'flex'
+    const isVisibleHelp = helpMenu.style.display === 'flex'
+    const isVisibleSave = saveMenu.style.display === 'flex';
+    if ((e.key === 'Escape' && (isVisibleAdd || isVisibleHelp || isVisibleSave)) || (isVisibleAdd && e.key === 'F2')) {
         closeWizard();
         closeHelpWizard();
         closeSaveMenu();
         closePasteMenu();
         // console.log('work');
-    }else if (e.key === 'F2' && !isVisible) {
+    }else if (e.key === 'F2' && (!isVisibleAdd && !isVisibleHelp && !isVisibleSave)) {
         document.activeElement.blur();
         // console.log('work1');
         openWizard();
-    }else if (isVisible) {
+    }else if (isVisibleAdd) {
         if (keybindMap[e.key]){
             addInstruction(keybindMap[e.key])
         }
@@ -469,7 +511,7 @@ document.addEventListener('keydown',(e) =>{
         e.preventDefault
         document.activeElement.blur();
     }
-    if (!isVisible) {
+    if (!isVisibleAdd && !isVisibleHelp && !isVisibleSave){
         if (e.ctrlKey && e.altKey && e.key === 's'){
             EnableCursor();
         }else if (cursorContainer){
@@ -1971,7 +2013,7 @@ let instTypeMap = {
     'Unit Bind'     : 'ubind ',
     'Unit Control'  : 'ucontrol ',
 } 
-function exportCode(){
+function exportCode(save){
     deselectContainer();
     codeEx = ""
     containers = document.querySelectorAll('.container');
@@ -2010,6 +2052,10 @@ function exportCode(){
                     codeEx += `ulocate `
                     exportFields(1)
                 }
+                if (instType == 'Label'){
+                    codeEx += `${container.querySelector('.code').querySelector('span').textContent}:`
+                    exportFields(1)
+                }
             }
             function exportFields(ignoreInvisable){
                 codeElements = container.querySelectorAll('span');
@@ -2021,15 +2067,19 @@ function exportCode(){
             }
         };
     });
-    navigator.clipboard.writeText(codeEx)
-    document.getElementById('alert').classList.remove("alertShow")
-    document.getElementById('alert').style.display = 'block'
-    setTimeout(() => {
-        document.getElementById('alert').classList.add("alertShow");
+    if (save){
+        return codeEx
+    } else {
+        navigator.clipboard.writeText(codeEx)
+        document.getElementById('alert').classList.remove("alertShow")
+        document.getElementById('alert').style.display = 'block'
         setTimeout(() => {
-            document.getElementById('alert').style.display = 'none'
+            document.getElementById('alert').classList.add("alertShow");
+            setTimeout(() => {
+                document.getElementById('alert').style.display = 'none'
+            }, 1000);
         }, 1000);
-    }, 1000);
+    }
 }
 
 
@@ -2062,13 +2112,16 @@ let instTypeMapR = {
 // TODO give an option for the user to paste their code manually to a field if they reject clipboard access
 // with a menu
 // and remember choice 
-async function importCode(manual){
+async function importCode(manual,codeSaved){
     let code
-    if (manual != 1){
-        try {
-            code = await navigator.clipboard.readText();
-            // document.getElementById('clipboardContent').innerText = `Clipboard content: ${code}`;
-        } catch (err) {
+    if (codeSaved){
+        code = codeSaved
+    } else {
+        if (manual != 1){
+            try {
+                code = await navigator.clipboard.readText();
+                // document.getElementById('clipboardContent').innerText = `Clipboard content: ${code}`;
+            } catch (err) {
             // console.error('Failed to read clipboard contents: ', err);
             document.getElementById('alert1').classList.remove("alertShow")
             document.getElementById('alert1').style.display = 'block'
@@ -2077,7 +2130,7 @@ async function importCode(manual){
             // const endTime = Date.now() + timeLeft; // Calculate when the timer should end
             
             // const timer = setInterval(() => {
-            //   const now = Date.now();
+                //   const now = Date.now();
             //   timeLeft = Math.max(0, endTime - now); // Calculate remaining time
             
             //   document.getElementById('debugText8').textContent = (timeLeft / 1000).toFixed(3); // Display in seconds with milliseconds
@@ -2095,9 +2148,10 @@ async function importCode(manual){
                 }, 1000);
             }, 4000);
             return
+            }
+        }else {
+            code = document.getElementById('pasteBox').value
         }
-    }else {
-        code = document.getElementById('pasteBox').value
     }
     // console.log(code);
     document.querySelectorAll('.container').forEach(e => e.remove());
@@ -2122,6 +2176,28 @@ async function importCode(manual){
     closePasteMenu()
 }
 
+
+
+function saveCurrent(){
+    let code = exportCode(1)
+    let name = document.getElementById('name').value
+    console.log(name);
+    if (!name){
+        name = 'save1'
+    }
+    console.log(name);
+    localStorage.setItem(name, code);
+    document.getElementById('name').value = ''
+    closeNameMenu()
+    
+    document.getElementById('name').insertAdjacentHTML('beforebegin', '<div>This is a new div!</div>');
+}
+
+function loadCurrent(){
+    let code = localStorage.getItem('key1');
+    importCode(0,code)
+
+}
 
 
 
