@@ -15,9 +15,9 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
     }
     buttonText = button?.textContent;
     divParent = button?.parentElement;
-    if (button == 'noop'){
-        type = 'noop'
-        buttonText = 'noop'
+    if (button == 'Noop'){
+        type = 'Noop'
+        buttonText = 'Noop'
     }else if (button == 'label') {
         type = 'label'
         buttonText = 'Label'
@@ -218,7 +218,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span>building</span>
                     <span class="editable unitControl" contenteditable="true">${field8 || 'building'}</span>`
             break;
-        case 'noop':
+        case 'Noop':
             code = `<span>No Operation</span>`
             break;
         // idk, i haven't thought about how would i do label yet, but probably not like this
@@ -413,6 +413,7 @@ function closeHelpWizard() {
 
 function openSaveMenu(){
     document.getElementById('saveMenu').style.display = 'flex';
+    refreshSaves();
 }
 
 function closeSaveMenu(fromFrontend,e){
@@ -2166,9 +2167,9 @@ async function importCode(manual,codeSaved){
             addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8])
         } else {
             if (words[0].endsWith(":")){
-                addInstruction('label', 0, words[0].replace(":",""))
+                addInstruction('Label', 0, words[0].replace(":",""))
             } else {
-                addInstruction('noop', 0)
+                addInstruction('Noop', 0)
             }
         }
     });
@@ -2180,23 +2181,61 @@ async function importCode(manual,codeSaved){
 
 function saveCurrent(){
     let code = exportCode(1)
+    console.log(code);
+    if (code == ""){
+        code = 'Noop'
+    }
     let name = document.getElementById('name').value
     console.log(name);
     if (!name){
         name = 'save1'
+        let counter = 1;
+        while (localStorage.getItem(name)) {
+            name = `save${counter}`;
+            counter++;
+            // console.log(counter);
+            // console.log(name);
     }
-    console.log(name);
+    }
+    // console.log(name);
     localStorage.setItem(name, code);
-    document.getElementById('name').value = ''
     closeNameMenu()
-    
-    document.getElementById('name').insertAdjacentHTML('beforebegin', '<div>This is a new div!</div>');
+    refreshSaves()
 }
 
-function loadCurrent(){
-    let code = localStorage.getItem('key1');
-    importCode(0,code)
+function refreshSaves(){
+    let saves = Object.keys(localStorage).sort()
+    console.log(saves);
+    let saveList = document.getElementById('saveList')
+    saveList.innerHTML = ''
+    saves.forEach(save => {
+        const saveDiv = document.createElement('div');
+        saveDiv.textContent = save;
+        saveDiv.addEventListener('click', () => {
+            saveDiv.classList.toggle('saveSelected');
+        });
+        saveList.appendChild(saveDiv);
+    });
+    console.log('asdfasdf');
+}
 
+function loadSelected(){
+    let code
+    document.querySelectorAll('.saveSelected').forEach(selected => {
+        selected.classList.remove('saveSelected')
+        if (!code){
+            code = localStorage.getItem(selected.textContent);
+        }
+    })
+    importCode(0,code)
+    closeSaveMenu()
+}
+
+function deleteSelected(){
+    document.querySelectorAll('.saveSelected').forEach(selected => {
+        localStorage.removeItem(selected.textContent);
+        selected.remove()
+    })
 }
 
 

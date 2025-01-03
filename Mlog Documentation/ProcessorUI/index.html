@@ -73,7 +73,11 @@
     </div>
     <div id="saveMenu" class="menu" onclick="closeSaveMenu(1,event)">
         <div class="saveMenu">
-            <div>asdfasdfasdfsdfasdf</div>
+            <!-- <span style="background-color: red;">(STILL WORK IN PROGRESS)</span><br> -->
+            <span>Saved Code : </span>
+            <div id="saveList" class="saveList">
+
+            </div>
             <div id="name" class="menu" onclick="closeNameMenu(1,event)">
                 <div class="saveMenu" style="padding: 1vw;">
                     <div>Save Code</div>
@@ -82,10 +86,9 @@
                 </div>
             </div>
             <button class="button" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
-            <button class="button" id="loadSelected" onclick="loadCurrent()">Load Selected</button>
-            <button class="button" id="deleteSelected" onclick="deleteCurrent()">Delete Selected</button>
+            <button class="button" id="loadSelected" onclick="loadSelected()">Load Selected</button>
+            <button class="button" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
             <br>
-            <span style="background-color: red;">(STILL WORK IN PROGRESS)</span>
         </div>
     </div>
     <div id="helpMenu" class="menu" onclick="closeHelpWizard()">
@@ -211,6 +214,12 @@
                     <button class="addItems">Unit Control</button>
                     <button class="addItems">Unit Radar</button>
                     <button class="addItems">Unit Locate</button>
+                </div>
+                <div class="wizard-title">Extra<div class="line"></div></div>
+                <div class="extra gridButton">
+                    <button class="addItems">Noop</button>
+                    <button class="addItems">Labels</button>
+                    <button class="addItems">Comment</button>
                 </div>
             </div>
             <br>
