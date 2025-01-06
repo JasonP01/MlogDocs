@@ -15,15 +15,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
     }
     buttonText = button?.textContent;
     divParent = button?.parentElement;
-    if (button == 'Noop'){
-        type = 'Noop'
-        buttonText = 'Noop'
-    }else if (button == 'label') {
-        type = 'label'
-        buttonText = 'Label'
-    }else {
-        type = divParent?.classList[0];
-    }
+    type = divParent?.classList[0];
     // console.log('type')
     // console.log(type)
     closeWizard();
@@ -225,7 +217,13 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         // so im not gonna continue implementing it
         // i implemented it anyway
         case 'Label':
-            code = `<span contenteditable="true" id="field1">${field1}</span>`
+            code = `<span contenteditable="true" id="field1">${field1 || 'Label'}</span>`
+            exclude = 1
+            type = 'Label-container extra'
+            break;
+        case 'Comment':
+            code = `<span class="editable extra" contenteditable="true" id="field1">${field1 || 'Comment'}</span>`
+            type = 'Comment-container extra'
             exclude = 1
             break;
         default:
@@ -508,7 +506,7 @@ document.addEventListener('keydown',(e) =>{
             addInstruction(keybindMap[e.key])
         }
     }
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault
         document.activeElement.blur();
     }
@@ -2013,6 +2011,8 @@ let instTypeMap = {
     'End'           : 'end ',
     'Unit Bind'     : 'ubind ',
     'Unit Control'  : 'ucontrol ',
+    'Comment'       : '#',
+    'Noop'          : 'noop',
 } 
 function exportCode(save){
     deselectContainer();
@@ -2021,7 +2021,9 @@ function exportCode(save){
     containers.forEach(container => {
         insSpan = container.querySelector('span');
         if (insSpan){
-            codeEx += '\n'
+            if (codeEx != ''){
+                codeEx += '\n'
+            }
             let instType = insSpan.textContent;
             if (instTypeMap?.[instType]){
                 codeEx += instTypeMap[instType];
@@ -2107,7 +2109,7 @@ let instTypeMapR = {
     'ubind'     : 'Unit Bind',
     'ucontrol'  : 'Unit Control',
     'uradar'    : 'Unit Radar',
-    'ulocate'   : 'Unit Locate'
+    'ulocate'   : 'Unit Locate',
 } 
 
 // TODO give an option for the user to paste their code manually to a field if they reject clipboard access
@@ -2157,20 +2159,24 @@ async function importCode(manual,codeSaved){
     // console.log(code);
     document.querySelectorAll('.container').forEach(e => e.remove());
     let lines = code.split(/\r?\n/);
-    lines = lines.filter(line => line.trim() && !line.trim().startsWith("#"));
+    // lines = lines.filter(line => line.trim() && !line.trim().startsWith("#"));
     // console.log(lines);
     lines.forEach((line, index) => {
         let words = line.trim().split(/\s+/);
         type = instTypeMapR[words[0]]
+        console.log(words);
         if (type){
             // console.log(type);
             addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8])
         } else {
             if (words[0].endsWith(":")){
                 addInstruction('Label', 0, words[0].replace(":",""))
-            } else {
+            }else if (words[0].startsWith("#")) {
+                addInstruction('Comment', 0, words[0].replace("#",""))
+            }else {
                 addInstruction('Noop', 0)
             }
+            
         }
     });
     updateLineNumber()
@@ -2181,12 +2187,10 @@ async function importCode(manual,codeSaved){
 
 function saveCurrent(){
     let code = exportCode(1)
-    console.log(code);
     if (code == ""){
         code = 'Noop'
     }
-    let name = document.getElementById('name').value
-    console.log(name);
+    let name = document.getElementById('Name').value
     if (!name){
         name = 'save1'
         let counter = 1;
@@ -2216,7 +2220,6 @@ function refreshSaves(){
         });
         saveList.appendChild(saveDiv);
     });
-    console.log('asdfasdf');
 }
 
 function loadSelected(){
