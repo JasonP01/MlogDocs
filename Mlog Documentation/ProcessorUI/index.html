@@ -73,8 +73,14 @@
     </div>
     <div id="saveMenu" class="menu" onclick="closeSaveMenu(1,event)">
         <div class="saveMenu">
-            <!-- <span style="background-color: red;">(STILL WORK IN PROGRESS)</span><br> -->
-            <span>Saved Code : </span>
+            <div style="display: flex; flex-direction: row;">
+                <div>
+                    <span>Saved Code : </span>
+                </div>
+                <div>
+                    <input type="text" id="searchBar" placeholder="Search...">
+                </div>
+            </div>
             <div id="saveList" class="saveList">
             </div>
             <div id="name" class="menu" onclick="closeNameMenu(1,event)">

@@ -2207,11 +2207,13 @@ function saveCurrent(){
     refreshSaves()
 }
 
+let savesText = [];
 function refreshSaves(){
     let saves = Object.keys(localStorage).sort()
-    console.log(saves);
+    // console.log(saves);
     let saveList = document.getElementById('saveList')
     saveList.innerHTML = ''
+    savesText = [];
     saves.forEach(save => {
         const saveDiv = document.createElement('div');
         saveDiv.textContent = save;
@@ -2219,7 +2221,9 @@ function refreshSaves(){
             saveDiv.classList.toggle('saveSelected');
         });
         saveList.appendChild(saveDiv);
+        savesText.push(saveDiv)
     });
+
 }
 
 function loadSelected(){
@@ -2241,11 +2245,20 @@ function deleteSelected(){
     })
 }
 
+const searchBar = document.getElementById("searchBar")
 
 
-// const value = localStorage.getItem('key1');
-// console.log(value);
-// console.log('asdlkgjasdg');
+searchBar.addEventListener("input",() => {
+    const query = searchBar.value.toLowerCase();
+    savesText.forEach(save => {
+        const text = save.textContent.toLowerCase();
+        if (text.includes(query)){
+            save.style.display = ""
+        }else { 
+            save.style.display = "none"
+        }
+    })
+})
 
 
 window.onload = () => {
