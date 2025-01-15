@@ -90,11 +90,21 @@
                     <button class="button" id="Save" onclick="saveCurrent()" style="font-size: 1em; padding: 5px;">save</button>
                 </div>
             </div>
-            <button class="button" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
-            <button class="button" id="loadSelected" onclick="loadSelected()">Load Selected</button>
-            <button class="button" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
-            <br>
+            <div style="text-align: center;">
+                <button class="button" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
+                <button class="button" id="loadSelected" onclick="loadSelected()">Load Selected</button>
+                <button class="button" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
+                <button class="button" id="saveCurrent" onclick="openTimelineMenu()">Timeline</button>
+            </div>
         </div>
+    </div>
+    <!-- TODO add a setting menu, autosave = bool, interval = int, size = int-->
+    <div id="timeline" class="menu" onclick="closeTimelineMenu(1,event)">
+        <div id="timelineList" class="saveList timelineList">
+        </div>
+    </div>
+    <div id="autosaveIcon" class="autosaveIcon">
+        <img src="image/save.png" alt="">
     </div>
     <div id="helpMenu" class="menu" onclick="closeHelpWizard()">
         <div class="helpContent">
@@ -167,7 +177,17 @@
             <br>
             <ul>
                 <h3>Saving and Loading</h3>
-                <li>Use the menu to save and load your code using localStorage.</li>
+                <li>Uses localStorage to store and save your code</li>
+                click the "Saves" button
+                <ul>
+                    <li>if there are any code stored you will see its name in the inner box</li>
+                    <li>Save current : save your current code on the workspace.</li>
+                    Will prompt you for name, if left empty default to `save1`, `save2`, ...
+                    <li>Load Selected : You can select your saves by clicking them, Load selected will Load the first selected saves</li>
+                    <li>Delete Selected : Delete all selected saves</li>
+                    <li>Timeline : shows a timeline of your work (autosave timeline).</li>
+                    Will show an icon on the bottom right when autosaving
+                </ul>
             </ul>
             <br>
             <ul>
@@ -567,8 +587,8 @@
 </body>
 <footer>
     <!-- <button id="addItems">Add Items</button> -->
-    <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Saves</button>
     <button class="help" id="help" onclick="openHelpWizard()">Help</button>
+    <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Saves</button>
     <button class="button" id="importCode" onclick="importCode()">Import Code</button>
     <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>
     <button class="addItemsMenu" id="openWizard" onclick="openWizard()">+ Add...</button>

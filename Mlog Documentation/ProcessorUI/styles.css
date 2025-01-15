@@ -157,6 +157,22 @@ body::-webkit-scrollbar-thumb{
     margin: 10px;
 }
 
+.timelineList {
+    background-color: black;
+}
+
+.autosaveIcon{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    opacity: 0;
+}
+
+.autosaveIcon img {
+    width: 50px;
+    image-rendering: pixelated;
+}
+
 .saveList .saveSelected {
     background-color: gray;
     border-radius: 4px;

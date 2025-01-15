@@ -400,6 +400,7 @@ function closeWizard() {
 function openWizard() {
     document.getElementById('wizardMenu').style.display = 'flex';
 }
+//#######
 
 function openHelpWizard() {
     document.getElementById('helpMenu').style.display = 'flex';
@@ -408,6 +409,7 @@ function openHelpWizard() {
 function closeHelpWizard() {
     document.getElementById('helpMenu').style.display = 'none';
 }
+//#######
 
 function openSaveMenu(){
     document.getElementById('saveMenu').style.display = 'flex';
@@ -423,6 +425,7 @@ function closeSaveMenu(fromFrontend,e){
         document.getElementById('saveMenu').style.display = 'none';
     }
 }
+//#######
 
 function openPasteMenu(){
     document.getElementById('pasteMenu').style.display = 'flex';
@@ -437,6 +440,11 @@ function closePasteMenu(fromFrontend,e){
             document.getElementById('pasteMenu').style.display = 'none';
         }
 }
+//#######
+
+function openNameMenu(){
+    document.getElementById('name').style.display = 'flex';
+}
 
 function closeNameMenu(fromFrontend,e){
     if (e){
@@ -450,10 +458,26 @@ function closeNameMenu(fromFrontend,e){
             document.getElementById('name').style.display = 'none';
         }
 }
-
-function openNameMenu(){
-    document.getElementById('name').style.display = 'flex';
+//#######
+function openTimelineMenu(){
+    document.getElementById('timeline').style.display = 'flex';
+    refreshTimeline()
 }
+
+function closeTimelineMenu(fromFrontend,e){
+    if (e){
+        e.stopPropagation()
+    }
+    if (fromFrontend){
+        if (e.target.classList.contains('menu')) {
+            document.getElementById('timeline').style.display = 'none';
+        }
+        }else {
+            document.getElementById('timeline').style.display = 'none';
+        }
+}
+//#######
+
 
 
 //####################################################################################################################################
@@ -496,6 +520,7 @@ document.addEventListener('keydown',(e) =>{
         closeHelpWizard();
         closeSaveMenu();
         closePasteMenu();
+        closeTimelineMenu();
         // console.log('work');
     }else if (e.key === 'F2' && (!isVisibleAdd && !isVisibleHelp && !isVisibleSave)) {
         document.activeElement.blur();
@@ -2184,8 +2209,8 @@ async function importCode(manual,codeSaved){
 }
 
 
-
-function saveCurrent(){
+let autoSaveNameIndex = 0;
+function saveCurrent(autosave){
     let code = exportCode(1)
     if (code == ""){
         code = 'Noop'
@@ -2202,14 +2227,38 @@ function saveCurrent(){
     }
     }
     // console.log(name);
-    localStorage.setItem(name, code);
+    if (autosave){
+        // const now = new Date();
+
+        // // Extract date components
+        // const day = String(now.getDate()).padStart(2, '0');       // Day (DD)
+        // const month = String(now.getMonth() + 1).padStart(2, '0'); // Month (MM) - Months are 0-indexed
+        // const year = now.getFullYear();                           // Year (YYYY)
+        // const hours = String(now.getHours()).padStart(2, '0');    // Hours (HH)
+        // const minutes = String(now.getMinutes()).padStart(2, '0'); // Minutes (MM)
+        // const seconds = String(now.getSeconds()).padStart(2, '0'); // Seconds (SS)
+
+        // // Combine into desired format
+        // const formattedDate = `${day}-${month}-${year}-${hours}${minutes}-${seconds}`;
+
+
+        localStorage.setItem(`autosave#${Date.now()}`, code);
+        autoSaveNameIndex += 1;
+        if (autoSaveNameIndex > 10){
+            autoSaveNameIndex = 0
+        }
+    }else {
+        localStorage.setItem(name, code);
+    }
     closeNameMenu()
     refreshSaves()
 }
 
 let savesText = [];
 function refreshSaves(){
-    let saves = Object.keys(localStorage).sort()
+    let saves = Object.keys(localStorage)
+        .filter(key => !key.includes("autosave#") )
+        .sort()
     // console.log(saves);
     let saveList = document.getElementById('saveList')
     saveList.innerHTML = ''
@@ -2223,7 +2272,38 @@ function refreshSaves(){
         saveList.appendChild(saveDiv);
         savesText.push(saveDiv)
     });
+}
 
+function refreshTimeline(){
+    let saves = Object.keys(localStorage)
+        .filter(key => key.includes("autosave#"))
+        .map(key => ({
+            key,
+            timestamp: parseInt(key.split("#")[1])
+        }))
+        .sort((a, b) => a.timestamp - b.timestamp)
+        .map(item => item.key)
+        .reverse();
+
+    let first10Saves = saves.slice(0, 50);
+    saves.forEach(key => {
+        if (!first10Saves.includes(key)) {
+            localStorage.removeItem(key);
+        }
+    });
+
+    let timelineList = document.getElementById('timelineList')
+    timelineList.innerHTML = ''
+    saves.forEach(save => {
+        const saveDiv = document.createElement('div');
+        // saveDiv.textContent = `${save.split("#")[0]} ${Date(parseInt(save.split("#")[1]))}`; //too long
+        saveDiv.textContent = save
+        saveDiv.addEventListener('click', () => {
+            saveDiv.classList.toggle('saveSelected');
+            loadSelected()
+        });
+        timelineList.appendChild(saveDiv);
+    });
 }
 
 function loadSelected(){
@@ -2234,7 +2314,9 @@ function loadSelected(){
             code = localStorage.getItem(selected.textContent);
         }
     })
-    importCode(0,code)
+    if(code){
+        importCode(0,code)
+    }
     closeSaveMenu()
 }
 
@@ -2260,8 +2342,29 @@ searchBar.addEventListener("input",() => {
     })
 })
 
+let autosaveIconTimeout;
+function autosave() {
+    saveCurrent(1)
+    refreshTimeline()
+    const autosaveIconElement = document.getElementById('autosaveIcon')
+    autosaveIconElement.style.transition = 'none'
+    autosaveIconElement.style.opacity = 1;
+
+    if (autosaveIconTimeout) {
+        clearTimeout(autosaveIconTimeout);
+    }
+
+    autosaveIconTimeout = setTimeout(() => {
+        autosaveIconElement.style.transition = 'opacity 1s ease-out'
+        autosaveIconElement.style.opacity = 0;
+    }, 1000)
+
+}
+
 
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
+
+    autosaveInterval = setInterval(autosave, 10000);
 }
 
