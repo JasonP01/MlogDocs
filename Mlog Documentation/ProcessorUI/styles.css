@@ -161,16 +161,104 @@ body::-webkit-scrollbar-thumb{
     background-color: black;
 }
 
-.autosaveIcon{
+.Icon{
     position: absolute;
+}
+
+.Icon img {
+    width: 50px;
+    image-rendering: pixelated;
+}
+
+.autosaveIcon {
     right: 20px;
     bottom: 20px;
     opacity: 0;
 }
 
-.autosaveIcon img {
-    width: 50px;
-    image-rendering: pixelated;
+.settingIcon {
+    right: 20px;
+    top: 20px;
+}
+
+.sliderContainer {
+    position: relative;
+    /* margin-right: 10px; */
+}
+
+.sliderContainer .name {
+    position: absolute;
+    top: 0; /* Adjust to center text on the handle */
+    left: 15px;
+    /* transform: translateX(-50%); */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    pointer-events: none; /* Prevent interaction */
+}
+
+.sliderContainer .value {
+    position: absolute;
+    top: 0; /* Adjust to center text on the handle */
+    right: 15px;
+    /* transform: translateX(-50%); */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    direction: rtl;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 97%;
+    height: 30px;
+    background: transparent;
+    outline: none;
+    border: #2b2b2b 3px solid;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    appearance: none; 
+    width: 20px;
+    height: 30px;
+    background: #2b2b2b;
+
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: #2b2b2b 3px solid;
+    /* clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%);
+    box-shadow: 0 0 0 10px blue; */
+}
+
+input[type="checkbox"]:checked {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    background: #2b2b2b;
+    background-clip: content-box;
+    border: #2b2b2b 3px solid;
+}
+
+.checkBoxContainer{
+    display: flex;
+
+    align-items: center;
 }
 
 .saveList .saveSelected {
@@ -271,7 +359,7 @@ body::-webkit-scrollbar-thumb{
     opacity: 1;
 }
 
-.wizard-content {
+.AddMenu {
     background-color: rgb(0, 0, 0);
     color: rgb(248, 248, 248);
     padding: 0.5vw;
@@ -287,14 +375,14 @@ body::-webkit-scrollbar-thumb{
     font-size: clamp(14px, 10vw, 18px);
 }
 
-.wizard-content::-webkit-scrollbar{
+.AddMenu::-webkit-scrollbar{
     width: 12px; /* Set the width of the scrollbar */
     height: 12px;
 }
-.wizard-content::-webkit-scrollbar-track{
+.AddMenu::-webkit-scrollbar-track{
     background-color: transparent;
 }
-.wizard-content::-webkit-scrollbar-thumb{
+.AddMenu::-webkit-scrollbar-thumb{
     background-color:#3c2f2f; /* Make the thumb background transparent */
 }
 

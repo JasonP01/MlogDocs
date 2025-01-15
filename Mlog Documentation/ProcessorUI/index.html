@@ -103,8 +103,46 @@
         <div id="timelineList" class="saveList timelineList">
         </div>
     </div>
-    <div id="autosaveIcon" class="autosaveIcon">
+    <div id="autosaveIcon" class="Icon autosaveIcon">
         <img src="image/save.png" alt="">
+    </div>
+    <div id="settingIcon" class="Icon settingIcon">
+        <img src="image/settings.png" alt="" onclick="openSettingMenu()">
+    </div>
+    <div id="setting" class="menu" onclick="closeSettingMenu(1,event)">
+        <div class="saveMenu">
+            <div>
+                <div>Autosave</div>
+                <div class="checkBoxContainer">
+                    <input type="checkbox" id="customCheckbox"/>
+                    <label for="customCheckbox">Autosave</label>
+                </div>
+                <div class="sliderContainer">
+                    <input type="range" id="slider" data-suffix="s" name="slider" min="2" max="180" step="1" oninput="showValue(this)">
+                    <div class="value">10s</div>
+                    <div class="name">Interval</div>
+                </div>
+                <div class="sliderContainer">
+                    <input type="range" id="slider" data-suffix="" name="slider" min="10" max="500" step="1" oninput="showValue(this)">
+                    <div class="value">100</div>
+                    <div class="name">Buffer</div>
+                </div>
+                <div>Settings</div>
+                <div class="checkBoxContainer">
+                    <input type="checkbox" id="customCheckbox"/>
+                    <label for="customCheckbox">Custom Checkbox</label>
+                </div>
+                <div class="checkBoxContainer">
+                    <input type="checkbox" id="customCheckbox"/>
+                    <label for="customCheckbox">Custom Checkbox</label>
+                </div>
+                <div class="checkBoxContainer">
+                    <input type="checkbox" id="customCheckbox"/>
+                    <label for="customCheckbox">Custom Checkbox</label>
+                </div>
+                <input type="submit">
+            </div>
+        </div>
     </div>
     <div id="helpMenu" class="menu" onclick="closeHelpWizard()">
         <div class="helpContent">
@@ -191,6 +229,18 @@
             </ul>
             <br>
             <ul>
+                <h3>Settings</h3>
+                Gear icon on the top right
+                <li><h4>Autosave</h4></li>
+                <ul>
+                    <li>Autosave : Whether to enable autosave or not</li>
+                    <li>Interval : Interval (in seconds) between autosaves</li>
+                    <li>Buffer : Determines how much autosave can be performed before deleting old autosaves
+                        <span style="color: red;">(large buffer will take more of your storage space)</span>
+                    </li>
+                </ul>
+            </ul>
+            <ul>
                 <h3>Additional Features</h3>
                 <li>Label blocks for jump instructions.</li>
                 <li>Optional instructions: while, for, long operation.</li>
@@ -199,7 +249,7 @@
         </div>
     </div>
     <div id="wizardMenu" class="menu" onclick="closeWizard()">
-        <div class="wizard-content">
+        <div class="AddMenu">
             <!-- <h2>Add</h2> -->
             <div class="addButtons">
                 <div class="wizard-title">Input & Output<div class="line"></div></div>

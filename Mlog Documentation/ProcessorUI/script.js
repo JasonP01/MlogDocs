@@ -477,6 +477,24 @@ function closeTimelineMenu(fromFrontend,e){
         }
 }
 //#######
+function openSettingMenu(){
+    document.getElementById('setting').style.display = 'flex';
+    refreshTimeline()
+}
+
+function closeSettingMenu(fromFrontend,e){
+    if (e){
+        e.stopPropagation()
+    }
+    if (fromFrontend){
+        if (e.target.classList.contains('menu')) {
+            document.getElementById('setting').style.display = 'none';
+        }
+        }else {
+            document.getElementById('setting').style.display = 'none';
+        }
+}
+//#######
 
 
 
@@ -1772,7 +1790,7 @@ function moveCursor(key){
 
 let selectedDiv;
 function selectContainer(){
-    if (document.activeElement.tagName == 'BODY'){
+    if (document.activeElement.tagName == 'BODY' && !cursorContainer.classList.contains('placeHolder')){
         cursorContainer.classList.add('selected')
         if (!selectedDiv){
             selectedDiv = document.createElement('div');
@@ -2361,6 +2379,15 @@ function autosave() {
 
 }
 
+
+// ########################################################################################################################
+// settings
+// ########################################################################################################################
+
+function showValue(e) {
+    const value = e.value + e.dataset.suffix
+    e.nextElementSibling.textContent = value
+}
 
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
