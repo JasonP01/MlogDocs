@@ -78,7 +78,7 @@
                     <span>Saved Code : </span>
                 </div>
                 <div>
-                    <input type="text" id="searchBar" placeholder="Search...">
+                    <input type="text" id="searchBar" class="searchBox" placeholder="Search...">
                 </div>
             </div>
             <div id="saveList" class="saveList">
@@ -91,10 +91,10 @@
                 </div>
             </div>
             <div style="text-align: center;">
-                <button class="button" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
-                <button class="button" id="loadSelected" onclick="loadSelected()">Load Selected</button>
-                <button class="button" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
-                <button class="button" id="saveCurrent" onclick="openTimelineMenu()">Timeline</button>
+                <button class="button smallButton" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
+                <button class="button smallButton" id="loadSelected" onclick="loadSelected()">Load Selected</button>
+                <button class="button smallButton" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
+                <button class="button smallButton" id="saveCurrent" onclick="openTimelineMenu()">Timeline</button>
             </div>
         </div>
     </div>
@@ -114,16 +114,16 @@
             <div>
                 <div>Autosave</div>
                 <div class="checkBoxContainer">
-                    <input type="checkbox" id="customCheckbox"/>
-                    <label for="customCheckbox">Autosave</label>
+                    <input type="checkbox" id="autosave"/>
+                    <label for="autosave">Autosave</label>
                 </div>
                 <div class="sliderContainer">
-                    <input type="range" id="slider" data-suffix="s" name="slider" min="2" max="180" step="1" oninput="showValue(this)">
+                    <input type="range" id="interval" data-suffix="s" name="slider" min="2" max="180" step="1" oninput="updateSettingValue(this)">
                     <div class="value">10s</div>
                     <div class="name">Interval</div>
                 </div>
                 <div class="sliderContainer">
-                    <input type="range" id="slider" data-suffix="" name="slider" min="10" max="500" step="1" oninput="showValue(this)">
+                    <input type="range" id="buffer" data-suffix="" name="slider" min="10" max="500" step="1" oninput="updateSettingValue(this)">
                     <div class="value">100</div>
                     <div class="name">Buffer</div>
                 </div>
@@ -140,7 +140,7 @@
                     <input type="checkbox" id="customCheckbox"/>
                     <label for="customCheckbox">Custom Checkbox</label>
                 </div>
-                <input type="submit">
+                <button class="button smallButton" id="saveCurrent" onclick="saveSettings()">Save</button>
             </div>
         </div>
     </div>

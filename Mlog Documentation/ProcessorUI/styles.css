@@ -162,7 +162,7 @@ body::-webkit-scrollbar-thumb{
 }
 
 .Icon{
-    position: absolute;
+    position: fixed;
 }
 
 .Icon img {
@@ -289,6 +289,38 @@ input[type="checkbox"]:checked {
 .saveList div:hover {
     border: gray 3px solid;
     border-radius: 4px;
+}
+
+.searchBox {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    color: white;
+    box-shadow: none;
+    border: none;
+}
+.searchBox:focus-visible {
+    border: none !important;
+    box-shadow: none;
+}
+
+.searchBox::placeholder {
+    color: lightgray;
+}
+
+.searchBox:-webkit-autofill {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.searchBox:-webkit-autofill {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.searchBox:-moz-autofill {
+    background-color: transparent !important;
+    color: white !important;
 }
 
 
@@ -557,6 +589,11 @@ input[type="checkbox"]:checked {
     height: fit-content;
     outline-color: #1a1a1a;
     max-width: 50vw;
+}
+
+.smallButton {
+    padding: 3px; 
+    font-size: 0.9em; 
 }
 
 footer {

@@ -479,7 +479,25 @@ function closeTimelineMenu(fromFrontend,e){
 //#######
 function openSettingMenu(){
     document.getElementById('setting').style.display = 'flex';
-    refreshTimeline()
+    let savedSettings = localStorage.getItem('setting')
+    if (!savedSettings){
+        const defaultSettings = {
+            autosave: true,
+            interval: 10,
+            buffer: 20
+        } 
+        localStorage.setItem('setting', JSON.stringify(defaultSettings))
+        savedSettings = defaultSettings
+    }
+    savedSettings = JSON.parse(savedSettings)
+    document.getElementById('autosave').checked = savedSettings.autosave
+    const interval = document.getElementById('interval')
+    const buffer = document.getElementById('buffer')
+    interval.value = savedSettings.interval
+    updateSettingValue(interval)
+    buffer.value = savedSettings.buffer
+    updateSettingValue(buffer)
+
 }
 
 function closeSettingMenu(fromFrontend,e){
@@ -2154,7 +2172,9 @@ let instTypeMapR = {
     'uradar'    : 'Unit Radar',
     'ulocate'   : 'Unit Locate',
 } 
-
+// ########################################################################################################################
+// import
+// ########################################################################################################################
 // TODO give an option for the user to paste their code manually to a field if they reject clipboard access
 // with a menu
 // and remember choice 
@@ -2226,7 +2246,9 @@ async function importCode(manual,codeSaved){
     closePasteMenu()
 }
 
-
+// ########################################################################################################################
+// saves
+// ########################################################################################################################
 let autoSaveNameIndex = 0;
 function saveCurrent(autosave){
     let code = exportCode(1)
@@ -2242,7 +2264,7 @@ function saveCurrent(autosave){
             counter++;
             // console.log(counter);
             // console.log(name);
-    }
+        }
     }
     // console.log(name);
     if (autosave){
@@ -2256,9 +2278,7 @@ function saveCurrent(autosave){
         // const minutes = String(now.getMinutes()).padStart(2, '0'); // Minutes (MM)
         // const seconds = String(now.getSeconds()).padStart(2, '0'); // Seconds (SS)
 
-        // // Combine into desired format
         // const formattedDate = `${day}-${month}-${year}-${hours}${minutes}-${seconds}`;
-
 
         localStorage.setItem(`autosave#${Date.now()}`, code);
         autoSaveNameIndex += 1;
@@ -2275,7 +2295,7 @@ function saveCurrent(autosave){
 let savesText = [];
 function refreshSaves(){
     let saves = Object.keys(localStorage)
-        .filter(key => !key.includes("autosave#") )
+        .filter(key => !key.includes("autosave#") && !key.includes("setting"))
         .sort()
     // console.log(saves);
     let saveList = document.getElementById('saveList')
@@ -2302,8 +2322,9 @@ function refreshTimeline(){
         .sort((a, b) => a.timestamp - b.timestamp)
         .map(item => item.key)
         .reverse();
-
-    let first10Saves = saves.slice(0, 50);
+    
+    savedSettings = JSON.parse(localStorage.getItem('setting'))
+    let first10Saves = saves.slice(0, savedSettings.buffer);
     saves.forEach(key => {
         if (!first10Saves.includes(key)) {
             localStorage.removeItem(key);
@@ -2360,23 +2381,40 @@ searchBar.addEventListener("input",() => {
     })
 })
 
+// ####################################################
+// autosave controller
+// ####################################################
 let autosaveIconTimeout;
+let autosaveRunInterval;
 function autosave() {
-    saveCurrent(1)
-    refreshTimeline()
-    const autosaveIconElement = document.getElementById('autosaveIcon')
-    autosaveIconElement.style.transition = 'none'
-    autosaveIconElement.style.opacity = 1;
-
-    if (autosaveIconTimeout) {
-        clearTimeout(autosaveIconTimeout);
+    function autosaveRun(){
+        saveCurrent(1)
+        refreshTimeline()
+        const autosaveIconElement = document.getElementById('autosaveIcon')
+        autosaveIconElement.style.transition = 'none'
+        autosaveIconElement.style.opacity = 1;
+    
+        if (autosaveIconTimeout) {
+            clearTimeout(autosaveIconTimeout);
+        }
+    
+        autosaveIconTimeout = setTimeout(() => {
+            autosaveIconElement.style.transition = 'opacity 1s ease-out'
+            autosaveIconElement.style.opacity = 0;
+        }, 1000)
     }
-
-    autosaveIconTimeout = setTimeout(() => {
-        autosaveIconElement.style.transition = 'opacity 1s ease-out'
-        autosaveIconElement.style.opacity = 0;
-    }, 1000)
-
+    let savedSettings = localStorage.getItem('setting')
+    savedSettings = JSON.parse(savedSettings)
+    console.log(savedSettings.interval);
+    if (savedSettings.autosave){
+        if (autosaveRunInterval) {
+            clearInterval(autosaveRunInterval);
+        }
+        autosaveRunInterval = setInterval(autosaveRun,savedSettings.interval*1000)
+        autosaveRun()
+    }else{
+        clearInterval(autosaveRunInterval);
+    }
 }
 
 
@@ -2384,14 +2422,32 @@ function autosave() {
 // settings
 // ########################################################################################################################
 
-function showValue(e) {
+function updateSettingValue(e) {
     const value = e.value + e.dataset.suffix
     e.nextElementSibling.textContent = value
+}
+
+function saveSettings(){
+    const setting = document.getElementById('setting')
+    const isAutosave = setting.querySelector('#autosave').checked
+    const interval = setting.querySelector('#interval').value
+    const buffer = setting.querySelector('#buffer').value
+    const savedSettings = {
+        autosave : isAutosave,
+        interval : interval,
+        buffer : buffer
+    }
+    localStorage.setItem('setting',JSON.stringify(savedSettings))
+    closeSettingMenu()
+    autosave()
 }
 
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
 
-    autosaveInterval = setInterval(autosave, 10000);
+    autosave()
+    // autosaveInterval = setInterval(autosave, 10000);
+    // openSettingMenu()
+    openSaveMenu()
 }
 
