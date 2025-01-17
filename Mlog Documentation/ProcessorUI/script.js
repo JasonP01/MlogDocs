@@ -9,7 +9,7 @@ buttons.forEach(button => {
     button.addEventListener('click', () => addInstruction(button))
 });
     
-function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8){
+function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8, triggerPopupMenu){
     if (typeof button === 'string') {
         button = buttonMap.get(button) || button;
     }
@@ -40,19 +40,19 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable iNo" contenteditable="true">${field3 || '0'}</span>`
             break;
         case 'Draw':
-            code = `<span class="editable iNo" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">clear</span>
+            code = `<span class="editable iNo selectionValue" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">${field1 || 'clear'}</span>
                     <span class="toggleableField" id="field1" style="display:block;">r</span>
-                    <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field1 || '0'}</span>
+                    <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
                     <span class="toggleableField" id="field2" style="display:block;">g</span>
-                    <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
+                    <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
                     <span class="toggleableField" id="field3" style="display:block;">b</span>
-                    <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
+                    <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style="display:block;">${field4 || '0'}</span>
                     <span class="toggleableField" id="field4">a</span>
-                    <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">${field4 || '0'}</span>
+                    <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>
                     <span class="toggleableField" id="field5">a</span>
-                    <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">${field5 || '0'}</span>
+                    <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">${field6 || '0'}</span>
                     <span class="toggleableField" id="field6">a</span>
-                    <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">${field6 || '0'}</span>`
+                    <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">${field7 || '0'}</span>`
             break;
         case 'Print':
             code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
@@ -75,7 +75,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Control':
             code = `<span>set</span>
-                    <span class="editable blockControl" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">${field1 || 'enabled'}</span>
+                    <span class="editable blockControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">${field1 || 'enabled'}</span>
                     <span id="field1">of</span>
                     <span class="editable blockControl" id="field1Value" contenteditable="true">${field2 || 'block1'}</span>
                     <span class="toggleableField" id="field2" style="display:block;">to</span>
@@ -102,12 +102,12 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable blockControl" contenteditable="true" id="field7Value">${field7 || 'result'}</span>`
             break;
         case 'Sensor':
-            code = `<span class="editable blockControl" contenteditable="true">${field1 || 'result'}</span>
+            code = `<span class="editable blockControl" contenteditable="true" id="field1Value">${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable blockControl dontInclude" contenteditable="true">${field3 || '@copper'}</span>
+                    <span class="editable blockControl dontInclude" contenteditable="true" id="field2Value">${field3 || '@copper'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
                     <span>in</span>
-                    <span class="editable blockControl" contenteditable="true">${field2 || 'block1'}</span>`
+                    <span class="editable blockControl" contenteditable="true" id="field3Value">${field2 || 'block1'}</span>`
             break;
         case 'Set':
             code = `<span class="editable operation" contenteditable="true">${field1 || 'result'}</span>
@@ -151,7 +151,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Jump':
             code = `<span>if</span>
                     <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || 'x'}</span>
-                    <span class="editable flowControl dontInclude" id="field3Value" onclick="popUpMenu(event,'jumpMenu')">${field2 || 'not'}</span>
+                    <span class="editable flowControl dontInclude selectionValue" id="field3Value" onclick="popUpMenu(event,'jumpMenu')">${field2 || 'not'}</span>
                     <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;">${field4 || 'false'}</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
@@ -165,7 +165,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">${field1 || '@poly'}</span>`
             break;
         case 'Unit Control':
-            code = `<span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">${field1 || 'move'}</span>
+            code = `<span class="editable unitControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">${field1 || 'move'}</span>
                     <span class="toggleableField" id="field1" style="display:block;">x</span>
                     <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
                     <span class="toggleableField" id="field2" style="display:block;">y</span>
@@ -259,6 +259,11 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         </div>`
     );
 
+    newElement = lastContainer.nextElementSibling 
+
+    if (triggerPopupMenu) {      // probably shouldn't use ('[onclick]')[2]
+        selectOption(null,null,(newElement.querySelectorAll('[onclick]')[2]),newElement.querySelector('.selectionValue').textContent)
+    }
     if (update == 0){
         return
     } else {
@@ -477,27 +482,10 @@ function closeTimelineMenu(fromFrontend,e){
         }
 }
 //#######
+
 function openSettingMenu(){
     document.getElementById('setting').style.display = 'flex';
-    let savedSettings = localStorage.getItem('setting')
-    if (!savedSettings){
-        const defaultSettings = {
-            autosave: true,
-            interval: 10,
-            buffer: 20
-        } 
-        localStorage.setItem('setting', JSON.stringify(defaultSettings))
-        savedSettings = defaultSettings
-    }
-    savedSettings = JSON.parse(savedSettings)
-    document.getElementById('autosave').checked = savedSettings.autosave
-    const interval = document.getElementById('interval')
-    const buffer = document.getElementById('buffer')
-    interval.value = savedSettings.interval
-    updateSettingValue(interval)
-    buffer.value = savedSettings.buffer
-    updateSettingValue(buffer)
-
+    refreshSettingMenu()
 }
 
 function closeSettingMenu(fromFrontend,e){
@@ -676,7 +664,7 @@ function isScroll(y){
 }
 
 const handleMove = (e) => {
-    (document.getElementById('debugText2')).textContent = isDragging;
+    (document.getElementById('debugText2')).textContent = `is dragging : ${isDragging}`;
     if (isDragging) {
         let {x, y, sy} = getMouseCoords(e)
         
@@ -699,7 +687,7 @@ const handleMove = (e) => {
             closestContainer = document.querySelector('.placeHolder')
         }
         
-        (document.getElementById('debugText8')).textContent = closestContainer?.textContent;
+        (document.getElementById('debugText8')).textContent = `above instruction : ${closestContainer?.textContent}`;
         let preview = closestContainer.nextSibling
         if (preview.className !== 'placementPreview'){
             (document.querySelector('.placementPreview'))?.remove();
@@ -710,8 +698,8 @@ const handleMove = (e) => {
             // the value 20 is from :
             //(window.getComputedStyle(elementDragged.querySelector('DIV')).marginBottom) - placementPreview {border-width} * 2;
         }
-        (document.getElementById('debugText6')).textContent = x;
-        (document.getElementById('debugText7')).textContent = y;
+        (document.getElementById('debugText6')).textContent = `cursor position x ${x}`;
+        (document.getElementById('debugText7')).textContent = `cursor position y ${y}`;
         elementDragged.style.left = `${x - offsetX}px`;
         elementDragged.style.top = `${sy - offsetY}px`;
         elementDragged.style.position = 'absolute'
@@ -840,6 +828,7 @@ function MouseDown(blocks,parent) {
         const {x, y, sy} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDragging = true;
+            e.preventDefault() // prevent scrolling for touch scroll devices
             deselectContainer();
             elementDragged = e.target.closest('.container')
             offsetX = x - elementDragged.offsetLeft;
@@ -851,6 +840,7 @@ function MouseDown(blocks,parent) {
         const {x, y, sy} = getMouseCoords(e)
         if (document.elementFromPoint(x, y) == blocks){
             isDraggingJump = true;
+            e.preventDefault() // prevent scrolling for touch scroll devices
             deselectContainer();
             elementDragged = e.target.closest('.jumpArrowTriangle')
             offsetX = x - elementDragged.offsetLeft;
@@ -945,6 +935,7 @@ function positionPopUpMenu(event, id, ignoreCursor) {
     if (poprect.bottom > viewportHeight) menu.style.top = `${viewportHeight - poprect.height}px`;
 }
 function popUpMenu(event,id){
+    console.log(event);
 
     popUpMenuElement = document.getElementById(id);
 
@@ -989,29 +980,11 @@ function subSensorMenu(type,event){
 }
 
 const clickHandler = (event) => popUpMenu(event, 'drawMenuAlign');
-function selectOption(event,id) {
-    performanceStart = performance.now();
-    event.stopPropagation();
-    let span;
-    if (clickedMenu.tagName == 'IMG'){
-        span = clickedMenu.previousElementSibling
-    } else {
-        span = clickedMenu
-    }
-
-    let targetId = event.target.id
-    
-    if (event.target.tagName == 'IMG' || event.target.className == "popUpMenu") {
-        return
-        }
-    
-    const option = event.target.textContent
-    span.textContent = option;
-    console.log(event.target);
-
-    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
+function selectOption(event,id,isImport,importSelectionValue) {
 
     // Draw instruction related function
+    // this function is used in switch option below,
+    // i dont like defintion that gets defined far from the place its used, but its a function, what can you do
     function rbgaFieldText(field) {
         // if (['field1', 'field1Value', 'field2', 'field2Value', 'field3', 'field3Value', 'field4', 'field4Value'].includes(field.id)){
             switch (field.id){
@@ -1031,13 +1004,50 @@ function selectOption(event,id) {
         field.hasEvent = false;
         field.removeEventListener('click', (clickHandler));
     }
-    if (id == "drawMenu" && option != "print") {
-        removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
+
+
+    let option;
+    let targetId
+
+    // console.log(event);
+    if (!isImport){
+        performanceStart = performance.now();
+        event.stopPropagation();
+        let span;
+        if (clickedMenu.tagName == 'IMG'){
+            span = clickedMenu.previousElementSibling
+        } else {
+            span = clickedMenu
+        }
+    
+        targetId = event.target.id
+        
+        if (event.target.tagName == 'IMG' || event.target.className == "popUpMenu") {
+            return
+            }
+        
+        option = event.target.textContent
+        span.textContent = option;
+        // console.log(event.target);
+        if (id == "drawMenu" && option != "print") {
+            removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
+        }
+    
+    }else {
+        clickedMenu = isImport
+        option = importSelectionValue
+        
     }
+
+    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
+
+
 
     // Switch case for every pop up menu context that changes its instruction fields 
     //(there might be a better way but unless its performance is not >10ms its fine)
+    console.log(option);
     switch (option){
+        // control section
         case 'enabled':
         case 'config':
             fields.forEach(field => {
@@ -1091,6 +1101,8 @@ function selectOption(event,id) {
                 }
             })
             break;
+
+        // Draw Section
         case 'clear':
             fields.forEach(field => {
                 if (['field1', 'field2', 
@@ -1670,6 +1682,8 @@ function selectOption(event,id) {
                 field.style.display = 'none';
             })
             break;
+
+        //jump section
         case 'always':
             fields.forEach(field => {
                 if (['field1Value', 
@@ -1711,7 +1725,9 @@ function selectOption(event,id) {
             })
             break;
     }
-    closeMenu(event);
+    if(!isImport){
+        closeMenu(event);
+    }
 }
 
 function closeMenu(event) {
@@ -1720,7 +1736,7 @@ function closeMenu(event) {
     event.stopPropagation();
     bgclickedMenu.style.display = 'none'
     performanceEnd = performance.now();
-    (document.getElementById('debugText4')).textContent = (`Execution time: ${performanceEnd - performanceStart} milliseconds`);
+    (document.getElementById('debugText4')).textContent = (`Pop up menu performance: ${performanceEnd - performanceStart} milliseconds`);
     console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
 }
 
@@ -2011,7 +2027,7 @@ const operatorMap = {
     "atan"      : 'atan ',
     "always"    : 'always ',
 
-    'add'               : 'add ',
+    'add'               : 'add ', // UGLY, idk other way though
     'sub'               : 'sub ',
     'mul'               : 'mul ',
     'div'               : 'div ',
@@ -2064,16 +2080,23 @@ let instTypeMap = {
     'Print Flush'   : 'printflush ',
     'Get Link'      : 'getlink ',
     'Control'       : 'control ',
-    'Sensor'        : 'sensor ',
+    'Radar'         : 'radar ',
+    // 'Sensor'        : 'sensor ',
     'Set'           : 'set ',
+    // 'Operation'     : 'operation ',
+    // 'Lookup'        : 'lookup ',
     'Pack Color'    : 'packcolor ',
     'Wait'          : 'wait ',
     'Stop'          : 'stop ',
     'End'           : 'end ',
+    // 'Jump'           : 'jump ',
     'Unit Bind'     : 'ubind ',
     'Unit Control'  : 'ucontrol ',
-    'Comment'       : '#',
+    // 'Unit Radar'    : 'uradar ',
+    // 'Unit Locate'   : 'ulocate ',
     'Noop'          : 'noop',
+    // 'Label'         : 'label',
+    'Comment'       : '#',
 } 
 function exportCode(save){
     deselectContainer();
@@ -2093,6 +2116,9 @@ function exportCode(save){
                 if (instType == 'Jump'){
                     codeEx += `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
                     exportFields(0)
+                }
+                if (instType == 'Sensor'){
+                    codeEx += `sensor ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field2Value')?.textContent}`
                 }
                 if (instType == 'Operation'){
                     codeEx += "op "
@@ -2227,10 +2253,13 @@ async function importCode(manual,codeSaved){
     lines.forEach((line, index) => {
         let words = line.trim().split(/\s+/);
         type = instTypeMapR[words[0]]
-        console.log(words);
         if (type){
             // console.log(type);
-            addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8])
+            let triggerPopupMenu
+            if (type == 'Control' || type == 'Draw' || type == 'Unit Control' || type == 'Jump') {
+                triggerPopupMenu = true
+            }
+            addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8], triggerPopupMenu)
         } else {
             if (words[0].endsWith(":")){
                 addInstruction('Label', 0, words[0].replace(":",""))
@@ -2323,7 +2352,7 @@ function refreshTimeline(){
         .map(item => item.key)
         .reverse();
     
-    savedSettings = JSON.parse(localStorage.getItem('setting'))
+    let savedSettings = getSavedSettings()
     let first10Saves = saves.slice(0, savedSettings.buffer);
     saves.forEach(key => {
         if (!first10Saves.includes(key)) {
@@ -2335,8 +2364,23 @@ function refreshTimeline(){
     timelineList.innerHTML = ''
     saves.forEach(save => {
         const saveDiv = document.createElement('div');
-        // saveDiv.textContent = `${save.split("#")[0]} ${Date(parseInt(save.split("#")[1]))}`; //too long
-        saveDiv.textContent = save
+        const now = new Date((parseInt(save.split("#")[1])));
+
+        // Extract date components
+        const day = String(now.getDate()).padStart(2, '0');        // Day (DD)
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Month (MM) - Months are 0-indexed
+        const year = now.getFullYear();                            // Year (YYYY)
+        const hours = String(now.getHours()).padStart(2, '0');     // Hours (HH)
+        const minutes = String(now.getMinutes()).padStart(2, '0'); // Minutes (MM)
+        const seconds = String(now.getSeconds()).padStart(2, '0'); // Seconds (SS)
+
+        const formattedDate = `${day}-${month}-${year}-${hours}-${minutes}-${seconds}`;
+
+
+        saveDiv.textContent = `${save.split("#")[0]}#${formattedDate}`;
+        saveDiv.dataset.saveFileName = `${save}`; //UGLY
+
+        // saveDiv.textContent = save
         saveDiv.addEventListener('click', () => {
             saveDiv.classList.toggle('saveSelected');
             loadSelected()
@@ -2349,8 +2393,11 @@ function loadSelected(){
     let code
     document.querySelectorAll('.saveSelected').forEach(selected => {
         selected.classList.remove('saveSelected')
-        if (!code){
+        if (!code){ 
             code = localStorage.getItem(selected.textContent);
+            if (!code) { //UGLY
+                code = localStorage.getItem(selected.dataset.saveFileName)
+            }
         }
     })
     if(code){
@@ -2403,9 +2450,7 @@ function autosave() {
             autosaveIconElement.style.opacity = 0;
         }, 1000)
     }
-    let savedSettings = localStorage.getItem('setting')
-    savedSettings = JSON.parse(savedSettings)
-    console.log(savedSettings.interval);
+    let savedSettings = getSavedSettings()
     if (savedSettings.autosave){
         if (autosaveRunInterval) {
             clearInterval(autosaveRunInterval);
@@ -2422,6 +2467,23 @@ function autosave() {
 // settings
 // ########################################################################################################################
 
+function getSavedSettings(){
+    let savedSettings = localStorage.getItem('setting')
+    if (!savedSettings){
+        const defaultSettings = {
+            autosave: true,
+            interval: 10,
+            buffer: 20,
+            showDebug : false
+        } 
+        localStorage.setItem('setting', JSON.stringify(defaultSettings))
+        savedSettings = defaultSettings
+    }else {
+        savedSettings = JSON.parse(savedSettings)
+    }
+    return savedSettings
+}
+
 function updateSettingValue(e) {
     const value = e.value + e.dataset.suffix
     e.nextElementSibling.textContent = value
@@ -2432,22 +2494,47 @@ function saveSettings(){
     const isAutosave = setting.querySelector('#autosave').checked
     const interval = setting.querySelector('#interval').value
     const buffer = setting.querySelector('#buffer').value
+    const showDebug = setting.querySelector('#showDebug').checked
     const savedSettings = {
         autosave : isAutosave,
         interval : interval,
-        buffer : buffer
+        buffer : buffer,
+        showDebug : showDebug
     }
     localStorage.setItem('setting',JSON.stringify(savedSettings))
     closeSettingMenu()
+    refreshUserSetting()
+}
+
+function refreshUserSetting(){
+    let savedSettings = getSavedSettings()
     autosave()
+    if (savedSettings.showDebug) {
+        document.getElementById('debugMenu').style.display = 'block'
+    }else {
+        document.getElementById('debugMenu').style.display = 'none'
+    }
+}
+
+function refreshSettingMenu(){
+    let savedSettings = getSavedSettings()
+    
+    document.getElementById('autosave').checked = savedSettings.autosave
+    document.getElementById('showDebug').checked = savedSettings.showDebug
+
+    const interval = document.getElementById('interval')
+    const buffer = document.getElementById('buffer')
+    interval.value = savedSettings.interval
+    updateSettingValue(interval)
+    buffer.value = savedSettings.buffer
+    updateSettingValue(buffer)
+
 }
 
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
-
-    autosave()
+    refreshUserSetting()
     // autosaveInterval = setInterval(autosave, 10000);
     // openSettingMenu()
-    openSaveMenu()
+    // openSaveMenu()
 }
-

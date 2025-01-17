@@ -8,37 +8,38 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- TODO add more keybinds (selectable instruction using arrow keys, tab(and or arrows) to cycle fields on selected instruction, move/drag selected instruction 
-    delete selected instruction, add instruction below or above selected instruction ) -->
-    <!-- TODO create lable block for jump instruction -->
-    <!-- TODO allow saving and loading codes using localStorage, maybe make a menu for it -->
+    <!-- TODO ctrl + click to immediately see destination of jumps -->
+    <!-- TODO Implement World Processor instructions -->
+    <!-- TODO instead of keybinds for the add menu, implement a search bar that adds the first result on enter -->
     <!-- TODO extra optional instruction; while; for; long operation; -->
-    <div id="debugText" style="color: white; position: fixed; top: 0px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText2" style="color: white; position: fixed; top: 15px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText3" style="color: white; position: fixed; top: 30px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText4" style="color: white; position: fixed; top: 45px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText5" style="color: white; position: fixed; top: 60px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText6" style="color: white; position: fixed; top: 75px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText7" style="color: white; position: fixed; top: 90px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText8" style="color: white; position: fixed; top: 105px; left: 1px; z-index: 10;">
-        debug text
-    </div>
-    <div id="debugText9" style="color: white; position: fixed; top: 120px; left: 1px; z-index: 10;">
-        debug text
+    <div id="debugMenu" style="display: none;">
+        <div id="debugText" style="color: white; position: fixed; top: 0px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText2" style="color: white; position: fixed; top: 15px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText3" style="color: white; position: fixed; top: 30px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText4" style="color: white; position: fixed; top: 45px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText5" style="color: white; position: fixed; top: 60px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText6" style="color: white; position: fixed; top: 75px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText7" style="color: white; position: fixed; top: 90px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText8" style="color: white; position: fixed; top: 105px; left: 1px; z-index: 10;">
+            debug text
+        </div>
+        <div id="debugText9" style="color: white; position: fixed; top: 120px; left: 1px; z-index: 10;">
+            debug text
+        </div>
     </div>
     <div style="position: fixed; color: rgba(255, 0, 0, 0.185); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
         As this is a rather large project I cannot be absolutely sure
@@ -98,7 +99,6 @@
             </div>
         </div>
     </div>
-    <!-- TODO add a setting menu, autosave = bool, interval = int, size = int-->
     <div id="timeline" class="menu" onclick="closeTimelineMenu(1,event)">
         <div id="timelineList" class="saveList timelineList">
         </div>
@@ -129,8 +129,8 @@
                 </div>
                 <div>Settings</div>
                 <div class="checkBoxContainer">
-                    <input type="checkbox" id="customCheckbox"/>
-                    <label for="customCheckbox">Custom Checkbox</label>
+                    <input type="checkbox" id="showDebug"/>
+                    <label for="showDebug">Debug Text</label>
                 </div>
                 <div class="checkBoxContainer">
                     <input type="checkbox" id="customCheckbox"/>
@@ -157,7 +157,7 @@
                 This tool amplifies the experience of creating code for the Processor block while preserving the game's block-like visuals.
                 <br>
                 <br>
-                <span style="background-color: red;">(STILL WORK IN PROGRESS)</span>
+                <span style="color: orange;">(still work in progress but mostly done, although bugs may be present)</span>
             </p>
             <ul>
                 <h3>Keybinds</h3>
