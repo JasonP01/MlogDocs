@@ -10,6 +10,8 @@ buttons.forEach(button => {
 });
     
 function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8, triggerPopupMenu){
+    const pfstart = performance.now()
+    
     if (typeof button === 'string') {
         button = buttonMap.get(button) || button;
     }
@@ -155,7 +157,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;">${field4 || 'false'}</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
-                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false">${field1 || '-1'}</span>
+                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false" onclick="jumpDestination(event)">${field1 || '-1'}</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
                     <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
@@ -241,7 +243,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
     
     lastContainer.insertAdjacentHTML('afterend', `
         <div class="container" ${exclude === 1 ? 'id=\"exclude\"' : ''}>
-            <div class="${type}-container">
+            <div class="innerContainer ${type}-container">
                 <div class="block-header">
                     <span class="headerText">${buttonText}</span>
                     <div class="controls">
@@ -269,6 +271,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
     } else {
         updateLineNumber();
     }
+    console.log(`${performance.now() - pfstart}`);
 
     };
 
@@ -387,6 +390,7 @@ function Delete(e) {
 }
 
 function copy(e) {
+
     const parentContainer = e.target.closest('.container');
     if (parentContainer) {
         const copyCode = parentContainer.outerHTML; 
@@ -532,6 +536,7 @@ keybindMap = {
     'o': 'Unit Radar',
     'p': 'Unit Locate',
 }
+// let ctrlDown;
 document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
     const helpMenu = document.getElementById('helpMenu');
@@ -539,6 +544,9 @@ document.addEventListener('keydown',(e) =>{
     const isVisibleAdd = wizardMenu.style.display === 'flex'
     const isVisibleHelp = helpMenu.style.display === 'flex'
     const isVisibleSave = saveMenu.style.display === 'flex';
+    // if (e.key === 'Control'){
+    //     ctrlDown = true;
+    // }
     if ((e.key === 'Escape' && (isVisibleAdd || isVisibleHelp || isVisibleSave)) || (isVisibleAdd && e.key === 'F2')) {
         closeWizard();
         closeHelpWizard();
@@ -599,6 +607,41 @@ document.addEventListener('keydown',(e) =>{
         }
     }
 })
+
+//jump destination ctrl link
+
+function jumpDestination(event) {
+    if (event.ctrlKey){
+        console.log('notctrl');
+        console.log(event.target.textContent);
+        console.log(event.target.parentElement.parentElement.parentElement.parentElement.querySelector('#lineNumber').textContent);
+        destinationElement = document.querySelectorAll('.container:not(#exclude)')[parseInt(event.target.textContent)]
+        destinationElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        })
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    console.log(destinationElement.firstElementChild);
+                    destinationElement.firstElementChild.classList.add('glow')
+            
+                    setTimeout(() => {
+                        destinationElement.firstElementChild.style.transition = 'box-shadow 0.3s ease-in-out'
+                        destinationElement.firstElementChild.classList.remove('glow')
+                    }, 1000);
+                    observer.disconnect();
+                }
+            });
+        });
+        
+        observer.observe(destinationElement);
+        
+
+
+    }
+}
 
 
 //####################################################################################################################################
@@ -2278,7 +2321,6 @@ async function importCode(manual,codeSaved){
 // ########################################################################################################################
 // saves
 // ########################################################################################################################
-let autoSaveNameIndex = 0;
 function saveCurrent(autosave){
     let code = exportCode(1)
     if (code == ""){
@@ -2310,14 +2352,10 @@ function saveCurrent(autosave){
         // const formattedDate = `${day}-${month}-${year}-${hours}${minutes}-${seconds}`;
 
         localStorage.setItem(`autosave#${Date.now()}`, code);
-        autoSaveNameIndex += 1;
-        if (autoSaveNameIndex > 10){
-            autoSaveNameIndex = 0
-        }
     }else {
         localStorage.setItem(name, code);
+        closeNameMenu()
     }
-    closeNameMenu()
     refreshSaves()
 }
 

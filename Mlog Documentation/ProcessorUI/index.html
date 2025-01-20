@@ -11,6 +11,7 @@
     <!-- TODO ctrl + click to immediately see destination of jumps -->
     <!-- TODO Implement World Processor instructions -->
     <!-- TODO instead of keybinds for the add menu, implement a search bar that adds the first result on enter -->
+    <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
     <!-- TODO extra optional instruction; while; for; long operation; -->
     <div id="debugMenu" style="display: none;">
         <div id="debugText" style="color: white; position: fixed; top: 0px; left: 1px; z-index: 10;">
@@ -204,6 +205,10 @@
                 </ul>
             </ul>
             <br>
+            <ul>
+                <h3>Tips</h3>
+                <li>you can CTRL + click the number destination in jump instruction to immediately scroll the destination instruction into view</li>
+            </ul>
             <!-- <ul>
             <h3>Instructions</h3>
             <li>Use arrow keys to navigate through instructions.</li>

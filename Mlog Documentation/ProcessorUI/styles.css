@@ -776,84 +776,41 @@ canvas {
     /* border: white 3px solid; */
 }
 
-
-.iNo-container {
-    background-color: #a08a8a;
+.innerContainer {
     border-radius: 5px;
     padding: 0px 5px 5px 5px;
     color: #fff;
-    min-width: clamp(300px, 60vw, 1000px);
-    max-width: 60vw;
+    width: clamp(300px, 60vw, 1000px);
+    /* max-width: 60vw; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    transition: box-shadow 0.3s ease-in-out;
     font-size: 14px;
     position: relative;
     margin-bottom:10px ;
+}
+
+.iNo-container {
+    background-color: #a08a8a;
 }
 
 .blockControl-container {
     background-color: #d4816b;
-    border-radius: 5px;
-    padding: 0px 5px 5px 5px;
-    color: #fff;
-    width: clamp(300px, 60vw, 1000px);
-    /* max-width: 60vw; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    font-size: 14px;
-    position: relative;
-    margin-bottom:10px ;
 }
-
 
 .operation-container {
     background-color: #877bad;
-    border-radius: 5px;
-    padding: 0px 5px 5px 5px;;
-    color: #fff;
-    width: clamp(300px, 60vw, 1000px);
-    /* max-width: 60vw; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    font-size: 14px;
-    position: relative;
-    margin-bottom:10px ;
 }
 
 .flowControl-container {
     background-color: #6bb2b2;
-    border-radius: 5px;
-    padding: 0px 5px 5px 5px;;
-    color: #fff;
-    width: clamp(300px, 60vw, 1000px);
-    /* max-width: 60vw; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    font-size: 14px;
-    position: relative;
-    margin-bottom:10px ;
 }
 
 .unitControl-container {
     background-color: #c7b59d;
-    border-radius: 5px;
-    padding: 0px 5px 5px 5px;
-    color: #fff;
-    width: clamp(300px, 60vw, 1000px);
-    /* max-width: 60vw; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    font-size: 14px;
-    position: relative;
-    margin-bottom:10px ;
 }
 
 .extra-container {
     background-color: #E82561;
-    border-radius: 5px;
-    padding: 0px 5px 5px 5px;
-    color: #fff;
-    width: clamp(300px, 60vw, 1000px);
-    /* max-width: 60vw; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-    font-size: 14px;
-    position: relative;
-    margin-bottom:10px ;
 }
 
 .Label-container {
@@ -864,4 +821,8 @@ canvas {
 .Comment-container {
     width: calc(clamp(300px, 60vw, 1000px) - 30px);
     margin-left: 30px;
+}
+
+.glow {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.4) !important;
 }
