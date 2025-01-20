@@ -8,7 +8,6 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- TODO ctrl + click to immediately see destination of jumps -->
     <!-- TODO Implement World Processor instructions -->
     <!-- TODO instead of keybinds for the add menu, implement a search bar that adds the first result on enter -->
     <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
@@ -93,10 +92,10 @@
                 </div>
             </div>
             <div style="text-align: center;">
+                <button class="button smallButton" id="saveCurrent" onclick="openTimelineMenu()">Timeline</button>
+                <button class="button smallButton" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
                 <button class="button smallButton" id="saveCurrent" onclick="openNameMenu()">Save Current</button>
                 <button class="button smallButton" id="loadSelected" onclick="loadSelected()">Load Selected</button>
-                <button class="button smallButton" id="deleteSelected" onclick="deleteSelected()">Delete Selected</button>
-                <button class="button smallButton" id="saveCurrent" onclick="openTimelineMenu()">Timeline</button>
             </div>
         </div>
     </div>
@@ -129,6 +128,11 @@
                     <div class="name">Buffer</div>
                 </div>
                 <div>Settings</div>
+                <div class="sliderContainer">
+                    <input type="range" id="UIScale" data-suffix="%" name="slider" min="30" max="200" step="1" oninput="updateSettingValue(this)">
+                    <div class="value">10%</div>
+                    <div class="name">UIScale</div>
+                </div>
                 <div class="checkBoxContainer">
                     <input type="checkbox" id="showDebug"/>
                     <label for="showDebug">Debug Text</label>

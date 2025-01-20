@@ -343,7 +343,7 @@ function updateJumpArrow(jumpIns) {
 
         // im so lazy so optimize this, point is it works
         ctx.strokeStyle = 'white'
-        ctx.lineWidth = 5
+        ctx.lineWidth = 2
         if (canvas.style.bottom === ''){
             ctx.beginPath()
             ctx.moveTo(10, distance+10)
@@ -612,10 +612,20 @@ document.addEventListener('keydown',(e) =>{
 
 function jumpDestination(event) {
     if (event.ctrlKey){
-        console.log('notctrl');
-        console.log(event.target.textContent);
-        console.log(event.target.parentElement.parentElement.parentElement.parentElement.querySelector('#lineNumber').textContent);
+        // console.log('notctrl');
+        // console.log(parseInt(event.target.textContent));
+        // console.log(event.target.parentElement.parentElement.parentElement.parentElement.querySelector('#lineNumber').textContent);
         destinationElement = document.querySelectorAll('.container:not(#exclude)')[parseInt(event.target.textContent)]
+        if (!destinationElement){
+            labels = document.querySelectorAll('.container#exclude')
+            if (labels){
+                labels.forEach(label => {
+                    if (label.querySelector('#field1').textContent == event.target.textContent){
+                        destinationElement = label
+                    }
+                })
+            }
+        }
         destinationElement.scrollIntoView({
             behavior: "smooth",
             block: "center"
@@ -849,7 +859,7 @@ const handleMove = (e) => {
         const ctx = canvas.getContext('2d');
         
         ctx.strokeStyle = 'white'
-        ctx.lineWidth = 5
+        ctx.lineWidth = 2
 
         ctx.beginPath()
         ctx.moveTo(moveTo[0],moveTo[1])
@@ -2529,15 +2539,19 @@ function updateSettingValue(e) {
 
 function saveSettings(){
     const setting = document.getElementById('setting')
+    // autosave settings
     const isAutosave = setting.querySelector('#autosave').checked
     const interval = setting.querySelector('#interval').value
     const buffer = setting.querySelector('#buffer').value
+    // general settings
     const showDebug = setting.querySelector('#showDebug').checked
+    const UIScale = setting.querySelector('#UIScale').value
     const savedSettings = {
         autosave : isAutosave,
         interval : interval,
         buffer : buffer,
-        showDebug : showDebug
+        showDebug : showDebug,
+        UIScale : UIScale
     }
     localStorage.setItem('setting',JSON.stringify(savedSettings))
     closeSettingMenu()
@@ -2552,6 +2566,7 @@ function refreshUserSetting(){
     }else {
         document.getElementById('debugMenu').style.display = 'none'
     }
+    // document.body.style.zoom = savedSettings.UIScale + "%" //zoom affects others and causes problems too much, will just disable this for now
 }
 
 function refreshSettingMenu(){
@@ -2562,10 +2577,13 @@ function refreshSettingMenu(){
 
     const interval = document.getElementById('interval')
     const buffer = document.getElementById('buffer')
+    const UIScale = document.getElementById('UIScale')
     interval.value = savedSettings.interval
     updateSettingValue(interval)
     buffer.value = savedSettings.buffer
     updateSettingValue(buffer)
+    UIScale.value = savedSettings.UIScale
+    updateSettingValue(UIScale)
 
 }
 
