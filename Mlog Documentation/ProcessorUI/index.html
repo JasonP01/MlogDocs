@@ -104,10 +104,10 @@
         </div>
     </div>
     <div id="autosaveIcon" class="Icon autosaveIcon">
-        <img src="image/save.png" alt="">
+        <img src="image/save.png" alt="" draggable="false">
     </div>
     <div id="settingIcon" class="Icon settingIcon">
-        <img src="image/settings.png" alt="" onclick="openSettingMenu()">
+        <img src="image/settings.png" alt="" onclick="openSettingMenu()" draggable="false">
     </div>
     <div id="setting" class="menu" onclick="closeSettingMenu(1,event)">
         <div class="saveMenu">
@@ -643,15 +643,15 @@
         </div>
     </div>` -->
     <div></div>
+    <footer>
+        <!-- <button id="addItems">Add Items</button> -->
+        <button class="help" id="help" onclick="openHelpWizard()">Help</button>
+        <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Saves</button>
+        <button class="button" id="importCode" onclick="importCode()">Import Code</button>
+        <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>
+        <button class="addItemsMenu" id="openWizard" onclick="openWizard()">+ Add...</button>
+    </footer>
 </body>
-<footer>
-    <!-- <button id="addItems">Add Items</button> -->
-    <button class="help" id="help" onclick="openHelpWizard()">Help</button>
-    <button class="saveButton" id="saveButton" onclick="openSaveMenu()">Saves</button>
-    <button class="button" id="importCode" onclick="importCode()">Import Code</button>
-    <button class="exportCode" id="exportCode" onclick="exportCode()">Export Code</button>
-    <button class="addItemsMenu" id="openWizard" onclick="openWizard()">+ Add...</button>
-</footer>
 
 </html>
 

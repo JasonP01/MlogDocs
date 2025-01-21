@@ -13,15 +13,27 @@
     -webkit-text-stroke-color: black; */
     /* -webkit-text-fill-color: white; */
 }
+
+html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: auto;
+}
+
 body {
     background-color: #000;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height:90vh;
+    /* min-height: 90vh; */
+    height: fit-content;
+    width: calc(100% - 5vh * 2);
     margin: 5vh;
-    overflow:scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 body::-webkit-scrollbar{
@@ -163,6 +175,7 @@ body::-webkit-scrollbar-thumb{
 
 .Icon{
     position: fixed;
+    user-select: none;
 }
 
 .Icon img {
@@ -327,6 +340,8 @@ input[type="checkbox"]:checked {
 .container {
     display: block; 
     user-select: text;
+    width: 60%;
+    font-size: xx-large;
 }
 
 .container:focus {
@@ -578,7 +593,7 @@ input[type="checkbox"]:checked {
     border:none;
     border-radius: 10px;
     cursor: pointer;
-    font-size: calc(10px + 1vw);
+    font-size: calc(8px + 0.5vw + 0.5vh);
     outline-style:solid;
     outline-width: 5px;
     margin-left: 10px;
@@ -780,7 +795,8 @@ canvas {
     border-radius: 5px;
     padding: 0px 5px 5px 5px;
     color: #fff;
-    width: clamp(300px, 60vw, 1000px);
+    width: 100%;
+    /* width: clamp(300px, 60%, 1000px); */
     /* max-width: 60vw; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     transition: box-shadow 0.3s ease-in-out;
@@ -814,12 +830,14 @@ canvas {
 }
 
 .Label-container {
-    width: calc(clamp(300px, 60vw, 1000px) + 30px);
-    margin-right: 30px;
+    /* width: calc(clamp(300px, 60vw, 1000px) + 30px); */
+    width: calc(100% + 30px);
+    margin-left: -30px;
 }
 
 .Comment-container {
-    width: calc(clamp(300px, 60vw, 1000px) - 30px);
+    /* width: calc(clamp(300px, 60vw, 1000px) - 30px); */
+    width: calc(100% - 30px);
     margin-left: 30px;
 }
 

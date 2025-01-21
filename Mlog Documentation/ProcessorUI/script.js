@@ -2254,9 +2254,6 @@ let instTypeMapR = {
 // ########################################################################################################################
 // import
 // ########################################################################################################################
-// TODO give an option for the user to paste their code manually to a field if they reject clipboard access
-// with a menu
-// and remember choice 
 async function importCode(manual,codeSaved){
     let code
     if (codeSaved){
@@ -2566,7 +2563,7 @@ function refreshUserSetting(){
     }else {
         document.getElementById('debugMenu').style.display = 'none'
     }
-    // document.body.style.zoom = savedSettings.UIScale + "%" //zoom affects others and causes problems too much, will just disable this for now
+    document.body.style.zoom = savedSettings.UIScale + "%"
 }
 
 function refreshSettingMenu(){
