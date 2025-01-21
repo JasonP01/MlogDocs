@@ -2563,7 +2563,7 @@ function refreshUserSetting(){
     }else {
         document.getElementById('debugMenu').style.display = 'none'
     }
-    document.body.style.zoom = savedSettings.UIScale + "%"
+    // document.body.style.zoom = savedSettings.UIScale + "%" //nevermind, everything that uses screen coordinates is broken, will disable this for now
 }
 
 function refreshSettingMenu(){
