@@ -354,8 +354,9 @@ input[type="checkbox"]:checked {
     border: white solid 5px;
     border-radius: 5px;
     padding: 0px 5px 5px 5px;
-    min-width: clamp(300px, 60vw, 1000px);
-    max-width: 60vw;
+    width: 100%;
+    /* min-width: clamp(300px, 60vw, 1000px);
+    max-width: 60vw; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     position: relative;
     height: 75px;
@@ -550,6 +551,11 @@ input[type="checkbox"]:checked {
     position: relative;
     border: #00ffff 10px solid;
     border-radius: 10px;
+    width: 62%;
+}
+
+.group .container {
+    width: 99% !important;
 }
 
 .addButtons button {
