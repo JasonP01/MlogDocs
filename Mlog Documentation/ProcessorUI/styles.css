@@ -34,6 +34,7 @@ body {
     margin: 5vh;
     overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
 }
 
 body::-webkit-scrollbar{
@@ -354,7 +355,7 @@ input[type="checkbox"]:checked {
     border: white solid 5px;
     border-radius: 5px;
     padding: 0px 5px 5px 5px;
-    width: 100%;
+    width: 60%;
     /* min-width: clamp(300px, 60vw, 1000px);
     max-width: 60vw; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
