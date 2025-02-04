@@ -184,6 +184,10 @@ body::-webkit-scrollbar-thumb{
     image-rendering: pixelated;
 }
 
+img {
+    image-rendering: pixelated;
+}
+
 .autosaveIcon {
     right: 20px;
     bottom: 20px;
@@ -314,7 +318,6 @@ input[type="checkbox"]:checked {
     border: none;
 }
 .searchBox:focus-visible {
-    border: none !important;
     box-shadow: none;
 }
 
@@ -335,6 +338,17 @@ input[type="checkbox"]:checked {
 .searchBox:-moz-autofill {
     background-color: transparent !important;
     color: white !important;
+}
+
+.searchBox:focus {
+    outline: none;
+}
+
+.addSearchBox {
+    width: fit-content;
+    font-size: clamp(12px, 9vw, 16px);
+    padding: 5px 5px 6px 10px;
+    border-bottom: 3px solid #5b5b5b !important;
 }
 
 
@@ -534,7 +548,7 @@ input[type="checkbox"]:checked {
     color: #5b5b5b;
     /* font-weight: 600; */
     padding: 1vh 1vw 0px 1vw;
-    padding-bottom: clamp(8px, 1.5vw, 10px);
+    padding-bottom: clamp(8px, 1.5vw, 8px);
     font-size: clamp(12px, 2vw, 18px);
     user-select: none;
     height: 3vh;
@@ -559,7 +573,7 @@ input[type="checkbox"]:checked {
     width: 99% !important;
 }
 
-.addButtons button {
+.addItems {
     /* border-radius: 7px; */
     border: none;
     background: none;
@@ -569,7 +583,7 @@ input[type="checkbox"]:checked {
     width: 100%;
     margin: 0px;
     user-select: none;
-    padding: clamp(5px, 1.5vw,10px);
+    padding: clamp(5px, 1.5vw,9px);
     font-size: clamp(12px, 2vw, 18px);
 }
 .addButtons button:hover {

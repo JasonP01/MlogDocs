@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- TODO Implement World Processor instructions -->
-    <!-- TODO instead of keybinds for the add menu, implement a search bar that adds the first result on enter -->
+    <!-- TODO if cursor mode is enabled added insturctions is added below cursor -->
     
     <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
     <!-- TODO extra optional instruction; while; for; long operation; -->
@@ -142,9 +142,10 @@
                     <input type="checkbox" id="customCheckbox"/>
                     <label for="customCheckbox">Custom Checkbox</label>
                 </div>
+                <div>Keybinds</div>
                 <div class="checkBoxContainer">
-                    <input type="checkbox" id="customCheckbox"/>
-                    <label for="customCheckbox">Custom Checkbox</label>
+                    <input type="checkbox" id="focusAddSearchBar"/>
+                    <label for="customCheckbox" title="Immediately focus the search bar upon opening the add menu using f2">F2 search add</label>
                 </div>
                 <button class="button smallButton" id="saveCurrent" onclick="saveSettings()">Save</button>
             </div>
@@ -258,9 +259,12 @@
             <button class="closeMenuBtn" onclick="closeHelpWizard()"">Close</button>
         </div>
     </div>
-    <div id="wizardMenu" class="menu" onclick="closeWizard()">
+    <div id="wizardMenu" class="menu" >
         <div class="AddMenu">
             <!-- <h2>Add</h2> -->
+            <div style="width: 100%; display: flex; align-items: center; margin: 3px;">
+                <img src="image/search.png" style="width: 25px;"><input type="text" id="addSearchBar" class="searchBox addSearchBox" placeholder="Search...">
+            </div>
             <div class="addButtons">
                 <div class="wizard-title">Input & Output<div class="line"></div></div>
                 <div class="iNo gridButton">

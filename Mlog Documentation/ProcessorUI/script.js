@@ -377,6 +377,52 @@ function updateJumpArrow(jumpIns) {
     // ctx.quadraticCurveTo(100, distance/2, 0, 0);
     })
 }
+
+//##############
+// search bar for add instruction
+//##############
+
+const addSearchBar = document.getElementById("addSearchBar")
+
+addSearchBar.addEventListener("input",() => {
+    refreshAddSearch()
+})
+
+function refreshAddSearch () {
+    const query = addSearchBar.value.toLowerCase();
+    wizardTitle = document.querySelectorAll('.wizard-title')
+    if (query === ''){
+        wizardTitle.forEach(title => {
+            title.style.display = ""
+        })
+        buttons.forEach(button => {
+            button.style.display = ""
+        })
+    } else {
+        wizardTitle.forEach(title => {
+            title.style.display = "none"
+        })
+        buttons.forEach(button => {
+            const text = button.textContent.toLowerCase();
+            if (text.includes(query)){
+                button.style.display = ""
+                button.parentElement.previousElementSibling.style.display = ""
+            }else { 
+                button.style.display = "none"
+            }
+        })
+    }
+}
+
+addSearchBar.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        const firstButton = Array.from(buttons).find(button => button.style.display !== 'none');
+        if (firstButton){
+            addInstruction(firstButton)
+        }
+    }
+});
     
 //####################################################################################################################################
 // instructions controls function
@@ -542,6 +588,7 @@ document.addEventListener('keydown',(e) =>{
     const helpMenu = document.getElementById('helpMenu');
     const saveMenu = document.getElementById('saveMenu');
     const pasteMenu = document.getElementById('pasteMenu');
+    const input = document.getElementById('addSearchBar');
     const isVisibleAdd = wizardMenu.style.display === 'flex'
     const isVisibleHelp = helpMenu.style.display === 'flex'
     const isVisibleSave = saveMenu.style.display === 'flex';
@@ -560,9 +607,20 @@ document.addEventListener('keydown',(e) =>{
         document.activeElement.blur();
         // console.log('work1');
         openWizard();
+        addSearchBar.value = '';
+        savedSettings = getSavedSettings();
+        console.log(savedSettings.F2SearchAdd);
+        if (savedSettings.F2SearchAdd){
+            addSearchBar.focus();
+        }
+        refreshAddSearch();
     }else if (isVisibleAdd) {
-        if (keybindMap[e.key]){
+        if (keybindMap[e.key] && document.activeElement != input){
             addInstruction(keybindMap[e.key])
+        }
+        if (e.key === 'Tab'){
+            e.preventDefault();
+            addSearchBar.focus();
         }
     }
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -2524,7 +2582,9 @@ function getSavedSettings(){
             autosave: true,
             interval: 10,
             buffer: 20,
-            showDebug : false
+            showDebug : false,
+            // UIScale : 100,
+            F2SearchAdd : true
         } 
         localStorage.setItem('setting', JSON.stringify(defaultSettings))
         savedSettings = defaultSettings
@@ -2548,12 +2608,15 @@ function saveSettings(){
     // general settings
     const showDebug = setting.querySelector('#showDebug').checked
     const UIScale = setting.querySelector('#UIScale').value
+    // keybinds
+    const F2SearchAdd = setting.querySelector('#focusAddSearchBar').checked
     const savedSettings = {
         autosave : isAutosave,
         interval : interval,
         buffer : buffer,
         showDebug : showDebug,
-        UIScale : UIScale
+        UIScale : UIScale,
+        F2SearchAdd : F2SearchAdd
     }
     localStorage.setItem('setting',JSON.stringify(savedSettings))
     closeSettingMenu()
