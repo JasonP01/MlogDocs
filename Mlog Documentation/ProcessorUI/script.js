@@ -541,9 +541,11 @@ document.addEventListener('keydown',(e) =>{
     const wizardMenu = document.getElementById('wizardMenu');
     const helpMenu = document.getElementById('helpMenu');
     const saveMenu = document.getElementById('saveMenu');
+    const pasteMenu = document.getElementById('pasteMenu');
     const isVisibleAdd = wizardMenu.style.display === 'flex'
     const isVisibleHelp = helpMenu.style.display === 'flex'
     const isVisibleSave = saveMenu.style.display === 'flex';
+    const isVisiblePaste = pasteMenu.style.display === 'flex';
     // if (e.key === 'Control'){
     //     ctrlDown = true;
     // }
@@ -567,7 +569,7 @@ document.addEventListener('keydown',(e) =>{
         e.preventDefault
         document.activeElement.blur();
     }
-    if (!isVisibleAdd && !isVisibleHelp && !isVisibleSave){
+    if (!isVisibleAdd && !isVisibleHelp && !isVisibleSave && !isVisiblePaste){
         if (e.ctrlKey && e.altKey && e.key === 's'){
             EnableCursor();
         }else if (cursorContainer){
@@ -2155,7 +2157,7 @@ let instTypeMap = {
     'Comment'       : '#',
 } 
 function exportCode(save){
-    deselectContainer();
+    // deselectContainer();
     codeEx = ""
     containers = document.querySelectorAll('.container');
     containers.forEach(container => {
@@ -2300,7 +2302,7 @@ async function importCode(manual,codeSaved){
     }
     // console.log(code);
     document.querySelectorAll('.container').forEach(e => e.remove());
-    let lines = code.split(/\r?\n/);
+    let lines = code.split(/\r?\n/).filter(line => line.trim() !== '');
     // lines = lines.filter(line => line.trim() && !line.trim().startsWith("#"));
     // console.log(lines);
     lines.forEach((line, index) => {
@@ -2317,7 +2319,7 @@ async function importCode(manual,codeSaved){
             if (words[0].endsWith(":")){
                 addInstruction('Label', 0, words[0].replace(":",""))
             }else if (words[0].startsWith("#")) {
-                addInstruction('Comment', 0, words[0].replace("#",""))
+                addInstruction('Comment', 0, line.replace("#",""))
             }else {
                 addInstruction('Noop', 0)
             }
