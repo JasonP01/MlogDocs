@@ -112,6 +112,7 @@
                 <li class="sub-title"><a href="#bleeding-edge" class="sidebar-link">Bleeding Edge(WIP)</a></li>
                 <li class="sub-title"><a href="#extras" class="sidebar-link">Extras</a></li>
                 <li class="indent1"><a href="#mindustry-coordinate-system" class="sidebar-link">Mindustry Coordinate System</a></li>
+                <li class="indent1"><a href="#configure-turns-to-config" class="sidebar-link">The word <span style="color: cyan; font-style: italic;">configure</span> turns to <span style="color: cyan; font-style: italic;">config</span></a></li>
                 <li class="indent1"><a href="#you-cannot-spawn-scathe-missile" class="sidebar-link">You cannot spawn Scathe missles</a></li>
                 <li class="indent1"><a href="#modded-items-and-draw-image" class="sidebar-link">Modded items and Draw Image</a></li>
                 <li class="indent1"><a href="#ai-chatbot-doenst-understand-mlog" class="sidebar-link">AI Chatbot doesn't understand Mlog</a></li>
@@ -177,7 +178,11 @@
                 <hr>
                 <h1>Introduction</h1>
                 <p style="font-size: x-large;">What is Mindustry logic?</p>
-            <p class="ti"> Mindustry Logic (mlog) is a scripting language added in v6 for the purpose of introducing more advanced automation and strategy into the game  It is heavily inspired by Assembly languages, therefore the language is a low level language making it harder to understand (low level being low to machine language (Assembly, C, etc) and far from human language, high level language example are (python, javaScript, C#, etc) if you have previous programming experience it's very easy to learn but people who are entirely new to programming might find this a little confusing.
+            <p class="ti"> Mindustry Logic (mlog) is a scripting language added in v6 for the purpose of introducing more advanced automation and 
+                strategy into the game  It is heavily inspired by Assembly languages, therefore the language is a low level language 
+                making it harder to understand (low level being low to machine language (Assembly, C, etc) and far from human language, 
+                high level language example are (python, javaScript, C#, etc) if you have previous programming experience it's very easy 
+                to learn but people who are entirely new to programming might find this a little confusing.
                 <br><br>
                 Fun fact, it is turing complete (meaning you can literally do anything a real computer can, although the practicality is questionable),
                 it is often used for more advanced automation (telling units what to do, disabling/enabling blocks, and more),
@@ -191,7 +196,18 @@
                 <p style="font-size: 23px;">Data types<br>
                     <section id="integers" style="margin-bottom: 0;">
                     <p><b>Integers</b></p>
-                        <p class="ti"><a href="https://en.wikipedia.org/wiki/Integer" >Integers</a> are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.</p>
+                        <p class="ti">
+                            <a href="https://en.wikipedia.org/wiki/Integer">Integers</a> 
+                            are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.
+                        </p>
+                        <div style="margin-left: 30px;"><b>integer limitations</b><br>
+                            <p class="ti">
+                                The largest integer that can be represented accurately in a single number in mindustry (double-precision floating-point format) 
+                                is <span style="color: yellow;">2^53</span>, which equals <span style="color: yellow;">9007199254740992</span>. 
+                                from <span style="color: yellow;">-2^53</span> , which is <span style="color: yellow;">−9007199254740992</span>. Beyond these limits, 
+                                floating-point representation may lead to inaccuracies due to the way numbers are rounded.
+                            </p>
+                        </div>
                     </section>
                     <section id="float" style="margin-bottom: 0;">
                     <p><b>Float</b></p>
@@ -274,7 +290,10 @@
                         <br>building variable cannot be overwritten by any means, 
                         <br>in other words, you cannot use this variable to put in an output of an instruction
                         <br>however you can copy the its contents to another variable, Like <mark class="op">set <span style="color: aqua;">myBuilding</span> = <span style="color: aqua;">display1</span></mark>
-                        <br>the variable `<span style="color: aqua;">myBuilding</span>` is now the same as `<span style="color: aqua;">display1</span>`, meaning you can use it the same way
+                        <br>the variable `<span style="color: aqua;">myBuilding</span>` is now the same as `<span style="color: aqua;">display1</span>`, meaning you can use it the same way,
+                        <br>however `<span style="color: aqua;">myBuilding</span>` is an independent variable (your variable) now, this means it also acts like a normal variable,
+                        for example if the display block that is linked to the processor is destroyed the variable `<span style="color: aqua;">display1</span>` will be null, 
+                        but `<span style="color: aqua;">myBuilding</span>` will still have the last value it was set to, so you can still sensor things like <span style="color: yellow;">@dead</span> from it
                     </p>
                 </section>
                 <section id="variables">
@@ -423,10 +442,17 @@
                     <img alt="alt" src="image/darw ex.png"  width="700px">
                     <p>It's the same case with draw.
                         <br><br>
-                        The draw buffer has 256 item limit, meaning you can only draw 256 times before needing to flush, otherwise everything after 256 just gets thrown out, 
-                        displays also have a buffer limit, 1024 / tick to be exact, this means if you flush 1025 items to 1 display in 1 tick 1 item will be lost.
+                        The draw buffer has a limit of <span style="color: yellow;">256</span> items, meaning you can only queue up <span style="color: yellow;">256</span> draw operations before needing to flush; 
+                        otherwise, any additional draws beyond <span style="color: yellow;">256</span> will be discarded. 
+                        Additionally, displays have a buffer limit of <span style="color: yellow;">1024</span> operations per display update. 
+                        Since the display updates once per tick when visible, 
+                        flushing more than <span style="color: yellow;">1024</span> items in a single tick will result in excess items being lost. 
+                        However, when a display is off-screen (scrolled out of view), it is not updated at all. 
+                        This means if a program continues drawing while the display is off-screen, the buffer can fill up, 
+                        causing some operations to be lost even if the rate remained within the <span style="color: yellow;">1024</span>-per-tick limit while the display was visible
                         <br><br>
-                        The text buffer has a 400 character limit, for example “frog” is 4 characters. Even though the message block has a 220 characters limit you can still print 400 characters to it. 
+                        The text buffer has a <span style="color: yellow;">400</span> character limit, for example “frog” is 4 characters. 
+                        Even though the message block has a <span style="color: yellow;">220</span> characters limit you can still print <span style="color: yellow;">400</span> characters to it. 
                         </p>
                 </section>
             </section>
@@ -482,10 +508,7 @@
                         this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
                         called `<span  style="color: aqua;">result</span>`, therefore `<span  style="color: aqua;">result</span>` is now <span style="color: yellow;">1838</span>
                         <br><br>
-                        The largest integer that can be represented accurately in a single address (double-precision floating-point format) 
-                        is <span style="color: yellow;">2^53</span>, which equals <span style="color: yellow;">9007199254740992</span>. 
-                        from <span style="color: yellow;">-2^53</span> , which is <span style="color: yellow;">−9007199254740992</span>. Beyond these limits, 
-                        floating-point representation may lead to inaccuracies due to the way numbers are rounded.
+                        the largest integer that can be stored in a single address is related to <a href="#integers">integer limitations</a>
                     </p>
                 </ol>
             </section>
@@ -1252,11 +1275,7 @@
                                 <br>the flag "lives" in the unit, meaning a unit will permanently retains its flag until written again, even if the processor is destroyed
                                 <br>Unit default flag is 0
                                 <br>a unit can only store 1 numeric flag
-                                <br>The largest integer that can be stored accurately 
-                                is <span style="color: yellow;">2^53</span> which is <span style="color: yellow;">9007199254740992</span> 
-                                and <span style="color: yellow;">2^-53</span> which is 
-                                <span style="color: yellow;">-9007199254740992</span>. Beyond these limits, representation 
-                                may lead to inaccuracies due to the way numbers are rounded.
+                                <br>The largest integer that can be stored in a single flag is related to <a href="#integers">integer limitations</a>
                             </p>
                         </ul>
                 </section>
@@ -1277,7 +1296,7 @@
                 <section id="unit-locate">
                     <h2><li><b>Unit Locate</b></li></h2>
                     <p class="ti">
-                        Locates a building/ore/spawn without needing to be in the unit’s range, but limited to what it can locates
+                        Locates the nearest building/ore/spawn to the unit without needing to be in the unit’s range, but limited to what it can locates
                     </p>
                     <ol style="list-style-type: disc;">
                         <h1><li><b>Building</b></li></h1>
@@ -1287,12 +1306,13 @@
                             <br><mark class="lg">Enemy</mark> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                             <br><mark class="lg">outX</mark> and <mark class="lg">outY</mark> are the building’s output coordinates
                             <br><mark class="lg">Found</mark> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
-                            <mark class="lg">Building</mark> is an output of that building reference
+                            <br><mark class="lg">Building</mark> is an output of that building reference
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
                            <img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
-                           <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span> 
+                           <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span>
+                           <br>May not consistently return the closest tile, but will always return the closest "vein"
                         </p>
                         <h1><li><b>Spawn</b></li></h1>
                         <p>
@@ -1300,7 +1320,7 @@
                         </p>
                         <h1><li><b>Damaged</b></li></h1>
                         <p>
-                            Will locate an enemy spawn point, may be a core or a position
+                            Will locate an ally damaged building
                         </p>
                     </ol>
                 </section>
@@ -1400,7 +1420,7 @@
                     <br>List of compiler:  (Last updated: 30 January 2023) (Information gathered by <span style="color: lightblue;">Varxalaxiacis</span>)
 
                     <ol>
-                        <li style="font-size: larger;"><a href="https://github.com/cardillan/mindcode"><b>Mincode</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/cardillan/mindcode"><b>Mindcode</b></a> :</li>
                         A high level language for Mindustry Logic (mlog) and Mindustry Schematics.
                         <ul>
                             <li>Repo Owner : cardillan</li>
@@ -1836,12 +1856,13 @@
                     Translate / offset the display coordinates, this instruction is cumulative, meaning it translate it by the specified number every flush.
                     <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
                     <br>like said above it is cumulative, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
-                    <br>to reset it use draw reset
+                    <br>also is stored in the display like any other draw instruction, meaning if other processors draw to that display it will also be translated.
+                    <br>to reset it use draw reset.
                 </p>
                 <br>
                 <h2><li>Draw Scale</li></h2>
                 <p class="spin" style="margin-left: 20px;">
-                    scale the display coordinates / zooms it, this is also cumulative.
+                    scale the display coordinates / zooms it, this is also cumulative and stored in the display like translate.
                     <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
                     <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again.
                     <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x.
@@ -1849,7 +1870,7 @@
                 <br>
                 <h2><li>Draw Rotate</li></h2>
                 <p class="spin" style="margin-left: 20px;">
-                    self explanatory, rotate the display coordinates by a degree, also cumulative.
+                    self explanatory, rotate the display coordinates by a degree, also cumulative and stored in the display like translate and scale.
                 </p>
                 <br>
                 <h2><li>Draw Reset</li></h2>
@@ -2041,6 +2062,15 @@
                         <br><img alt="alt" src="image/coordinate system.png" >
                         <br>the game still uses Cartesian but just offset by 0.5
                         <br>the game also by default set 0,0 to the very bottom left of the world, this means all campaign world and most custom worlds (since you can set the coordinate offset in the editor) playfield are always positive
+                    </p>
+                </section>
+                <section id="configure-turns-to-config">
+                    <h2>The word <span style="color: cyan; font-style: italic;">configure</span> turns to <span style="color: cyan; font-style: italic;">config</span></h2>
+                    <p class="ti">
+                        in v6 the <span style="color: cyan; font-style: italic;">config</span> property was renamed to <span style="color: cyan; font-style: italic;">configure</span>. To ensure backwards compatibility with old code 
+                        the game automatically changes the word <span style="color: cyan; font-style: italic;">configure</span> to <span style="color: cyan; font-style: italic;">config</span>
+                        <br>therefore it is not recommended to use the word <span style="color: cyan; font-style: italic;">configure</span> anywhere in your code
+                        <br>this applies both when writing in game and importing from text
                     </p>
                 </section>
                 <section id="you-cannot-spawn-scathe-missile">
