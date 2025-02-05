@@ -199,6 +199,36 @@ img {
     top: 20px;
 }
 
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    max-width: 80vw; /* Maximum width relative to viewport */
+    width: max-content; /* Shrink-wrap content by default */
+    white-space: normal; /* Allow wrapping */
+    overflow-wrap: break-word; /* Break long words if needed */
+    text-align: center;
+    z-index: 2;
+    border: rgb(80, 80, 80) 3px solid;
+    
+}
+
+.tooltip-container.active .tooltip {
+    display: block;
+}
+
 .sliderContainer {
     position: relative;
     /* margin-right: 10px; */

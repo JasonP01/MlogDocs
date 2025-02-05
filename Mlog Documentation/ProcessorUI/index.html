@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- TODO Implement World Processor instructions -->
-    <!-- TODO if cursor mode is enabled added insturctions is added below cursor -->
+    <!-- TODO when in cursor mode and navigating with left and right arrow, allows switching fields too in the directions of arrows instead of just tab -->
     
     <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
     <!-- TODO extra optional instruction; while; for; long operation; -->
@@ -138,14 +138,23 @@
                     <input type="checkbox" id="showDebug"/>
                     <label for="showDebug">Debug Text</label>
                 </div>
-                <div class="checkBoxContainer">
-                    <input type="checkbox" id="customCheckbox"/>
-                    <label for="customCheckbox">Custom Checkbox</label>
-                </div>
                 <div>Keybinds</div>
                 <div class="checkBoxContainer">
                     <input type="checkbox" id="focusAddSearchBar"/>
-                    <label for="customCheckbox" title="Immediately focus the search bar upon opening the add menu using f2">F2 search add</label>
+                    <label for="customCheckbox">F2 search add</label>
+                    <div class="tooltip-container" onclick="toggleTooltip(this)">
+                        <img src="image/info.svg" alt="" style="margin-left: 5px; height: 100%;">
+                        <span class="tooltip">Immediately focus the search bar upon opening the add menu using f2</span>
+                    </div>
+
+                </div>
+                <div class="checkBoxContainer">
+                    <input type="checkbox" id="addInstructionBelowCursor"/>
+                    <label for="customCheckbox" title="When in cursor mode ">add Instruction Below Cursor</label>
+                    <div class="tooltip-container" onclick="toggleTooltip(this)">
+                        <img src="image/info.svg" alt="" style="margin-left: 5px; height: 100%;">
+                        <span class="tooltip">When in Cursor mode when adding a new instruction the added instruction will be added below the cursor instead of the very end</span>
+                    </div>
                 </div>
                 <button class="button smallButton" id="saveCurrent" onclick="saveSettings()">Save</button>
             </div>
@@ -259,7 +268,7 @@
             <button class="closeMenuBtn" onclick="closeHelpWizard()"">Close</button>
         </div>
     </div>
-    <div id="wizardMenu" class="menu" >
+    <div id="wizardMenu" class="menu" onclick="closeWizard(1,event)"">
         <div class="AddMenu">
             <!-- <h2>Add</h2> -->
             <div style="width: 100%; display: flex; align-items: center; margin: 3px;">

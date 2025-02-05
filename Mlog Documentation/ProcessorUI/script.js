@@ -233,13 +233,18 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     wrong, refresh or contact me</span>`
     }
 
-    
-    if (document.querySelector('.container')){
-        containers = document.querySelectorAll('.container')
+    let lastContainer
+    savedSettings = getSavedSettings();
+    if (!cursorContainer || update == 0 || !savedSettings.addBelowCursor){
+        if (document.querySelector('.container')){
+            containers = document.querySelectorAll('.container')
+        }else {
+            containers = document.querySelectorAll('.placeHolder')
+        }
+        lastContainer = containers[containers.length - 1];
     }else {
-        containers = document.querySelectorAll('.placeHolder')
+        lastContainer = cursorContainer
     }
-    const lastContainer = containers[containers.length - 1];
     
     lastContainer.insertAdjacentHTML('afterend', `
         <div class="container" ${exclude === 1 ? 'id=\"exclude\"' : ''}>
@@ -448,8 +453,14 @@ function copy(e) {
 //####################################################################################################################################
 // wizard function 
 //####################################################################################################################################
-function closeWizard() {
-    document.getElementById('wizardMenu').style.display = 'none';
+function closeWizard(fromFrontend,e) {
+    if (fromFrontend){
+        if (e.target.classList.contains('menu')) {
+            document.getElementById('wizardMenu').style.display = 'none';
+        }
+    }else {
+        document.getElementById('wizardMenu').style.display = 'none';
+    }
 }
 
 function openWizard() {
@@ -473,9 +484,9 @@ function openSaveMenu(){
 
 function closeSaveMenu(fromFrontend,e){
     if (fromFrontend){
-    if (e.target.classList.contains('menu')) {
-        document.getElementById('saveMenu').style.display = 'none';
-    }
+        if (e.target.classList.contains('menu')) {
+            document.getElementById('saveMenu').style.display = 'none';
+        }
     }else {
         document.getElementById('saveMenu').style.display = 'none';
     }
@@ -551,7 +562,9 @@ function closeSettingMenu(fromFrontend,e){
         }
 }
 //#######
-
+function toggleTooltip(element) {
+    element.classList.toggle("active");
+}
 
 
 //####################################################################################################################################
@@ -2584,7 +2597,8 @@ function getSavedSettings(){
             buffer: 20,
             showDebug : false,
             // UIScale : 100,
-            F2SearchAdd : true
+            F2SearchAdd : true,
+            addBelowCursor : true
         } 
         localStorage.setItem('setting', JSON.stringify(defaultSettings))
         savedSettings = defaultSettings
@@ -2610,13 +2624,15 @@ function saveSettings(){
     const UIScale = setting.querySelector('#UIScale').value
     // keybinds
     const F2SearchAdd = setting.querySelector('#focusAddSearchBar').checked
+    const addBelowCursor = setting.querySelector('#addInstructionBelowCursor').checked
     const savedSettings = {
         autosave : isAutosave,
         interval : interval,
         buffer : buffer,
         showDebug : showDebug,
         UIScale : UIScale,
-        F2SearchAdd : F2SearchAdd
+        F2SearchAdd : F2SearchAdd,
+        addBelowCursor : addBelowCursor
     }
     localStorage.setItem('setting',JSON.stringify(savedSettings))
     closeSettingMenu()
@@ -2639,6 +2655,8 @@ function refreshSettingMenu(){
     
     document.getElementById('autosave').checked = savedSettings.autosave
     document.getElementById('showDebug').checked = savedSettings.showDebug
+    document.getElementById('focusAddSearchBar').checked = savedSettings.F2SearchAdd
+    document.getElementById('addInstructionBelowCursor').checked = savedSettings.addBelowCursor
 
     const interval = document.getElementById('interval')
     const buffer = document.getElementById('buffer')
@@ -2651,6 +2669,8 @@ function refreshSettingMenu(){
     updateSettingValue(UIScale)
 
 }
+
+//########################################################################################################
 
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
