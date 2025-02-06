@@ -464,7 +464,8 @@ input[type="checkbox"]:checked {
     user-select: none;
     width: fit-content;
     max-height: 80vh;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     font-size: clamp(14px, 10vw, 18px);
 }
 
@@ -578,7 +579,7 @@ input[type="checkbox"]:checked {
     color: #5b5b5b;
     /* font-weight: 600; */
     padding: 1vh 1vw 0px 1vw;
-    padding-bottom: clamp(8px, 1.5vw, 8px);
+    /* padding-bottom: clamp(8px, 1.5vw, 8px); */
     font-size: clamp(12px, 2vw, 18px);
     user-select: none;
     height: 3vh;
@@ -613,7 +614,8 @@ input[type="checkbox"]:checked {
     width: 100%;
     margin: 0px;
     user-select: none;
-    padding: clamp(5px, 1.5vw,9px);
+    padding-top: clamp(5px, 1.5vw,9px);
+    padding-bottom: clamp(5px, 1.5vw,9px);
     font-size: clamp(12px, 2vw, 18px);
 }
 .addButtons button:hover {
@@ -698,6 +700,11 @@ footer {
 .unitControl button, .unitControl{
     color: #c7b59d !important;
     border-color: #c7b59d !important;
+}
+
+.world button, .world{
+    color: #6c84cc !important;
+    border-color: #6c84cc !important;
 }
 
 .extra button, .extra{
@@ -874,6 +881,10 @@ canvas {
 
 .unitControl-container {
     background-color: #c7b59d;
+}
+
+.world-container {
+    background-color: #6c84cc;
 }
 
 .extra-container {

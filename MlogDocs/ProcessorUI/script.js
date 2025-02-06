@@ -228,6 +228,107 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             type = 'Comment-container extra'
             exclude = 1
             break;
+        case 'Get Block':
+            code = `<span class="editable world" contenteditable="true" order="2">${field2 || 'result'}</span>
+                    <span>=</span>
+                    <span>get</span>
+                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'ulocateFindMenu')">${field1 || 'building'}</span>
+                    <span>at</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span>,</span>
+                    <span class="editable world" contenteditable="true" order="4">${field4 || '0'}</span>`
+            break;
+        case 'Set Block':
+            code = `<span>set</span>
+                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'setBlockMenu')">${field1 || 'floor'}</span>
+                    <span>at</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span>,</span>
+                    <span class="editable world" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span>to</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || '@air'}</span>
+                    <span class="toggleableField" order="5">team</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '@derelic'}</span>
+                    <span class="toggleableField" order="6">rot</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="6">${field6 || '0'}</span>`
+            break;
+        case 'Spawn Unit':
+            code = `<span class="editable world" contenteditable="true" order="6">${field6 || 'result'}</span>
+                    <span>=</span>
+                    <span>spawn</span>
+                    <span class="editable world" contenteditable="true" order="1">${field1 || '@dagger'}</span>
+                    <span>at</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || '10'}</span>
+                    <span>,</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '10'}</span>
+                    <span>team</span>
+                    <span class="editable world" contenteditable="true" order="5">${field5 || '@sharded'}</span>
+                    <span>rot</span>
+                    <span class="editable world" contenteditable="true" order="4">${field4 || '90'}</span>`
+            break;
+        case 'Apply Status':
+            field1 = field1 === 'true' ? 'clear' : (field1 === 'false' ? 'apply' : field1);
+            code = `<span class="editable world dontInclude" order="1" switch='["apply", "clear"]' onclick="valueToggle(event)">${field1 || 'apply'}</span>
+                    <span class="editable world" contenteditable="true" order="2" onclick="popUpMenu(event,'applyStatusMenu')">${field2 || 'wet'}</span>
+                    <span class="toggleableField" order="3t">to</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || 'unit'}</span>
+                    <span class="toggleableField" style="display:block;" order="4">for</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="4">${field4 || '10'}</span>`
+            break;
+        case 'Weather Sense':
+            code = `<span>In developement</span>`
+            break;
+        case 'Weather Set':
+            code = `<span>In developement</span>`
+            break;
+        case 'Spawn Wave':
+            code = `<span>In developement</span>`
+            break;
+        case 'Set Rule':
+            code = `<span>In developement</span>`
+            break;
+        case 'Flush Message':
+            code = `<span>In developement</span>`
+            break;
+        case 'Cutscene':
+            code = `<span>In developement</span>`
+            break;
+        case 'Effect':
+            code = `<span>In developement</span>`
+            break;
+        case 'Explosion':
+            code = `<span>In developement</span>`
+            break;
+        case 'Set Rate':
+            code = `<span>In developement</span>`
+            break;
+        case 'Fetch':
+            code = `<span>In developement</span>`
+            break;
+        case 'Sycn':
+            code = `<span>In developement</span>`
+            break;
+        case 'Get Flag':
+            code = `<span>In developement</span>`
+            break;
+        case 'Set Flag':
+            code = `<span>In developement</span>`
+            break;
+        case 'Set Prop':
+            code = `<span>In developement</span>`
+            break;
+        case 'Play Sound':
+            code = `<span>In developement</span>`
+            break;
+        case 'Set Marker':
+            code = `<span>In developement</span>`
+            break;
+        case 'Make Marker':
+            code = `<span>In developement</span>`
+            break;
+        case 'Locale Print':
+            code = `<span>In developement</span>`
+            break;
         default:
             code = `<span>if you see this that means something went 
                     wrong, refresh or contact me</span>`
@@ -1064,7 +1165,7 @@ function positionPopUpMenu(event, id, ignoreCursor) {
     if (poprect.bottom > viewportHeight) menu.style.top = `${viewportHeight - poprect.height}px`;
 }
 function popUpMenu(event,id){
-    console.log(event);
+    // console.log(event);
 
     popUpMenuElement = document.getElementById(id);
 
@@ -1150,6 +1251,7 @@ function selectOption(event,id,isImport,importSelectionValue) {
         }
     
         targetId = event.target.id
+        // console.log(targetId);
         
         if (event.target.tagName == 'IMG' || event.target.className == "popUpMenu") {
             return
@@ -1174,7 +1276,7 @@ function selectOption(event,id,isImport,importSelectionValue) {
 
     // Switch case for every pop up menu context that changes its instruction fields 
     //(there might be a better way but unless its performance is not >10ms its fine)
-    console.log(option);
+    // console.log(option);
     switch (option){
         // control section
         case 'enabled':
@@ -1787,13 +1889,27 @@ function selectOption(event,id,isImport,importSelectionValue) {
             })
             break;
         case 'ore':
-            fields.forEach(field => {
-                if (['field3', 'field3Value'].includes(field.id)){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
+            switch (targetId){
+                case 'ulocateOre':
+                    fields.forEach(field => {
+                        if (['field3', 'field3Value'].includes(field.id)){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'setBlockOre':
+                    fields.forEach(field => {
+                        if ([5, 6].includes(Number(field.getAttribute('order')))){
+                            console.log(field);
+                            field.style.display = 'none';
+                        } else {
+                            field.style.display = 'block';
+                        }
+                    })
+                    break;
+            }
             break;
         case 'building':
             fields.forEach(field => {
@@ -1853,14 +1969,71 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 }
             })
             break;
+        case 'floor':
+            fields.forEach(field => {
+                if ([5, 6].includes(Number(field.getAttribute('order')))){
+                    field.style.display = 'none';
+                } else {
+                    field.style.display = 'block';
+                }
+            })
+            break;
+        case 'block':
+            fields.forEach(field => {
+                if ([5, 6].includes(Number(field.getAttribute('order')))){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            })
+            break;
     }
     if(!isImport){
         closeMenu(event);
     }
 }
 
+function valueToggle(event){
+    const target = event.target;
+    const value = target.textContent;
+    const type = JSON.parse(target.getAttribute('switch'))
+    if (value != type[0]){
+        target.textContent = type[0]
+    }else {
+        target.textContent = type[1]
+    }
+    fields = target.parentElement.querySelectorAll('.toggleableField')
+    switch(target.textContent) {
+        case 'clear':
+            fields.forEach(field => {
+                if ([4].includes(Number(field.getAttribute('order')))){
+                    field.style.display = 'none';
+                } else {
+                    field.style.display = 'block';
+                }
+                if (["3t"].includes(field.getAttribute('order'))){
+                    field.textContent = 'from';
+                }
+            })
+            break;
+        case 'apply':
+            fields.forEach(field => {
+                if ([4].includes(Number(field.getAttribute('order')))){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+                if (["3t"].includes(field.getAttribute('order'))){
+                    field.textContent = 'to';
+                }
+            })
+            break;
+    }
+
+}
+
 function closeMenu(event) {
-    console.log('close');
+    // console.log('close');
     popUpMenuElement.style.display = 'none';
     event.stopPropagation();
     bgclickedMenu.style.display = 'none'
@@ -2226,6 +2399,28 @@ let instTypeMap = {
     'Noop'          : 'noop',
     // 'Label'         : 'label',
     'Comment'       : '#',
+    'Get Block'     : 'getblock ',
+    'Set Block'     : 'setblock ',
+    'Spawn Unit'    : 'spawn ',
+    // 'Apply Status'  : 'status ',
+    'Weather Sense' : 'weathersense ',
+    'Weather Set'   : 'weatherset ',
+    'Spawn Wave'    : 'spawnwave ',
+    'Set Rule'      : 'setrule ',
+    'Flush Message' : 'message ',
+    'Cutscene'      : 'cutscene ',
+    'Effect'        : 'effect ',
+    'Explosion'     : 'explosion ',
+    'Set Rate'      : 'setrate ',
+    'Fetch'         : 'fetch ',
+    'Sync'          : 'sync ',
+    'Get Flag'      : 'getflag ',
+    'Set Flag'      : 'setflag ',
+    'Set Prop'      : 'setprop ',
+    'Play Sound'    : 'playsound ',
+    'Set Marker'    : 'setmarker ',
+    'Locale Print'  : 'localeprint ',
+
 } 
 function exportCode(save){
     // deselectContainer();
@@ -2242,12 +2437,17 @@ function exportCode(save){
                 codeEx += instTypeMap[instType];
                 exportFields(0)
             } else {
-                if (instType == 'Jump'){
-                    codeEx += `jump ${container.querySelector('#field1Value')?.textContent} ${operatorMap[container.querySelector('#field3Value')?.textContent]}`
+                if (instType == 'Jump'){                     
+                    codeEx += `jump ${
+                        container.querySelector('#field1Value')?.textContent} ${
+                        operatorMap[container.querySelector('#field3Value')?.textContent]}`
                     exportFields(0)
                 }
                 if (instType == 'Sensor'){
-                    codeEx += `sensor ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field2Value')?.textContent}`
+                    codeEx += `sensor ${
+                        container.querySelector('#field1Value')?.textContent} ${
+                        container.querySelector('#field3Value')?.textContent} ${
+                        container.querySelector('#field2Value')?.textContent}`
                 }
                 if (instType == 'Operation'){
                     codeEx += "op "
@@ -2259,13 +2459,29 @@ function exportCode(save){
                     exportFields(0)
                 }
                 if (instType == 'Radar'){
-                    codeEx += `radar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
+                    codeEx += `radar ${
+                        container.querySelector('#field2Value')?.textContent} ${
+                        container.querySelector('#field3Value')?.textContent} ${
+                        container.querySelector('#field4Value')?.textContent} ${
+                        container.querySelector('#field6Value')?.textContent} ${
+                        container.querySelector('#field1Value')?.textContent} ${
+                        container.querySelector('#field5Value')?.textContent} ${
+                        container.querySelector('#field7Value')?.textContent}`
                 }
                 if (instType == 'Lookup'){
-                    codeEx += `lookup ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field1Value')?.textContent} ${container.querySelector('#field3Value')?.textContent}`
+                    codeEx += `lookup ${
+                        container.querySelector('#field2Value')?.textContent} ${
+                        container.querySelector('#field1Value')?.textContent} ${
+                        container.querySelector('#field3Value')?.textContent}`
                 }
                 if (instType == 'Unit Radar'){
-                    codeEx += `uradar ${container.querySelector('#field2Value')?.textContent} ${container.querySelector('#field3Value')?.textContent} ${container.querySelector('#field4Value')?.textContent} ${container.querySelector('#field6Value')?.textContent} 0 ${container.querySelector('#field5Value')?.textContent} ${container.querySelector('#field7Value')?.textContent}`
+                    codeEx += `uradar ${
+                        container.querySelector('#field2Value')?.textContent} ${
+                        container.querySelector('#field3Value')?.textContent} ${
+                        container.querySelector('#field4Value')?.textContent} ${
+                        container.querySelector('#field6Value')?.textContent} 0 ${
+                        container.querySelector('#field5Value')?.textContent} ${
+                        container.querySelector('#field7Value')?.textContent}`
                 }
                 if (instType == 'Unit Locate'){
                     codeEx += `ulocate `
@@ -2273,13 +2489,39 @@ function exportCode(save){
                 }
                 if (instType == 'Label'){
                     codeEx += `${container.querySelector('.code').querySelector('span').textContent}:`
-                    exportFields(1)
                 }
+                // if (instType == 'Get Block'){
+                //     codeEx += `getblock ${
+                //         container.querySelector('#field2Value')?.textContent} ${
+                //         container.querySelector('#field1Value')?.textContent} ${
+                //         container.querySelector('#field3Value')?.textContent} ${
+                //         container.querySelector('#field4Value')?.textContent}`
+                // }
+                // if (instType == 'Set Block'){
+                //     codeEx += `setblock ${
+                //         container.querySelector('#field1Value')?.textContent} ${
+                //         container.querySelector('#field4Value')?.textContent} ${
+                //         container.querySelector('#field2Value')?.textContent} ${
+                //         container.querySelector('#field3Value')?.textContent} ${
+                //         container.querySelector('#field4Value')?.textContent} ${
+                //         container.querySelector('#field5Value')?.textContent}`
+                // }
+                if (instType == 'Apply Status'){
+                    let field1 = container.querySelector('[order="1"]')?.textContent;
+                    field1 = field1 === 'clear' ? 'true' : (field1 === 'apply' ? 'false' : field1);
+                    codeEx += `status ${field1} `
+                    exportFields(0)
+                }
+
+                //im experimenting with 'order', although more readable it might be slower, but again its very negligible
             }
-            function exportFields(ignoreInvisable){
-                codeElements = container.querySelectorAll('span');
+            function exportFields(ignoreIgnoreInvisable){
+                codeElements = container.querySelectorAll('.editable');
+                if (codeElements[0].hasAttribute('order')){ 
+                    codeElements = Array.from(codeElements).sort((a, b) => a.getAttribute('order') - b.getAttribute('order'));
+                }
                 codeElements.forEach(code => {
-                    if (code.classList.contains('editable') && !code.classList.contains('dontInclude') && (ignoreInvisable || (getComputedStyle(code)).display === 'block')) {
+                    if (!code.classList.contains('dontInclude') && (ignoreIgnoreInvisable || (getComputedStyle(code)).display === 'block')) {
                         codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
                     }
                 });
@@ -2326,7 +2568,29 @@ let instTypeMapR = {
     'ucontrol'  : 'Unit Control',
     'uradar'    : 'Unit Radar',
     'ulocate'   : 'Unit Locate',
-} 
+
+    'getblock'     : 'Get Block',
+    'setblock'     : 'Set Block',
+    'spawn'        : 'Spawn Unit',
+    'status'       : 'Apply Status',
+    'weathersense' : 'Weather Sense',
+    'weatherset'   : 'Weather Set',
+    'spawnwave'    : 'Spawn Wave',
+    'setrule'      : 'Set Rule',
+    'message'      : 'Flush Message',
+    'cutscene'     : 'Cutscene',
+    'effect'       : 'Effect',
+    'explosion'    : 'Explosion',
+    'setrate'      : 'Set Rate',
+    'fetch'        : 'Fetch',
+    'sync'         : 'Sync',
+    'getflag'      : 'Get Flag',
+    'setflag'      : 'Set Flag',
+    'setprop'      : 'Set Prop',
+    'playsound'    : 'Play Sound',
+    'setmarker'    : 'Set Marker',
+    'localeprint'  : 'Locale Print',
+}
 // ########################################################################################################################
 // import
 // ########################################################################################################################

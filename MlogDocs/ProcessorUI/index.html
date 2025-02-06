@@ -9,6 +9,7 @@
 </head>
 <body>
     <!-- TODO Implement World Processor instructions -->
+    <!-- TODO Im experimenting with using a custom attritbute 'order' instead of id 'field1value' or 'field1', need to decide which to use -->
     <!-- TODO when in cursor mode and navigating with left and right arrow, allows switching fields too in the directions of arrows instead of just tab -->
     
     <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
@@ -319,6 +320,31 @@
                     <button class="addItems">Label</button>
                     <button class="addItems">Comment</button>
                 </div>
+                <div class="wizard-title">World<div class="line"></div></div>
+                <div class="world gridButton">
+                    <button class="addItems">Get Block</button>
+                    <button class="addItems">Set Block</button>
+                    <button class="addItems">Spawn Unit</button>
+                    <button class="addItems">Apply Status</button>
+                    <button class="addItems">Weather Sense</button>
+                    <button class="addItems">Weather Set</button>
+                    <button class="addItems">Spawn Wave</button>
+                    <button class="addItems">Set Rule</button>
+                    <button class="addItems">Flush Message</button>
+                    <button class="addItems">Cutscene</button>
+                    <button class="addItems">Effect</button>
+                    <button class="addItems">Explosion</button>
+                    <button class="addItems">Set Rate</button>
+                    <button class="addItems">Fetch</button>
+                    <button class="addItems">Sync</button>
+                    <button class="addItems">Get Flag</button>
+                    <button class="addItems">Set Flag</button>
+                    <button class="addItems">Set Prop</button>
+                    <button class="addItems">Play Sound</button>
+                    <button class="addItems">Set Marker</button>
+                    <button class="addItems">Make Marker</button>
+                    <button class="addItems">Locale Print</button>
+                </div>
             </div>
             <br>
             <button class="closeMenuBtn" onclick="closeWizard()"">Close</button>
@@ -612,7 +638,7 @@
         </div>
         <div id="ulocateFindMenu" class="popUpMenu">
             <div>building</div>
-            <div>ore</div>
+            <div id="ulocateOre">ore</div>
             <div>spawn</div>
             <div>damaged</div> 
         </div>
@@ -625,6 +651,28 @@
             <div>repair</div>
             <div>battery</div>
             <div>reactor</div>
+        </div>
+        <div id="setBlockMenu" class="popUpMenu">
+            <div>floor</div>
+            <div id="setBlockOre">ore</div>
+            <div>block</div>
+        </div>
+        <div id="applyStatusMenu" class="popUpMenu">
+            <div>wet</div>
+            <div>burning</div>
+            <div>freezing</div>
+            <div>unmoving</div>
+            <div>wet</div>
+            <div>melting</div>
+            <div>sapped</div>
+            <div>electrified</div>
+            <div>spore-slowed</div>
+            <div>tarred</div>
+            <div>overdrive</div>
+            <div>overclock</div>
+            <div>boss</div>
+            <div>shocked</div>
+            <div>blasted</div>
         </div>
     </div>
     <div class="placeHolder"></div>
