@@ -385,7 +385,7 @@ input[type="checkbox"]:checked {
 .container {
     display: block; 
     user-select: text;
-    width: 60%;
+    width: clamp(60%, calc(1000px - 100%), 100%);
     font-size: xx-large;
 }
 
@@ -555,7 +555,7 @@ input[type="checkbox"]:checked {
         justify-content: initial;
         align-items: initial;
     }
-    .popUpMenu #variables div, .popUpMenu #liquids div, .popUpMenu #items div {
+    .popUpMenu #variables div, .popUpMenu #liquids div, .popUpMenu #items div, .popUpMenu #setProp div {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -668,6 +668,10 @@ footer {
     position: fixed;
     bottom: 0;
     margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .gridButton {

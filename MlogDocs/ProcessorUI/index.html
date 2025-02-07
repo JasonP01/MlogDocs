@@ -8,8 +8,10 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- TODO Implement World Processor instructions -->
+    <!-- TODO Implement World Processor instructions (playsound, setmarker, makemarker left) -->
     <!-- TODO Im experimenting with using a custom attritbute 'order' instead of id 'field1value' or 'field1', need to decide which to use -->
+    <!-- TODO its probably better using 'order', gonna refactor the switch option tree now -->
+
     <!-- TODO when in cursor mode and navigating with left and right arrow, allows switching fields too in the directions of arrows instead of just tab -->
     
     <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
@@ -207,6 +209,7 @@
                     </ul>
                 <li>Ctrl + Alt + S : Toggle Cursor mode</li>
                 <ul>
+                    Cursor mode : once enabled a square orange box will appear and surround an instruction, this is your cursor
                     While in Cursor Mode 
                     <li>Up Arrow : Go up an instruction </li>
                     <li>Down Arrow : Go down an instruction</li>
@@ -357,7 +360,7 @@
                 <img src="image/liquid.png" onclick="subSensorMenu(2,event)" alt="">
                 <img src="image/tree.png" onclick="subSensorMenu(0,event)" alt="">
             </div>
-            <div id="variables">
+            <div id="variables" style="display: none;">
                 <div>@totalItems</div>
                 <div>@firstItem</div>
                 <div>@totalLiquids</div>
@@ -404,7 +407,20 @@
                 <div>@config</div>
                 <div>@color</div>
             </div>
-            <div id="items" style="display: none;">
+            <div id="setProp" style="display: none;">
+                <div>x</div>
+                <div>y</div>
+                <div>velocityX</div>
+                <div>velocityY</div>
+                <div>rotationspeed</div>
+                <div>armorhealth</div>
+                <div>shield</div>
+                <div>team</div>
+                <div>flag</div>
+                <div>totalPower</div>
+                <div>payloadType</div>
+            </div>
+            <div id="items">
                 <div>@copper</div>
                 <div>@lead</div>
                 <div>@metaglass</div>
@@ -673,6 +689,98 @@
             <div>boss</div>
             <div>shocked</div>
             <div>blasted</div>
+        </div>
+        <div id="weatherMenu" class="popUpMenu">
+            <div>@snowing</div>
+            <div>@rain</div>
+            <div>@sandstrom</div>
+            <div>@sporestorm</div>
+            <div>@fog</div>
+            <div>@suspend-particles</div>
+        </div>
+        <div id="setRuleMenu" class="popUpMenu">
+            <div>currentWaveTime</div>
+            <div>waveTimer</div>
+            <div>waves</div>
+            <div>wave</div>
+            <div>waveSpacing</div>
+            <div>waveSending</div>
+            <div>attackMode</div>
+            <div>enemyCoreBuildRadius</div>
+            <div>dropZoneRadius</div>
+            <div>unitCap</div>
+            <div>mapArea</div>
+            <div>lighting</div>
+            <div>canGameOver</div>
+            <div>ambientLight</div>
+            <div>solarMultiplier</div>
+            <div>dragMultiplier</div>
+            <div>ban</div>
+            <div>unban</div>
+            <div>buildSpeed</div>
+            <div>unitHealth</div>
+            <div>unitBuildSpeed</div>
+            <div>unitMineSpeed</div>
+            <div>unitCost</div>
+            <div>unitDamage</div>
+            <div>blockHealth</div>
+            <div>blockDamage</div>
+            <div>rtsMinWeight</div>
+            <div>rtsMinSquad</div>
+        </div>
+        <div id="flushMessageMenu" class="popUpMenu">
+            <div>notify</div>
+            <div>announce</div>
+            <div>toast</div>
+            <div>mission</div>
+        </div>
+        <div id="cutsceneMenu" class="popUpMenu">
+            <div>pan</div>
+            <div>zoom</div>
+            <div>stop</div>
+        </div>
+        <div id="effectMenu" class="popUpMenu">
+            <div>warn</div>
+            <div>cross</div>
+            <div>blockFall</div>
+            <div>placeBlock</div>
+            <div>placeBlockSpark</div>
+            <div>breakBlock</div>
+            <div>spawn</div>
+            <div>trail</div>
+            <div>breakProp</div>
+            <div>smokeCloud</div>
+            <div>vapor</div>
+            <div>hit</div> 
+            <div>hitSquare</div>
+            <div>shootSmall</div>
+            <div>shootBig</div>
+            <div>smokeBig</div>
+            <div>smokeColor</div>
+            <div>smokeSquareBig</div>
+            <div>spark</div>
+            <div>sparkBig</div>
+            <div>sparkShoot</div>
+            <div>sparkShootBig</div>
+            <div>drill</div>
+            <div>drillBig</div>
+            <div>lightBlock</div>
+            <div>explosion</div>
+            <div>smokePuff</div>
+            <div>sparkExplosion</div>
+            <div>crossExplosion</div>
+            <div>wave</div>
+            <div>bubble</div>
+        </div>
+        <div id="fetchMenu" class="popUpMenu">
+            <div>unit</div>
+            <div>unitCount</div>
+            <div>player</div>
+            <div>playerCount</div>
+            <div>core</div>
+            <div>coreCount</div>
+            <div>build</div>
+            <div>buildCount</div>
         </div>
     </div>
     <div class="placeHolder"></div>

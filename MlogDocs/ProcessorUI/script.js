@@ -9,7 +9,7 @@ buttons.forEach(button => {
     button.addEventListener('click', () => addInstruction(button))
 });
     
-function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8, triggerPopupMenu){
+function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8, field9, triggerPopupMenu){
     const pfstart = performance.now()
     
     if (typeof button === 'string') {
@@ -23,6 +23,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
     closeWizard();
     
     let exclude = 0
+    let tpmId = ''
     //Switch for every instruction type
     switch (buttonText) {
         case 'Read':
@@ -107,7 +108,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable blockControl" contenteditable="true" id="field1Value">${field1 || 'result'}</span>
                     <span>=</span>
                     <span class="editable blockControl dontInclude" contenteditable="true" id="field2Value">${field3 || '@copper'}</span>
-                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu">
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu','sensor')" class="pencilMenu">
                     <span>in</span>
                     <span class="editable blockControl" contenteditable="true" id="field3Value">${field2 || 'block1'}</span>`
             break;
@@ -202,7 +203,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" style="display:block;">${field3 || 'true'}</span>
                     <span class="toggleableField" id="field3">ore</span>
                     <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">${field4 || '@copper'}</span>
-                    <img src="image/pencil.png" alt="" id="field3" onclick="popUpMenu(event,'sensorMenu')" class="pencilMenu toggleableField">
+                    <img src="image/pencil.png" alt="" id="field3" onclick="popUpMenu(event,'sensorMenu','sensor')" class="pencilMenu toggleableField">
                     <span>outX</span>
                     <span class="editable unitControl" contenteditable="true">${field5 || 'outx'}</span>
                     <span>outY</span>
@@ -240,7 +241,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Set Block':
             code = `<span>set</span>
-                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'setBlockMenu')">${field1 || 'floor'}</span>
+                    <span class="editable world selectionValue" contenteditable="true" order="1" onclick="popUpMenu(event,'setBlockMenu')">${field1 || 'floor'}</span>
                     <span>at</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
                     <span>,</span>
@@ -251,6 +252,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '@derelic'}</span>
                     <span class="toggleableField" order="6">rot</span>
                     <span class="editable world toggleableField" contenteditable="true" order="6">${field6 || '0'}</span>`
+            tpmId = "setBlockMenu"
             break;
         case 'Spawn Unit':
             code = `<span class="editable world" contenteditable="true" order="6">${field6 || 'result'}</span>
@@ -276,58 +278,144 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="4">${field4 || '10'}</span>`
             break;
         case 'Weather Sense':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world" contenteditable="true" order="1" >${field1 || 'result'}</span>
+                    <span>=</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || '@rain'}</span>
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'weatherMenu')" class="weatherMenu">`
+                    
             break;
         case 'Weather Set':
-            code = `<span>In developement</span>`
+            code = `<span>set weather</span>
+                    <span class="editable world" contenteditable="true" order="1" >${field1 || '@rain'}</span>
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'weatherMenu')" class="weatherMenu">
+                    <span>state</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || 'true'}</span>`
             break;
         case 'Spawn Wave':
-            code = `<span>In developement</span>`
+            code = `<span>natural</span>
+                    <span class="editable world" contenteditable="true" order="2" >${field2 || 'false'}</span>
+                    <span>x</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '10'}</span>
+                    <span>y</span>
+                    <span class="editable world" contenteditable="true" order="1">${field1 || '10'}</span>`
+                    
             break;
         case 'Set Rule':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'setRuleMenu')" order="1">${field1 || 'waveSpacing'}</span>
+                    <span class="toggleableField" style="display:block;" order="11">=</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="2">${field2 || '10'}</span>
+                    <span class="toggleableField" order="3">x</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span class="toggleableField" order="4">y</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span class="toggleableField" order="5">w</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '100'}</span>
+                    <span class="toggleableField" order="6">h</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="6">${field6 || '100'}</span>`
+            tpmId = "setRuleMenu"
             break;
         case 'Flush Message':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'flushMessageMenu')" order="1">${field1 || 'announce'}</span>
+                    <span class="toggleableField" style="display:block;" order="2">for</span>
+                    <span class="editable world toggleableField"style="display:block;" contenteditable="true" order="2">${field2 || '3'}</span>
+                    <span class="toggleableField" style="display:block;"order="2">sec</span>
+                    <span>success</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '@wait'}</span>`
+            tpmId = "flushMessageMenu"
             break;
         case 'Cutscene':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'cutsceneMenu')" order="1">${field1 || 'pan'}</span>
+                    <span class="toggleableField" style="display:block;" order="22">x</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="2">${field2 || '100'}</span>
+                    <span class="toggleableField" style="display:block;" order="3">y</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="3">${field3 || '100'}</span>
+                    <span class="toggleableField" style="display:block;" order="4">speed</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="4">${field4 || '0.06'}</span>`
+            tpmId = "cutsceneMenu"
             break;
         case 'Effect':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'effectMenu')" order="1">${field1 || 'warn'}</span>
+                    <span class="toggleableField" style="display:block;" order="2">x</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="2">${field2 || '0'}</span>
+                    <span class="toggleableField" style="display:block;" order="3">y</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span class="toggleableField" order="44">data</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="4">${field4 || '2'}</span>
+                    <span class="toggleableField" order="55">data</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '%ffaaff'}</span>`
+            tpmId = "effectMenu"
             break;
         case 'Explosion':
-            code = `<span>In developement</span>`
+            code = `<span>team</span>
+                    <span class="editable world" contenteditable="true" order="1">${field1 || '@crux'}</span>
+                    <span>x</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || '0'}</span>
+                    <span>y</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span>radius</span>
+                    <span class="editable world" contenteditable="true" order="4">${field4 || '5'}</span>
+                    <span>damaged</span>
+                    <span class="editable world" contenteditable="true" order="5">${field5 || '50'}</span>
+                    <span>air</span>
+                    <span class="editable world" contenteditable="true" order="6">${field6 || 'true'}</span>
+                    <span>ground</span>
+                    <span class="editable world" contenteditable="true" order="7">${field7 || 'true'}</span>
+                    <span>pirece</span>
+                    <span class="editable world" contenteditable="true" order="8">${field8 || 'false'}</span>
+                    <span>effect</span>
+                    <span class="editable world" contenteditable="true" order="9">${field9 || 'true'}</span>`
             break;
         case 'Set Rate':
-            code = `<span>In developement</span>`
+            code = `<span>ipt</span>
+                    <span>=</span>
+                    <span class="editable world" contenteditable="true" order="1">${field1 || '10'}</span>`
             break;
         case 'Fetch':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world" style="display:block;" contenteditable="true" order="2">${field2 || 'result'}</span>
+                    <span>=</span>
+                    <span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'fetchMenu')" order="1">${field1 || 'unit'}</span>
+                    <span>team</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '@sharded'}</span>
+                    <span class="toggleableField" style="display:block;" order="44">#</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span class="toggleableField" style="display:block;" order="55">unit</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="5">${field5 || '@conveyor'}</span>`
+            tpmId = "fetchMenu"
             break;
-        case 'Sycn':
-            code = `<span>In developement</span>`
+        case 'Sync':
+            code = `<span class="editable world" contenteditable="true" order="1">${field1 || 'var'}</span>`
             break;
         case 'Get Flag':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world" contenteditable="true" order="1">${field1 || 'result'}</span>
+                    <span>=</span>
+                    <span>flag</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || '"flag"'}</span>`
             break;
         case 'Set Flag':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world" contenteditable="true" order="2">${field2 || '"flag"'}</span>
+                    <span>=</span>
+                    <span class="editable world" contenteditable="true" order="1">${field1 || 'true'}</span>`
             break;
         case 'Set Prop':
-            code = `<span>In developement</span>`
+            code = `<span>set</span>
+                    <span class="editable world" contenteditable="true" order="1">${field1 || '@copper'}</span>
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu','prop')" class="pencilMenu">
+                    <span>of</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || 'block1'}</span>
+                    <span>to</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>`
             break;
         case 'Play Sound':
             code = `<span>In developement</span>`
             break;
-        case 'Set Marker':
+        case 'Set Marker':// TOOD THERES SO MUCH CONDITIONAL FIELD HERE GOD
             code = `<span>In developement</span>`
             break;
         case 'Make Marker':
             code = `<span>In developement</span>`
             break;
         case 'Locale Print':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world" contenteditable="true" order="1">${field1 || '"name"'}</span>`
             break;
         default:
             code = `<span>if you see this that means something went 
@@ -369,8 +457,13 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
 
     newElement = lastContainer.nextElementSibling 
 
-    if (triggerPopupMenu) {      // probably shouldn't use ('[onclick]')[2]
-        selectOption(null,null,(newElement.querySelectorAll('[onclick]')[2]),newElement.querySelector('.selectionValue').textContent)
+    if (triggerPopupMenu) {      
+        // const onclickSpan = newElement.querySelectorAll('[onclick]')[2]
+        // onclickValue = (onclickSpan.getAttribute('onclick'));
+        // let args = onclickValue.match(/\((?:\d+,\s*)?'([^']*)'/);
+        // console.log(args); 
+                                    // probably shouldn't use ('[onclick]')[2]
+        selectOption(null,tpmId,(newElement.querySelectorAll('[onclick]')[2]),newElement.querySelector('.selectionValue').textContent)
     }
     if (update == 0){
         return
@@ -1164,10 +1257,28 @@ function positionPopUpMenu(event, id, ignoreCursor) {
     if (poprect.right > viewportWidth) menu.style.left = `${viewportWidth - poprect.width}px`;
     if (poprect.bottom > viewportHeight) menu.style.top = `${viewportHeight - poprect.height}px`;
 }
-function popUpMenu(event,id){
+function popUpMenu(event,id,from){
     // console.log(event);
 
     popUpMenuElement = document.getElementById(id);
+    sensorMenuButtons = document.getElementById('sensorMenuButtons')
+    let buttons = sensorMenuButtons.childNodes
+    buttons.forEach(button => {
+        button.id = from
+    })
+    if (from == 'prop'){
+        const variablesDisplay = document.getElementById('variables').style.display
+        if (variablesDisplay == 'block') {
+            document.getElementById('variables').style.display = 'none'
+            document.getElementById('setProp').style.display = 'block'
+        }
+    }else if (from == 'sensor'){
+        const propDisplay = document.getElementById('setProp').style.display
+        if (propDisplay == 'block') {
+            document.getElementById('variables').style.display = 'block'
+            document.getElementById('setProp').style.display = 'none'
+        }
+    }
 
     // console.log(sensorMenu)
     bgclickedMenu = popUpMenuElement.parentElement
@@ -1186,7 +1297,15 @@ function popUpMenu(event,id){
 }
 
 function subSensorMenu(type,event){
-    variables = document.getElementById('variables')
+    const from = event.target.id
+    console.log(from);
+    if (from == 'sensor'){
+        variables = document.getElementById('variables')
+        document.getElementById('setProp').style.display = 'none'
+    }else if (from == 'prop'){
+        variables = document.getElementById('setProp')
+        document.getElementById('variables').style.display = 'none'
+    }
     items = document.getElementById('items')
     liquids = document.getElementById('liquids')
     switch (type){
@@ -1276,633 +1395,874 @@ function selectOption(event,id,isImport,importSelectionValue) {
 
     // Switch case for every pop up menu context that changes its instruction fields 
     //(there might be a better way but unless its performance is not >10ms its fine)
-    // console.log(option);
-    switch (option){
-        // control section
-        case 'enabled':
-        case 'config':
-            fields.forEach(field => {
-                if (['field2', 'field2Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field2':
-                            field.textContent = "to"
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'shoot':
-            fields.forEach(field => {
-                if (['field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field2':
-                            field.textContent = "x"
-                            break;
-                        case 'field3':
-                            field.textContent = "y"
-                            break;
-                        case 'field4':
-                            field.textContent = "shoot"
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'shootp':
-            fields.forEach(field => {
-                if (['field2', 'field2Value', 
-                    'field3', 'field3Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field2':
-                            field.textContent = "unit"
-                            break;
-                        case 'field3':
-                            field.textContent = "shoot"
-                            break;
-                    }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
 
-        // Draw Section
-        case 'clear':
-            fields.forEach(field => {
-                if (['field1', 'field2', 
-                    'field3', 'field1Value', 
-                    'field2Value', 'field3Value'].includes(field.id)){
-                    rbgaFieldText(field);
+    //TODO this is good, might change all of it to like this
+    function main(which,textWhich){
+        fields.forEach(field => {
+            if (which){
+                if (which.includes(Number(field.getAttribute('order')))){
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';
                 }
-            })
+            }
+            if (textWhich){
+                for (let [key, value] of Object.entries(textWhich)) {
+                    if (Number(field.getAttribute('order')) == key){
+                        field.textContent = value;
+                    }
+                }
+            }
+        })
+    }
+    switch(id){
+        case 'setRuleMenu':
+            switch(option){//TODO this is good, might change all of it to like this
+                case 'mapArea':
+                    main([11,3,4,5,6], {11: '='})
+                    break;
+                case 'ban':
+                case 'unban':
+                    main([11,2], {11: 'block/unit'})
+                    break;
+                default:
+                    main([11,2], {11: '='})
+                    break;
+            }
             break;
-        case 'color':
-            // Since there are 2 'color'
-            if (targetId) {
-                switch (targetId){
-                    case 'controlColor':
-                        fields.forEach(field => {
-                            if (['field2', 'field2Value'].includes(field.id)){
-                                switch (field.id){
-                                    case 'field2':
-                                        field.textContent = "to"
-                                }
-                                field.style.display = 'block';
-                            } else {
-                                field.style.display = 'none';
+        case 'effectMenu': 
+            switch(option){
+                case 'warn':
+                case 'cross':
+                case 'spawn':
+                case 'bubble':
+                    main([2, 3]);
+                    break;
+                case 'blockFall':
+                    main([2, 3, 4], {44: 'data'});
+                    break;
+                case 'placeBlock':
+                case 'placeBlockSpark':
+                case 'breakBlock':
+                    main([2, 3, 4], {44: 'size'});
+                    break;
+                case 'trail':
+                case 'breakProp':
+                case 'lightBlock':
+                case 'crossExplosion':
+                case 'wave':
+                    main([2, 3, 4, 5, 44, 55], {44: 'size', 55: 'color'});
+                    break;
+                case 'smokeCloud':
+                case 'vapor':
+                case 'hit':
+                case 'hitSquare':
+                case 'spark':
+                case 'sparkBig':
+                case 'drill':
+                case 'drillBig':
+                case 'smokePuff':
+                case 'sparkExplosion':
+                    main([2, 3, 5, 55], {55: 'color'});
+                    break;
+                case 'shootSmall':
+                case 'shootBig':
+                case 'smokeColor':
+                case 'smokeSquareBig':
+                case 'sparkShoot':
+                case 'sparkShootBig':
+                    main([2, 3, 4, 5, 44, 55], {44: 'rotation', 55: 'color'});
+                    break;
+                case 'smokeBig':
+                    main([2, 3, 4, 44], {44: 'rotation'});
+                    break;
+                case 'explosion':
+                    main([2, 3, 4, 44], {44: 'size'});
+                    break;
+            }
+            break;
+        case 'fetchMenu':
+            switch(option){
+                case 'unit':
+                    main([4,44,5,55], {44: '#', 55: 'unit'})
+                    break;
+                case 'unitCount':
+                    main([5,55], {55: 'unit'})
+                    break;
+                case 'player':
+                case 'core':
+                    main([4,44], {44: '#'})
+                    break;
+                case 'playerCount':
+                case 'coreCount':
+                    main([-1], false)
+                    break;
+                case 'build':
+                    main([4,44,5,55], {44: '#', 55: 'block'})
+                    break;
+                case 'buildCount':
+                    main([5,55], {55: 'block'})
+                    break;
+            }
+            break;
+        default:
+            switch (option){
+                // control section
+                case 'enabled':
+                case 'config':
+                    fields.forEach(field => {
+                        if (['field2', 'field2Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field2':
+                                    field.textContent = "to"
                             }
-                        })
-                        break;
-                    case 'drawColor':
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'shoot':
+                    fields.forEach(field => {
+                        if (['field2', 'field2Value', 
+                            'field3', 'field3Value', 
+                            'field4', 'field4Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field2':
+                                    field.textContent = "x"
+                                    break;
+                                case 'field3':
+                                    field.textContent = "y"
+                                    break;
+                                case 'field4':
+                                    field.textContent = "shoot"
+                            }
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'shootp':
+                    fields.forEach(field => {
+                        if (['field2', 'field2Value', 
+                            'field3', 'field3Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field2':
+                                    field.textContent = "unit"
+                                    break;
+                                case 'field3':
+                                    field.textContent = "shoot"
+                                    break;
+                            }
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+
+                // Draw Section
+                case 'clear':
                     fields.forEach(field => {
                         if (['field1', 'field2', 
-                            'field3', 'field4', 
-                            'field1Value', 'field2Value', 
-                            'field3Value', 'field4Value'].includes(field.id)){
+                            'field3', 'field1Value', 
+                            'field2Value', 'field3Value'].includes(field.id)){
                             rbgaFieldText(field);
                             field.style.display = 'block';
                         } else {
                             field.style.display = 'none';
                         }
                     })
-                }
-            }
-            break;
-        case 'col':
-            fields.forEach(field => {
-                if (['field1', 'field1Value'].includes(field.id)){
-                    if (field.id == 'field1'){
-                        field.textContent = 'color'
+                    break;
+                case 'color':
+                    // Since there are 2 'color'
+                    if (targetId) {
+                        switch (targetId){
+                            case 'controlColor':
+                                fields.forEach(field => {
+                                    if (['field2', 'field2Value'].includes(field.id)){
+                                        switch (field.id){
+                                            case 'field2':
+                                                field.textContent = "to"
+                                        }
+                                        field.style.display = 'block';
+                                    } else {
+                                        field.style.display = 'none';
+                                    }
+                                })
+                                break;
+                            case 'drawColor':
+                            fields.forEach(field => {
+                                if (['field1', 'field2', 
+                                    'field3', 'field4', 
+                                    'field1Value', 'field2Value', 
+                                    'field3Value', 'field4Value'].includes(field.id)){
+                                    rbgaFieldText(field);
+                                    field.style.display = 'block';
+                                } else {
+                                    field.style.display = 'none';
+                                }
+                            })
+                        }
                     }
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'stroke':
-            fields.forEach(field => {
-                if (['field1Value'].includes(field.id)){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'line':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'x2'
-                            break;
-                        case 'field4':
-                            field.textContent = 'y2'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'rect':
-        case 'lineRect':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'width'
-                            break;
-                        case 'field4':
-                            field.textContent = 'height'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'poly':
-        case 'linePoly':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value', 
-                    'field5', 'field5Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'sides'
-                            break;
-                        case 'field4':
-                            field.textContent = 'radius'
-                            break;
-                        case 'field5':
-                            field.textContent = 'rotation'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'triangle':
-            fields.forEach(field => {
-                if (field.id){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'x2'
-                            break;
-                        case 'field4':
-                            field.textContent = 'y2'
-                            break;
-                        case 'field5':
-                            field.textContent = 'x3'
-                            break;
-                        case 'field6':
-                            field.textContent = 'y3'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'image':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value', 
-                    'field4', 'field4Value', 
-                    'field5', 'field5Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'image'
-                            break;
-                        case 'field4':
-                            field.textContent = 'size'
-                            break;
-                        case 'field5':
-                            field.textContent = 'rotation'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'print':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'align'
-                            break;
-                        case 'field3Value':
-                            field.textContent = "center"
-                            if (!(field.hasEvent)){
-                                field.hasEvent = true
-                                field.addEventListener('click', clickHandler);
-                            }
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'translate':
-        case 'scale':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'rotate':
-            fields.forEach(field => {
-                if (['field1', 'field1Value'].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'degrees'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-
-        // Unit control section
-        case 'reset':
-        case 'idle':
-        case 'stop':
-        case 'autoPathfind':
-        case 'payDrop':
-        case 'payEnter':
-        case 'unbind':
-            fields.forEach(field => {
-                field.style.display = 'none';
-            })
-            break;
-        case 'move':
-        case 'pathfind':
-        case 'mine':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'approach':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'radius'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'boost':
-            fields.forEach(field => {
-                if (['field1', 'field1Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'enable'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'target':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'shoot'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'targetp':
-        fields.forEach(field => {
-            if (['field1', 'field1Value', 
-                'field2', 'field2Value',].includes(field.id)){
-                switch (field.id){
-                    case 'field1':
-                        field.textContent = 'unit'
-                        break;
-                    case 'field2':
-                        field.textContent = 'shoot'
-                        break;
-                } 
-                field.style.display = 'block';
-            } else {
-                field.style.display = 'none';
-            }
-        })
-        break;
-        case 'itemDrop':
-        fields.forEach(field => {
-            if (['field1', 'field1Value', 
-                'field2', 'field2Value',].includes(field.id)){
-                switch (field.id){
-                    case 'field1':
-                        field.textContent = 'to'
-                        break;
-                    case 'field2':
-                        field.textContent = 'amount'
-                        break;
-                } 
-                field.style.display = 'block';
-            } else {
-                field.style.display = 'none';
-            }
-        })
-        break;
-        case 'itemTake':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value',
-                    'field3', 'field3Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'from'
-                            break;
-                        case 'field2':
-                            field.textContent = 'item'
-                            break;
-                        case 'field3':
-                            field.textContent = 'amount'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'payTake':
-            fields.forEach(field => {
-                if (['field1', 'field1Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'takeUnits'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'itemTake':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value',
-                    'field3', 'field3Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'from'
-                            break;
-                        case 'field2':
-                            field.textContent = 'item'
-                            break;
-                        case 'field3':
-                            field.textContent = 'amount'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'flag':
-        fields.forEach(field => {
-            if (['field1', 'field1Value',].includes(field.id)){
-                switch (field.id){
-                    case 'field1':
-                        field.textContent = 'value'
-                        break;
-                } 
-                field.style.display = 'block';
-            } else {
-                field.style.display = 'none';
-            }
-        })
-        break;
-        case 'build':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value',
-                    'field3', 'field3Value',
-                    'field4', 'field4Value',
-                    'field5', 'field5Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'block'
-                            break;
-                        case 'field4':
-                            field.textContent = 'rotation'
-                            break;
-                        case 'field5':
-                            field.textContent = 'config'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'getBlock':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value',
-                    'field3', 'field3Value',
-                    'field4', 'field4Value',
-                    'field5', 'field5Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'type'
-                            break;
-                        case 'field4':
-                            field.textContent = 'building'
-                            break;
-                        case 'field5':
-                            field.textContent = 'floor'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'within':
-            fields.forEach(field => {
-                if (['field1', 'field1Value', 
-                    'field2', 'field2Value', 
-                    'field3', 'field3Value',
-                    'field4', 'field4Value',].includes(field.id)){
-                    switch (field.id){
-                        case 'field1':
-                            field.textContent = 'x'
-                            break;
-                        case 'field2':
-                            field.textContent = 'y'
-                            break;
-                        case 'field3':
-                            field.textContent = 'radius'
-                            break;
-                        case 'field4':
-                            field.textContent = 'result'
-                            break;
-                    } 
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'ore':
-            switch (targetId){
-                case 'ulocateOre':
+                    break;
+                case 'col':
                     fields.forEach(field => {
-                        if (['field3', 'field3Value'].includes(field.id)){
+                        if (['field1', 'field1Value'].includes(field.id)){
+                            if (field.id == 'field1'){
+                                field.textContent = 'color'
+                            }
                             field.style.display = 'block';
                         } else {
                             field.style.display = 'none';
                         }
                     })
                     break;
-                case 'setBlockOre':
+                case 'stroke':
+                    fields.forEach(field => {
+                        if (['field1Value'].includes(field.id)){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'line':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value', 
+                            'field4', 'field4Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'x2'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'y2'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'rect':
+                case 'lineRect':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value', 
+                            'field4', 'field4Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'width'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'height'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'poly':
+                case 'linePoly':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value', 
+                            'field4', 'field4Value', 
+                            'field5', 'field5Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'sides'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'radius'
+                                    break;
+                                case 'field5':
+                                    field.textContent = 'rotation'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'triangle':
+                    fields.forEach(field => {
+                        if (field.id){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'x2'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'y2'
+                                    break;
+                                case 'field5':
+                                    field.textContent = 'x3'
+                                    break;
+                                case 'field6':
+                                    field.textContent = 'y3'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'image':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value', 
+                            'field4', 'field4Value', 
+                            'field5', 'field5Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'image'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'size'
+                                    break;
+                                case 'field5':
+                                    field.textContent = 'rotation'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'print':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'align'
+                                    break;
+                                case 'field3Value':
+                                    field.textContent = "center"
+                                    if (!(field.hasEvent)){
+                                        field.hasEvent = true
+                                        field.addEventListener('click', clickHandler);
+                                    }
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'translate':
+                case 'scale':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'rotate':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value'].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'degrees'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+
+                // Unit control section
+                case 'reset':
+                case 'idle':
+                case 'stop':
+                case 'autoPathfind':
+                case 'payDrop':
+                case 'payEnter':
+                case 'unbind':
+                    fields.forEach(field => {
+                        field.style.display = 'none';
+                    })
+                    break;
+                case 'move':
+                case 'pathfind':
+                case 'mine':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'approach':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'radius'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'boost':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'enable'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'target':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'shoot'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'targetp':
+                fields.forEach(field => {
+                    if (['field1', 'field1Value', 
+                        'field2', 'field2Value',].includes(field.id)){
+                        switch (field.id){
+                            case 'field1':
+                                field.textContent = 'unit'
+                                break;
+                            case 'field2':
+                                field.textContent = 'shoot'
+                                break;
+                        } 
+                        field.style.display = 'block';
+                    } else {
+                        field.style.display = 'none';
+                    }
+                })
+                break;
+                case 'itemDrop':
+                fields.forEach(field => {
+                    if (['field1', 'field1Value', 
+                        'field2', 'field2Value',].includes(field.id)){
+                        switch (field.id){
+                            case 'field1':
+                                field.textContent = 'to'
+                                break;
+                            case 'field2':
+                                field.textContent = 'amount'
+                                break;
+                        } 
+                        field.style.display = 'block';
+                    } else {
+                        field.style.display = 'none';
+                    }
+                })
+                break;
+                case 'itemTake':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value',
+                            'field3', 'field3Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'from'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'item'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'amount'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'payTake':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'takeUnits'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'itemTake':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value',
+                            'field3', 'field3Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'from'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'item'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'amount'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'flag':
+                fields.forEach(field => {
+                    if (['field1', 'field1Value',].includes(field.id)){
+                        switch (field.id){
+                            case 'field1':
+                                field.textContent = 'value'
+                                break;
+                        } 
+                        field.style.display = 'block';
+                    } else {
+                        field.style.display = 'none';
+                    }
+                })
+                break;
+                case 'build':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value',
+                            'field3', 'field3Value',
+                            'field4', 'field4Value',
+                            'field5', 'field5Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'block'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'rotation'
+                                    break;
+                                case 'field5':
+                                    field.textContent = 'config'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'getBlock':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value',
+                            'field3', 'field3Value',
+                            'field4', 'field4Value',
+                            'field5', 'field5Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'type'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'building'
+                                    break;
+                                case 'field5':
+                                    field.textContent = 'floor'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'within':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value', 
+                            'field2', 'field2Value', 
+                            'field3', 'field3Value',
+                            'field4', 'field4Value',].includes(field.id)){
+                            switch (field.id){
+                                case 'field1':
+                                    field.textContent = 'x'
+                                    break;
+                                case 'field2':
+                                    field.textContent = 'y'
+                                    break;
+                                case 'field3':
+                                    field.textContent = 'radius'
+                                    break;
+                                case 'field4':
+                                    field.textContent = 'result'
+                                    break;
+                            } 
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'ore':
+                    switch (targetId){
+                        case 'ulocateOre':
+                            fields.forEach(field => {
+                                if (['field3', 'field3Value'].includes(field.id)){
+                                    field.style.display = 'block';
+                                } else {
+                                    field.style.display = 'none';
+                                }
+                            })
+                            break;
+                        case 'setBlockOre':
+                            fields.forEach(field => {
+                                if ([5, 6].includes(Number(field.getAttribute('order')))){
+                                    console.log(field);
+                                    field.style.display = 'none';
+                                } else {
+                                    field.style.display = 'block';
+                                }
+                            })
+                            break;
+                    }
+                    break;
+                case 'building':
+                    fields.forEach(field => {
+                        if (['field1', 'field1Value',
+                            'field2', 'field2Value'].includes(field.id)){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'damaged':
+                case 'spawn':
+                    fields.forEach(field => {
+                        field.style.display = 'none';
+                    })
+                    break;
+
+                //jump section
+                case 'always':
+                    fields.forEach(field => {
+                        if (['field1Value', 
+                            'field2Value',
+                            'field3Value',
+                            'field4Value',].includes(field.id)){
+                            field.style.display = 'none';
+                        } else {
+                            field.style.display = 'block';
+                        }
+                    })
+                    break;
+                case '':
+                    fields.forEach(field => {
+                        if (['field2Value', 
+                            'field3Value',
+                            'field4Value',].includes(field.id)){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case '==':
+                case 'not':
+                case '<':
+                case '<=':
+                case '>':
+                case '>=':
+                case '===':
+                    fields.forEach(field => {
+                        if (['field2Value', 
+                            'field3Value',
+                            'field4Value',].includes(field.id)){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'floor':
                     fields.forEach(field => {
                         if ([5, 6].includes(Number(field.getAttribute('order')))){
-                            console.log(field);
+                            field.style.display = 'none';
+                        } else {
+                            field.style.display = 'block';
+                        }
+                    })
+                    break;
+                case 'block':
+                    fields.forEach(field => {
+                        if ([5, 6].includes(Number(field.getAttribute('order')))){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'notify':
+                case 'mission':
+                    fields.forEach(field => {
+                        if ([2].includes(Number(field.getAttribute('order')))){
+                            field.style.display = 'none';
+                        } else {
+                            field.style.display = 'block';
+                        }
+                    })
+                    break;
+                case 'announce':
+                case 'toast':
+                    fields.forEach(field => {
+                        if ([2].includes(Number(field.getAttribute('order')))){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                    })
+                    break;
+                case 'pan':
+                    fields.forEach(field => {
+                        if ([22,2,3,4].includes(Number(field.getAttribute('order')))){
+                            field.style.display = 'block';
+                        } else {
+                            field.style.display = 'none';
+                        }
+                        if ([22].includes(Number(field.getAttribute('order')))){
+                            field.textContent = 'x';
+                        }
+                    })
+                    break;
+                case 'zoom':
+                    fields.forEach(field => {
+                        if ([3,4].includes(Number(field.getAttribute('order')))){
+                            field.style.display = 'none';
+                        } else {
+                            field.style.display = 'block';
+                        }
+                        if ([22].includes(Number(field.getAttribute('order')))){
+                            field.textContent = 'zoom';
+                        }
+                    })
+                    break;
+                case 'stop':
+                    fields.forEach(field => {
+                        if ([2,3,4].includes(Number(field.getAttribute('order')))){
                             field.style.display = 'none';
                         } else {
                             field.style.display = 'block';
@@ -1910,83 +2270,7 @@ function selectOption(event,id,isImport,importSelectionValue) {
                     })
                     break;
             }
-            break;
-        case 'building':
-            fields.forEach(field => {
-                if (['field1', 'field1Value',
-                    'field2', 'field2Value'].includes(field.id)){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'damaged':
-        case 'spawn':
-            fields.forEach(field => {
-                field.style.display = 'none';
-            })
-            break;
-
-        //jump section
-        case 'always':
-            fields.forEach(field => {
-                if (['field1Value', 
-                    'field2Value',
-                    'field3Value',
-                    'field4Value',].includes(field.id)){
-                    field.style.display = 'none';
-                } else {
-                    field.style.display = 'block';
-                }
-            })
-            break;
-        case '':
-            fields.forEach(field => {
-                if (['field2Value', 
-                    'field3Value',
-                    'field4Value',].includes(field.id)){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case '==':
-        case 'not':
-        case '<':
-        case '<=':
-        case '>':
-        case '>=':
-        case '===':
-            fields.forEach(field => {
-                if (['field2Value', 
-                    'field3Value',
-                    'field4Value',].includes(field.id)){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
-        case 'floor':
-            fields.forEach(field => {
-                if ([5, 6].includes(Number(field.getAttribute('order')))){
-                    field.style.display = 'none';
-                } else {
-                    field.style.display = 'block';
-                }
-            })
-            break;
-        case 'block':
-            fields.forEach(field => {
-                if ([5, 6].includes(Number(field.getAttribute('order')))){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-            })
-            break;
+        break;
     }
     if(!isImport){
         closeMenu(event);
@@ -2435,89 +2719,99 @@ function exportCode(save){
             let instType = insSpan.textContent;
             if (instTypeMap?.[instType]){
                 codeEx += instTypeMap[instType];
-                exportFields(0)
+                let ignoreIgnoreInvisable
+                switch (instType){
+                    case 'Flush Message':
+                        ignoreIgnoreInvisable = 1 
+                        break;
+                    default:
+                        ignoreIgnoreInvisable = 0
+                        break;
+                }
+                exportFields(ignoreIgnoreInvisable)
             } else {
-                if (instType == 'Jump'){                     
-                    codeEx += `jump ${
-                        container.querySelector('#field1Value')?.textContent} ${
-                        operatorMap[container.querySelector('#field3Value')?.textContent]}`
-                    exportFields(0)
-                }
-                if (instType == 'Sensor'){
-                    codeEx += `sensor ${
-                        container.querySelector('#field1Value')?.textContent} ${
-                        container.querySelector('#field3Value')?.textContent} ${
-                        container.querySelector('#field2Value')?.textContent}`
-                }
-                if (instType == 'Operation'){
-                    codeEx += "op "
-                    operator = container.querySelector('.dontInclude')
-                    OperatorString = (operator.textContent.replace(/\s+/g, ''));
-                    if (operatorMap[OperatorString] !== undefined) {
-                        codeEx += operatorMap[OperatorString];
-                    }
-                    exportFields(0)
-                }
-                if (instType == 'Radar'){
-                    codeEx += `radar ${
-                        container.querySelector('#field2Value')?.textContent} ${
-                        container.querySelector('#field3Value')?.textContent} ${
-                        container.querySelector('#field4Value')?.textContent} ${
-                        container.querySelector('#field6Value')?.textContent} ${
-                        container.querySelector('#field1Value')?.textContent} ${
-                        container.querySelector('#field5Value')?.textContent} ${
-                        container.querySelector('#field7Value')?.textContent}`
-                }
-                if (instType == 'Lookup'){
-                    codeEx += `lookup ${
-                        container.querySelector('#field2Value')?.textContent} ${
-                        container.querySelector('#field1Value')?.textContent} ${
-                        container.querySelector('#field3Value')?.textContent}`
-                }
-                if (instType == 'Unit Radar'){
-                    codeEx += `uradar ${
-                        container.querySelector('#field2Value')?.textContent} ${
-                        container.querySelector('#field3Value')?.textContent} ${
-                        container.querySelector('#field4Value')?.textContent} ${
-                        container.querySelector('#field6Value')?.textContent} 0 ${
-                        container.querySelector('#field5Value')?.textContent} ${
-                        container.querySelector('#field7Value')?.textContent}`
-                }
-                if (instType == 'Unit Locate'){
-                    codeEx += `ulocate `
-                    exportFields(1)
-                }
-                if (instType == 'Label'){
-                    codeEx += `${container.querySelector('.code').querySelector('span').textContent}:`
-                }
-                // if (instType == 'Get Block'){
-                //     codeEx += `getblock ${
-                //         container.querySelector('#field2Value')?.textContent} ${
-                //         container.querySelector('#field1Value')?.textContent} ${
-                //         container.querySelector('#field3Value')?.textContent} ${
-                //         container.querySelector('#field4Value')?.textContent}`
-                // }
-                // if (instType == 'Set Block'){
-                //     codeEx += `setblock ${
-                //         container.querySelector('#field1Value')?.textContent} ${
-                //         container.querySelector('#field4Value')?.textContent} ${
-                //         container.querySelector('#field2Value')?.textContent} ${
-                //         container.querySelector('#field3Value')?.textContent} ${
-                //         container.querySelector('#field4Value')?.textContent} ${
-                //         container.querySelector('#field5Value')?.textContent}`
-                // }
-                if (instType == 'Apply Status'){
-                    let field1 = container.querySelector('[order="1"]')?.textContent;
-                    field1 = field1 === 'clear' ? 'true' : (field1 === 'apply' ? 'false' : field1);
-                    codeEx += `status ${field1} `
-                    exportFields(0)
+                switch (instType){
+                    case 'Jump':
+                        codeEx += `jump ${
+                            container.querySelector('#field1Value')?.textContent} ${
+                            operatorMap[container.querySelector('#field3Value')?.textContent]}`
+                        exportFields(0)
+                        break;
+                    case 'Sensor':
+                        codeEx += `sensor ${
+                            container.querySelector('#field1Value')?.textContent} ${
+                            container.querySelector('#field3Value')?.textContent} ${
+                            container.querySelector('#field2Value')?.textContent}`
+                        break;
+                    case 'Operation':
+                        codeEx += "op "
+                        operator = container.querySelector('.dontInclude')
+                        OperatorString = (operator.textContent.replace(/\s+/g, ''));
+                        if (operatorMap[OperatorString] !== undefined) {
+                            codeEx += operatorMap[OperatorString];
+                        }
+                        exportFields(0)
+                        break;
+                    case 'Radar':
+                        codeEx += `radar ${
+                            container.querySelector('#field2Value')?.textContent} ${
+                            container.querySelector('#field3Value')?.textContent} ${
+                            container.querySelector('#field4Value')?.textContent} ${
+                            container.querySelector('#field6Value')?.textContent} ${
+                            container.querySelector('#field1Value')?.textContent} ${
+                            container.querySelector('#field5Value')?.textContent} ${
+                            container.querySelector('#field7Value')?.textContent}`
+                        break;
+                    case 'Lookup':
+                        codeEx += `lookup ${
+                            container.querySelector('#field2Value')?.textContent} ${
+                            container.querySelector('#field1Value')?.textContent} ${
+                            container.querySelector('#field3Value')?.textContent}`
+                        break;
+                    case 'Unit Radar':
+                        codeEx += `uradar ${
+                            container.querySelector('#field2Value')?.textContent} ${
+                            container.querySelector('#field3Value')?.textContent} ${
+                            container.querySelector('#field4Value')?.textContent} ${
+                            container.querySelector('#field6Value')?.textContent} 0 ${
+                            container.querySelector('#field5Value')?.textContent} ${
+                            container.querySelector('#field7Value')?.textContent}`
+                    case 'Unit Locate':
+                        codeEx += `ulocate `
+                        exportFields(1)
+                        break;
+                    case 'Label':
+                        codeEx += `${container.querySelector('.code').querySelector('span').textContent}:`
+                        break;
+                    // if (instType == 'Get Block'){
+                    //     codeEx += `getblock ${
+                    //         container.querySelector('#field2Value')?.textContent} ${
+                    //         container.querySelector('#field1Value')?.textContent} ${
+                    //         container.querySelector('#field3Value')?.textContent} ${
+                    //         container.querySelector('#field4Value')?.textContent}`
+                    // }
+                    // if (instType == 'Set Block'){
+                    //     codeEx += `setblock ${
+                    //         container.querySelector('#field1Value')?.textContent} ${
+                    //         container.querySelector('#field4Value')?.textContent} ${
+                    //         container.querySelector('#field2Value')?.textContent} ${
+                    //         container.querySelector('#field3Value')?.textContent} ${
+                    //         container.querySelector('#field4Value')?.textContent} ${
+                    //         container.querySelector('#field5Value')?.textContent}`
+                    // }
+                    case 'Apply Status':
+                        let field1 = container.querySelector('[order="1"]')?.textContent;
+                        field1 = field1 === 'clear' ? 'true' : (field1 === 'apply' ? 'false' : field1);
+                        codeEx += `status ${field1} `
+                        exportFields(0)
+                        break;
                 }
 
                 //im experimenting with 'order', although more readable it might be slower, but again its very negligible
             }
             function exportFields(ignoreIgnoreInvisable){
                 codeElements = container.querySelectorAll('.editable');
-                if (codeElements[0].hasAttribute('order')){ 
+                if (codeElements[0]?.hasAttribute('order')){ 
                     codeElements = Array.from(codeElements).sort((a, b) => a.getAttribute('order') - b.getAttribute('order'));
                 }
                 codeElements.forEach(code => {
@@ -2646,10 +2940,19 @@ async function importCode(manual,codeSaved){
         if (type){
             // console.log(type);
             let triggerPopupMenu
-            if (type == 'Control' || type == 'Draw' || type == 'Unit Control' || type == 'Jump') {
+            if (['Control', 
+                'Draw', 
+                'Unit Control', 
+                'Jump', 
+                'Set Rule', 
+                'Set Block', 
+                'Flush Message', 
+                'Cutscene', 
+                'Effect', 
+                'Fetch'].includes(type)) {
                 triggerPopupMenu = true
             }
-            addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8], triggerPopupMenu)
+            addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8], words[9], triggerPopupMenu)
         } else {
             if (words[0].endsWith(":")){
                 addInstruction('Label', 0, words[0].replace(":",""))
