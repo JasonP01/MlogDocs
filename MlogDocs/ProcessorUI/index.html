@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Online Mlog UI">
+    <meta name="keywords" content="Mindustry logic, Mlog documentation, logic wiki, Mindustry logic wiki, Mlog wiki, Mindustry automation, Mindustry scripting, Mindustry programming, game automation, game scripting">
+    <meta property="og:title" content="Mlog - Online Processor GUI">
+    <meta property="og:description" content="Online Mlog UI, a standalone and enchanced Mindustry Processor GUI/IDE online">
+    <meta property="og:image" content="https://yrueii.github.io/MlogDocs/image/micro-processor.png">
+    <meta property="og:url" content="https://yrueii.github.io/MlogDocs">
+    <meta property="og:type" content="website">
+    <meta name="author" content="Yruei">
+    <meta name="robots" content="index, follow">
     <title>Mlog GUI</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../image/micro-processor.png" type="image/png">
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- TODO Implement World Processor instructions (playsound, setmarker, makemarker left) -->
     <!-- TODO Im experimenting with using a custom attritbute 'order' instead of id 'field1value' or 'field1', need to decide which to use -->
     <!-- TODO its probably better using 'order', gonna refactor the switch option tree now -->
 
@@ -285,6 +294,7 @@
                     <button class="addItems">Write</button>
                     <button class="addItems">Draw</button>
                     <button class="addItems">Print</button>
+                    <button class="addItems">Print Char</button>
                     <button class="addItems">Format</button>
                 </div>
                 <div class="wizard-title">Block Control<div class="line"></div></div>
@@ -781,6 +791,142 @@
             <div>coreCount</div>
             <div>build</div>
             <div>buildCount</div>
+        </div>
+        <div id="soundMenu" class="popUpMenu">
+            <div>lasershoot</div>
+            <div>steam</div>
+            <div>spellLoop</div>
+            <div>build</div>
+            <div>wave</div>
+            <div>respawning</div>
+            <div>message</div>
+            <div>lasercharge2</div>
+            <div>machine</div>
+            <div>place</div>
+            <div>missileTrail</div>
+            <div>missileSmall</div>
+            <div>mineBeam</div>
+            <div>missileLaunch</div>
+            <div>laserbeam</div>
+            <div>shotgun</div>
+            <div>mud</div>
+            <div>missile</div>
+            <div>wind</div>
+            <div>break</div>
+            <div>shootAlt</div>
+            <div>glow</div>
+            <div>extractLoop</div>
+            <div>pulseBlast</div>
+            <div>malignShoot</div>
+            <div>click</div>
+            <div>shootSnap</div>
+            <div>plantBreak</div>
+            <div>bold</div>
+            <div>bioLoop</div>
+            <div>wind3</div>
+            <div>techloop</div>
+            <div>flame2</div>
+            <div>smelter</div>
+            <div>combustion</div>
+            <div>explosion</div>
+            <div>unlock</div>
+            <div>pulse</div>
+            <div>windhowl</div>
+            <div>rain</div>
+            <div>shootAltLong</div>
+            <div>grinding</div>
+            <div>hum</div>
+            <div>wind2</div>
+            <div>sap</div>
+            <div>door</div>
+            <div>beam</div>
+            <div>lasercharge</div>
+            <div>thruster</div>
+            <div>laser</div>
+            <div>press</div>
+            <div>fire</div>
+            <div>spray</div>
+            <div>railgun</div>
+            <div>torch</div>
+            <div>splash</div>
+            <div>blaster</div>
+            <div>cannon</div>
+            <div>drillImpact</div>
+            <div>flame</div>
+            <div>buttonClick</div>
+            <div>conveyor</div>
+            <div>bigshot</div>
+            <div>plasmaboom</div>
+            <div>missileLarge</div>
+            <div>shoot</div>
+            <div>explosionbig</div>
+            <div>mineDeploy</div>
+            <div>laserblast</div>
+            <div>dullExplosion</div>
+            <div>noammo</div>
+            <div>artillery</div>
+            <div>release</div>
+            <div>mediumCannon</div>
+            <div>shockBlast</div>
+            <div>chatMessage</div>
+            <div>laserbig</div>
+            <div>back</div>
+            <div>largeExplosion</div>
+            <div>corexplode</div>
+            <div>drillCharge</div>
+            <div>cutter</div>
+            <div>shield</div>
+            <div>shootBig</div>
+            <div>largeCannon</div>
+            <div>drill</div>
+            <div>spark</div>
+            <div>rockBreak</div>
+            <div>flux</div>
+            <div>boom</div>
+            <div>pew</div>
+            <div>electricHum</div>
+            <div>shootSmite</div>
+            <div>titanExplosion</div>
+            <div>plasmadrop</div>
+            <div>tractorBeam</div>
+            <div>respawn</div>
+            <div>bang</div>
+        </div>
+        <div id="setMarkerMenu" class="popUpMenu">
+            <div>remove</div>
+            <div>world</div>
+            <div>minimap</div>
+            <div>autoscale</div>
+            <div>pos</div>
+            <div>endPos</div>
+            <div>drawLayer</div>
+            <div>color</div>
+            <div>radius</div>
+            <div>stroke</div>
+            <div>rotation</div>
+            <div>shape</div>
+            <div>arc</div>
+            <div>flushText</div>
+            <div>fontSize</div>
+            <div>textHeight</div>
+            <div>labelFlags</div>
+            <div>texture</div>
+            <div>textureSize</div>
+            <div>posi</div>
+            <div>uvi</div>
+            <div>colori</div>
+        </div>
+        <div id="makeMarkerMenu" class="popUpMenu">
+            <div>shapeText</div>
+            <div>point</div>
+            <div>shape</div>
+            <div>text</div>
+            <div>line</div>
+            <div>texture</div>
+            <div>quad</div>
+        </div>
+        <div id="printCharMenu" class="popUpMenu">
+            <div>(in developement)</div>
         </div>
     </div>
     <div class="placeHolder"></div>

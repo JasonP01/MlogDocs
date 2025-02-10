@@ -60,6 +60,10 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Print':
             code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
+        case 'Print Char':
+            code = `<span class="editable iNo" contenteditable="true">${field1 || '65'}</span>
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'printCharMenu')" class="pencilMenu">`
+            break;
         case 'Format':
             code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
@@ -78,15 +82,15 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Control':
             code = `<span>set</span>
-                    <span class="editable blockControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'controlMenu')">${field1 || 'enabled'}</span>
-                    <span id="field1">of</span>
-                    <span class="editable blockControl" id="field1Value" contenteditable="true">${field2 || 'block1'}</span>
-                    <span class="toggleableField" id="field2" style="display:block;">to</span>
-                    <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
-                    <span class="toggleableField" id="field3"></span>
-                    <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true">${field4 || '0'}</span>
-                    <span class="toggleableField" id="field4"></span>
-                    <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>`
+                    <span class="editable blockControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'controlMenu')" order="1">${field1 || 'enabled'}</span>
+                    <span>of</span>
+                    <span class="editable blockControl" contenteditable="true" order="2">${field2 || 'block1'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;" order="33">to</span>
+                    <span class="editable blockControl toggleableField" id="field2Value" contenteditable="true" style="display:block;" order="3">${field3 || '0'}</span>
+                    <span class="toggleableField" id="field3" order="44"></span>
+                    <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span class="toggleableField" id="field4" order="55"></span>
+                    <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>`
             break;
         case 'Radar':
             code = `<span>from</span>
@@ -153,12 +157,12 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Jump':
             code = `<span>if</span>
-                    <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || 'x'}</span>
-                    <span class="editable flowControl dontInclude selectionValue" id="field3Value" onclick="popUpMenu(event,'jumpMenu')">${field2 || 'not'}</span>
-                    <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;">${field4 || 'false'}</span>
+                    <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style="display:block;" order="3">${field3 || 'x'}</span>
+                    <span class="editable flowControl selectionValue" id="field3Value" onclick="popUpMenu(event,'jumpMenu')" order="2">${field2 || 'not'}</span>
+                    <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;" order="4">${field4 || 'false'}</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
-                        <span class="editable flowControl dontInclude" id="field1Value" contenteditable="true" draggable="false" onclick="jumpDestination(event)">${field1 || '-1'}</span>
+                        <span class="editable flowControl" id="field1Value" contenteditable="true" draggable="false" onclick="jumpDestination(event)" order="1">${field1 || '-1'}</span>
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
                     <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
@@ -272,7 +276,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             field1 = field1 === 'true' ? 'clear' : (field1 === 'false' ? 'apply' : field1);
             code = `<span class="editable world dontInclude" order="1" switch='["apply", "clear"]' onclick="valueToggle(event)">${field1 || 'apply'}</span>
                     <span class="editable world" contenteditable="true" order="2" onclick="popUpMenu(event,'applyStatusMenu')">${field2 || 'wet'}</span>
-                    <span class="toggleableField" order="3t">to</span>
+                    <span class="toggleableField" order="33">to</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || 'unit'}</span>
                     <span class="toggleableField" style="display:block;" order="4">for</span>
                     <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="4">${field4 || '10'}</span>`
@@ -406,13 +410,48 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>`
             break;
         case 'Play Sound':
-            code = `<span>In developement</span>`
+            field1 = field1 === 'true' ? 'clear' : (field1 === 'false' ? 'apply' : field1);
+            code = `<span class="editable world dontInclude" switch='["global", "positional"]' onclick="valueToggle(event)">${field1 || 'global'}</span>
+                    <span class="editable world" contenteditable="true">${field2 || '@sfx-pew'}</span>
+                    <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'soundMenu')" class="pencilMenu">
+                    <span>volume</span>
+                    <span class="editable world" contenteditable="true">${field3 || '1'}</span>
+                    <span>pitch</span>
+                    <span class="editable world" contenteditable="true">${field4 || '1'}</span>
+                    <span class="toggleableField" style="display:block;" order="11">pan</span>
+                    <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="1">${field5 || '0'}</span>
+                    <span class="toggleableField" order="22">x</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="2">${field6 || '@thisx'}</span>
+                    <span class="toggleableField" order="33">y</span>
+                    <span class="editable world toggleableField" contenteditable="true" order="3">${field7 || '@thisy'}</span>
+                    <span>limit</span>
+                    <span class="editable world" contenteditable="true">${field8 || 'true'}</span>
+                    `
             break;
         case 'Set Marker':// TOOD THERES SO MUCH CONDITIONAL FIELD HERE GOD
-            code = `<span>In developement</span>`
+            code = `<span>set</span>
+                    <span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'setMarkerMenu')" order="1">${field1 || 'pos'}</span>
+                    <span class="toggleableField" style="display:block" order="22">of id#</span>
+                    <span class="editable world toggleableField" style="display:block" contenteditable="true" order="2">${field2 || '0'}</span>
+                    <span class="toggleableField" style="display:block" order="33">x</span>
+                    <span class="editable world toggleableField" style="display:block" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span class="toggleableField" style="display:block" order="44">y</span>
+                    <span class="editable world toggleableField" style="display:block" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span class="toggleableField" order="55"></span>
+                    <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '0'}</span>
+                    `
             break;
         case 'Make Marker':
-            code = `<span>In developement</span>`
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'makeMarkerMenu')" order="1">${field1 || 'shape'}</span>
+                    <span>id</span>
+                    <span class="editable world" contenteditable="true" order="2">${field2 || '0'}</span>
+                    <span>x</span>
+                    <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
+                    <span>y</span>
+                    <span class="editable world" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span>replace</span>
+                    <span class="editable world" contenteditable="true" order="5">${field5 || 'true'}</span>
+                    `
             break;
         case 'Locale Print':
             code = `<span class="editable world" contenteditable="true" order="1">${field1 || '"name"'}</span>`
@@ -1363,10 +1402,14 @@ function selectOption(event,id,isImport,importSelectionValue) {
         performanceStart = performance.now();
         event.stopPropagation();
         let span;
+        let prefix;
         if (clickedMenu.tagName == 'IMG'){
             span = clickedMenu.previousElementSibling
         } else {
             span = clickedMenu
+        }
+        if (id == 'soundMenu'){
+            prefix = '@sfx-'
         }
     
         targetId = event.target.id
@@ -1377,7 +1420,7 @@ function selectOption(event,id,isImport,importSelectionValue) {
             }
         
         option = event.target.textContent
-        span.textContent = option;
+        span.textContent = (prefix || '') + option;
         // console.log(event.target);
         if (id == "drawMenu" && option != "print") {
             removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
@@ -1505,63 +1548,107 @@ function selectOption(event,id,isImport,importSelectionValue) {
                     break;
             }
             break;
-        default:
-            switch (option){
-                // control section
+        case 'controlMenu':
+            switch(option){
                 case 'enabled':
                 case 'config':
-                    fields.forEach(field => {
-                        if (['field2', 'field2Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field2':
-                                    field.textContent = "to"
-                            }
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                case 'color':
+                    main([2, 3, 33], {33: 'to'})
                     break;
                 case 'shoot':
-                    fields.forEach(field => {
-                        if (['field2', 'field2Value', 
-                            'field3', 'field3Value', 
-                            'field4', 'field4Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field2':
-                                    field.textContent = "x"
-                                    break;
-                                case 'field3':
-                                    field.textContent = "y"
-                                    break;
-                                case 'field4':
-                                    field.textContent = "shoot"
-                            }
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([2, 3, 4, 5, 33, 44, 55], {33: 'x', 44: 'y', 55: 'shoot'})
                     break;
                 case 'shootp':
-                    fields.forEach(field => {
-                        if (['field2', 'field2Value', 
-                            'field3', 'field3Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field2':
-                                    field.textContent = "unit"
-                                    break;
-                                case 'field3':
-                                    field.textContent = "shoot"
-                                    break;
-                            }
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([2, 3, 4, 33, 44], {33: 'unit', 44: 'shoot'})
                     break;
-
+            }
+            break;
+        case 'setMarkerMenu':
+            switch(option){
+                case 'remove':
+                    main([22, 2], {22: 'of id#'})
+                    break;
+                case 'world':
+                case 'minimap':
+                case 'autoscale':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'true/false'})
+                    break;
+                case 'pos':
+                case 'endPos':
+                    main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'x', 44: 'y'})
+                    break;
+                case 'drawLayer':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'layer'})
+                    break;
+                case 'color':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'color'})
+                    break;
+                case 'radius':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'radius'})
+                    break;
+                case 'stroke':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'stroke'})
+                    break;
+                case 'rotation':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'rotation'})
+                    break;
+                case 'shape':
+                    main([22, 2, 33, 3, 44, 4, 55, 5], {22: 'of id#', 33: 'sides', 44: 'fill', 55: 'outline'})
+                    break;
+                case 'arc':
+                    main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'start', 44: 'end'})
+                    break;
+                case 'flushText':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'fetch'})
+                    break;
+                case 'fontSize':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'size'})
+                    break;
+                case 'textHeight':
+                    main([22, 2, 33, 3], {22: 'of id#', 33: 'height'})
+                    break;
+                case 'labelFlags':
+                    main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'background', 44: 'outline'})
+                    break;
+                case 'texture':
+                    main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'printFlush', 44: 'name'})
+                    break;
+                case 'textureSize':
+                    main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'width', 44: 'height'})
+                    break;
+                case 'posi':
+                    main([22, 2, 33, 3, 44, 4, 55, 5], {22: 'of id#', 33: 'index', 44: 'x', 55: 'y'})
+                    break;
+                case 'uvi':
+                    main([22, 2, 33, 3, 44, 4, 55, 5], {22: 'of id#', 33: 'index', 44: 'x', 55: 'y'})
+                    break;
+                case 'colori':
+                    main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'index', 44: 'color'})
+                    break;
+            }
+            break;
+        case 'jumpMenu':
+            switch (option){
+                case 'always':
+                    main([1,2])
+                    break;
+                case '==':
+                case 'not':
+                case '<':
+                case '<=':
+                case '>':
+                case '>=':
+                case '===':
+                    main([1,2,3,4])
+            }
+            break;
+        case 'drawMenu':
+            switch(option){
+                case 'clear':
+                    
+            }
+        default:
+            switch (option){ //TODO change all of this to using `main` function? 
                 // Draw Section
                 case 'clear':
                     fields.forEach(field => {
@@ -2156,48 +2243,36 @@ function selectOption(event,id,isImport,importSelectionValue) {
                         field.style.display = 'none';
                     })
                     break;
-
                 //jump section
-                case 'always':
-                    fields.forEach(field => {
-                        if (['field1Value', 
-                            'field2Value',
-                            'field3Value',
-                            'field4Value',].includes(field.id)){
-                            field.style.display = 'none';
-                        } else {
-                            field.style.display = 'block';
-                        }
-                    })
-                    break;
-                case '':
-                    fields.forEach(field => {
-                        if (['field2Value', 
-                            'field3Value',
-                            'field4Value',].includes(field.id)){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
-                    break;
-                case '==':
-                case 'not':
-                case '<':
-                case '<=':
-                case '>':
-                case '>=':
-                case '===':
-                    fields.forEach(field => {
-                        if (['field2Value', 
-                            'field3Value',
-                            'field4Value',].includes(field.id)){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
-                    break;
+                // case 'always':
+                //     fields.forEach(field => {
+                //         if (['field1Value', 
+                //             'field2Value',
+                //             'field3Value',
+                //             'field4Value',].includes(field.id)){
+                //             field.style.display = 'none';
+                //         } else {
+                //             field.style.display = 'block';
+                //         }
+                //     })
+                //     break;
+                // case '==':
+                // case 'not':
+                // case '<':
+                // case '<=':
+                // case '>':
+                // case '>=':
+                // case '===':
+                //     fields.forEach(field => {
+                //         if (['field2Value', 
+                //             'field3Value',
+                //             'field4Value',].includes(field.id)){
+                //             field.style.display = 'block';
+                //         } else {
+                //             field.style.display = 'none';
+                //         }
+                //     })
+                //     break;
                 case 'floor':
                     fields.forEach(field => {
                         if ([5, 6].includes(Number(field.getAttribute('order')))){
@@ -2287,31 +2362,37 @@ function valueToggle(event){
         target.textContent = type[1]
     }
     fields = target.parentElement.querySelectorAll('.toggleableField')
+
+    function main(which,textWhich){
+        fields.forEach(field => {
+            if (which){
+                if (which.includes(Number(field.getAttribute('order')))){
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            }
+            if (textWhich){
+                for (let [key, value] of Object.entries(textWhich)) {
+                    if (Number(field.getAttribute('order')) == key){
+                        field.textContent = value;
+                    }
+                }
+            }
+        })
+    }
     switch(target.textContent) {
         case 'clear':
-            fields.forEach(field => {
-                if ([4].includes(Number(field.getAttribute('order')))){
-                    field.style.display = 'none';
-                } else {
-                    field.style.display = 'block';
-                }
-                if (["3t"].includes(field.getAttribute('order'))){
-                    field.textContent = 'from';
-                }
-            })
+            main([1,2,3,33], {33: 'from'})
             break;
         case 'apply':
-            fields.forEach(field => {
-                if ([4].includes(Number(field.getAttribute('order')))){
-                    field.style.display = 'block';
-                } else {
-                    field.style.display = 'none';
-                }
-                if (["3t"].includes(field.getAttribute('order'))){
-                    field.textContent = 'to';
-                }
-            })
+            main([4], {33: 'to'})
             break;
+        case 'global':
+            main([11,1])
+            break;
+        case 'positional':
+            main ([2,22,3,33])
     }
 
 }
@@ -2675,7 +2756,7 @@ let instTypeMap = {
     'Wait'          : 'wait ',
     'Stop'          : 'stop ',
     'End'           : 'end ',
-    // 'Jump'           : 'jump ',
+    'Jump'          : 'jump ',
     'Unit Bind'     : 'ubind ',
     'Unit Control'  : 'ucontrol ',
     // 'Unit Radar'    : 'uradar ',
@@ -2703,7 +2784,9 @@ let instTypeMap = {
     'Set Prop'      : 'setprop ',
     'Play Sound'    : 'playsound ',
     'Set Marker'    : 'setmarker ',
+    'Make Marker'   : 'makemarker ',
     'Locale Print'  : 'localeprint ',
+    'Print Char'    : 'printchar ',
 
 } 
 function exportCode(save){
@@ -2722,6 +2805,8 @@ function exportCode(save){
                 let ignoreIgnoreInvisable
                 switch (instType){
                     case 'Flush Message':
+                    case 'Play Sound':
+                    case 'Jump':
                         ignoreIgnoreInvisable = 1 
                         break;
                     default:
@@ -2731,12 +2816,12 @@ function exportCode(save){
                 exportFields(ignoreIgnoreInvisable)
             } else {
                 switch (instType){
-                    case 'Jump':
-                        codeEx += `jump ${
-                            container.querySelector('#field1Value')?.textContent} ${
-                            operatorMap[container.querySelector('#field3Value')?.textContent]}`
-                        exportFields(0)
-                        break;
+                    // case 'Jump':
+                    //     codeEx += `jump ${
+                    //         container.querySelector('#field1Value')?.textContent} ${
+                    //         operatorMap[container.querySelector('#field3Value')?.textContent]}`
+                    //     exportFields(0)
+                    //     break;
                     case 'Sensor':
                         codeEx += `sensor ${
                             container.querySelector('#field1Value')?.textContent} ${
@@ -2809,13 +2894,15 @@ function exportCode(save){
 
                 //im experimenting with 'order', although more readable it might be slower, but again its very negligible
             }
-            function exportFields(ignoreIgnoreInvisable){
+            function exportFields(ignoreIgnoreInvisable){ // @mark
                 codeElements = container.querySelectorAll('.editable');
+                
                 if (codeElements[0]?.hasAttribute('order')){ 
                     codeElements = Array.from(codeElements).sort((a, b) => a.getAttribute('order') - b.getAttribute('order'));
                 }
                 codeElements.forEach(code => {
                     if (!code.classList.contains('dontInclude') && (ignoreIgnoreInvisable || (getComputedStyle(code)).display === 'block')) {
+                        // console.log(code);
                         codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
                     }
                 });
@@ -2884,6 +2971,7 @@ let instTypeMapR = {
     'playsound'    : 'Play Sound',
     'setmarker'    : 'Set Marker',
     'localeprint'  : 'Locale Print',
+    'printchar'    : 'Print Char',
 }
 // ########################################################################################################################
 // import
@@ -2939,7 +3027,7 @@ async function importCode(manual,codeSaved){
         type = instTypeMapR[words[0]]
         if (type){
             // console.log(type);
-            let triggerPopupMenu
+            let triggerPopupMenu // @Important, this triggers the popup change fields for imports, add new types here
             if (['Control', 
                 'Draw', 
                 'Unit Control', 
@@ -2949,7 +3037,9 @@ async function importCode(manual,codeSaved){
                 'Flush Message', 
                 'Cutscene', 
                 'Effect', 
-                'Fetch'].includes(type)) {
+                'Fetch',
+                'Play Sound',
+                'Set Marker'].includes(type)) {
                 triggerPopupMenu = true
             }
             addInstruction(type, 0, words[1], words[2], words[3], words[4], words[5], words[6], words[7], words[8], words[9], triggerPopupMenu)
