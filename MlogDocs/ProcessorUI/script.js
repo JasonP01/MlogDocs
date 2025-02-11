@@ -43,19 +43,19 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable iNo" contenteditable="true">${field3 || '0'}</span>`
             break;
         case 'Draw':
-            code = `<span class="editable iNo selectionValue" contenteditable="true" onclick="popUpMenu(event,'drawMenu')">${field1 || 'clear'}</span>
-                    <span class="toggleableField" id="field1" style="display:block;">r</span>
-                    <span class="editable iNo toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
-                    <span class="toggleableField" id="field2" style="display:block;">g</span>
-                    <span class="editable iNo toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
-                    <span class="toggleableField" id="field3" style="display:block;">b</span>
-                    <span class="editable iNo toggleableField" id="field3Value" contenteditable="true" style="display:block;">${field4 || '0'}</span>
-                    <span class="toggleableField" id="field4">a</span>
-                    <span class="editable iNo toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>
-                    <span class="toggleableField" id="field5">a</span>
-                    <span class="editable iNo toggleableField" id="field5Value" contenteditable="true">${field6 || '0'}</span>
-                    <span class="toggleableField" id="field6">a</span>
-                    <span class="editable iNo toggleableField" id="field6Value" contenteditable="true">${field7 || '0'}</span>`
+            code = `<span class="editable iNo selectionValue" contenteditable="true" onclick="popUpMenu(event,'drawMenu')" oninput="selectOption(event,'drawMenu', null, null, 1)">${field1 || 'clear'}</span>
+                    <span class="toggleableField" order="11" style="display:block;">r</span>
+                    <span class="editable iNo toggleableField" order="1" contenteditable="true" style="display:block;">${field2 || '0'}</span>
+                    <span class="toggleableField" order="22" style="display:block;">g</span>
+                    <span class="editable iNo toggleableField" order="2" contenteditable="true" style="display:block;">${field3 || '0'}</span>
+                    <span class="toggleableField" order="33" style="display:block;">b</span>
+                    <span class="editable iNo toggleableField" order="3" contenteditable="true" style="display:block;">${field4 || '0'}</span>
+                    <span class="toggleableField" order="44">a</span>
+                    <span class="editable iNo toggleableField" order="4" contenteditable="true">${field5 || '0'}</span>
+                    <span class="toggleableField" order="55">a</span>
+                    <span class="editable iNo toggleableField" order="5" contenteditable="true">${field6 || '0'}</span>
+                    <span class="toggleableField" order="66">a</span>
+                    <span class="editable iNo toggleableField" order="6" contenteditable="true">${field7 || '0'}</span>`
             break;
         case 'Print':
             code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
@@ -82,7 +82,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Control':
             code = `<span>set</span>
-                    <span class="editable blockControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'controlMenu')" order="1">${field1 || 'enabled'}</span>
+                    <span class="editable blockControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'controlMenu')" oninput="selectOption(event,'controlMenu', null, null, 1)" order="1">${field1 || 'enabled'}</span>
                     <span>of</span>
                     <span class="editable blockControl" contenteditable="true" order="2">${field2 || 'block1'}</span>
                     <span class="toggleableField" id="field2" style="display:block;" order="33">to</span>
@@ -158,7 +158,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Jump':
             code = `<span>if</span>
                     <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style="display:block;" order="3">${field3 || 'x'}</span>
-                    <span class="editable flowControl selectionValue" id="field3Value" onclick="popUpMenu(event,'jumpMenu')" order="2">${field2 || 'not'}</span>
+                    <span class="editable flowControl selectionValue" id="field3Value" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')" oninput="selectOption(event,'jumpMenu', null, null, 1)" order="2">${field2 || 'not'}</span>
                     <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;" order="4">${field4 || 'false'}</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
@@ -172,7 +172,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">${field1 || '@poly'}</span>`
             break;
         case 'Unit Control':
-            code = `<span class="editable unitControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')">${field1 || 'move'}</span>
+            code = `<span class="editable unitControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')" oninput="selectOption(event,'ucontrolMenu', null, null, 1)">${field1 || 'move'}</span>
                     <span class="toggleableField" id="field1" style="display:block;">x</span>
                     <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
                     <span class="toggleableField" id="field2" style="display:block;">y</span>
@@ -200,14 +200,14 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Unit Locate':
             code = `<span>find</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')">${field1 || 'building'}</span>
-                    <span class="toggleableField" id="field1" style="display:block;">group</span>
-                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" style="display:block;" onclick="popUpMenu(event,'ulocateGroupMenu')">${field2 || 'core'}</span>
-                    <span class="toggleableField" id="field2" style="display:block;">enemy</span>
-                    <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" style="display:block;">${field3 || 'true'}</span>
-                    <span class="toggleableField" id="field3">ore</span>
-                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">${field4 || '@copper'}</span>
-                    <img src="image/pencil.png" alt="" id="field3" onclick="popUpMenu(event,'sensorMenu','sensor')" class="pencilMenu toggleableField">
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')" oninput="selectOption(event,'ulocateFindMenu', null, null, 1)">${field1 || 'building'}</span>
+                    <span class="toggleableField" id="field1" order="11" style="display:block;">group</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" order="1" style="display:block;" onclick="popUpMenu(event,'ulocateGroupMenu')">${field2 || 'core'}</span>
+                    <span class="toggleableField" id="field2" order="22" style="display:block;">enemy</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" order="2" style="display:block;">${field3 || 'true'}</span>
+                    <span class="toggleableField" id="field3" order="33">ore</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" order="3" contenteditable="true">${field4 || '@copper'}</span>
+                    <img src="image/pencil.png" alt="" id="field3" order="33" onclick="popUpMenu(event,'sensorMenu','sensor')" class="pencilMenu toggleableField">
                     <span>outX</span>
                     <span class="editable unitControl" contenteditable="true">${field5 || 'outx'}</span>
                     <span>outY</span>
@@ -224,7 +224,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         // so im not gonna continue implementing it
         // i implemented it anyway
         case 'Label':
-            code = `<span contenteditable="true" id="field1">${field1 || 'Label'}</span>`
+            code = `<span class="editable extra" contenteditable="true" id="field1">${field1 || 'Label'}</span>`
             exclude = 1
             type = 'Label-container extra'
             break;
@@ -237,7 +237,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable world" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span>get</span>
-                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'ulocateFindMenu')">${field1 || 'building'}</span>
+                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'ulocateFindMenu')" oninput="selectOption(event,'ulocateFindMenu', null, null, 1)">${field1 || 'building'}</span>
                     <span>at</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
                     <span>,</span>
@@ -245,7 +245,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Set Block':
             code = `<span>set</span>
-                    <span class="editable world selectionValue" contenteditable="true" order="1" onclick="popUpMenu(event,'setBlockMenu')">${field1 || 'floor'}</span>
+                    <span class="editable world selectionValue" contenteditable="true" order="1" onclick="popUpMenu(event,'setBlockMenu')" oninput="selectOption(event,'setBlockMenu', null, null, 1)">${field1 || 'floor'}</span>
                     <span>at</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
                     <span>,</span>
@@ -305,7 +305,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     
             break;
         case 'Set Rule':
-            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'setRuleMenu')" order="1">${field1 || 'waveSpacing'}</span>
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'setRuleMenu')" oninput="selectOption(event,'setRuleMenu', null, null, 1)" order="1">${field1 || 'waveSpacing'}</span>
                     <span class="toggleableField" style="display:block;" order="11">=</span>
                     <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="2">${field2 || '10'}</span>
                     <span class="toggleableField" order="3">x</span>
@@ -319,7 +319,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             tpmId = "setRuleMenu"
             break;
         case 'Flush Message':
-            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'flushMessageMenu')" order="1">${field1 || 'announce'}</span>
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'flushMessageMenu')" oninput="selectOption(event,'flushMessageMenu', null, null, 1)" order="1">${field1 || 'announce'}</span>
                     <span class="toggleableField" style="display:block;" order="2">for</span>
                     <span class="editable world toggleableField"style="display:block;" contenteditable="true" order="2">${field2 || '3'}</span>
                     <span class="toggleableField" style="display:block;"order="2">sec</span>
@@ -328,7 +328,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             tpmId = "flushMessageMenu"
             break;
         case 'Cutscene':
-            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'cutsceneMenu')" order="1">${field1 || 'pan'}</span>
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'cutsceneMenu')" oninput="selectOption(event,'cutsceneMenu', null, null, 1)" order="1">${field1 || 'pan'}</span>
                     <span class="toggleableField" style="display:block;" order="22">x</span>
                     <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="2">${field2 || '100'}</span>
                     <span class="toggleableField" style="display:block;" order="3">y</span>
@@ -338,7 +338,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             tpmId = "cutsceneMenu"
             break;
         case 'Effect':
-            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'effectMenu')" order="1">${field1 || 'warn'}</span>
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'effectMenu')" oninput="selectOption(event,'effectMenu', null, null, 1)" order="1">${field1 || 'warn'}</span>
                     <span class="toggleableField" style="display:block;" order="2">x</span>
                     <span class="editable world toggleableField" style="display:block;" contenteditable="true" order="2">${field2 || '0'}</span>
                     <span class="toggleableField" style="display:block;" order="3">y</span>
@@ -377,7 +377,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Fetch':
             code = `<span class="editable world" style="display:block;" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'fetchMenu')" order="1">${field1 || 'unit'}</span>
+                    <span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'fetchMenu')" oninput="selectOption(event,'fetchMenu', null, null, 1)" order="1">${field1 || 'unit'}</span>
                     <span>team</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || '@sharded'}</span>
                     <span class="toggleableField" style="display:block;" order="44">#</span>
@@ -428,9 +428,9 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable world" contenteditable="true">${field8 || 'true'}</span>
                     `
             break;
-        case 'Set Marker':// TOOD THERES SO MUCH CONDITIONAL FIELD HERE GOD
+        case 'Set Marker':
             code = `<span>set</span>
-                    <span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'setMarkerMenu')" order="1">${field1 || 'pos'}</span>
+                    <span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'setMarkerMenu')" oninput="selectOption(event,'setMarkerMenu', null, null, 1)" order="1">${field1 || 'pos'}</span>
                     <span class="toggleableField" style="display:block" order="22">of id#</span>
                     <span class="editable world toggleableField" style="display:block" contenteditable="true" order="2">${field2 || '0'}</span>
                     <span class="toggleableField" style="display:block" order="33">x</span>
@@ -442,7 +442,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     `
             break;
         case 'Make Marker':
-            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'makeMarkerMenu')" order="1">${field1 || 'shape'}</span>
+            code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'makeMarkerMenu')" oninput="selectOption(event,'makeMarkerMenu', null, null, 1)" order="1">${field1 || 'shape'}</span>
                     <span>id</span>
                     <span class="editable world" contenteditable="true" order="2">${field2 || '0'}</span>
                     <span>x</span>
@@ -1368,68 +1368,121 @@ function subSensorMenu(type,event){
 }
 
 const clickHandler = (event) => popUpMenu(event, 'drawMenuAlign');
-function selectOption(event,id,isImport,importSelectionValue) {
-
-    // Draw instruction related function
-    // this function is used in switch option below,
-    // i dont like defintion that gets defined far from the place its used, but its a function, what can you do
-    function rbgaFieldText(field) {
-        // if (['field1', 'field1Value', 'field2', 'field2Value', 'field3', 'field3Value', 'field4', 'field4Value'].includes(field.id)){
-            switch (field.id){
-                case 'field1':
-                    field.textContent = 'r'
-                    break;
-                case 'field2':
-                    field.textContent = 'g'
-                    break;
-                case 'field3':
-                    field.textContent = 'b'
-                    break;
-                case 'field4':
-                    field.textContent = 'a'
-                    break;}}
+function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
+    performanceStart = performance.now();
     function removeField3Event(field) {
         field.hasEvent = false;
         field.removeEventListener('click', (clickHandler));
     }
 
-
+    let invalid = false;
     let option;
     let targetId
+    const eventTarget = event.target
 
     // console.log(event);
     if (!isImport){
-        performanceStart = performance.now();
-        event.stopPropagation();
-        let span;
-        let prefix;
-        if (clickedMenu.tagName == 'IMG'){
-            span = clickedMenu.previousElementSibling
-        } else {
-            span = clickedMenu
-        }
-        if (id == 'soundMenu'){
-            prefix = '@sfx-'
-        }
-    
-        targetId = event.target.id
-        // console.log(targetId);
-        
-        if (event.target.tagName == 'IMG' || event.target.className == "popUpMenu") {
-            return
+        if (!isOnInput){
+            
+            event.stopPropagation();
+            let span;
+            let prefix;
+            if (clickedMenu.tagName == 'IMG'){
+                span = clickedMenu.previousElementSibling
+            } else {
+                span = clickedMenu
+            }
+            if (id == 'soundMenu'){
+                prefix = '@sfx-'
             }
         
-        option = event.target.textContent
-        span.textContent = (prefix || '') + option;
-        // console.log(event.target);
-        if (id == "drawMenu" && option != "print") {
-            removeField3Event((clickedMenu.parentElement.querySelector('#field3Value')));
+            targetId = eventTarget.id
+            // console.log(targetId);
+            
+            if (eventTarget.tagName == 'IMG' || eventTarget.className == "popUpMenu") {
+                return
+                }
+            
+            option = eventTarget.textContent
+            span.textContent = (prefix || '') + option;
+            // console.log(eventTarget);
+        } else {
+            clickedMenu = eventTarget
+
+            popUpMenuElement = document.getElementById(id);
+            bgclickedMenu = popUpMenuElement.parentElement
+            popUpMenuElement.style.display = 'block';
+            bgclickedMenu.style.display = 'flex'
+            bgclickedMenu.classList.add("autoCompleteMenu")
+            texts = popUpMenuElement.querySelectorAll("*");
+
+            if (!clickedMenu.dataset.hasBlurListener){
+                clickedMenu.addEventListener("blur",function(){
+                    bgclickedMenu.classList.remove("autoCompleteMenu")
+                    bgclickedMenu.style.display = 'none'
+                    popUpMenuElement.style.display = 'none'
+                    texts.forEach(text => {
+                        text.style.display = ''
+                    })
+                })
+                clickedMenu.dataset.hasBlurListener = 'true'
+            }
+
+            let selection = window.getSelection();
+            if (!selection.rangeCount) return { x: 0, y: 0 };
+        
+            let range = selection.getRangeAt(0).cloneRange();
+            range.collapse(true);
+        
+            let rect = range.getBoundingClientRect();
+            // console.log(rect.left);
+            // console.log(rect.bottom);
+            console.log(rect.right);
+            console.log(rect.bottom);
+            
+            const menu = popUpMenuElement;
+            let posX
+            let posY
+            if ((rect.right == 0) && (rect.bottom == 0)){
+                const box = eventTarget.getBoundingClientRect()
+                posX = box.left
+                posY = box.bottom
+            } else {
+                posX = rect.right;
+                posY = rect.bottom;
+            }
+            menu.style.top = `${posY}px`;
+            menu.style.left = `${posX}px`;
+
+
+            option = eventTarget.textContent
+
+            const query = option;
+            
+            
+            texts.forEach(save => {
+                const text = save.textContent;
+                if (text.includes(query)){
+                    save.style.display = ""
+                }else { 
+                    save.style.display = "none"
+                }
+            })
+            // const poprect = menu.getBoundingClientRect();
+            // const viewportWidth = window.innerWidth;
+            // const viewportHeight = window.innerHeight;
+            // if (poprect.left < 0) menu.style.left = '0px';
+            // if (poprect.top < 0) menu.style.top = '0px';
+            // if (poprect.right > viewportWidth) menu.style.left = `${viewportWidth - poprect.width}px`;
+            // if (poprect.bottom > viewportHeight) menu.style.top = `${viewportHeight - poprect.height}px`;
+            
         }
-    
+        if (id == "drawMenu" && option != "print") {
+            removeField3Event((clickedMenu.parentElement.querySelector('[order="3"]')));
+        }
     }else {
         clickedMenu = isImport
         option = importSelectionValue
-        
     }
 
     const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
@@ -1437,9 +1490,6 @@ function selectOption(event,id,isImport,importSelectionValue) {
 
 
     // Switch case for every pop up menu context that changes its instruction fields 
-    //(there might be a better way but unless its performance is not >10ms its fine)
-
-    //TODO this is good, might change all of it to like this
     function main(which,textWhich){
         fields.forEach(field => {
             if (which){
@@ -1460,7 +1510,7 @@ function selectOption(event,id,isImport,importSelectionValue) {
     }
     switch(id){
         case 'setRuleMenu':
-            switch(option){//TODO this is good, might change all of it to like this
+            switch(option){
                 case 'mapArea':
                     main([11,3,4,5,6], {11: '='})
                     break;
@@ -1469,8 +1519,19 @@ function selectOption(event,id,isImport,importSelectionValue) {
                     main([11,2], {11: 'block/unit'})
                     break;
                 default:
-                    main([11,2], {11: '='})
+                    children = popUpMenuElement.querySelectorAll("*")
+                    if (!Array.from(children).some(node => node.textContent.trim() == option)){
+                        eventTarget.style.outlineColor = 'red'
+                        eventTarget.style.setProperty("border-color", "red", "important")
+                        invalid = true
+                    } else {
+                        main([11,2], {11: '='})
+                    }
                     break;
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
             }
             break;
         case 'effectMenu': 
@@ -1522,6 +1583,14 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 case 'explosion':
                     main([2, 3, 4, 44], {44: 'size'});
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
             }
             break;
         case 'fetchMenu':
@@ -1546,6 +1615,14 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 case 'buildCount':
                     main([5,55], {55: 'block'})
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
             }
             break;
         case 'controlMenu':
@@ -1561,6 +1638,14 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 case 'shootp':
                     main([2, 3, 4, 33, 44], {33: 'unit', 44: 'shoot'})
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
             }
             break;
         case 'setMarkerMenu':
@@ -1625,6 +1710,14 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 case 'colori':
                     main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'index', 44: 'color'})
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
             }
             break;
         case 'jumpMenu':
@@ -1640,287 +1733,79 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 case '>=':
                 case '===':
                     main([1,2,3,4])
+                    break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
             }
             break;
         case 'drawMenu':
             switch(option){
                 case 'clear':
-                    
-            }
-        default:
-            switch (option){ //TODO change all of this to using `main` function? 
-                // Draw Section
-                case 'clear':
-                    fields.forEach(field => {
-                        if (['field1', 'field2', 
-                            'field3', 'field1Value', 
-                            'field2Value', 'field3Value'].includes(field.id)){
-                            rbgaFieldText(field);
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,1,2,3])
                     break;
                 case 'color':
-                    // Since there are 2 'color'
-                    if (targetId) {
-                        switch (targetId){
-                            case 'controlColor':
-                                fields.forEach(field => {
-                                    if (['field2', 'field2Value'].includes(field.id)){
-                                        switch (field.id){
-                                            case 'field2':
-                                                field.textContent = "to"
-                                        }
-                                        field.style.display = 'block';
-                                    } else {
-                                        field.style.display = 'none';
-                                    }
-                                })
-                                break;
-                            case 'drawColor':
-                            fields.forEach(field => {
-                                if (['field1', 'field2', 
-                                    'field3', 'field4', 
-                                    'field1Value', 'field2Value', 
-                                    'field3Value', 'field4Value'].includes(field.id)){
-                                    rbgaFieldText(field);
-                                    field.style.display = 'block';
-                                } else {
-                                    field.style.display = 'none';
-                                }
-                            })
-                        }
-                    }
+                    main([11,22,33,44,1,2,3,4])
                     break;
                 case 'col':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value'].includes(field.id)){
-                            if (field.id == 'field1'){
-                                field.textContent = 'color'
-                            }
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,1], {11 : 'color'})
                     break;
                 case 'stroke':
-                    fields.forEach(field => {
-                        if (['field1Value'].includes(field.id)){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([1])
                     break;
                 case 'line':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value', 
-                            'field4', 'field4Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'x2'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'y2'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,1,2,3,4], {11: 'x', 22: 'y', 33: 'x2', 44: 'y2'})
                     break;
                 case 'rect':
                 case 'lineRect':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value', 
-                            'field4', 'field4Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'width'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'height'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,1,2,3,4], {11: 'x',22: 'y',33: 'width',44: 'height'})
                     break;
                 case 'poly':
                 case 'linePoly':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value', 
-                            'field4', 'field4Value', 
-                            'field5', 'field5Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'sides'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'radius'
-                                    break;
-                                case 'field5':
-                                    field.textContent = 'rotation'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,55,1,2,3,4,5], {11: 'x', 22: 'y', 33: 'sided', 44: 'radius', 55: 'rotation'})
                     break;
                 case 'triangle':
-                    fields.forEach(field => {
-                        if (field.id){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'x2'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'y2'
-                                    break;
-                                case 'field5':
-                                    field.textContent = 'x3'
-                                    break;
-                                case 'field6':
-                                    field.textContent = 'y3'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,55,66,1,2,3,4,5,6], {11:'x',22:'y',33:'x2',44:'y2',55:'x3',66:'y3'})
                     break;
                 case 'image':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value', 
-                            'field4', 'field4Value', 
-                            'field5', 'field5Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'image'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'size'
-                                    break;
-                                case 'field5':
-                                    field.textContent = 'rotation'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'image',44:'size',55:'rotation'})
                     break;
                 case 'print':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'align'
-                                    break;
-                                case 'field3Value':
-                                    field.textContent = "center"
-                                    if (!(field.hasEvent)){
-                                        field.hasEvent = true
-                                        field.addEventListener('click', clickHandler);
-                                    }
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
+                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'align'})
+                    fields.forEach(field => { //ugly (reloop)
+                        if ([3].includes(Number(field.getAttribute('order')))){
+                            field.textContent = "center"
+                            if (!(field.hasEvent)){
+                                field.hasEvent = true
+                                field.addEventListener('click', clickHandler); 
+                            }
                         }
                     })
                     break;
                 case 'translate':
                 case 'scale':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,1,2], {11:'x',22:'y'})
                     break;
                 case 'rotate':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value'].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'degrees'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,1], {11:'degrees'})
                     break;
-
-                // Unit control section
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
+            break;
+        case 'ucontrolMenu':
+            switch (option){
                 case 'reset':
                 case 'idle':
                 case 'stop':
@@ -1928,428 +1813,148 @@ function selectOption(event,id,isImport,importSelectionValue) {
                 case 'payDrop':
                 case 'payEnter':
                 case 'unbind':
-                    fields.forEach(field => {
-                        field.style.display = 'none';
-                    })
+                    main([-1])
                     break;
                 case 'move':
                 case 'pathfind':
                 case 'mine':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,1,2], {11:'x',22:'y'})
                     break;
                 case 'approach':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'radius'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'radius'})
                     break;
                 case 'boost':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'enable'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,1], {11:'enable'})
                     break;
                 case 'target':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'shoot'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'shoot'})
                     break;
                 case 'targetp':
-                fields.forEach(field => {
-                    if (['field1', 'field1Value', 
-                        'field2', 'field2Value',].includes(field.id)){
-                        switch (field.id){
-                            case 'field1':
-                                field.textContent = 'unit'
-                                break;
-                            case 'field2':
-                                field.textContent = 'shoot'
-                                break;
-                        } 
-                        field.style.display = 'block';
-                    } else {
-                        field.style.display = 'none';
-                    }
-                })
-                break;
+                    main([11,22,1,2], {11:'unit',22:'shoot'})
+                    break;
                 case 'itemDrop':
-                fields.forEach(field => {
-                    if (['field1', 'field1Value', 
-                        'field2', 'field2Value',].includes(field.id)){
-                        switch (field.id){
-                            case 'field1':
-                                field.textContent = 'to'
-                                break;
-                            case 'field2':
-                                field.textContent = 'amount'
-                                break;
-                        } 
-                        field.style.display = 'block';
-                    } else {
-                        field.style.display = 'none';
-                    }
-                })
-                break;
+                    main([11,22,1,2], {11:'to',22:'amount'})
+                    break;
                 case 'itemTake':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value',
-                            'field3', 'field3Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'from'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'item'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'amount'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,1,2,3], {11:'from',22:'item',33:'amount'})
                     break;
                 case 'payTake':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'takeUnits'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,1], {11:'takeUnits'})
                     break;
                 case 'itemTake':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value',
-                            'field3', 'field3Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'from'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'item'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'amount'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,1,2,3], {11:'from',22:'item',33:'amount',})
                     break;
                 case 'flag':
-                fields.forEach(field => {
-                    if (['field1', 'field1Value',].includes(field.id)){
-                        switch (field.id){
-                            case 'field1':
-                                field.textContent = 'value'
-                                break;
-                        } 
-                        field.style.display = 'block';
-                    } else {
-                        field.style.display = 'none';
-                    }
-                })
-                break;
+                    main([11,1], {11:'value'})
+                    break;
                 case 'build':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value',
-                            'field3', 'field3Value',
-                            'field4', 'field4Value',
-                            'field5', 'field5Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'block'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'rotation'
-                                    break;
-                                case 'field5':
-                                    field.textContent = 'config'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'block',44:'rotation',55:'config'})
                     break;
                 case 'getBlock':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value',
-                            'field3', 'field3Value',
-                            'field4', 'field4Value',
-                            'field5', 'field5Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'type'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'building'
-                                    break;
-                                case 'field5':
-                                    field.textContent = 'floor'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'type',44:'building',55:'floor'})
                     break;
                 case 'within':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value', 
-                            'field2', 'field2Value', 
-                            'field3', 'field3Value',
-                            'field4', 'field4Value',].includes(field.id)){
-                            switch (field.id){
-                                case 'field1':
-                                    field.textContent = 'x'
-                                    break;
-                                case 'field2':
-                                    field.textContent = 'y'
-                                    break;
-                                case 'field3':
-                                    field.textContent = 'radius'
-                                    break;
-                                case 'field4':
-                                    field.textContent = 'result'
-                                    break;
-                            } 
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,33,44,1,2,3,4], {11:'x',22:'y',33:'radius',44:'result'})
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
+            break;
+        case 'ulocateFindMenu':
+            switch (option){
                 case 'ore':
-                    switch (targetId){
-                        case 'ulocateOre':
-                            fields.forEach(field => {
-                                if (['field3', 'field3Value'].includes(field.id)){
-                                    field.style.display = 'block';
-                                } else {
-                                    field.style.display = 'none';
-                                }
-                            })
-                            break;
-                        case 'setBlockOre':
-                            fields.forEach(field => {
-                                if ([5, 6].includes(Number(field.getAttribute('order')))){
-                                    console.log(field);
-                                    field.style.display = 'none';
-                                } else {
-                                    field.style.display = 'block';
-                                }
-                            })
-                            break;
-                    }
+                    main([33,3])
                     break;
                 case 'building':
-                    fields.forEach(field => {
-                        if (['field1', 'field1Value',
-                            'field2', 'field2Value'].includes(field.id)){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([11,22,1,2])
                     break;
                 case 'damaged':
                 case 'spawn':
-                    fields.forEach(field => {
-                        field.style.display = 'none';
-                    })
+                    main([-1])
                     break;
-                //jump section
-                // case 'always':
-                //     fields.forEach(field => {
-                //         if (['field1Value', 
-                //             'field2Value',
-                //             'field3Value',
-                //             'field4Value',].includes(field.id)){
-                //             field.style.display = 'none';
-                //         } else {
-                //             field.style.display = 'block';
-                //         }
-                //     })
-                //     break;
-                // case '==':
-                // case 'not':
-                // case '<':
-                // case '<=':
-                // case '>':
-                // case '>=':
-                // case '===':
-                //     fields.forEach(field => {
-                //         if (['field2Value', 
-                //             'field3Value',
-                //             'field4Value',].includes(field.id)){
-                //             field.style.display = 'block';
-                //         } else {
-                //             field.style.display = 'none';
-                //         }
-                //     })
-                //     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
+            break;
+        case 'setBlockMenu':
+            switch (option){
+                case 'ore':
                 case 'floor':
-                    fields.forEach(field => {
-                        if ([5, 6].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'none';
-                        } else {
-                            field.style.display = 'block';
-                        }
-                    })
-                    break;
                 case 'block':
-                    fields.forEach(field => {
-                        if ([5, 6].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([5,6])
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
+            break;
+        case 'flushMessageMenu':
+            switch (option){
                 case 'notify':
                 case 'mission':
-                    fields.forEach(field => {
-                        if ([2].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'none';
-                        } else {
-                            field.style.display = 'block';
-                        }
-                    })
+                    main([2])
                     break;
                 case 'announce':
                 case 'toast':
-                    fields.forEach(field => {
-                        if ([2].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                    })
+                    main([1,3])
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
+            }
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
+            break;
+        case 'cutsceneMenu':
+            switch (option){
                 case 'pan':
-                    fields.forEach(field => {
-                        if ([22,2,3,4].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'block';
-                        } else {
-                            field.style.display = 'none';
-                        }
-                        if ([22].includes(Number(field.getAttribute('order')))){
-                            field.textContent = 'x';
-                        }
-                    })
+                    main([22,2,3,4], {22:'x'})
                     break;
                 case 'zoom':
-                    fields.forEach(field => {
-                        if ([3,4].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'none';
-                        } else {
-                            field.style.display = 'block';
-                        }
-                        if ([22].includes(Number(field.getAttribute('order')))){
-                            field.textContent = 'zoom';
-                        }
-                    })
+                    main([1,22,2], {22:'level'})
                     break;
                 case 'stop':
-                    fields.forEach(field => {
-                        if ([2,3,4].includes(Number(field.getAttribute('order')))){
-                            field.style.display = 'none';
-                        } else {
-                            field.style.display = 'block';
-                        }
-                    })
+                    main([1])
                     break;
+                default:
+                    eventTarget.style.outlineColor = 'red'
+                    eventTarget.style.setProperty("border-color", "red", "important")
+                    invalid = true
             }
-        break;
+            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
+            break;
+        default:
+            console.log('something went wrong');
     }
-    if(!isImport){
+    if(!isImport && !isOnInput){
         closeMenu(event);
     }
+    performanceEnd = performance.now();
+    (document.getElementById('debugText4')).textContent = (`Pop up menu performance: ${performanceEnd - performanceStart} milliseconds`);
+    console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
 }
 
 function valueToggle(event){
@@ -2402,9 +2007,6 @@ function closeMenu(event) {
     popUpMenuElement.style.display = 'none';
     event.stopPropagation();
     bgclickedMenu.style.display = 'none'
-    performanceEnd = performance.now();
-    (document.getElementById('debugText4')).textContent = (`Pop up menu performance: ${performanceEnd - performanceStart} milliseconds`);
-    console.log(`Execution time: ${performanceEnd - performanceStart} milliseconds`);
 }
 
 
