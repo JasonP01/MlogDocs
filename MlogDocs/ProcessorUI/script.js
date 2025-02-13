@@ -1381,7 +1381,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
     let invalid = false;
     let option;
     let targetId
-    const eventTarget = event.target
+    const eventTarget = event?.target
 
     // console.log(event);
     if (!isImport){
