@@ -519,7 +519,7 @@ input[type="checkbox"]:checked {
         margin-left: 10px;
     }
     #sensorMenuButtons {
-        display: flex !important;
+        display: flex ;
         justify-content: space-between !important;
         align-items: center;
         width: 100%;

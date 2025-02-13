@@ -18,8 +18,6 @@
     <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- TODO add auto complete to the rest of the instruction -->
-
     <!-- TODO when in cursor mode and navigating with left and right arrow, allows switching fields too in the directions of arrows instead of just tab -->
     
     <!-- FIX lag where adding a new elements using js causes the page to freeze, (happens when there are hunderds of instruction), potential causes : it repaints the whole page -->
@@ -233,8 +231,9 @@
             </ul>
             <br>
             <ul>
-                <h3>Tips</h3>
+                <h3>Features</h3>
                 <li>you can CTRL + click the number destination in jump instruction to immediately scroll the destination instruction into view</li>
+                <li>when in cursor mode, typing in a field that have predefined values (like draw) will show an autocomplete suggestion</li>
             </ul>
             <!-- <ul>
             <h3>Instructions</h3>
@@ -475,19 +474,16 @@
             <div>//</div>
             <div>%</div>
             <div>^</div>
-            <div>sqrt</div>
             <div>==</div>
             <div>not</div>
             <div>and</div>
-            <div><</div>
-            <div>></div>
-            <div><=</div>
-            <div>>=</div>
-            <div>log</div>
-            <div>log10</div>
-            <div>abs</div>
-            <div>floor</div>
-            <div>ceil</div>
+            <div>&lt;</div>
+            <div>&lt;=</div>
+            <div>&gt;</div>
+            <div>&gt;=</div>
+            <div>===</div>
+            <div>&lt;&lt;</div>
+            <div>&gt;&gt;</div>
             <div>or</div>
             <div>b-and</div>
             <div>xor</div>
@@ -498,6 +494,12 @@
             <div>anglediff</div>
             <div>len</div>
             <div>noise</div>
+            <div>abs</div>
+            <div>log</div>
+            <div>log10</div>
+            <div>floor</div>
+            <div>ceil</div>
+            <div>sqrt</div>
             <div>rand</div>
             <div>sin</div>
             <div>cos</div>
@@ -505,6 +507,91 @@
             <div>asin</div>
             <div>acos</div>
             <div>atan</div>
+        </div>
+        <div id="opSuggestion" class="popUpMenu">
+            <!-- 
+            <div style = "display: flex;"> <div>+</div>    |    <div>add</div>             </div>
+            <div style = "display: flex;"> <div>-</div>    |    <div>sub</div>             </div>
+            <div style = "display: flex;"> <div>*</div>    |    <div>mul</div>             </div>
+            <div style = "display: flex;"> <div>/</div>    |    <div>div</div>             </div>
+            <div style = "display: flex;"> <div>//</div>   |    <div>idiv</div>            </div>
+            <div style = "display: flex;"> <div>%</div>    |    <div>mod</div>             </div>
+            <div style = "display: flex;"> <div>^</div>    |    <div>pow</div>             </div>
+            <div style = "display: flex;"> <div>==</div>   |    <div>equal</div>           </div>
+            <div style = "display: flex;"> <div>not</div>  |    <div>notEqual</div>        </div>
+            <div style = "display: flex;"> <div>and</div>  |    <div>land</div>            </div>
+            <div style = "display: flex;"> <div><</div>    |    <div>lessThan</div>        </div>
+            <div style = "display: flex;"> <div><=</div>   |    <div>lessThanEqual</div>   </div>
+            <div style = "display: flex;"> <div>></div>    |    <div>greaterThan</div>     </div>
+            <div style = "display: flex;"> <div>>=</div>   |    <div>greaterThanEqual</div></div>
+            <div style = "display: flex;"> <div>===</div>  |    <div>strictEqual</div>     </div>
+            <div style = "display: flex;"> <div><<</div>   |    <div>shl</div>             </div>
+            <div style = "display: flex;"> <div>>></div>   |    <div>shr</div>             </div>
+            <div style = "display: flex;"> <div>or</div>   |    <div>or</div>              </div> -->
+            <div style="display: flex;">
+                <div style="display: flex; flex-direction: column; ">
+                    <div>+</div>
+                    <div>-</div>
+                    <div>*</div>
+                    <div>/</div>
+                    <div>//</div>
+                    <div>%</div>
+                    <div>^</div>
+                    <div>==</div>
+                    <div>not</div>
+                    <div>and</div>
+                    <div><</div>
+                    <div><=</div>
+                    <div>></div>
+                    <div>>=</div>
+                    <div>===</div>
+                    <div><<</div>
+                    <div>>></div>
+                    <div>or</div>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <div>add</div>
+                    <div>sub</div>
+                    <div>mul</div>
+                    <div>div</div>
+                    <div>idiv</div>
+                    <div>mod</div>
+                    <div>pow</div>
+                    <div>equal</div>
+                    <div>notEqual</div>
+                    <div>land</div>
+                    <div>lessThan</div>
+                    <div>lessThanEqual</div>
+                    <div>greaterThan</div>
+                    <div>greaterThanEqual</div>
+                    <div>strictEqual</div>
+                    <div>shl</div>
+                    <div>shr</div>
+                    <div>or</div>
+                </div>
+            </div>
+             <div>b-and</div>   <!--<div>and</div> -->
+            <div>xor</div>      
+            <div>flip</div>     
+            <div>max</div>      
+            <div>min</div>      
+            <div>angle</div>
+            <div>anglediff</div>
+            <div>len</div>      
+            <div>noise</div>    
+            <div>abs</div>      
+            <div>log</div>      
+            <div>log10</div>    
+            <div>floor</div>    
+            <div>ceil</div>     
+            <div>sqrt</div>     
+            <div>rand</div>     
+            <div>sin</div>      
+            <div>cos</div>      
+            <div>tan</div>      
+            <div>asin</div>     
+            <div>acos</div>     
+            <div>atan</div>     
         </div>
         <div id="drawMenu" class="popUpMenu">
             <div>clear</div>

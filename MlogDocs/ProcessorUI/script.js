@@ -94,24 +94,24 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Radar':
             code = `<span>from</span>
-                    <span class="editable blockControl" contenteditable="true" id="field1Value">${field5 || 'turret1'}</span>
+                    <span class="editable blockControl" contenteditable="true" order="5">${field5 || 'turret1'}</span>
                     <span>target</span>
-                    <span class="editable blockControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">${field1 || 'enemy'}</span>
+                    <span class="editable blockControl" contenteditable="true" order="1" onclick="popUpMenu(event,'radarMenuTarget')" oninput="selectOption(event,'radarMenuTarget', null, null, 1)">${field1 || 'enemy'}</span>
                     <span>and</span>
-                    <span class="editable blockControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">${field2 || 'any'}</span>
+                    <span class="editable blockControl" contenteditable="true" order="2" onclick="popUpMenu(event,'radarMenuTarget')" oninput="selectOption(event,'radarMenuTarget', null, null, 1)">${field2 || 'any'}</span>
                     <span>and</span>
-                    <span class="editable blockControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">${field3 || 'any'}</span>
+                    <span class="editable blockControl" contenteditable="true" order="3" onclick="popUpMenu(event,'radarMenuTarget')" oninput="selectOption(event,'radarMenuTarget', null, null, 1)">${field3 || 'any'}</span>
                     <span>order</span>
-                    <span class="editable blockControl" contenteditable="true" id="field5Value">${field6 || '1'}</span>
+                    <span class="editable blockControl" contenteditable="true" order="6">${field6 || '1'}</span>
                     <span>sort</span>
-                    <span class="editable blockControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">${field4 || 'distance'}</span>
+                    <span class="editable blockControl" contenteditable="true" order="4" onclick="popUpMenu(event,'radarMenuSort')" oninput="selectOption(event,'radarMenuSort', null, null, 1)">${field4 || 'distance'}</span>
                     <span>output</span>
-                    <span class="editable blockControl" contenteditable="true" id="field7Value">${field7 || 'result'}</span>`
+                    <span class="editable blockControl" contenteditable="true" order="7">${field7 || 'result'}</span>`
             break;
         case 'Sensor':
             code = `<span class="editable blockControl" contenteditable="true" id="field1Value">${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable blockControl dontInclude" contenteditable="true" id="field2Value">${field3 || '@copper'}</span>
+                    <span class="editable blockControl dontInclude" contenteditable="true" id="field2Value" oninput="selectOption(event,'sensorMenu', null, null, 1)">${field3 || '@copper'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu','sensor')" class="pencilMenu">
                     <span>in</span>
                     <span class="editable blockControl" contenteditable="true" id="field3Value">${field2 || 'block1'}</span>`
@@ -122,17 +122,17 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable operation" contenteditable="true">${field2 || 'a'}</span>`
             break;
         case 'Operation':
-            code = `<span class="editable operation" contenteditable="true">${field2 || 'result'}</span>
+            code = `<span class="editable operation" contenteditable="true" order="1">${field2 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable operation" contenteditable="true">${field3 || 'a'}</span>
-                    <span class="editable operation dontInclude" contenteditable="true" onclick="popUpMenu(event,'opMenu')">${field1 || '*'}</span>
-                    <span class="editable operation" contenteditable="true">${field4 || 'b'}</span>`
+                    <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
+                    <span class="editable operation" id="operation" order="2" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
+                    <span class="editable operation" contenteditable="true" order="4">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
                     <span>=</span>
                     <span>lookup</span>
-                    <span class="editable operation" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'lookupMenu')">${field1 || 'item'}</span>
+                    <span class="editable operation" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'lookupMenu')" oninput="selectOption(event,'lookupMenu', null, null, 1)">${field1 || 'item'}</span>
                     <span>#</span>
                     <span class="editable operation" contenteditable="true" id="field3Value">${field3 || '0'}</span>`
             break;
@@ -157,9 +157,9 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Jump':
             code = `<span>if</span>
-                    <span class="editable flowControl toggleableField" id="field2Value" contenteditable="true" style="display:block;" order="3">${field3 || 'x'}</span>
-                    <span class="editable flowControl selectionValue" id="field3Value" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')" oninput="selectOption(event,'jumpMenu', null, null, 1)" order="2">${field2 || 'not'}</span>
-                    <span class="editable flowControl toggleableField" id="field4Value" contenteditable="true" style="display:block;" order="4">${field4 || 'false'}</span>
+                    <span class="editable flowControl toggleableField" contenteditable="true" style="display:block;" order="3">${field3 || 'x'}</span>
+                    <span class="editable flowControl selectionValue" id="operation" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')" oninput="selectOption(event,'jumpMenu', null, null, 1)" order="2">${field2 || 'not'}</span>
+                    <span class="editable flowControl toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'false'}</span>
                     <div class="jumpTo">
                         <span>Jump To</span>
                         <span class="editable flowControl" id="field1Value" contenteditable="true" draggable="false" onclick="jumpDestination(event)" order="1">${field1 || '-1'}</span>
@@ -169,7 +169,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Unit Bind':
             code = `<span>type</span>
-                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')">${field1 || '@poly'}</span>`
+                    <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')" oninput="selectOption(event,'ubindMenu', null, null, 1)">${field1 || '@poly'}</span>`
             break;
         case 'Unit Control':
             code = `<span class="editable unitControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')" oninput="selectOption(event,'ucontrolMenu', null, null, 1)">${field1 || 'move'}</span>
@@ -186,15 +186,15 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Unit Radar':
             code = `<span>target</span>
-                    <span class="editable unitControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')">${field1 || 'enemy'}</span>
+                    <span class="editable unitControl" contenteditable="true" id="field2Value" onclick="popUpMenu(event,'radarMenuTarget')" oninput="selectOption(event,'radarMenuTarget', null, null, 1)">${field1 || 'enemy'}</span>
                     <span>and</span>
-                    <span class="editable unitControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')">${field2 || 'any'}</span>
+                    <span class="editable unitControl" contenteditable="true" id="field3Value" onclick="popUpMenu(event,'radarMenuTarget')" oninput="selectOption(event,'radarMenuTarget', null, null, 1)">${field2 || 'any'}</span>
                     <span>and</span>
-                    <span class="editable unitControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')">${field3 || 'any'}</span>
+                    <span class="editable unitControl" contenteditable="true" id="field4Value" onclick="popUpMenu(event,'radarMenuTarget')" oninput="selectOption(event,'radarMenuTarget', null, null, 1)">${field3 || 'any'}</span>
                     <span>order</span>
                     <span class="editable unitControl" contenteditable="true" id="field5Value">${field6 || '1'}</span>
                     <span>sort</span>
-                    <span class="editable unitControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')">${field4 || 'distance'}</span>
+                    <span class="editable unitControl" contenteditable="true" id="field6Value" onclick="popUpMenu(event,'radarMenuSort')" oninput="selectOption(event,'radarMenuSort', null, null, 1)">${field4 || 'distance'}</span>
                     <span>output</span>
                     <span class="editable unitControl" contenteditable="true" id="field7Value">${field7 || 'result'}</span>`
             break;
@@ -202,11 +202,11 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span>find</span>
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ulocateFindMenu')" oninput="selectOption(event,'ulocateFindMenu', null, null, 1)">${field1 || 'building'}</span>
                     <span class="toggleableField" id="field1" order="11" style="display:block;">group</span>
-                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" order="1" style="display:block;" onclick="popUpMenu(event,'ulocateGroupMenu')">${field2 || 'core'}</span>
+                    <span class="editable unitControl toggleableField" contenteditable="true" id="field1Value" order="1" style="display:block;" onclick="popUpMenu(event,'ulocateGroupMenu')" oninput="selectOption(event,'ulocateGroupMenu', null, null, 1)">${field2 || 'core'}</span>
                     <span class="toggleableField" id="field2" order="22" style="display:block;">enemy</span>
                     <span class="editable unitControl toggleableField" contenteditable="true" id="field2Value" order="2" style="display:block;">${field3 || 'true'}</span>
                     <span class="toggleableField" id="field3" order="33">ore</span>
-                    <span class="editable unitControl toggleableField" id="field3Value" order="3" contenteditable="true">${field4 || '@copper'}</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" order="3" contenteditable="true" oninput="selectOption(event,'sensorMenu', null, null, 1)">${field4 || '@copper'}</span>
                     <img src="image/pencil.png" alt="" id="field3" order="33" onclick="popUpMenu(event,'sensorMenu','sensor')" class="pencilMenu toggleableField">
                     <span>outX</span>
                     <span class="editable unitControl" contenteditable="true">${field5 || 'outx'}</span>
@@ -275,7 +275,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Apply Status':
             field1 = field1 === 'true' ? 'clear' : (field1 === 'false' ? 'apply' : field1);
             code = `<span class="editable world dontInclude" order="1" switch='["apply", "clear"]' onclick="valueToggle(event)">${field1 || 'apply'}</span>
-                    <span class="editable world" contenteditable="true" order="2" onclick="popUpMenu(event,'applyStatusMenu')">${field2 || 'wet'}</span>
+                    <span class="editable world" contenteditable="true" order="2" onclick="popUpMenu(event,'applyStatusMenu')" oninput="selectOption(event,'applyStatusMenu', null, null, 1)">${field2 || 'wet'}</span>
                     <span class="toggleableField" order="33">to</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || 'unit'}</span>
                     <span class="toggleableField" style="display:block;" order="4">for</span>
@@ -284,13 +284,13 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Weather Sense':
             code = `<span class="editable world" contenteditable="true" order="1" >${field1 || 'result'}</span>
                     <span>=</span>
-                    <span class="editable world" contenteditable="true" order="2">${field2 || '@rain'}</span>
+                    <span class="editable world" contenteditable="true" order="2" oninput="selectOption(event,'weatherMenu', null, null, 1)">${field2 || '@rain'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'weatherMenu')" class="weatherMenu">`
                     
             break;
         case 'Weather Set':
             code = `<span>set weather</span>
-                    <span class="editable world" contenteditable="true" order="1" >${field1 || '@rain'}</span>
+                    <span class="editable world" contenteditable="true" order="1" oninput="selectOption(event,'weatherMenu', null, null, 1)">${field1 || '@rain'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'weatherMenu')" class="weatherMenu">
                     <span>state</span>
                     <span class="editable world" contenteditable="true" order="2">${field2 || 'true'}</span>`
@@ -402,7 +402,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             break;
         case 'Set Prop':
             code = `<span>set</span>
-                    <span class="editable world" contenteditable="true" order="1">${field1 || '@copper'}</span>
+                    <span class="editable world" contenteditable="true" order="1" oninput="selectOption(event,'sensorMenu', null, null, 1, 'prop')">${field1 || '@copper'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'sensorMenu','prop')" class="pencilMenu">
                     <span>of</span>
                     <span class="editable world" contenteditable="true" order="2">${field2 || 'block1'}</span>
@@ -412,7 +412,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
         case 'Play Sound':
             field1 = field1 === 'true' ? 'clear' : (field1 === 'false' ? 'apply' : field1);
             code = `<span class="editable world dontInclude" switch='["global", "positional"]' onclick="valueToggle(event)">${field1 || 'global'}</span>
-                    <span class="editable world" contenteditable="true">${field2 || '@sfx-pew'}</span>
+                    <span class="editable world" contenteditable="true" oninput="selectOption(event,'soundMenu', null, null, 1)">${field2 || '@sfx-pew'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'soundMenu')" class="pencilMenu">
                     <span>volume</span>
                     <span class="editable world" contenteditable="true">${field3 || '1'}</span>
@@ -1272,6 +1272,7 @@ document.addEventListener('touchend',handleEnd)
 
 //####################################################################################################################################
 // instruction fields popupmenu
+// this whole section is an absolute fucking mess
 //####################################################################################################################################
 var clickedMenu;
 var bgclickedMenu;
@@ -1304,19 +1305,21 @@ function popUpMenu(event,id,from){
     let buttons = sensorMenuButtons.childNodes
     buttons.forEach(button => {
         button.id = from
-    })
+            })
     if (from == 'prop'){
         const variablesDisplay = document.getElementById('variables').style.display
         if (variablesDisplay == 'block') {
             document.getElementById('variables').style.display = 'none'
             document.getElementById('setProp').style.display = 'block'
         }
+        document.getElementById('sensorMenuButtons').style.display = ''
     }else if (from == 'sensor'){
         const propDisplay = document.getElementById('setProp').style.display
         if (propDisplay == 'block') {
             document.getElementById('variables').style.display = 'block'
             document.getElementById('setProp').style.display = 'none'
         }
+        document.getElementById('sensorMenuButtons').style.display = ''
     }
 
     // console.log(sensorMenu)
@@ -1368,7 +1371,7 @@ function subSensorMenu(type,event){
 }
 
 const clickHandler = (event) => popUpMenu(event, 'drawMenuAlign');
-function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
+function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
     performanceStart = performance.now();
     function removeField3Event(field) {
         field.hasEvent = false;
@@ -1410,8 +1413,31 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
             clickedMenu = eventTarget
 
             popUpMenuElement = document.getElementById(id);
+            
+
+            if (from == 'prop'){
+                const variablesDisplay = document.getElementById('variables').style.display
+                if (variablesDisplay == 'block') {
+                    document.getElementById('variables').style.display = 'none'
+                    document.getElementById('setProp').style.display = 'block'
+                }
+                
+
+            }else if (from == 'sensor'){
+                const propDisplay = document.getElementById('setProp').style.display
+                if (propDisplay == 'block') {
+                    document.getElementById('variables').style.display = 'block'
+                    document.getElementById('setProp').style.display = 'none'
+                }
+            }
+
             bgclickedMenu = popUpMenuElement.parentElement
-            popUpMenuElement.style.display = 'block';
+            
+            // if (id == 'opSuggestion'){
+            //     popUpMenuElement.style.display = 'flex'
+            // } else {
+                popUpMenuElement.style.display = 'block';
+            
             bgclickedMenu.style.display = 'flex'
             bgclickedMenu.classList.add("autoCompleteMenu")
             texts = popUpMenuElement.querySelectorAll("*");
@@ -1437,8 +1463,8 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
             let rect = range.getBoundingClientRect();
             // console.log(rect.left);
             // console.log(rect.bottom);
-            console.log(rect.right);
-            console.log(rect.bottom);
+            // console.log(rect.right);
+            // console.log(rect.bottom);
             
             const menu = popUpMenuElement;
             let posX
@@ -1468,6 +1494,16 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                     save.style.display = "none"
                 }
             })
+            document.getElementById('sensorMenuButtons').style.display = 'none'
+
+            if (!Array.from(texts).some(node => node.textContent.trim() == option)){
+                eventTarget.style.outlineColor = 'red'
+                eventTarget.style.setProperty("border-color", "red", "important")
+                invalid = true
+            } else {
+                eventTarget.style.removeProperty("border-color")
+                eventTarget.style.outlineColor = ''
+            }
             // const poprect = menu.getBoundingClientRect();
             // const viewportWidth = window.innerWidth;
             // const viewportHeight = window.innerHeight;
@@ -1484,7 +1520,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
         clickedMenu = isImport
         option = importSelectionValue
     }
-
+    
     const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
 
 
@@ -1519,19 +1555,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                     main([11,2], {11: 'block/unit'})
                     break;
                 default:
-                    children = popUpMenuElement.querySelectorAll("*")
-                    if (!Array.from(children).some(node => node.textContent.trim() == option)){
-                        eventTarget.style.outlineColor = 'red'
-                        eventTarget.style.setProperty("border-color", "red", "important")
-                        invalid = true
-                    } else {
-                        main([11,2], {11: '='})
-                    }
-                    break;
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
+                    main([11,2], {11: '='})
             }
             break;
         case 'effectMenu': 
@@ -1583,14 +1607,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'explosion':
                     main([2, 3, 4, 44], {44: 'size'});
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'fetchMenu':
@@ -1615,14 +1631,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'buildCount':
                     main([5,55], {55: 'block'})
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'controlMenu':
@@ -1638,14 +1646,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'shootp':
                     main([2, 3, 4, 33, 44], {33: 'unit', 44: 'shoot'})
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'setMarkerMenu':
@@ -1710,14 +1710,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'colori':
                     main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'index', 44: 'color'})
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'jumpMenu':
@@ -1734,14 +1726,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case '===':
                     main([1,2,3,4])
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'drawMenu':
@@ -1794,14 +1778,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'rotate':
                     main([11,1], {11:'degrees'})
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'ucontrolMenu':
@@ -1856,14 +1832,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'within':
                     main([11,22,33,44,1,2,3,4], {11:'x',22:'y',33:'radius',44:'result'})
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'ulocateFindMenu':
@@ -1878,14 +1846,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'spawn':
                     main([-1])
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'setBlockMenu':
@@ -1895,14 +1855,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'block':
                     main([5,6])
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'flushMessageMenu':
@@ -1915,14 +1867,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'toast':
                     main([1,3])
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         case 'cutsceneMenu':
@@ -1936,14 +1880,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput) {
                 case 'stop':
                     main([1])
                     break;
-                default:
-                    eventTarget.style.outlineColor = 'red'
-                    eventTarget.style.setProperty("border-color", "red", "important")
-                    invalid = true
-            }
-            if ((eventTarget.style.outlineColor == "red" && invalid == false) || (eventTarget.style.borderColor == "red" && invalid == false)){
-                eventTarget.style.removeProperty("border-color")
-                eventTarget.style.outlineColor = ''
             }
             break;
         default:
@@ -2254,141 +2190,141 @@ function moveContainer(direction){
 // Export functions
 //####################################################################################################################################
 const operatorMap = {
-    "+"         : 'add ',
-    "-"         : 'sub ',
-    "*"         : 'mul ',
-    "/"         : 'div ',
-    "//"        : 'idiv ',
-    "%"         : 'mod ',
-    "^"         : 'pow ',
-    "=="        : 'equal ',
-    "not"       : 'notEqual ',
-    "and"       : 'land ',
-    "<"         : 'lessThan ',
-    "<="        : 'lessThanEqual ',
-    ">"         : 'greaterThan ',
-    ">="        : 'greaterThanEqual ',
-    "==="       : 'strictEqual ',
-    "<<"        : 'shl ',
-    ">>"        : 'shr ',
-    "or"        : 'or ',
-    "b-and"     : 'and ',
-    "xor"       : 'xor ',
-    "flip"      : 'not ',
-    "max"       : 'max ',
-    "min"       : 'min ',
-    "angle"     : 'angle ',
-    "anglediff" : 'angleDiff ',
-    "len"       : 'len ',
-    "noise"     : 'noise ',
-    "abs"       : 'abs ',
-    "log"       : 'log ',
-    "log10"     : 'log10 ',
-    "floor"     : 'floor ',
-    "ceil"      : 'ceil ',
-    "sqrt"      : 'sqrt ',
-    "rand"      : 'rand ',
-    "sin"       : 'sin ',
-    "cos"       : 'cos ',
-    "tan"       : 'tan ',
-    "asin"      : 'asin ',
-    "acos"      : 'acos ',
-    "atan"      : 'atan ',
-    "always"    : 'always ',
+    "+"         : 'add',
+    "-"         : 'sub',
+    "*"         : 'mul',
+    "/"         : 'div',
+    "//"        : 'idiv',
+    "%"         : 'mod',
+    "^"         : 'pow',
+    "=="        : 'equal',
+    'not'       : 'notEqual',
+    "and"       : 'land',
+    "<"         : 'lessThan',
+    "<="        : 'lessThanEqual',
+    ">"         : 'greaterThan',
+    ">="        : 'greaterThanEqual',
+    "==="       : 'strictEqual',
+    "<<"        : 'shl',
+    ">>"        : 'shr',
+    "or"        : 'or',
+    "b-and"     : 'and',
+    "xor"       : 'xor',
+    "flip"      : 'not',
+    "max"       : 'max',
+    "min"       : 'min',
+    "angle"     : 'angle',
+    "anglediff" : 'angleDiff',
+    "len"       : 'len',
+    "noise"     : 'noise',
+    "abs"       : 'abs',
+    "log"       : 'log',
+    "log10"     : 'log10',
+    "floor"     : 'floor',
+    "ceil"      : 'ceil',
+    "sqrt"      : 'sqrt',
+    "rand"      : 'rand',
+    "sin"       : 'sin',
+    "cos"       : 'cos',
+    "tan"       : 'tan',
+    "asin"      : 'asin',
+    "acos"      : 'acos',
+    "atan"      : 'atan',
+    "always"    : 'always',
 
-    'add'               : 'add ', // UGLY, idk other way though
-    'sub'               : 'sub ',
-    'mul'               : 'mul ',
-    'div'               : 'div ',
-    'idiv'              : 'idiv ',
-    'mod'               : 'mod ',
-    'pow'               : 'pow ',
-    'equal'             : 'equal ',
-    'notEqual'          : 'notEqual ',
-    'land'              : 'land ',
-    'lessThan'          : 'lessThan ',
-    'lessThanEqual'     : 'lessThanEqual ',
-    'greaterThan'       : 'greaterThan ',
-    'greaterThanEqual'  : 'greaterThanEqual ',
-    'strictEqual'       : 'strictEqual ',
-    'shl'               : 'shl ',
-    'shr'               : 'shr ',
-    'or'                : 'or ',
-    'and'               : 'and ',
-    'xor'               : 'xor ',
-    'not'               : 'not ',
-    'max'               : 'max ',
-    'min'               : 'min ',
-    'angle'             : 'angle ',
-    'angleDiff'         : 'angleDiff ',
-    'len'               : 'len ',
-    'noise'             : 'noise ',
-    'abs'               : 'abs ',
-    'log'               : 'log ',
-    'log10'             : 'log10 ',
-    'floor'             : 'floor ',
-    'ceil'              : 'ceil ',
-    'sqrt'              : 'sqrt ',
-    'rand'              : 'rand ',
-    'sin'               : 'sin ',
-    'cos'               : 'cos ',
-    'tan'               : 'tan ',
-    'asin'              : 'asin ',
-    'acos'              : 'acos ',
-    'atan'              : 'atan ',
-    'always'            : 'always ',
+    'add'               : 'add', // UGLY, idk other way though
+    'sub'               : 'sub',
+    'mul'               : 'mul',
+    'div'               : 'div',
+    'idiv'              : 'idiv',
+    'mod'               : 'mod',
+    'pow'               : 'pow',
+    'equal'             : 'equal',
+    'notEqual'          : 'notEqual',
+    'land'              : 'land',
+    'lessThan'          : 'lessThan',
+    'lessThanEqual'     : 'lessThanEqual',
+    'greaterThan'       : 'greaterThan',
+    'greaterThanEqual'  : 'greaterThanEqual',
+    'strictEqual'       : 'strictEqual',
+    'shl'               : 'shl',
+    'shr'               : 'shr',
+    'or'                : 'or',
+    'and'               : 'and',
+    'xor'               : 'xor',
+    // 'not'               : 'flip',
+    'max'               : 'max',
+    'min'               : 'min',
+    'angle'             : 'angle',
+    'angleDiff'         : 'angleDiff',
+    'len'               : 'len',
+    'noise'             : 'noise',
+    'abs'               : 'abs',
+    'log'               : 'log',
+    'log10'             : 'log10',
+    'floor'             : 'floor',
+    'ceil'              : 'ceil',
+    'sqrt'              : 'sqrt',
+    'rand'              : 'rand',
+    'sin'               : 'sin',
+    'cos'               : 'cos',
+    'tan'               : 'tan',
+    'asin'              : 'asin',
+    'acos'              : 'acos',
+    'atan'              : 'atan',
+    'always'            : 'always',
 };
 
 let instTypeMap = {
-    'Read'          : 'read ',
-    'Write'         : 'write ',
-    'Draw'          : 'draw ',
-    'Print'         : 'print ',
-    'Format'        : 'format ',
-    'Draw Flush'    : 'drawflush ',
-    'Print Flush'   : 'printflush ',
-    'Get Link'      : 'getlink ',
-    'Control'       : 'control ',
-    'Radar'         : 'radar ',
-    // 'Sensor'        : 'sensor ',
-    'Set'           : 'set ',
-    // 'Operation'     : 'operation ',
-    // 'Lookup'        : 'lookup ',
-    'Pack Color'    : 'packcolor ',
-    'Wait'          : 'wait ',
-    'Stop'          : 'stop ',
-    'End'           : 'end ',
-    'Jump'          : 'jump ',
-    'Unit Bind'     : 'ubind ',
-    'Unit Control'  : 'ucontrol ',
-    // 'Unit Radar'    : 'uradar ',
-    // 'Unit Locate'   : 'ulocate ',
+    'Read'          : 'read',
+    'Write'         : 'write',
+    'Draw'          : 'draw',
+    'Print'         : 'print',
+    'Format'        : 'format',
+    'Draw Flush'    : 'drawflush',
+    'Print Flush'   : 'printflush',
+    'Get Link'      : 'getlink',
+    'Control'       : 'control',
+    'Radar'         : 'radar',
+    // 'Sensor'        : 'sensor',
+    'Set'           : 'set',
+    'Operation'     : 'op',
+    // 'Lookup'        : 'lookup',
+    'Pack Color'    : 'packcolor',
+    'Wait'          : 'wait',
+    'Stop'          : 'stop',
+    'End'           : 'end',
+    'Jump'          : 'jump',
+    'Unit Bind'     : 'ubind',
+    'Unit Control'  : 'ucontrol',
+    'Unit Radar'    : 'uradar',
+    // 'Unit Locate'   : 'ulocate',
     'Noop'          : 'noop',
     // 'Label'         : 'label',
     'Comment'       : '#',
-    'Get Block'     : 'getblock ',
-    'Set Block'     : 'setblock ',
-    'Spawn Unit'    : 'spawn ',
-    // 'Apply Status'  : 'status ',
-    'Weather Sense' : 'weathersense ',
-    'Weather Set'   : 'weatherset ',
-    'Spawn Wave'    : 'spawnwave ',
-    'Set Rule'      : 'setrule ',
-    'Flush Message' : 'message ',
-    'Cutscene'      : 'cutscene ',
-    'Effect'        : 'effect ',
-    'Explosion'     : 'explosion ',
-    'Set Rate'      : 'setrate ',
-    'Fetch'         : 'fetch ',
-    'Sync'          : 'sync ',
-    'Get Flag'      : 'getflag ',
-    'Set Flag'      : 'setflag ',
-    'Set Prop'      : 'setprop ',
-    'Play Sound'    : 'playsound ',
-    'Set Marker'    : 'setmarker ',
-    'Make Marker'   : 'makemarker ',
-    'Locale Print'  : 'localeprint ',
-    'Print Char'    : 'printchar ',
+    'Get Block'     : 'getblock',
+    'Set Block'     : 'setblock',
+    'Spawn Unit'    : 'spawn',
+    // 'Apply Status'  : 'status',
+    'Weather Sense' : 'weathersense',
+    'Weather Set'   : 'weatherset',
+    'Spawn Wave'    : 'spawnwave',
+    'Set Rule'      : 'setrule',
+    'Flush Message' : 'message',
+    'Cutscene'      : 'cutscene',
+    'Effect'        : 'effect',
+    'Explosion'     : 'explosion',
+    'Set Rate'      : 'setrate',
+    'Fetch'         : 'fetch',
+    'Sync'          : 'sync',
+    'Get Flag'      : 'getflag',
+    'Set Flag'      : 'setflag',
+    'Set Prop'      : 'setprop',
+    'Play Sound'    : 'playsound',
+    'Set Marker'    : 'setmarker',
+    'Make Marker'   : 'makemarker',
+    'Locale Print'  : 'localeprint',
+    'Print Char'    : 'printchar',
 
 } 
 function exportCode(save){
@@ -2403,12 +2339,13 @@ function exportCode(save){
             }
             let instType = insSpan.textContent;
             if (instTypeMap?.[instType]){
-                codeEx += instTypeMap[instType];
+                codeEx += instTypeMap[instType] + ' ';
                 let ignoreIgnoreInvisable
                 switch (instType){
                     case 'Flush Message':
                     case 'Play Sound':
                     case 'Jump':
+                    case 'Operation':
                         ignoreIgnoreInvisable = 1 
                         break;
                     default:
@@ -2430,25 +2367,23 @@ function exportCode(save){
                             container.querySelector('#field3Value')?.textContent} ${
                             container.querySelector('#field2Value')?.textContent}`
                         break;
-                    case 'Operation':
-                        codeEx += "op "
-                        operator = container.querySelector('.dontInclude')
-                        OperatorString = (operator.textContent.replace(/\s+/g, ''));
-                        if (operatorMap[OperatorString] !== undefined) {
-                            codeEx += operatorMap[OperatorString];
-                        }
-                        exportFields(0)
-                        break;
-                    case 'Radar':
-                        codeEx += `radar ${
-                            container.querySelector('#field2Value')?.textContent} ${
-                            container.querySelector('#field3Value')?.textContent} ${
-                            container.querySelector('#field4Value')?.textContent} ${
-                            container.querySelector('#field6Value')?.textContent} ${
-                            container.querySelector('#field1Value')?.textContent} ${
-                            container.querySelector('#field5Value')?.textContent} ${
-                            container.querySelector('#field7Value')?.textContent}`
-                        break;
+                    // case 'Operation':
+                    //     codeEx += "op "
+                    //     operator = container.querySelector('.dontInclude')
+                    //     OperatorString = (operator.textContent.replace(/\s+/g, ''));
+                    //     codeEx += operatorMap[OperatorString] + ' ';
+                    //     exportFields(0)
+                    //     break;
+                    // case 'Radar':
+                    //     codeEx += `radar ${
+                    //         container.querySelector('#field2Value')?.textContent} ${
+                    //         container.querySelector('#field3Value')?.textContent} ${
+                    //         container.querySelector('#field4Value')?.textContent} ${
+                    //         container.querySelector('#field6Value')?.textContent} ${
+                    //         container.querySelector('#field1Value')?.textContent} ${
+                    //         container.querySelector('#field5Value')?.textContent} ${
+                    //         container.querySelector('#field7Value')?.textContent}`
+                    //     break;
                     case 'Lookup':
                         codeEx += `lookup ${
                             container.querySelector('#field2Value')?.textContent} ${
@@ -2463,6 +2398,7 @@ function exportCode(save){
                             container.querySelector('#field6Value')?.textContent} 0 ${
                             container.querySelector('#field5Value')?.textContent} ${
                             container.querySelector('#field7Value')?.textContent}`
+                            break;
                     case 'Unit Locate':
                         codeEx += `ulocate `
                         exportFields(1)
@@ -2505,7 +2441,12 @@ function exportCode(save){
                 codeElements.forEach(code => {
                     if (!code.classList.contains('dontInclude') && (ignoreIgnoreInvisable || (getComputedStyle(code)).display === 'block')) {
                         // console.log(code);
-                        codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
+                        if (code.id === 'operation'){
+                            console.log(code.textContent);
+                            codeEx += operatorMap[code.textContent] + ' '
+                        } else {
+                            codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
+                        }
                     }
                 });
             }
