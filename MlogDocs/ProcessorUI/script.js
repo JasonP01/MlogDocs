@@ -889,6 +889,14 @@ document.addEventListener('keydown',(e) =>{
             }else if (e.key === 'Tab' ||(e.altKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft'))){
                 e.preventDefault();
                 focusNextField(e.key);
+            }else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                const range = window.getSelection().getRangeAt(0);
+                const caretPosition = range.endOffset;
+                if (caretPosition === 0 && e.key === 'ArrowLeft'){
+                    focusNextField('autoLeft')
+                }else if (caretPosition === range.endContainer.length  && e.key === 'ArrowRight'){
+                    focusNextField('autoRight')
+                }
             }else if (e.key === 'Delete' && document.activeElement.tagName == 'BODY'){
                 document.activeElement.blur();
                 deleteContainer();
@@ -2078,14 +2086,28 @@ let focusableElements
 function focusNextField(direction){
     if (!focusableElements || (focusableElements[0]?.closest('.container')) != cursorContainer){
         focusableElements = cursorContainer.querySelectorAll('.editable')
+        focusableElements = Array.from(focusableElements).filter(element => getComputedStyle(element).display !== 'none')
     }
     limitFocusIndex = currentFocusIndex
     if (direction == 'ArrowRight' || direction == 'Tab'){
         currentFocusIndex += 1
     } else if (direction == 'ArrowLeft'){
         currentFocusIndex -= 1
+    } else if (direction == 'autoRight'){
+        let focusedElement
+        focusedElement = document.activeElement;
+        currentFocusIndex = focusableElements.indexOf(focusedElement)
+        currentFocusIndex += 1
+    } else if (direction == 'autoLeft'){
+        let focusedElement
+        focusedElement = document.activeElement;
+        currentFocusIndex = focusableElements.indexOf(focusedElement)
+        currentFocusIndex -= 1
     }
     if (focusableElements.length > 0) {
+        if (currentFocusIndex < 0){
+            currentFocusIndex = focusableElements.length - 1
+        }
         currentFocusIndex = Math.abs((currentFocusIndex) % focusableElements.length);
     }
     focusableElements[currentFocusIndex].focus();
