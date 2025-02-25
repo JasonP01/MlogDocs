@@ -58,10 +58,10 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable iNo toggleableField" order="6" contenteditable="true">${field7 || '0'}</span>`
             break;
         case 'Print':
-            code = `<span class="editable iNo" contenteditable="true">${field1 || '\"frog\"'}</span>`
+            code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
         case 'Print Char':
-            code = `<span class="editable iNo" contenteditable="true">${field1 || '65'}</span>
+            code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '65'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'printCharMenu')" class="pencilMenu">`
             break;
         case 'Format':
@@ -2463,11 +2463,13 @@ function exportCode(save){
                 codeElements.forEach(code => {
                     if (!code.classList.contains('dontInclude') && (ignoreIgnoreInvisable || (getComputedStyle(code)).display === 'block')) {
                         // console.log(code);
-                        if (code.id === 'operation'){
-                            console.log(code.textContent);
+                        codeId = code.id
+                        if (codeId === 'operation'){
                             codeEx += operatorMap[code.textContent] + ' '
+                        }else if (codeId === 'string') {
+                            codeEx += (code.textContent + ' ');
                         } else {
-                            codeEx += (code.textContent.replace(/\s+/g, '') + ' ');
+                            codeEx += (code.textContent.replace(/\s+/g, '_') + ' ');
                         }
                     }
                 });
