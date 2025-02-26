@@ -2815,14 +2815,15 @@ function autosave() {
 function getSavedSettings(){
     let savedSettings = localStorage.getItem('setting')
     if (!savedSettings){
-        const defaultSettings = {
-            autosave: true,
-            interval: 10,
+        const defaultSettings = { // @important configure this when adding new settings
+            autosave: true, 
+            interval: 30,
             buffer: 20,
             showDebug : false,
             // UIScale : 100,
             F2SearchAdd : true,
-            addBelowCursor : true
+            addBelowCursor : true,
+            removeNotice : false
         } 
         localStorage.setItem('setting', JSON.stringify(defaultSettings))
         savedSettings = defaultSettings
@@ -2837,7 +2838,7 @@ function updateSettingValue(e) {
     e.nextElementSibling.textContent = value
 }
 
-function saveSettings(){
+function saveSettings(){ // @important configure this when adding new settings
     const setting = document.getElementById('setting')
     // autosave settings
     const isAutosave = setting.querySelector('#autosave').checked
@@ -2845,6 +2846,7 @@ function saveSettings(){
     const buffer = setting.querySelector('#buffer').value
     // general settings
     const showDebug = setting.querySelector('#showDebug').checked
+    const removeNotice = setting.querySelector('#removeNotice').checked
     const UIScale = setting.querySelector('#UIScale').value
     // keybinds
     const F2SearchAdd = setting.querySelector('#focusAddSearchBar').checked
@@ -2856,20 +2858,26 @@ function saveSettings(){
         showDebug : showDebug,
         UIScale : UIScale,
         F2SearchAdd : F2SearchAdd,
-        addBelowCursor : addBelowCursor
+        addBelowCursor : addBelowCursor,
+        removeNotice : removeNotice
     }
     localStorage.setItem('setting',JSON.stringify(savedSettings))
     closeSettingMenu()
-    refreshUserSetting()
+    applyUserSetting()
 }
 
-function refreshUserSetting(){
+function applyUserSetting(){
     let savedSettings = getSavedSettings()
     autosave()
     if (savedSettings.showDebug) {
         document.getElementById('debugMenu').style.display = 'block'
     }else {
         document.getElementById('debugMenu').style.display = 'none'
+    }
+    if (savedSettings.removeNotice) {
+        document.getElementById('notice').style.display = 'none'
+    } else {
+        document.getElementById('notice').style.display = 'block'
     }
     // document.body.style.zoom = savedSettings.UIScale + "%" //nevermind, everything that uses screen coordinates is broken, will disable this for now
 }
@@ -2898,7 +2906,7 @@ function refreshSettingMenu(){
 
 window.onload = () => {
     document.getElementById('loadingAlert').style.display = 'none'
-    refreshUserSetting()
+    applyUserSetting()
     // autosaveInterval = setInterval(autosave, 10000);
     // openSettingMenu()
     // openSaveMenu()

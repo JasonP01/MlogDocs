@@ -49,7 +49,7 @@
             debug text
         </div>
     </div>
-    <div style="position: fixed; color: rgba(255, 0, 0, 0.185); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
+    <div id="notice" style="position: fixed; color: rgba(255, 0, 0, 0.185); font-size: calc(10px + 1vw); text-align: center; user-select: none; overflow-wrap: break-word; top: 50%;left: 50%;transform: translate(-50%, -50%);">
         As this is a rather large project I cannot be absolutely sure
         that there are no bugs, if you think something is not right
         whether its not intuitive, weird design, or unuseable for any reason
@@ -153,14 +153,21 @@
                         <img src="image/info.svg" alt="" style="margin-left: 5px; height: 100%;">
                         <span class="tooltip">Immediately focus the search bar upon opening the add menu using f2</span>
                     </div>
-
                 </div>
                 <div class="checkBoxContainer">
                     <input type="checkbox" id="addInstructionBelowCursor"/>
-                    <label for="customCheckbox" title="When in cursor mode ">add Instruction Below Cursor</label>
+                    <label for="customCheckbox">add Instruction Below Cursor</label>
                     <div class="tooltip-container" onclick="toggleTooltip(this)">
                         <img src="image/info.svg" alt="" style="margin-left: 5px; height: 100%;">
                         <span class="tooltip">When in Cursor mode when adding a new instruction the added instruction will be added below the cursor instead of the very end</span>
+                    </div>
+                </div>
+                <div class="checkBoxContainer">
+                    <input type="checkbox" id="removeNotice"/>
+                    <label for="customCheckbox">Remove background Notice</label>
+                    <div class="tooltip-container" onclick="toggleTooltip(this)">
+                        <img src="image/info.svg" alt="" style="margin-left: 5px; height: 100%;">
+                        <span class="tooltip">Removes the red text background notice/warning if you're bothered by it</span>
                     </div>
                 </div>
                 <button class="button smallButton" id="saveCurrent" onclick="saveSettings()">Save</button>
