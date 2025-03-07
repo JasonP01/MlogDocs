@@ -310,7 +310,7 @@ section {
         left: 0px;
     }
 
-    img {
+    img, video {
         position: relative !important;
         max-width: 90vw !important;
         left: 0px !important; 
