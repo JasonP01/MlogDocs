@@ -915,18 +915,39 @@
                             <li><b>angle</b></li>
                             <p class="oplist">
                                 Angle of vector in degrees,usually used like: Angle = ((x1-x2) (y1-y2))
+                                <br>internally the code does:
+                                <br>ang1 = atan2(a,b) * 180/&pi; (convert into degrees)
+                                <br><span style="color: aqua;">result</span> = {
+                                    if ang1 < 0 = (<span style="color: yellow;">ang1 + 360</span>),
+                                    otherwise = (<span style="color: yellow;">ang1</span>)
+                                }
+                                <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
                             </p>
                             <li><b>angle diff</b></li>
                             <p class="oplist">
                                 Absolute distance between to angles in degrees, usually used like: angdiff = (ang1)(ang2)
+                                <br>innternally the code does:
+                                <br>a = a % 360
+                                <br>b = b % 360
+                                <br>d1 = (a - b + 360) % 360
+                                <br>d2 = (b - a + 360) % 360
+                                <br><span style="color: aqua;">result</span> = min(d1, d2)
+                                <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
                             </p>
                             <li><b>len</b></li>
                             <p class="oplist">
-                                Length of vector, usually used like: len = ((x1-x2) (y1-y2))
+                                Length of vector, usually used like: len = ((x1-x2) (y1-y2)).
+                                <br>internally the code does:
+                                <br><span style="color: aqua;">result</span> = <span style="color: yellow;">&Sqrt; (a * a + b * b)</span>
+                                <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
                             </p>
                             <li><b>noise</b></li>
                             <p class="oplist">
                                 2d simplex noise
+                                <br>takes 2 value as coordinates and outputs a value from -1 to 1 
+                                <br>unlike rand, noise is detemernistic, which means a pair of coordinates will always outputs the same result
+                                <br>for more information to how it internally works check <a href="https://github.com/Anuken/Arc/blob/master/arc-core/src/arc/util/noise/Simplex.java">https://github.com/Anuken/Arc/blob/master/arc-core/src/arc/util/noise/Simplex.java</a>
+                                the "raw2d" function/method
                             </p>
                             <li><b>rand</b></li>
                             <p class="oplist">
