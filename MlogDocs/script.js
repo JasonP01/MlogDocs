@@ -175,3 +175,7 @@ modal.addEventListener('click', function(event) {
     modal.style.display = 'none';
   }
 });
+
+document.querySelectorAll('.toadd').forEach((toadd, index) => {
+  toadd.append(index+1)
+})

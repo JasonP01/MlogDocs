@@ -582,3 +582,7 @@ a {
             visibility: visible;
             opacity: 1;
         }
+
+.toadd {
+    color: yellow;
+}

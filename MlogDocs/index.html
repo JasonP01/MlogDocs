@@ -165,15 +165,20 @@
                     please feel free to contact me to discuss them.
                     you can DM me on<br>
                     Discord (Yruei)
-                    <br>Reddit (<a  href="https://www.reddit.com/user/Far_Kale588/" class="cs">u/Far_Kale558 <span class="tooltip">asdfasdf</span></a>)
+                    <br>Reddit (<a  href="https://www.reddit.com/user/Far_Kale588/" class="cs">u/Far_Kale558<span class="tooltip">asdfasdf</span></a>)
                     
                     <br>or make an issue <a href="https://github.com/Yrueii/Yrueii.github.io/issues">Here</a>
                     <!-- <br><br><br>this is the new website, images are rendered at 100% resolution, meaning no matter how small you screen is if you zoom in enough it will show its original resolution. -->
                     <!-- <br>if you prefer the old website for some reason click <a href="https://docs.google.com/document/d/19QCrupPGglPaCuIfajgktu2At5iJLrrSaM2jeXXyuyg/edit?usp=sharing"> here</a> (outdated). -->
-
+                    <br><br>
                     if you have any question about mlog, whether it is technical help or general question feel free to ask them in 
                     <br> <a href="https://discord.gg/mindustry">https://discord.gg/mindustry</a>, people there will be happy to help you,
                     (just dont ask to ask, just ask)
+                    
+                    <br><br>
+                    There are some missing information in this documentation, which are identified by " <span style="color: yellow;">TO ADD#</span> ",
+                    <br>for people who want to contribute and complete them you can search for it by pressing <span style="color: yellow;">CTRL + F</span>
+                    , or " <span style="color: yellow;">Find in page</span> " for mobile devices
                     
                     </p>
             </section>
@@ -1708,6 +1713,9 @@
                         <section id="spawn-wave">
                         <h2><li>Spawn Wave</li></h2>
                         <img alt="alt" src="image/spawn wave.png" style="max-width: 85vw !important;">
+                        <p>
+                            <span class="toadd">TO ADD#</span>
+                        </p>
                         </section>
                         <section id="set-rule">
                             <h2><li>Set Rule</li></h2>
@@ -1716,13 +1724,17 @@
                                 currentWaveTime
                                 <br><span class="spin">change the current wave timer, in seconds</span>
                                 <br>waveTimer
+                                <br><span class="toadd">TO ADD#</span>
                                 <br>waves
+                                <br><span class="toadd">TO ADD#</span>
                                 <br>wave
                                 <br><span class="spin">set wave number</span>
                                 <br>waveSpacing
                                 <br><span class="spin">change the timer for the next wave, in seconds</span>
                                 <br>waveSending
+                                <br><span class="toadd">TO ADD#</span>
                                 <br>attackMode
+                                <br><span class="toadd">TO ADD#</span>
                                 <br>enemyCoreBuildRadius
                                 <br><span class="spin">set how large the radius of the no build zone around the enemy core</span>
                                 <br>dropZoneRadius
@@ -1755,7 +1767,9 @@
                                 <br>blockDamage
                                     <br><span class="spin">set the multiplier of block damage (turrets, explosion, etc)</span>
                                 <br>rtsMinWeight
+                                <br><span class="toadd">TO ADD#</span>
                                 <br>rtsMinSquad
+                                <br><span class="toadd">TO ADD#</span>
                             </p>
                         </section>
                         <section id="flush-message">
@@ -1788,6 +1802,7 @@
                             <img alt="alt" src="image/effect.png" style="max-width: 85vw !important;">
                             <p>
                                 display a particle effect on the world, you can click the `warn` to view every available effect
+                                <br><span class="toadd">TO ADD#</span> (list of effects)
                             </p>
                         </section>
                         <section id="explosion">
@@ -1856,6 +1871,7 @@
                                 sets the properties of a unit or building
                                 <br><span class="spin">`of` unit/building Reference
                                 <br>`to` value</span>
+                                <br><span class="toadd">TO ADD#</span> (list of properties, and explanation)
                             </p>
                         </section>
                     </ol>
@@ -1865,7 +1881,8 @@
             <section id="bleeding-edge">
                 <h1>Bleeding Edge</h1>
                 <p class="spin" style="margin-left: 20px;">
-                    Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
+                    <span class="toadd">TO ADD#</span> (whole bleeding edge section)
+                    <br><br>Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
                     <br>BE version can be found and downloaded on
                     <a href="https://github.com/Anuken/MindustryBuilds">https://github.com/Anuken/MindustryBuilds</a>
                     <br>
@@ -1985,25 +2002,28 @@
                     <br>
                     <br>texture is initially just pure white, can be defined with <mark class="wp">setmarker texture</mark>,
                     <br>then needs to be further defined with <mark class="wp">setmarker uvi</mark> to set the texture location within the quad.
-                    <div style="display: flex; flex-wrap: wrap;" >
-                        <figure style="margin-right: 0; text-align: center;">
-                            <img src="image/quad.png" alt="" height="200px">
-                            <figcaption>Default quad</figcaption>
-                        </figure>
-                        <figure style="margin-right: 0; text-align: center;">
-                            <img src="image/quad router.png" alt="" height="200px">
-                            <figcaption>Quad with texture and uvi</figcaption>
-                        </figure>
-                        <figure style="margin-right: 0; text-align: center;">
-                            <img src="image/quad colori.png" alt="" height="200px">
-                            <figcaption>Stretched Quad with colori</figcaption>
-                        </figure>
-                        <figure style="margin-right: 0; text-align: center;">
-                            <img src="image/raycast.png" alt="" height="200px">
-                            <figcaption>Raycast displayed using quads</figcaption>
-                        </figure>
-                    </div>
                 </p>
+                <div style="display: flex; flex-wrap: wrap;" >
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/quad.png" alt="" height="200px">
+                        <figcaption>Default quad</figcaption>
+                    </figure>
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/quad router.png" alt="" height="200px">
+                        <figcaption>Quad with texture and uvi</figcaption>
+                    </figure>
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/quad colori.png" alt="" height="200px">
+                        <figcaption>Stretched Quad with colori</figcaption>
+                    </figure>
+                    <figure style="margin-right: 0; text-align: center;">
+                        <img src="image/raycast.png" alt="" height="200px">
+                        <figcaption>Raycast displayed using quads</figcaption>
+                    </figure>
+                </div>
+                <p class="spin" style="margin-left: 20px;">
+                    <br><span class="toadd">TO ADD#</span>
+                </p>    
                 <br>
                 <h2><li>Set Marker</li></h2>
                 <p class="spin" style="margin-left: 20px;">
@@ -2030,7 +2050,6 @@
                     <br>#2 (1,1)
                     <br>#3 (0,1)
                     <br>will sets each texture vertices exactly where the quad vertices are, this means texture will stretch/reform to the quad shapes
-                    
                     <br>
                     <br><b>colori</b>, similar to uvi, if indexes are set to different colors; color will gradient from one to the other
                     <br>with index from 0-3
@@ -2044,11 +2063,13 @@
                     <br>color only tints the color of the marker,
                     <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
                     <br>since quad doesn't have a color quad will take the full color the specified color.
+                    <br><br><span class="toadd">TO ADD#</span>
 
                 </p>
                 <br>
                 <h2><li>Locale Print</li></h2>
                 <p class="spin" style="margin-left: 20px;">
+                    <span class="toadd">TO ADD#</span>
 
                 </p>
                 <br>
