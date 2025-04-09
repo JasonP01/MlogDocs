@@ -18,6 +18,9 @@
     <script defer src="script.js"></script>
     <!-- this is a git test -->
 </head>
+<!-- TODO add a top bar for navigate links instead of the right sidebar -->
+<!-- TODO make the table of contents collapseable? -->
+<!-- FIX code tidiness -->
 <body>
     <div id="imageModal" class="modal">
         <span class="close">&times;</span>
@@ -198,12 +201,13 @@
                 <br><br>
                 mlog is not necessary for the completion of campaign , it is very optional, often the time you spent coding will be more than if you just do it manually..</p>
             </section>
+            <hr>
             <section id="glossary">
-                <hr>
-                <h1><b>Glossary</b></h1>
-                <p style="font-size: 23px;">Data types<br>
+                <h1>Glossary</h1>
+                <h2>Data types</h2>
+                <ul>
                     <section id="integers" style="margin-bottom: 0;">
-                    <p><b>Integers</b></p>
+                        <li><p><b>Integers</b></p></li>
                         <p class="ti">
                             <a href="https://en.wikipedia.org/wiki/Integer">Integers</a> 
                             are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.
@@ -218,47 +222,47 @@
                         </div>
                     </section>
                     <section id="float" style="margin-bottom: 0;">
-                    <p><b>Float</b></p>
-                        <p class="ti">Opposite of integers, decimal numbers, 1.001, are float.</p>
+                        <li><p><b>Float</b></p></li>
+                            <p class="ti">Opposite of integers, decimal numbers, 1.001, are float.</p>
                     </section>
                     <section id="boolean" style="margin-bottom: 0;">
-                    <p><b>Boolean</b></p>
-                        <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
+                        <li><p><b>Boolean</b></p></li>
+                            <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
                     </section>
                     <section id="strings" style="margin-bottom: 0;">
-                    <p><b>Strings</b></p>
-                        <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
+                        <li><p><b>Strings</b></p></li>
+                            <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
                     </section>
                     <section id="building-reference" style="margin-bottom: 0;">
-                    <p><b>Block or Unit Reference</b></p>
-                        <p class="ti">
-                            every block and unit has a unique reference, so every block and unit can be differentiated from 
-                            each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
-                            in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
-                            they can also be written to a normal variable
-                        </p>
+                        <li><p><b>Block or Unit Reference</b></p></li>
+                            <p class="ti">
+                                every block and unit has a unique reference, so every block and unit can be differentiated from 
+                                each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
+                                in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
+                                they can also be written to a normal variable
+                            </p>
                     </section>
                     <section id="contentname">
-                    <p><b>Content name</b></p>
-                    <p class="ti">
-                        in-game content/item names, like <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@surge-alloy</span>, <span style="color: yellow;">@antumbra</span> kebab case naming, and case sensitive
-                        <br>these are <b>not</b> variables, these are <b>values</b> that can be stored in variables
-                        <br>
-                        <br>content name can be found in the <a href="#appendix">appendix</a>
-                    </p>
+                        <li><p><b>Content name</b></p></li>
+                        <p class="ti">
+                            in-game content/item names, like <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@surge-alloy</span>, <span style="color: yellow;">@antumbra</span> kebab case naming, and case sensitive
+                            <br>these are <b>not</b> variables, these are <b>values</b> that can be stored in variables
+                            <br>
+                            <br>content name can be found in the <a href="#appendix">appendix</a>
+                        </p>
                     </section>
-                
+                </ul>
             </section>
             <section id="basic-concept">
                 <hr>
                 <h1>Basic concept</h1>
                 <section id="processors">
-                    <p style="font-size: 23px;">Processors</p>
+                    <h2>Processors</h2>
                     <p class="ti">There are 3 types of Logic Processors, Micro processor, Logic processor, and Hyper processor, 
                         each have different speeds and range (Information can be found in the game’s info menu).</p>
                 </section>
                 <section id="processors-ui">
-                    <p style="font-size: 23px;">Processor’s UI</p>
+                    <h2>Processor’s UI</h2>
                     <p class="ti">when opening a processor by clicking the pencil icon:</p>
                     <img src="image/ui3.png" alt="alt" style="left: 130px;">                
                     <p class="ti">you will be prompted to this screen:</p>
@@ -281,7 +285,7 @@
                     </p>
                 </section>
                 <section id="how-processor-run-its-code">
-                    <p style="font-size: 23px;">How Processor run its code</p>
+                    <h2>How Processor run its code</h2>
                     <p class="ti">They Always run Instruction from top to bottom 1 at a time
                         You can only jump and wait, you cannot make it run from bottom to top for example.
                         Here is a visualization:</p>
@@ -291,7 +295,7 @@
                         <p>When the processor reach the end of its instruction it will go back to 0, repeating the loop indefinitely </p>
                 </section>
                 <section id="links">
-                    <p style="font-size: 23px;">Links</p>
+                    <h2>Links</h2>
                     <p class="ti">You can link a building to the processor by clicking the processor 
                         (you can see a circle, this is the processor range) and clicking the building
                     </p>
@@ -308,7 +312,7 @@
                     </p>
                 </section>
                 <section id="variables">
-                    <p style="font-size: 23px;">Variables</p>
+                    <h2>Variables</h2>
                     <p class="ti">
                         Variables are the fundamental of programming, to put it simply, they are just named 
                         “containers” to store data to, for example the <mark class="op">Set</mark> instruction sets a variable:
@@ -342,9 +346,7 @@
                     </div>
                 </section>
                 <section id="built-in-variables">
-                    <p style="font-size: 23px;"> 
-                        Built in Variables
-                    </p>
+                    <h2>Built in Variables</h2>
                     <p class="ti">
                         Built in variables are variables that have their value determined by the game, 
                         but can also change. they are preceded by “@”, here are lists of built in variables 
@@ -408,7 +410,7 @@
                     </ol>
                 </section>
                 <section id="constants">
-                    <p style="font-size: 23px;">Constants</p>
+                    <h2>Constants</h2>
                     <p class="ti">
                         Constant, they are like variable but you can’t write to them, their value are predetermined, 
                         for example “<b>@pi</b>”, like the name suggest it is pi (  , 3.14159….), here are the list of constant 
@@ -442,7 +444,7 @@
                     </ol>
                 </section>
                 <section id="buffers">
-                    <p style="font-size: 23px;">Buffers</p>
+                    <h2>Buffers</h2>
                     <p class="ti">
                         Internally there is a Text buffer and a Draw buffer in each processor, 
                         when you use print or draw, when the processor runs it, it will store it in the buffer.
@@ -471,7 +473,7 @@
             <section id="blocks">
             <h1>Blocks</h1>
                 <ol style="list-style-type: disc;">
-                    <section id="message">
+                    <section id="message" style="margin-bottom: 0;">
                         <li>Message</li>
                         <p class="ti" style="margin-top: 5px;">
                             Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
@@ -479,14 +481,14 @@
                             <br>will only show its text when hovered
                         </p>
                     </section>
-                    <section id="switch">
+                    <section id="switch" style="margin-bottom: 0;">
                         <li>Switch</li>
                         <p class="ti" style="margin-top: 5px;">
                             Has 2 states, enabled and disabled / 1 and 0, state can be read using Sensor 
                             instruction, and can also be controlled with Control instruction.
                         </p>
                     </section>
-                    <section id="display">
+                    <section id="display" style="margin-bottom: 0;">
                         <li>Logic displays and Large</li>
                         <p class="ti" style="margin-top: 5px;">
                             Is used with Draw and Draw Flush, 
@@ -495,41 +497,43 @@
                             <br> the border (Bezel) is 8 pixels
                         </p>
                     </section>
-                    <section id="cell">
-                    <li>Memory cell and Memory Bank</li>
-                    <p class="ti" style="margin: 5px;">
-                        A cell can store up to 64 values, but only numbers, while Bank can store up to 512 values<br>
-                        How it works:
-                    </p>
-                    <p class="ti" style="margin-top: 0px;">
-                        Let’s use a cell as an example, imagine it is like a numbered storage boxes
-                    </p>
-                    <img alt="alt" src="image/cell.png"style="max-width: 85vw !important">
-                    <p>
-                        the number below are called addresses, since a cell can store up to 
-                        64 values that means there are 64 addresses in a cell, from  #0 to #63
-                        you can then store a number in this line of boxes by an address, for example 
-                        if you want to store a number to box number #3 you would write:
-                    </p>
-                    <img alt="alt" src="image/ex write.png"style="max-width: 85vw !important">
-                    <p>
-                        this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using <mark class="draw">read</mark>
-                    </p>
-                    <img alt="alt" src="image/read 1.png"style="max-width: 85vw !important">
-                    <p>
-                        this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
-                        called `<span  style="color: aqua;">result</span>`, therefore `<span  style="color: aqua;">result</span>` is now <span style="color: yellow;">1838</span>
-                        <br><br>
-                        the largest integer that can be stored in a single address is related to <a href="#integers">integer limitations</a>
-                    </p>
+                    <section id="cell" style="margin-bottom: 0;">
+                        <li>Memory cell and Memory Bank</li>
+                        <p class="ti" style="margin: 5px;">
+                            A cell can store up to 64 values, but only numbers, while Bank can store up to 512 values<br>
+                            How it works:
+                        </p>
+                        <p class="ti" style="margin-top: 0px;">
+                            Let’s use a cell as an example, imagine it is like a numbered storage boxes
+                        </p>
+                        <img alt="alt" src="image/cell.png"style="max-width: 85vw !important">
+                        <p>
+                            the number below are called addresses, since a cell can store up to 
+                            64 values that means there are 64 addresses in a cell, from  #0 to #63
+                            you can then store a number in this line of boxes by an address, for example 
+                            if you want to store a number to box number #3 you would write:
+                        </p>
+                        <img alt="alt" src="image/ex write.png"style="max-width: 85vw !important">
+                        <p>
+                            this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using <mark class="draw">read</mark>
+                        </p>
+                        <img alt="alt" src="image/read 1.png"style="max-width: 85vw !important">
+                        <p>
+                            this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
+                            called `<span  style="color: aqua;">result</span>`, therefore `<span  style="color: aqua;">result</span>` is now <span style="color: yellow;">1838</span>
+                            <br><br>
+                            the largest integer that can be stored in a single address is related to <a href="#integers">integer limitations</a>
+                        </p>
+                    </section>
                 </ol>
             </section>
+            <!-- mark -->
             <section id="instructions">
                 <hr>
                 <h1>Instructions</h1>
                 <ol style="list-style-type: disc; padding-left: 20px" >
                     <section id="read">
-                        <h2><li><b>Read</b></li></h2>
+                        <h2><li>Read</li></h2>
                         <p class="ti">
                             Read a value from a cell<br>
                             <img alt="alt" src="image/read.png"style="max-width: 85vw !important"><br>
@@ -1651,13 +1655,13 @@
                     <br><br>
                     alternatively you can load your custom map as normal through the “Play” 
                     button and use the console to make world processor available, typing :
-                    <br><mark class="bl">Blocks.worldProcessor.buildVisibility = BuildVisibility.shown</mark> will make world processor available in the menu, and
-                    <br><mark class="bl">Vars.state.playtestingMap=Vars.state.map</mark> allows you to edit them 
+                    <br><mark class="lg">Blocks.worldProcessor.buildVisibility = BuildVisibility.shown</mark> will make world processor available in the menu, and
+                    <br><mark class="lg">Vars.state.playtestingMap=Vars.state.map</mark> allows you to edit them 
                     (making the map into a playtest mode), we are basically doing the 
                     same thing as the former method but using the console instead, however when you exit out 
                     of the world the game thinks you are in the editor thus putting you in the editor without saving any changes, 
                     auto save does work though, so you might want to lower the auto save interval, or you can disable the playtest mode using : 
-                    <br><mark class="bl">Vars.state.playtestingMap=null</mark> before exiting the world
+                    <br><mark class="lg">Vars.state.playtestingMap=null</mark> before exiting the world
                     <br><br>
                     there might be better ways of gaining access to world processor, like using mods, if you know any other easier method let me know and i will edit this section
                     </p>
@@ -2120,7 +2124,7 @@
                 <p>
                     These are niche question that very small number of people might have
                 </p>
-                <section id="mindustry-coordinate-system">
+                <section id="mindustry-coordinate-system" style="margin-bottom: 40px;">
                     <h2>Mindustry coordinate system</h2>
                     <p class="ti">
                         unlike traditional Cartesian Coordinate System where the center point of a coordinate is on the edge of a block Mindustry chooses the middle of a block as its center point instead
@@ -2129,7 +2133,7 @@
                         <br>the game also by default set 0,0 to the very bottom left of the world, this means all campaign world and most custom worlds (since you can set the coordinate offset in the editor) playfield are always positive
                     </p>
                 </section>
-                <section id="configure-turns-to-config">
+                <section id="configure-turns-to-config" style="margin-bottom: 40px;">
                     <h2>The word <span style="color: cyan; font-style: italic;">configure</span> turns to <span style="color: cyan; font-style: italic;">config</span></h2>
                     <p class="ti">
                         in v6 the <span style="color: cyan; font-style: italic;">config</span> property was renamed to <span style="color: cyan; font-style: italic;">configure</span>. To ensure backwards compatibility with old code 
@@ -2138,7 +2142,7 @@
                         <br>this applies both when writing in game and importing from text
                     </p>
                 </section>
-                <section id="you-cannot-spawn-scathe-missile">
+                <section id="you-cannot-spawn-scathe-missile" style="margin-bottom: 40px;">
                     <h2>You cannot spawn Scathe missile</h2>
                     <p class="ti">
                         To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using `<mark class="wp">setprop</mark>` and `<mark class="lg">@scathe-missle</mark>`, make the unit drop the payload and then kill the unit
@@ -2147,32 +2151,32 @@
                         <br>you can put this reference to the <mark class="wp">setprop</mark> instruction to set the properties of the missile.
                     </p>
                 </section>
-                <section id="modded-items-and-draw-image">
+                <section id="modded-items-and-draw-image" style="margin-bottom: 40px;">
                     <h2>Modded items and draw image</h2>
                     <p class="ti">
                         the game doesn’t generate logic icons for modded items, this means you cannot draw it using draw image
                     </p>
                 </section>
-                <section id="ai-chatbot-doenst-understand-mlog">
+                <section id="ai-chatbot-doenst-understand-mlog" style="margin-bottom: 40px;">
                     <h2>AI chatbot doesn’t understand Mlog</h2>
                     <p>
                         AI chatbot like ChatGPT / Copilot / Aria, can’t do and doesn’t understand Mlog, to my knowledge there is no AI currently that can assist you with Mlog
                     </p>
                 </section>
-                <section id="getting-unit-cap">
+                <section id="getting-unit-cap" style="margin-bottom: 40px;">
                     <h2>Getting unit cap</h2>
                     <p>
                         There currently no way of getting the unit cap consistently, there are workarounds however, assuming the default cap isn’t changed you can count how many cores there are in the map and what type it is, if you know both of those you can get the unit cap by summing up all of those core(s) ‘Max Active Unit’
                         Shard has a unit cap of 8, foundation is 16, and nucleus is 24, info of which can be found in the game’s info menu
                     </p>
                 </section>
-                <section id="v6-unit-control-with-logic">
+                <section id="v6-unit-control-with-logic" style="margin-bottom: 40px;">
                     <h2>v6 unit controls with logic</h2>
                     <p>
                         you cannot 100% replicate v6 unit controlling with logic, formation and shooting is possible, but support units cannot help you build like they used to in v6, although not perfect the RTS controls is the best we currently have
                     </p>
                 </section>
-                <section id="damage-calculation">
+                <section id="damage-calculation" style="margin-bottom: 40px;">
                     <h2>Damage calculation</h2>
                     <p class="ti">
                         every unit has an armor value, in most cases damage is just simply subtracted by this armor value, formula is 
@@ -2186,7 +2190,7 @@
                         <br>damage received = 131
                     </p>
                 </section>
-                <section id="math">
+                <section id="math" style="margin-bottom: 40px;">
                     <h2>Math</h2>
                     Math is useful in every language. Since there are so many topics, I will only explain the ones commonly used in Mindustry.
                     <ul>
@@ -2250,7 +2254,7 @@
                         </li>
                     </ul>
                 </section>
-                <section id="self-linking-processor">
+                <section id="self-linking-processor" style="margin-bottom: 40px;">
                     <h2>Linking a processor to itself</h2>
                     <p class="ti">
                         normally <mark class="control">control enabled @this 0</mark>, doesn't work, but if you link the processor to itself it does
@@ -2260,7 +2264,6 @@
                         <br>now <mark class="control">control enabled @this 0</mark> will work,
                         <br>there might be some other uses for it, but i haven't found any, if you do feel free to contact me so i can update this
                     </p>
-
                 </section>
                 <hr>
             </section>

@@ -14,22 +14,36 @@
     /* font-family: "Audiowide", sans-serif; */ /* this is mindustry font but it looks weird */
     /* font-weight: 100; */
     font-family: Arial, sans-serif;
+    color: #d9e3f7;
 }
+
+h1, h2, h3, h4, h5, h6, li, b {
+    color: white !important;
+}
+
+h2 {
+    font-size: 23px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
 
 body {
     font-size: 15px;
     margin: 0;
     padding: 0;
     display: flex;
-    background-color: rgb(62, 59, 73);
+    background-color: #1d2330;
 }
 
 body::-webkit-scrollbar {
     width: 12px;
 }
 body::-webkit-scrollbar-thumb {
-    background-color: #888; /* Color of the scrollbar thumb */
-    border-radius: 6px; /* Rounded corners */
+    background-color: #888;
+    border-radius: 6px;
 }
 
 .modal {
@@ -118,7 +132,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar {
     width: 250px;
-    background-color: #302e38;
+    background-color: #161e2b;
     padding: 20px;
     position: fixed;
     height: 100vh;
@@ -126,6 +140,7 @@ body::-webkit-scrollbar-thumb {
     transition: left 0.3s ease;
     overflow-y: auto;
     z-index: 999; /* Ensure it is below the hamburger menu */
+    border: 1px solid #30363d;
 }
 
 .sidebar.open {
@@ -134,12 +149,12 @@ body::-webkit-scrollbar-thumb {
 
 
 .sidebar::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-    background-color: #888; /* Color of the scrollbar thumb */
-    border-radius: 6px; /* Rounded corners */
+    background-color: #888;
+    border-radius: 6px;
 }
 
 .sidebar h2 {
@@ -162,7 +177,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar-right {
     width: 250px;
-    background-color: #302e38;
+    background-color: #161e2b;
     padding: 20px;
     position: fixed;
     height: 100vh;
@@ -170,6 +185,7 @@ body::-webkit-scrollbar-thumb {
     transition: right 0.3s ease;
     overflow-y: auto;
     z-index: 999;
+    border: 1px solid #30363d;
 }
 
 .sidebar-right.open {
@@ -207,8 +223,6 @@ body::-webkit-scrollbar-thumb {
     color: white;
     text-decoration: none;
 }
-
-
 
 .sub-title {
     padding-top: 15px;
@@ -252,7 +266,7 @@ border-radius: 30px;
 }
 
 .highlight {
-    background-color: rgb(53, 52, 81);
+    background-color: #253449;
     color: black; 
     padding: 5px;
     border-radius: 5px;
@@ -277,7 +291,7 @@ text-decoration: none; /* Optional: to remove the underline from the link */
 
 
 section {
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 
@@ -295,7 +309,6 @@ section {
     .sidebar {
         font-size: 17px;
         width: 250px;
-        background-color: #302e38;
         padding: 20px;
         position: fixed;
         height: 100vh;
@@ -393,10 +406,11 @@ section {
 /* Styles for desktop devices */
 @media (min-width: 769px) {
     .main-content {
-        padding: 80px;
+        padding: 80px 120px 120px 120px;
     }
     .hamburger-menu {
-        margin-left: -60px;
+        margin-left: -80px;
+        /* opacity: 0; */
     }
     table {
         width: 100%; 
@@ -411,37 +425,44 @@ section {
     color:#03a3f2 ;
 }
 
-.lg {
+.lg ,.lg sub, .lg sup {
     background-color:lightgrey;
+    color: black;
 }
 
-.bl {
-    background-color:rgb(41, 41, 41);
-    color: white;
-}
+/* .bl {
+    background-color:lightgray;
+    color: black;
+} */
 
 .op{
     background-color: #877bad;
+    color: black;
 }
 
 .jump{
     background-color: #6ab1b1;
+    color: black;
 }
 
 .unit{
     background-color: #c7b59d;
+    color: black;
 }
 
 .draw{
     background-color: #a08a8a;
+    color: black;
 }
 
 .control{
     background-color: #d4816b;
+    color: black;
 }
 
 .wp{
     background-color: #6b84d4;
+    color: black;
 }
 
 .ti {
@@ -586,3 +607,4 @@ a {
 .toadd {
     color: yellow;
 }
+
