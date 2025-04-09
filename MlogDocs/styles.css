@@ -608,3 +608,56 @@ a {
     color: yellow;
 }
 
+code {
+    background-color: #1c2029;
+    border: 1px solid #373b41;
+    padding: 0.2em 0.4em;
+    border-radius: 8px;
+}
+
+.code-block {
+    border: 1px solid #373b41;
+    border-radius: 8px;
+    word-wrap: break-word;
+}
+
+.code-block-header {
+    background-color: #161c25;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    padding: 12px;
+}
+
+pre {
+    background-color: #1c2029;
+    border-top: 1px solid #373b41;
+    border-radius: 0 0 8px 8px;
+    /* padding: 10px; */
+    padding: 20px 10px 20px 10px;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Highlighting specific language syntax */
+.keyword {
+    color: #ff79c6; /* Pink for keywords */
+    font-weight: bold;
+}
+
+.string {
+    color: #50fa7b; /* Green for strings */
+}
+
+.comment {
+    color: #6272a4; /* Blue for comments */
+    font-style: italic;
+}
+
+.function {
+    color: #f1fa8c; /* Yellow for functions */
+}
+
+.number {
+    color: #bd93f9; /* Purple for numbers */
+}
+
