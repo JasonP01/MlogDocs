@@ -179,9 +179,9 @@
                     (just dont ask to ask, just ask)
                     
                     <br><br>
-                    There are some missing information in this documentation, which are identified by " <span style="color: yellow;">TO ADD#</span> ",
-                    <br>for people who want to contribute and complete them you can search for it by pressing <span style="color: yellow;">CTRL + F</span>
-                    , or " <span style="color: yellow;">Find in page</span> " for mobile devices
+                    There are some missing information in this documentation, which are identified by <code style="color: yellow;">TO ADD#</code>,
+                    <br>for people who want to contribute and complete them you can search for it by pressing <code class="key">CTRL</code> + <code class="key">F</code>
+                    , or <code>Find in page</code> for mobile devices
                     
                     </p>
             </section>
@@ -192,7 +192,7 @@
             <p class="ti"> Mindustry Logic (mlog) is a scripting language added in v6 for the purpose of introducing more advanced automation and 
                 strategy into the game  It is heavily inspired by Assembly languages, therefore the language is a low level language 
                 making it harder to understand (low level being low to machine language (Assembly, C, etc) and far from human language, 
-                high level language example are (python, javaScript, C#, etc) if you have previous programming experience it's very easy 
+                high level language example are (Python, javaScript, C#, etc) if you have previous programming experience it's very easy 
                 to learn but people who are entirely new to programming might find this a little confusing.
                 <br><br>
                 Fun fact, it is turing complete (meaning you can literally do anything a real computer can, although the practicality is questionable),
@@ -237,7 +237,7 @@
                         <li><p><b>Block or Unit Reference</b></p></li>
                             <p class="ti">
                                 every block and unit has a unique reference, so every block and unit can be differentiated from 
-                                each other , internally they look like "<mark class="lg">message#98257</mark>" or “<mark class="lg">poly#49178</mark>“, these are not viewable without modifying the game.
+                                each other , internally they look like <code>message#98257</code> or <code>poly#49178</code>, these are not viewable without modifying the game.
                                 in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
                                 they can also be written to a normal variable
                             </p>
@@ -267,16 +267,16 @@
                     <img src="image/ui3.png" alt="alt" style="left: 130px;">                
                     <p class="ti">you will be prompted to this screen:</p>
                     <img alt="alt" src="image/ui.png" >
-                    <p class="ti">the “Add” button <span style="font-size: 40px;">
+                    <p class="ti">the <code>Add</code> button <span style="font-size: 40px;">
                         (<img alt="alt" src="image/ui7.png"  style="top: 15px; width: 120px;">)</span> opens a menu to add an instruction:</p>
                     <img alt="alt" src="image/ui1.png" >
-                    <p class="ti">the “Vars” button <span style="font-size: 40px;">
+                    <p class="ti">the <code>Vars</code> button <span style="font-size: 40px;">
                         (<img alt="alt" src="image/vars.png"  style="top: 15px; width: 120px;">)</span> 
                         opens a menu showing all of your variables
                         <br><br>this menu is very useful for debugging
                     </p>
                     <img alt="alt" src="image/data types.png"  style="width: 800px;">
-                    <p class="ti">the “edit” button <span style="font-size: 40px;">
+                    <p class="ti">the <code>edit</code> button <span style="font-size: 40px;">
                         (<img alt="alt" src="image/ui5.png"  style="top: 15px; width: 120px;">)</span>opens a menu to export/import codes</p>
                     <img alt="alt" src="image/ui2.png"  style="width: 300px; left:160px;">
                     <p>when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
@@ -300,32 +300,32 @@
                         (you can see a circle, this is the processor range) and clicking the building
                     </p>
                     <img alt="alt" src="image/link.png"  style="width: 600px;">
-                    <p>`<span style="color: aqua;">display1</span>` is now a variable that can be used in the processor, it stores a <a href="#building-reference" >building reference,</a> 
+                    <p><code class="variable">display1</code> is now a variable that can be used in the processor, it stores a <a href="#building-reference" >building reference,</a> 
                         is also sometimes called a “building variable”,
                         <br>building variable cannot be overwritten by any means, 
                         <br>in other words, you cannot use this variable to put in an output of an instruction
-                        <br>however you can copy the its contents to another variable, Like <mark class="op">set <span style="color: aqua;">myBuilding</span> = <span style="color: aqua;">display1</span></mark>
-                        <br>the variable `<span style="color: aqua;">myBuilding</span>` is now the same as `<span style="color: aqua;">display1</span>`, meaning you can use it the same way,
-                        <br>however `<span style="color: aqua;">myBuilding</span>` is an independent variable (your variable) now, this means it also acts like a normal variable,
-                        for example if the display block that is linked to the processor is destroyed the variable `<span style="color: aqua;">display1</span>` will be null, 
-                        but `<span style="color: aqua;">myBuilding</span>` will still have the last value it was set to, so you can still sensor things like <span style="color: yellow;">@dead</span> from it
+                        <br>however you can copy the its contents to another variable, Like <code class="op">set <span style="color: aqua;">myBuilding</span> = <span style="color: aqua;">display1</span></code>
+                        <br>the variable <code class="variable">myBuilding</code> is now the same as <code class="variable">display1</code>, meaning you can use it the same way,
+                        <br>however <code class="variable">myBuilding</code> is an independent variable (your variable) now, this means it also acts like a normal variable,
+                        for example if the display block that is linked to the processor is destroyed the variable <code class="variable">display1</code> will be null, 
+                        but <code class="variable">myBuilding</code> will still have the last value it was set to, so you can still sensor things like <span style="color: yellow;">@dead</span> from it
                     </p>
                 </section>
                 <section id="variables">
                     <h2>Variables</h2>
                     <p class="ti">
                         Variables are the fundamental of programming, to put it simply, they are just named 
-                        “containers” to store data to, for example the <mark class="op">Set</mark> instruction sets a variable:
+                        “containers” to store data to, for example the <code class="op">Set</code> instruction sets a variable:
                     </p>
                     <img alt="alt" src="image/set x 10.png" >
                     <p>
-                        This will make `<span style="color: aqua;">x</span>` a variable, this variable can be used for all 
-                        sort of different things, for example, the <mark class="op">Operation</mark> instruction
+                        This will make <code class="variable">x</code> a variable, this variable can be used for all 
+                        sort of different things, for example, the <code class="op">Operation</code> instruction
                     </p>
                     <img alt="alt" src="image/operation.png" >
                     <p>
-                        Because `<span style="color: aqua;">x</span>` is <span style="color: yellow;">10</span> this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span>, and the result of it is written to the `<span style="color: aqua;">result</span>` variable, 
-                        meaning `<span style="color: aqua;">result</span>` is now <span style="color: yellow;">15</span> Of course it doesn’t have to be `<span style="color: aqua;">result</span>`, you can write anything for it, 
+                        Because <code class="variable">x</code> is <span style="color: yellow;">10</span> this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span>, and the result of it is written to the <code class="variable">result</code> variable, 
+                        meaning <code class="variable">result</code> is now <span style="color: yellow;">15</span>. Of course it doesn’t have to be <code class="variable">result</code>, you can write anything for it, 
                         different people write their variable differently, some chooses to write arbitrary words/letters like “peach” 
                         and others simply write “x+5”, whatever you choose is up to you, just keep in mind you have to remember them.
                         <br><br> an <span style="color: red;">undefined</span> variable will have <span style="color: red;">null</span> as their default value and this gets coerced to <span style="color: yellow;">0</span>.
@@ -340,7 +340,7 @@
                         </p>
                         <img alt="alt" src="image/increment.png" >
                         <p>
-                            Since processor loops, this will increase `<span style="color: aqua;">x</span>` by <span style="color: yellow;">1</span> every loop, as time goes on x will 
+                            Since processor loops, this will increase <code class="variable">x</code> by <span style="color: yellow;">1</span> every loop, as time goes on x will 
                             get bigger and bigger. This is what’s called incrementing a variable
                         </p>
                     </div>
@@ -361,25 +361,25 @@
                             </p>
                             <img alt="alt" src="image/set counter 10.png" style="max-width: 85vw !important;">
                             <p>
-                                This acts like <mark class="jump">jump always</mark> where it will jump to instruction 10
+                                This acts like <code class="jump">jump always</code> where it will jump to instruction 10
                                 If read it will return the next line instead:
                             </p>
                             <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
                             <p>
-                                Since this <mark class="op">set</mark> instruction is at line 10, the `<span style="color: aqua;">x</span>` variable will be 11.
+                                Since this <code class="op">set</code> instruction is at line 10, the <code class="variable">x</code> variable will be 11.
                                 Another usage example is: <a href="#counter-array" > @counter Array.</a>
                             </p>
                             <li><b>@this</b></li>
                                 <p style="margin-top: 5px;" class="ti">
                                     <b>@this</b> shows the <a href="#building-reference" > building reference</a> 
                                     for that processor, example: anything that
-                                     uses building reference can be replaced by this, so instead of
-                                      ‘processor1’ you can write “@this” for this processor
+                                    uses building reference can be replaced by this, so instead of
+                                    <code>processor1</code> you can write <code>@this</code> for this processor
                                 </p>
                             <li><b><a href="#unit" >@unit</a></b></li>
                             <p style="margin-top: 5px;" class="ti">	
                                 <b>@unit</b> shows the current unit that is stored in the processor as the 
-                                result of the <mark class="unit">unit bind</mark> instruction. 
+                                result of the <code class="unit">unit bind</code> instruction. 
                                 For more information go <a href="#controlling-units" >Controlling Units</a>
                             </p>
                             <li><b>@thisx and @thisy</b></li>
@@ -388,11 +388,11 @@
                             </p>
                             <li><b>@mapw and @maph</b></li>
                             <p style="margin-top: 5px;" class="ti">
-                                These shows the map width and map height, for example if your map width is 300 @mapw will be equal 300
+                                These shows the map width and map height, for example if your map width is 300 <code>@mapw</code> will be equal 300
                             </p>
                             <li><b>@links </b></li>
                             <p style="margin-top: 5px;" class="ti"><b>@links</b> shows the number of links the processor has, example: if you have
-                                 3 buildings linked to the processor `<span style="color: aqua;">display1</span>` , `<span style="color: aqua;">display2</span>` , `<span style="color: aqua;">display3</span>` , @links will be <span  style="color: yellow;">3</span></p>
+                                3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code>@links</code> will be <span  style="color: yellow;">3</span></p>
                             <li><b>@ipt</b></li>
                             <p style="margin-top: 5px;" class="ti">
                                 ipt stands for instruction per tick, this shows how many instruction a 
@@ -407,6 +407,7 @@
                                 @minutes, in minute
                             </p>
                             <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
+<!-- mark -->
                     </ol>
                 </section>
                 <section id="constants">
@@ -527,7 +528,6 @@
                     </section>
                 </ol>
             </section>
-            <!-- mark -->
             <section id="instructions">
                 <hr>
                 <h1>Instructions</h1>
