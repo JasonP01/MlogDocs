@@ -299,6 +299,10 @@ section {
 
 /* Styles for mobile devices */
 @media (max-width: 768px) {
+    .ti {
+        text-indent: 10px;
+    }
+
     .main-content {
         padding: 20px;
         margin-top: 20px;
@@ -314,7 +318,7 @@ section {
         padding: 20px;
         position: fixed;
         height: 100vh;
-        left: -280px; 
+        left: -2px; 
         transition: left 0.3s ease;
         overflow-y: auto;
         z-index: 999;
@@ -354,7 +358,7 @@ section {
 
     .sidebar-right {
         width: 130px;
-        right: -168px;
+        right: -172px;
     }
     
     .sidebar-right.open {
@@ -393,7 +397,7 @@ section {
         font-size: 17px;
         width: 250px;
         padding: 20px;
-        left: -280px; 
+        left: -292px; 
     }
 
     .sidebar.open {
@@ -407,6 +411,9 @@ section {
 
 /* Styles for desktop devices */
 @media (min-width: 769px) {
+    .ti {
+        text-indent: 30px;
+    }
     .main-content {
         padding: 80px 120px 120px 120px;
     }
@@ -468,9 +475,6 @@ section {
     background-color: #6b84d4;
 }
 
-.ti {
-    text-indent: 30px;
-}
 
 img {
     position: relative;
