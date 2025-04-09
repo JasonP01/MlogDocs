@@ -312,8 +312,14 @@ section {
     .sidebar ul {
         margin-top: 60px;
     }
+    
+    .sidebar ul li {
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+
     .sidebar {
-        font-size: 17px;
+        font-size: 14px;
         width: 250px;
         padding: 20px;
         position: fixed;
@@ -324,9 +330,14 @@ section {
         z-index: 999;
     }
     
-    
     .sidebar.open {
         left: 0px;
+    }
+
+    .sub-title {
+        padding-top: 8px;
+        font-size: 16px;
+        font-weight: 300;
     }
 
     img, video {
@@ -375,6 +386,26 @@ section {
         left: 0px;  
     }*/
 
+    .hamburger-menu {
+        left: 10px;
+        top: 10px;
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .hamburger-menu.open {
+        opacity: 0;
+    }
+
+    .hamburger-menu-right {
+        right: 10px;
+        top: 10px;
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
     .hamburger-menu-right {
         right: 20px;
     }
@@ -394,7 +425,7 @@ section {
         margin-left: 0px !important ;   
     }
     .sidebar {
-        font-size: 17px;
+        font-size: 14px;
         width: 250px;
         padding: 20px;
         left: -292px; 
