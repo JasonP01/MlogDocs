@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="image\micro-processor.png" type="image/png">
     <script defer src="script.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
     <!-- this is a git test -->
 </head>
 <!-- TODO add a top bar for navigate links instead of the right sidebar -->
@@ -184,6 +189,7 @@
                     , or <code>Find in page</code> for mobile devices
                     
                     </p>
+
             </section>
             <section id="introduction">
                 <hr>
@@ -245,7 +251,7 @@
                     <section id="contentname">
                         <li><p><b>Content name</b></p></li>
                         <p class="ti">
-                            in-game content/item names, like <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@surge-alloy</span>, <span style="color: yellow;">@antumbra</span> kebab case naming, and case sensitive
+                            in-game content/item names, like <code class="content-name">@copper</code>, <code class="content-name">@surge-alloy</code>, <code class="content-name">@antumbra</code> kebab case naming, and case sensitive
                             <br>these are <b>not</b> variables, these are <b>values</b> that can be stored in variables
                             <br>
                             <br>content name can be found in the <a href="#appendix">appendix</a>
@@ -308,7 +314,7 @@
                         <br>the variable <code class="variable">myBuilding</code> is now the same as <code class="variable">display1</code>, meaning you can use it the same way,
                         <br>however <code class="variable">myBuilding</code> is an independent variable (your variable) now, this means it also acts like a normal variable,
                         for example if the display block that is linked to the processor is destroyed the variable <code class="variable">display1</code> will be null, 
-                        but <code class="variable">myBuilding</code> will still have the last value it was set to, so you can still sensor things like <span style="color: yellow;">@dead</span> from it
+                        but <code class="variable">myBuilding</code> will still have the last value it was set to, so you can still sensor things like <code class="content-name">@dead</code> from it
                     </p>
                 </section>
                 <section id="variables">
@@ -354,67 +360,66 @@
                     </p>
                     <ol style="list-style-type: disc;">
                         <li><b>@counter</b></li>
-                            <p style="margin-top: 5px;">
-                                @counter shows the current line number the processor runs at,
-                                <br>other than giving you crucial 
-                                information while debugging you can also use it by writing to it, changing its value, usage example:
-                            </p>
-                            <img alt="alt" src="image/set counter 10.png" style="max-width: 85vw !important;">
-                            <p>
-                                This acts like <code class="jump">jump always</code> where it will jump to instruction 10
-                                If read it will return the next line instead:
-                            </p>
-                            <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
-                            <p>
-                                Since this <code class="op">set</code> instruction is at line 10, the <code class="variable">x</code> variable will be 11.
-                                Another usage example is: <a href="#counter-array" > @counter Array.</a>
-                            </p>
-                            <li><b>@this</b></li>
-                                <p style="margin-top: 5px;" class="ti">
-                                    <b>@this</b> shows the <a href="#building-reference" > building reference</a> 
-                                    for that processor, example: anything that
-                                    uses building reference can be replaced by this, so instead of
-                                    <code>processor1</code> you can write <code>@this</code> for this processor
-                                </p>
-                            <li><b><a href="#unit" >@unit</a></b></li>
-                            <p style="margin-top: 5px;" class="ti">	
-                                <b>@unit</b> shows the current unit that is stored in the processor as the 
-                                result of the <code class="unit">unit bind</code> instruction. 
-                                For more information go <a href="#controlling-units" >Controlling Units</a>
-                            </p>
-                            <li><b>@thisx and @thisy</b></li>
+                        <p style="margin-top: 5px;">
+                            @counter shows the current line number the processor runs at,
+                            <br>other than giving you crucial 
+                            information while debugging you can also use it by writing to it, changing its value, usage example:
+                        </p>
+                        <img alt="alt" src="image/set counter 10.png" style="max-width: 85vw !important;">
+                        <p>
+                            This acts like <code class="jump">jump always</code> where it will jump to instruction 10
+                            If read it will return the next line instead:
+                        </p>
+                        <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
+                        <p>
+                            Since this <code class="op">set</code> instruction is at line 10, the <code class="variable">x</code> variable will be 11.
+                            Another usage example is: <a href="#counter-array" > @counter Array.</a>
+                        </p>
+                        <li><b>@this</b></li>
                             <p style="margin-top: 5px;" class="ti">
-                                Like the name suggest, both shows the coordinates location of the processor respectively
+                                <b>@this</b> shows the <a href="#building-reference" > building reference</a> 
+                                for that processor, example: anything that
+                                uses building reference can be replaced by this, so instead of
+                                <code>processor1</code> you can write <code>@this</code> for this processor
                             </p>
-                            <li><b>@mapw and @maph</b></li>
-                            <p style="margin-top: 5px;" class="ti">
-                                These shows the map width and map height, for example if your map width is 300 <code>@mapw</code> will be equal 300
-                            </p>
-                            <li><b>@links </b></li>
-                            <p style="margin-top: 5px;" class="ti"><b>@links</b> shows the number of links the processor has, example: if you have
-                                3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code>@links</code> will be <span  style="color: yellow;">3</span></p>
-                            <li><b>@ipt</b></li>
-                            <p style="margin-top: 5px;" class="ti">
-                                ipt stands for instruction per tick, this shows how many instruction a 
-                                processor run in a single tick 1 second is 60 ticks
-                            </p>
-                            <li><b>@time, @tick, @second and @minute</b></li>
-                            <p style="margin-top: 5px;" class="ti">
-                                Shows the playtime of the current save, this is updated every frame, NOT every time the processor checks for it
-                                @time, in millisecond 
-                                @tick, in tick(1/60th of a second)
-                                @second, in second
-                                @minutes, in minute
-                            </p>
-                            <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
-<!-- mark -->
+                        <li><b><a href="#unit" >@unit</a></b></li>
+                        <p style="margin-top: 5px;" class="ti">	
+                            <b>@unit</b> shows the current unit that is stored in the processor as the 
+                            result of the <code class="unit">unit bind</code> instruction. 
+                            For more information go <a href="#controlling-units" >Controlling Units</a>
+                        </p>
+                        <li><b>@thisx and @thisy</b></li>
+                        <p style="margin-top: 5px;" class="ti">
+                            Like the name suggest, both shows the coordinates location of the processor respectively
+                        </p>
+                        <li><b>@mapw and @maph</b></li>
+                        <p style="margin-top: 5px;" class="ti">
+                            These shows the map width and map height, for example if your map width is 300 <code>@mapw</code> will be equal 300
+                        </p>
+                        <li><b>@links </b></li>
+                        <p style="margin-top: 5px;" class="ti"><b>@links</b> shows the number of links the processor has, example: if you have
+                            3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code>@links</code> will be <span  style="color: yellow;">3</span></p>
+                        <li><b>@ipt</b></li>
+                        <p style="margin-top: 5px;" class="ti">
+                            ipt stands for instruction per tick, this shows how many instruction a 
+                            processor run in a single tick 1 second is 60 ticks
+                        </p>
+                        <li><b>@time, @tick, @second and @minute</b></li>
+                        <p style="margin-top: 5px;" class="ti">
+                            Shows the playtime of the current save, this is updated every frame, NOT every time the processor checks for it
+                            @time, in millisecond 
+                            @tick, in tick(1/60th of a second)
+                            @second, in second
+                            @minutes, in minute
+                        </p>
+                        <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
                     </ol>
                 </section>
                 <section id="constants">
                     <h2>Constants</h2>
                     <p class="ti">
                         Constant, they are like variable but you can’t write to them, their value are predetermined, 
-                        for example “<b>@pi</b>”, like the name suggest it is pi (  , 3.14159….), here are the list of constant 
+                        for example <code><b>@pi</b></code>, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
                         (if you’re just starting out you don’t have to read all of this, you can always come back):
                     </p>
                     <ol start="list-style-type:dics;">
@@ -449,8 +454,8 @@
                     <p class="ti">
                         Internally there is a Text buffer and a Draw buffer in each processor, 
                         when you use print or draw, when the processor runs it, it will store it in the buffer.
-                        Example: if you print “frog” the word “frog” will be stored in the text buffer, 
-                        then to get that word to a message block you have to use Print Flush which transfer 
+                        Example: if you <code>print frog</code> the word <code>frog</code> will be stored in the text buffer, 
+                        then to get that word to a message block you have to use <code class="draw">Print Flush</code> which transfer 
                         the items in the text buffer to the message block
                     </p>
                     <img alt="alt" src="image/print.png"  width="700px"><br>
@@ -516,12 +521,12 @@
                         </p>
                         <img alt="alt" src="image/ex write.png"style="max-width: 85vw !important">
                         <p>
-                            this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using <mark class="draw">read</mark>
+                            this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using <code class="draw">read</code>
                         </p>
                         <img alt="alt" src="image/read 1.png"style="max-width: 85vw !important">
                         <p>
                             this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
-                            called `<span  style="color: aqua;">result</span>`, therefore `<span  style="color: aqua;">result</span>` is now <span style="color: yellow;">1838</span>
+                            called <code class="variable">result</code>, therefore <code class="variable">result</code> is now <span style="color: yellow;">1838</span>
                             <br><br>
                             the largest integer that can be stored in a single address is related to <a href="#integers">integer limitations</a>
                         </p>
@@ -537,10 +542,10 @@
                         <p class="ti">
                             Read a value from a cell<br>
                             <img alt="alt" src="image/read.png"style="max-width: 85vw !important"><br>
-                            `<span  style="color: aqua;">result</span>` is your variable name
-                            <br>`<span  style="color: aqua;">cell1</span>` is where to get the value from, a <a href="#building-reference">building reference</a>, “bank{number}” for Banks
+                            <code class="variable">result</code> is your variable name
+                            <br><code class="variable">cell1</code> is where to get the value from, a <a href="#building-reference">building reference</a>, “bank{number}” for Banks
                             <br>`<span style="color: yellow;">0</span>` is the cell’s address. like said above, cells can store up to 64 values, this means there are only 64 addresses, starting at <span style="color: yellow;">0</span>, meaning <span style="color: yellow;">0</span> - <span style="color: yellow;">63</span>
-                            <br>Example: there is a value at 0 in `<span  style="color: aqua;">cell1</span>` that is `<span  style="color: yellow;">10</span>`, then `<span style="color: aqua;">result</span>` variable will be <span style="color: yellow;">10</span>
+                            <br>Example: there is a value at 0 in <code class="variable">cell1</code> that is <span style="color: yellow;">10</span>, then <code class="variable">result</code> variable will be <span style="color: yellow;">10</span>
                         </p>
                     </section>
                     <section id="write">
@@ -549,7 +554,7 @@
                             Write a value to a cell<br>
                             <img alt="alt" src="image/write.png"style="max-width: 85vw !important"><br>
                             Essentially the same with read but it writes instead<br>
-                            Example: the `<span style="color: aqua;">result</span>` variable is <span style="color: yellow;">10</span>, then it will write `<span style="color: yellow;">10</span>` to `<span style="color: aqua;">cell1</span>` at 0<br>
+                            Example: the <code class="variable">result</code> variable is <span style="color: yellow;">10</span>, then it will write <span style="color: yellow;">10</span> to <code class="variable">cell1</code> at #0<br>
                             Can also be directly written using a number instead of a variable.
                         </p>
                     </section>
@@ -594,15 +599,15 @@
                             <p class="ti">
                                 Draws a line from one coordinates to another coordinates<br>
                                 <img alt="alt" src="image/draw line.png" style="max-width: 80vw !important;"><br>
-                                x,y is the first set of coordinates<br>
-                                x2,y2 is the second sets of coordinates
+                                <code class="field">x</code>, <code class="field">y</code> is the first set of coordinates<br>
+                                <code class="field">x2</code>, <code class="field">y2</code> is the second sets of coordinates
                             </p>
                             <li><b>Rect</b></li>
                             <p class="ti">
                                 Draw a rectangle at the specified coordinates with the bottom left of the rectangle as its origin<br>
                                 <img alt="alt" src="image/draw rect.png" style="max-width: 80vw !important;"><br>
-                                x,y is the rectangle coordinates<br>
-                                Width and height are the rectangle width and height
+                                <code class="field">x</code>, <code class="field">y</code> is the rectangle coordinates<br>
+                                <code class="field">width</code> and <code class="field">height</code> are the rectangle width and height
                             </p>
                             <li><b>Line Rect</b></li>
                             <p class="ti">
@@ -612,10 +617,10 @@
                             <p class="ti">
                                 Draw a polygon with its center as its origin<br>
                                 <img alt="alt" src="image/draw poly.png" style="max-width: 80vw !important;"><br>
-                                x,y is the polygon coordinates<br>
-                                sides is the number of sides the polygon will have<br>
-                                radius is the radius of the polygon<br>
-                                rotation will rotate the polygon, in degrees 
+                                <code class="field">x</code>, <code class="field">y</code> is the polygon coordinates<br>
+                                <code class="field">sides</code> is the number of sides the polygon will have<br>
+                                <code class="field">radius</code> is the radius of the polygon<br>
+                                <code class="field">rotation</code> will rotate the polygon, in degrees 
                             </p>
                             <li><b>Line Poly</b></li>
                             <p class="ti">
@@ -625,20 +630,20 @@
                             <p class="ti">
                                 Draws a triangle with 3 different sets coordinates as its vertices<br>
                                 <img alt="alt" src="image/draw triangle.png" style="max-width: 80vw !important;">
-                                <br>x,y is the first sets of coordinates<br>
-                                x2,y2 is the second sets of coordinates<br>
-                                x3,y3 is the second sets of coordinates
+                                <br><code class="field">x</code>, <code class="field">y</code> is the first sets of coordinates<br>
+                                <code class="field">x2</code>, <code class="field">y2</code> is the second sets of coordinates<br>
+                                <code class="field">x3</code>, <code class="field">y3</code> is the second sets of coordinates
                             </p>
                             <li><b>Image</b></li>
                             <p class="ti">
-                                Draws an image of something from the game with <a href="#contentname">content name</a>, such as <span style="color: yellow;">@dagger</span> or <span style="color: yellow;">@copper</span> with its center as its origin,
+                                Draws an image of something from the game with <a href="#contentname">content name</a>, such as <code class="content-name">@dagger</code> or <code class="content-name">@copper</code> with its center as its origin,
                                 <br>if it draws a picture of (oh no) that means whatever you're trying to draw either doesn't exist or not supported, the only work around is drawing it manually,
                                 though the <a href="#bleeding-edge">Bleeding Edge</a> version supports more content
                                 <br><img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
-                                x,y is the of coordinates<br>
-                                image is what image it will draw, you put object name here, like @dagger<br>
-                                size is the size of the image<br>
-                                rotation will rotate the image, in degrees<br>
+                                <code class="field">x</code>, <code class="field">y</code> is the of coordinates<br>
+                                <code class="field">image</code> is what image it will draw, you put object name here, like <code>@dagger</code><br>
+                                <code class="field">size</code> is the size of the image<br>
+                                <code class="field">rotation</code> will rotate the image, in degrees<br>
                                 <b>cannot draw modded items!</b>
                             </p>
                         </ol>
@@ -664,7 +669,7 @@
                                 You can change printed colors with [ ], example<br>
                                 <img alt="alt" src="image/print color.png" style="max-width: 80vw !important;"><br>
                                 You can either put color names or hexadecimal color code<br>
-                                Example of HEX color code is [#FF0000] for red, you can simply search “hex color picker” on google to choose your own color
+                                Example of HEX color code is <code>#FF0000</code> for red, you can simply search “hex color picker” on google to choose your own color
                             </p>
                             <li><b>Emoji/icons</b></li>
                             <p class="ti">
@@ -710,12 +715,12 @@
                     <section id="get-link">
                         <h2><li><b>Get link</b></li></h2>
                         <p class="ti">
-                            <mark class="control">Get link</mark> gets the link of the processor linked building<br>
-                            example : you have 2 buildings linked to the processor, `<span style="color: aqua;">duo1</span>` and `<span style="color: aqua;">duo2</span>`<br>
-                            getlink `<span style="color: aqua;">result</span>` #0 will get you `<span style="color: aqua;">duo1</span>` and <br>
-                            getlink `<span style="color: aqua;">result</span>` #1 will get you `<span style="color: aqua;">duo2</span>`<br>
+                            <code class="control">Get link</code> gets the link of the processor linked building<br>
+                            example : you have 2 buildings linked to the processor, <code class="variable">duo1</code> and <code class="variable">duo2</code><br>
+                            getlink <code class="variable">result</code> #0 will get you <code class="variable">duo1</code> and <br>
+                            getlink <code class="variable">result</code> #1 will get you <code class="variable">duo2</code><br>
                             The order is based on the order you link the buildings<br>
-                            The buildings reference is then `<span style="color: aqua;">result</span>`<br>
+                            The buildings reference is then <code class="variable">result</code><br>
                             <img alt="alt" src="image/getlink.png"  height="400px"><img alt="alt" src="image/getlink 2.png"  height="400px"><br>
                             Using it with numbers is pretty useless, they are usually used with incrementing variables as its index, 
                             this way you can get multiple buildings without writing every building reference (message1,2,3….)
@@ -724,15 +729,15 @@
                     <section id="control">
                         <h2><li><b>Control</b></li></h2>
                         <p class="ti">
-                            Controls a building <mark class="lg">of</mark> a <a href="#building-reference">building reference or a unit reference</a>
+                            Controls a building <code class="field">of</code> a <a href="#building-reference">building reference or a unit reference</a>
                         </p>
                         <ol style="list-style-type:circle;">
                             <li>Enabled</li>
                             <p class="ti">
                                 Enabled or disable a building, can be 0 or 1 or true and false
                                 <br><img src="image/control enabled.png" alt="" style="max-width: 80vw !important;">
-                                <br><mark class="lg">of</mark> a <a href="#building-reference">block reference</a>
-                                <br><mark class="lg">to</mark> (state), <span style="color: yellow;">1</span> / <span style="color: yellow;">true</span> enable, <span style="color: yellow;">0</span> / <span style="color: yellow;">false</span> disable, 
+                                <br><code class="field">of</code> a <a href="#building-reference">block reference</a>
+                                <br><code class="field">to</code> (state), <span style="color: yellow;">1</span> / <span style="color: yellow;">true</span> enable, <span style="color: yellow;">0</span> / <span style="color: yellow;">false</span> disable, 
                                 <br>when disabling a processor it pauses code execution until re-enabled again, resuming at the line number where it was disabled
                                 <br><a href="#dblockbehaviour">here is a list of blocks behaviour when disabled</a>
                             </p>
@@ -740,21 +745,21 @@
                             <p class="ti">
                                 Shoot at a coordinate position, 
                                 <br><img src="image/control.png" alt="" style="max-width: 80vw !important;">
-                                <br><mark class="lg">x</mark> and <mark class="lg">y</mark> is coordinate location where to aim/shoot at
-                                <br><mark class="lg">shoot</mark> <span style="color: yellow;">0</span> or <span style="color: yellow;">1</span>, <span style="color: yellow;">true</span> or <span style="color: yellow;">false</span>, if true tells the turret/unit to shoot, if false stop shooting
+                                <br><code class="field">x</code> and <code class="field">y</code> is coordinate location where to aim/shoot at
+                                <br><code class="field">shoot</code> <span style="color: yellow;">0</span> or <span style="color: yellow;">1</span>, <span style="color: yellow;">true</span> or <span style="color: yellow;">false</span>, if true tells the turret/unit to shoot, if false stop shooting
                             </p>
                             <li>Shootp</li>
                             <p class="ti">
                                 Shoot at a unit/building but with velocity prediction
                                 <br><img src="image/control shootp.png" alt="" style="max-width: 80vw !important;">
-                                <br><mark class="lg">unit</mark>, what object to aim/shoot at, it says "unit" but you can put a building reference there too.
-                                <br><mark class="lg">shoot</mark> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
+                                <br><code class="field">unit</code>, what object to aim/shoot at, it says "unit" but you can put a building reference there too.
+                                <br><code class="field">shoot</code> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
                             <li>Config</li>
                             <p class="ti">  
                                 Change the configuration of buildings, 
                                 <br>for example :
-                                <br>sorter config, by putting <a href="#contentname">item name</a> to the <mark class="lg">to</mark> arguments, eg <span style="color: yellow;">@copper</span>, <span style="color: yellow;">@lead</span>, <span style="color: yellow;">@surge-alloy</span>
-                                <br>unit factory config, by putting <a href="#contentname">unit name</a> to the <mark class="lg"> to</mark> arguments, eg <span style="color: yellow;">@flare</span>, <span style="color: yellow;">@dagger</span>, 
+                                <br>sorter config, by putting <a href="#contentname">item name</a> to the <code class="field">to</code> arguments, eg <code class="content-name">@copper</code>, <code class="content-name">@lead</code>, <code class="content-name">@surge-alloy</code>
+                                <br>unit factory config, by putting <a href="#contentname">unit name</a> to the <code class="field">to</code> arguments, eg <code class="content-name">@flare</code>, <code class="content-name">@dagger</code>, 
                                 and of course it only supports units it meant to create, if you put other unit name that it cant create it will just deselect all unit
                             </p>
                             </p>
@@ -772,13 +777,13 @@
                         <p class="ti">
                             Radar a unit in range of the building’s range<br>
                             <img alt="alt" src="image/radar.png"style="max-width: 88vw !important;"><br>
-                            ‘from’ is <a href="#building-reference">building reference</a><br>
-                            ‘target’ is a filter, target enemy means it will only radar enemy units<br>
-                            ‘order’ is sorting order, ascending or descending, can only be 0 or 1<br>
-                            ‘sort’ is a metric to sort results by sort distance means it will get unit by distance<br>
-                                Since order is 1, the unit gotten is the closest to that building<br>
+                            <code class="field">from</code> is <a href="#building-reference">building reference</a><br>
+                            <code class="field">target</code> is a filter, target enemy means it will only radar enemy units<br>
+                            <code class="field">order</code> is sorting order, ascending or descending, can only be 0 or 1<br>
+                            <code class="field">sort</code> is a metric to sort results by sort distance means it will get unit by distance<br>
+                                Since <code class="field">order</code> is 1, the unit gotten is the closest to that building<br>
                             Cannot get multiple units at the same time<br>
-                            Order cannot be change to look for metrics in the middle e.g 0.5<br>
+                            <code class="field">Order</code> cannot be change to look for metrics in the middle e.g 0.5<br>
                             Will output the <a href="#building-reference">unit reference</a> to `<span style="color: aqua;">result</span>`
                         </p>
                     </section>
@@ -787,12 +792,12 @@
                         <p class="ti">
                             Sensor / get / read data from an object, usually buildings or units with their reference<br>
                             <img alt="alt" src="image/sensor.png"style="max-width: 88vw !important;"><br>
-                            `<span style="color: aqua;">results</span>` is your named variable<br>
-                            “<span style="color: yellow;">@copper</span>” is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
-                            “block1” building reference, it is what object to get the data from, can also be a <a href="#controlling-units">unit reference</a><br>
+                            <code class="variable">results</code> is your named variable<br>
+                            <code>@copper</code> is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
+                            <code class="variable">block1</code> building reference, it is what object to get the data from, can also be a <a href="#controlling-units">unit reference</a><br>
                             Example:<br>
                             <img alt="alt" src="image/sensor 1.png"style="max-width: 88vw !important;"><br>
-                            This will get the amount of copper in ‘vault1’, the number will be stored in the variable `<span style="color: aqua;">result</span>`, let’s say the vault has 10 coppers, therefore ‘result’ will be 10
+                            This will get the amount of copper in <code class="variable">vault1</code>, the number will be stored in the variable <code class="variable">result</code>, let’s say the vault has 10 coppers, therefore <code class="variable">result</code> will be 10
                         </p>
                     </section>
                     <section id="set">
@@ -806,8 +811,8 @@
                         <p class="ti">
                             Perform a single operation on 2 variables, or just numbers directly, example:
                             <br><img alt="alt" src="image/operation1.png"style="max-width: 88vw !important;"><br>
-                            Let’s say `<span style="color: aqua;">a</span>` is <span style="color: yellow;">10</span>, therefore this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span><br>
-                            “result” will then be <span style="color: yellow;">15</span>
+                            Let’s say <code class="variable">a</code> is <span style="color: yellow;">10</span>, therefore this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span><br>
+                            <code class="variable">result</code> will then be <span style="color: yellow;">15</span>
                         </p>
                         <ol class="custom-list">
                             <li><b>+</b></li>
@@ -993,14 +998,14 @@
                         <p class="ti">
                             Look up an item/liquid/unit/block type by ID.<br>
                             Total counts of each type can be accessed with:<br>
-                            <span style="color: yellow;">@unitcount</span> / <span style="color: yellow;">@itemCount</span> / <span style="color: yellow;">@liquidCount</span> / <span style="color: yellow;">@blockCount</span>, which is : <br>
+                            <code class="content-name">@unitcount</code> / <code class="content-name">@itemCount</code> / <code class="content-name">@liquidCount</code> / <code class="content-name">@blockCount</code>, which is : <br>
                             <span style="color: yellow;">56</span> / <span style="color: yellow;">22</span> / <span style="color: yellow;">11</span> / <span style="color: yellow;">254</span> (as of v146), respectively, they are a constant.<br>
-                            For the inverse operation, sensor @id of the object<br>
+                            For the inverse operation, sensor <code class="content-name">@id</code> of the object<br>
                             Example:<br>
                             <img alt="alt" src="image/lookup1.png" style="max-width: 85vw !important;"><br>
-                            This operation is looking up item with an id of 1, which is lead, therefore `<span style="color: aqua;">result</span>` will then be <span style="color: yellow;">@lead</span> (NOT a string), a <a href="#contentname">content name</a>, which can be used for things like sensor :<br>
+                            This operation is looking up item with an id of 1, which is lead, therefore <code class="variable">result</code> will then be <code class="content-name">@lead</code> (NOT a string), a <a href="#contentname">content name</a>, which can be used for things like sensor :<br>
                             <img alt="alt" src="image/lookup.png" style="max-width: 85vw !important;">
-                            <br> `<span style="color: aqua;">lead_count</span>` is now a variable containing number of lead in `<span style="color: aqua;">vault1</span>`
+                            <br> <code class="variable">lead_count</code> is now a variable containing number of lead in <code class="variable">vault1</code>
                             <br>Lookup are usually used with an <a href="#incrementing-variable">incrementing variable</a>
                             <br>Lists of IDs can be found in the <a href="#appendix">Appendix</a>
                         </p>
@@ -1008,7 +1013,7 @@
                     <section id="pack-color">
                         <h2><li><b>Pack Color</b></li></h2>
                         <p class="ti">
-                            Packs RGBA color into a single number, is usually used with <a href="#draw-col"><mark class="draw">draw col</mark></a> and <a href="#control-color">control color</a><br>
+                            Packs RGBA color into a single number, is usually used with <a href="#draw-col"><code class="draw">draw col</code></a> and <a href="#control-color">control color</a><br>
                             Since it's a single number it can be stored to 1 address on <a href="#cell">cells/banks</a>, 
                             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
                             <img alt="alt" src="image/pack color.png" style="max-width: 85vw !important;"><br>
@@ -1019,8 +1024,8 @@
                             return 32-bit unsigned integer, 8 bits for each value, example : a <span style="color: yellow;">255,255,255,255</span> 
                             color when unpacked will return <span style="color: yellow;">4294967295</span>, which is the maximum value of 32-bit 
                             unsigned integer, converting it to binary will return <span style="color: yellow;">11111111111111111111111111111111</span> 
-                            ( 8 bit for each value ), by using the <mark class="op">bit shift right operation</mark> and <mark class="op">bitwise 
-                            and operation</mark> you can extract each color value.
+                            ( 8 bit for each value ), by using the <code class="op">bit shift right operation</code> and 
+                            <code class="op">bitwise and operation</code> you can extract each color value.
                         </p>
                     </section>
                     <section id="wait">
@@ -1033,14 +1038,14 @@
                         <h2><li><b>Stop</b></li></h2>
                         <p class="ti">
                             Completely stops the processor from running, cannot be resumed in any way other than rebuilding or refreshing the code, 
-                            to pause a processor disable it instead using <mark class="control"><a href="#control">control</a> enable</mark>
+                            to pause a processor disable it instead using <code class="control"><a href="#control">control</a> enable</code>
                         </p>
                     </section>
                     <section id="end">
                         <h2><li><b>End</b></li></h2>
                         <p class="ti">
                             End the process, when a processor run this line it will go back to 0 as if it reach the 
-                            <a href="#how-processor-run-its-code">end of the instruction</a>, similar to <mark class="jump">jump always 0</mark>
+                            <a href="#how-processor-run-its-code">end of the instruction</a>, similar to <code class="jump">jump always 0</code>
                         </p>
                     </section>
                     <section id="jump">
@@ -1101,9 +1106,9 @@
                     <section id="binding">
                         <h3><li>Binding</li></h3>
                         <p class="ti">
-                            unlike the name say, <mark class="unit">unit bind</mark> instruction itself 
-                            does not bind, <mark class="unit">unit control</mark>, <mark class="unit">unit radar</mark>, <mark class="unit">unit locate</mark> are what binds unit.
-                            <br> <mark class="unit">unit bind</mark> just gets a unit's <a href="#building-reference">reference</a> and puts it in a variable called<span style="color: yellow;"> @unit</span>
+                            unlike the name say, <code class="unit">unit bind</code> instruction itself 
+                            does not bind, <code class="unit">unit control</code>, <code class="unit">unit radar</code>, <code class="unit">unit locate</code> are what binds unit.
+                            <br> <code class="unit">unit bind</code> just gets a unit's <a href="#building-reference">reference</a> and puts it in a variable called <code class="variable">@unit</code>
                             <br><img alt="alt" src="image/bind.png" style="max-width: 85vw !important;">
                             <img alt="alt" src="image/bind2.png" style="max-width: 85vw !important;"><br>
                             If you hover your mouse on either the unit or the 
@@ -1115,8 +1120,9 @@
                             way to get the unit back is either control(posses) the 
                             unit or unbind it which can be done with either destroying 
                             the processor, or altering the processor code, units will 
-                            also be automatically un-binded after 10 seconds with no <mark class="unit">unit 
-                            control</mark>, <mark class="unit">unit radar</mark>, and <mark class="unit">unit locate</mark> instruction received, 
+                            also be automatically un-binded after 10 seconds with no 
+                            <code class="unit">unit control</code>, <code class="unit">unit radar</code>, 
+                            and <code class="unit">unit locate</code> instruction received, 
                             this applies regardless even if the unit is still in the middle of doing something
                             <br>
                             A unit that is currently controlled(possesed) by the player can also be "bound" but only to retrieve data from it; controlling is not possible.
@@ -1132,7 +1138,7 @@
                         <h3><li>Payload</li></h3>
                         <p class="ti">
                             Payload is a block/unit that is not physically placed in the world, they are either on a conveyor or picked up by unit,
-                            <br>however if you save its reference prior to making it a payload up you can still sensor data from it like <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>, although <span style="color: yellow;">@dead</span> will be true.
+                            <br>however if you save its reference prior to making it a payload up you can still sensor data from it like <code class="content-name">@x</code> and <code class="content-name">@y</code>, although <code class="content-name">@dead</code> will be true.
                             <br>unit’s payload capacity can be found in-game’s info menu
                             <br>Example: 3x3  means the unit can carry 9 of 1x1 blocks, 2 of 2x2 blocks and, 1 of 3x3 blocks
                             <br>for units its the same, a mace size is 1.25 x 1.25 meaning it will take 1.5625 block worth of space as payload
@@ -1141,27 +1147,27 @@
                 <section id="unit-bind">
                     <h1><li><b>Unit Bind</b></li></h1>
                     <p class="ti">
-                        Bind 1 unit and put its reference in the <span style="color: yellow;">@unit</span> variable,
+                        Bind 1 unit and put its reference in the <code class="variable">@unit</code> variable,
                         <br> 
                         When binding a unit <span style="color: yellow;">@[type]</span> it will bind in an order
                         <br>
                         the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
-                        When looped (meaning the <mark class="unit">unit bind</mark> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
-                        Here’s a visualization : the red box indicates that the unit is in the <span style="color: yellow;">@unit</span> variable<br>
+                        When looped (meaning the <code class="unit">unit bind</code> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
+                        Here’s a visualization : the red box indicates that the unit is in the <code class="variable">@unit</code> variable<br>
                         <img alt="alt" src="image/vis bind.gif" style="max-width: 85vw !important;">
                         <br>
                         Don’t worry about instruction line 1,2,3,they are there just to make the code not 1 instruction, to more easily visualize it.<br>
                         Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in 
-                        <span style="color: yellow;">@unit</span> meaning <span style="color: yellow;">@unit</span> 
-                        is now “mega#1”, and so on with “mega#2 , 3 , 4”
+                        <code class="variable">@unit</code> meaning <code class="variable">@unit</code> 
+                        is now “mega#1”, and so on with “mega#2 , 3 , 4” 
                         <br>
                         <br>
                         Unit bind can also be used with a variable that stores a unit reference to bind that specific unit directly,
-                        <br>for example the <mark class="control">radar</mark> instruction can output a unit reference to a variable, you can 
-                        use that variable for <mark class="unit">ubind</mark>, 
-                        <br>another example after binding a <span style="color: yellow;">@[type]</span> with <mark class="unit">ubind</mark> you can save 
-                        <span style="color: yellow;">@unit</span> to another variable, then rebind that unit with the variable
-
+                        <br>for example the <code class="control">radar</code> instruction can output a unit reference to a variable, you can 
+                        use that variable for <code class="unit">ubind</code>, 
+                        <br>another example after binding a <span style="color: yellow;">@[type]</span> with <code class="unit">ubind</code> you can save 
+                        <code class="variable">@unit</code> to another variable, then rebind that unit with the variable
+<!-- mark -->
                         
                     </p>
                 </section>
