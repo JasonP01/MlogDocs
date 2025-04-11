@@ -330,8 +330,8 @@
                     </p>
                     <img alt="alt" src="image/operation.png" >
                     <p>
-                        Because <code class="variable">x</code> is <span style="color: yellow;">10</span> this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span>, and the result of it is written to the <code class="variable">result</code> variable, 
-                        meaning <code class="variable">result</code> is now <span style="color: yellow;">15</span>. Of course it doesn’t have to be <code class="variable">result</code>, you can write anything for it, 
+                        Because <code class="variable op">x</code> is <span style="color: yellow;">10</span> this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span>, and the result of it is written to the <code class="variable op">result</code> variable, 
+                        meaning <code class="variable op">result</code> is now <span style="color: yellow;">15</span>. Of course it doesn’t have to be <code class="variable op">result</code>, you can write anything for it, 
                         different people write their variable differently, some chooses to write arbitrary words/letters like “peach” 
                         and others simply write “x+5”, whatever you choose is up to you, just keep in mind you have to remember them.
                         <br><br> an <span style="color: red;">undefined</span> variable will have <span style="color: red;">null</span> as their default value and this gets coerced to <span style="color: yellow;">0</span>.
@@ -1168,21 +1168,21 @@
                         <br>another example after binding a <span style="color: yellow;">@[type]</span> with <code class="unit">ubind</code> you can save 
                         <code class="variable">@unit</code> to another variable, then rebind that unit with the variable
 <!-- mark -->
-                        
                     </p>
                 </section>
                 <section id="unit-control">
                     <h1><li><b>Unit Control</b></li></h1>
                     <p class="ti">
-                        Unit control, controls <b>one</b> unit in the <span style="color: yellow;">@unit</span> variable, a common misconception is that it controls all binded unit, this is wrong, it might seem that way because processor loops, everytime it loops <mark class="unit">ubind</mark> it binds a new unit and controls it, it does this very fast that it looks like its controlling all unit at once. 
-                        <br>and a second common misconception is that <mark class="unit">Unit control</mark> wait for completion before running the next <mark class="unit">unit control</mark>, this is also wrong,
+                        Unit control, controls <b>one</b> unit in the <code class="content-name">@unit</code> variable, a common misconception is that it controls all binded unit, this is wrong, 
+                        it might seem that way because processor loops, everytime it loops <code class="unit">ubind</code> it binds a new unit and controls it, it does this very fast that it looks like its controlling all unit at once. 
+                        <br>and a second common misconception is that <code class="unit">Unit control</code> wait for completion before running the next <code class="unit">unit control</code>, this is also wrong,
                         Like the visualization you see above, the processor doesn’t care what instruction you put in it, it will just run it regardless, it is not smart, you have to specify it yourself.
                     </p>
                         <ul>
                             <section id="move">
                                 <h3><li><b>Move</b></li></h3>
                                     <p class="ti">
-                                        Move to unit to the specified coordinates in a straight line 
+                                        Move the unit to the specified coordinates in a straight line 
                                         Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
                                         <br><img alt="alt" src="image/ucontrol move.png" style="max-width: 80vw !important;">
                                     </p>
@@ -1198,7 +1198,7 @@
                             <h3><li><b>pathFind</b></li></h3>
                             <p class="ti">
                                 Path find to the specified location
-                                Usually used with grounded units as <mark class="unit">Move</mark> moves the unit in a straight line and grounded units can get stuck in buildings
+                                Usually used with grounded units as <code class="unit">Move</code> moves the unit in a straight line and grounded units can get stuck in buildings
                                 If the specified location is inside a building or invalid the unit will not move, they will stay in place
                             </p>
                             <h3><li><b>autoPathFind</b></li></h3>
@@ -1232,18 +1232,18 @@
                                 Drops items the unit is currently carrying to the specified location	
                                 <br>
                                 <img alt="alt" src="image/unit control itemdrop.png" style="max-width: 80vw !important;" ><br>
-                                <mark class="lg">to</mark> a <a href="#building-reference">building reference</a><br>
-                                <mark class="lg">amount</mark> is how many to drop<br>
+                                <code class="field">to</code> a <a href="#building-reference">building reference</a><br>
+                                <code class="field">amount</code> is how many to drop<br>
                                 Unit have to be within (<span style="color: yellow;">5.625 + [block size] / 2</span>) tiles of the targeted block (from the middle), else it does nothing<br>
-                                Can also drop to “<span style="color: yellow;">@air</span>” which will discard the item anywhere<br>
+                                Can also drop to <code class="content-name">@air</code> which will discard the item anywhere<br>
                                 to drop everything just put a large number like 999<br>
                                 Unit has an interaction limit of 1,5 seconds, meaning it can only take/drop item every 1,5 seconds
                             </p>
                             <h3><li><b>ItemTake</b></li></h3>
                             <p class="ti">
                                 Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu,
-                                <br><mark class="lg">from</mark> a <a href="#building-reference">building reference</a>
-                                <br><mark class="lg">amount</mark> is how many to take
+                                <br><code class="field">from</code> a <a href="#building-reference">building reference</a>
+                                <br><code class="field">amount</code> is how many to take
                                 <br>a unit can only carry 1 type item at a time
                                 <br>Unit have to be within <span style="color: yellow;">5.625 + [block size] / 2</span> tiles of the targeted block (from the middle), else it does nothing,
                                 <br>to take the maximum amount the unit can take just put a large number like 999,
@@ -1256,7 +1256,7 @@
                             <h3><li><b>PayTake</b></li></h3>
                             <p class="ti">
                                 Pick up a block or a unit at current location and turn it into a <a href="#payload">payload</a>
-                                <br>if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker <span style="color: yellow;">@x</span> and <span style="color: yellow;">@y</span>)
+                                <br>if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker <code class="content-name">@x</code> and <code class="content-name">@y</code>)
                                 <br>for example a unit taker location is exactly at 10,10 , there's 2 unit below it at 9.8,10 and 9.9,10 , when using paytake it will take the 9.9,10 unit
                             </p>
                             <h3><li><b>PayEnter</b></li></h3>
@@ -1271,39 +1271,40 @@
                             <p class="ti">
                                 Build a block at specified location, if out of range or invalid will do nothing<br>
                                 <img alt="alt" src="image/unit control build.png" style="max-width: 80vw !important;" ><br>
-                                <mark class="lg">x,y</mark> is build location<br>
-                                <mark class="lg">block</mark> is what block to build<br>
-                                <mark class="lg">rotation</mark> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
-                                <mark class="lg">Config</mark>, configuration of blocks, eg, if `<span style="color: yellow;">@copper</span>` when building a sorter will set the sorter to `<span style="color: yellow;">@copper</span>`. Additionally can be a building reference, eg, if `<span style="color: yellow;">@this</span>` when building a processor will copy `<span style="color: yellow;">@this</span>` processor’s code to the built processor
+                                <code class="field">x,y</code> is build location<br>
+                                <code class="field">block</code> is what block to build<br>
+                                <code class="field">rotation</code> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
+                                <code class="field">Config</code>, configuration of blocks, eg, if <code class="content-name">@copper</code> when building a sorter will set the sorter to <code class="content-name">@copper</code>. 
+                                Additionally can be a building reference, eg, if <code class="content-name">@this</code> when building a processor will copy <code class="content-name">@this</code> processor’s code to the built processor
                             </p>
                             <h3><li><b>getBlock</b></li></h3>
                             <p class="ti">
                                 Gets a block at a specified location, outputs will be null if out of range<br>
                                 <img alt="alt" src="image/ucontrol getblock.png" style="max-width: 80vw !important;" ><br>
-                                <mark class="lg">x,y</mark> is coordinate location to get the block<br>
-                                <mark class="lg">type</mark> is an output, it will output the type of block to the variable<br>
-                                <mark class="lg">building</mark> is an output, it will output the <a href="#building-reference">building reference</a> to the variable<br>
-                                <mark class="lg">floor</mark> is an output, it will output the type of floor to the variable
+                                <code class="field">x,y</code> is coordinate location to get the block<br>
+                                <code class="field">type</code> is an output, it will output the type of block to the variable<br>
+                                <code class="field">building</code> is an output, it will output the <a href="#building-reference">building reference</a> to the variable<br>
+                                <code class="field">floor</code> is an output, it will output the type of floor to the variable
                                 <br>
                                 <br>when getBlock-ing a cell,bank, or a display you can still write/draw to them even if the unit is no longer present, 
                                 only the building reference is needed for these blocks, this means you can get them once and then unbind/move the unit
-                                your variable of <mark class="lg">building</mark> will remain until either you overwrite it or the processor is refreshed.
+                                your variable of <code class="variable">building</code> will remain until either you overwrite it or the processor is refreshed.
                                 <br>however you can't enable/disable or config getBlock-ed buildings,
                             </p>
                             <h3><li><b>Within</b></li></h3>
                             <p class="ti">
                                 Check if unit is within a position with a radius<br>
                                 <img alt="alt" src="image/unit control within.png" style="max-width: 80vw !important;" ><br>
-                                x,y is coordinate location to check if unit is within that coordinate<br>
-                                radius is the radius of the within<br>
+                                <code class="field">x</code>,<code class="field">y</code> is coordinate location to check if unit is within that coordinate<br>
+                                <code class="field">radius</code> is the radius of the within<br>
                                 returns boolean<br>
-                                <span style="color: aqua;">result</span> is the result, 0 / 1, true / false<br>
+                                <code class="field">result</code> is the result, 0 / 1, true / false<br>
                                 Example: (the @unit variable is mega shown on the picture)<br>
                                 <img alt="alt" src="image/ucontrol within.png" style="max-width: 80vw !important;" ><br>
                                 <img alt="alt" src="image/vis ucontrol within.png" style="max-width: 80vw !important;" >
                                 <img alt="alt" src="image/vis ucontrol within 1.png" style="max-width: 80vw !important;" ><br>
                                 In this two scenario, the first picture will have the 
-                                variable `<span style="color: aqua;">result</span>` true because the unit is within the circle, 
+                                variable `<code class="variable">result</code>` true because the unit is within the circle, 
                                 while the second picture is false because it is outside the circle
                             </p>
                             <h3><li><b>Unbind</b></li></h3>
@@ -1326,12 +1327,12 @@
                     <h1><li><b>Unit Radar</b></li></h1>
                     <p class="ti">
                         <img alt="alt" src="image/unit radar.png" style="max-width: 80vw !important;">
-                        <br><mark class="unit">Unit radar</mark> locates other unit around the <span style="color: yellow;">@unit</span> unit within the unit’s range (information can be found in-game’s info menu)
-                        <br><mark class="lg">target</mark> is a filter of what category of unit it will radar, enemy means it will radar enemy units
-                        <br><mark class="lg">Order</mark> is sorting order, ascending or descending, can only be 0 or 1
-                        <br><mark class="lg">sort</mark> is a metric to sort results by, distance means it will get unit by distance
-                        <br>Since order is 1, the unit gotten is the closest to that <span style="color: yellow;">@unit</span>’s unit
-                        <br>Will output the unit reference to `<span style="color: aqua;">result</span>`.
+                        <br><code class="unit">Unit radar</code> locates other unit around the <code class="content-name">@unit</code> unit within the unit’s range (information can be found in-game’s info menu)
+                        <br><code class="field">target</code> is a filter of what category of unit it will radar, enemy means it will radar enemy units
+                        <br><code class="field">Order</code> is sorting order, ascending or descending, can only be 0 or 1
+                        <br><code class="field">sort</code> is a metric to sort results by, distance means it will get unit by distance
+                        <br>Since order is 1, the unit gotten is the closest to that <code class="content-name">@unit</code>’s unit
+                        <br>Will output the unit reference to <code class="variable">result</code>.
                         <br>sort distance order 1 = closest, 0 = furthest
                         <br>sort health, maxHealth, armor, shield order 1 = highest, 0 = lowest
                     </p>
@@ -1346,15 +1347,15 @@
                         <p>
                             Will locate a building of the selected group, in this case, core,
                             <br><img alt="alt" src="image/unit locate.png" style="max-width: 80vw !important;">
-                            <br><mark class="lg">Enemy</mark> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
-                            <br><mark class="lg">outX</mark> and <mark class="lg">outY</mark> are the building’s output coordinates
-                            <br><mark class="lg">Found</mark> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
-                            <br><mark class="lg">Building</mark> is an output of that building reference
+                            <br><code class="field">Enemy</code> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
+                            <br><code class="field">outX</code> and <code class="field">outY</code> are the building’s output coordinates
+                            <br><code class="field">Found</code> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
+                            <br><code class="field">Building</code> is an output of that building reference
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
                            <img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
-                           <br>Will locate an ore of the selected type, in this case <span style="color: yellow;">@copper</span>
+                           <br>Will locate an ore of the selected type, in this case <code class="content-name">@copper</code>
                            <br>May not consistently return the closest tile, but will always return the closest "vein"
                         </p>
                         <h1><li><b>Spawn</b></li></h1>
@@ -1380,13 +1381,13 @@
                     <h2>Universal Switch</h2>
                     <p>
                         <img alt="alt" src="image/vis getlink.gif" style="width: 600px;"> <img alt="alt" src="image/getlink ex.jpg">
-                        <br>line 0 : <a href="#sensor">sensor</a> for @enabled in `<span style="color: aqua;">switch1</span>`, stores the state in the `<span style="color: aqua;">switch</span>` variable
-                        <br>line 1 : <a href="#get-link">getlink</a> with `<span style="color: aqua;">link</span>`, which is an <a href="#incrementing-variable">incrementing variable</a>
-                        <br>line 2 : <a href="#sensor">sensor</a> for @type in <span style="color: aqua;">block</span> for later
-                        <br>line 3 : <a href="#incrementing-variable">increment</a> the variable `<span style="color: aqua;">link</span>`
-                        <br>line 4 : resets the variable `<span style="color: aqua;">link</span>` when it reached `@links` using the % operator
-                        <br>line 5 : <a href="#jump">jump</a> if `<span style="color: aqua;">type</span>` is @switch, this ensures that the switch building does not get controlled
-                        <br>line 6 : <a href="#control">control</a> the enabled of `<span style="color: aqua;">block</span>`, which is the results of getlink, to `<span style="color: aqua;">switch</span>`
+                        <br>line 0 : <a href="#sensor">sensor</a> for @enabled in <code class="variable">switch1</code>, stores the state in the <code class="variable">switch</code> variable
+                        <br>line 1 : <a href="#get-link">getlink</a> with <code class="variable">link</code>, which is an <a href="#incrementing-variable">incrementing variable</a>
+                        <br>line 2 : <a href="#sensor">sensor</a> for @type in <code class="variable">block</code> for later
+                        <br>line 3 : <a href="#incrementing-variable">increment</a> the variable <code class="variable">link</code>
+                        <br>line 4 : resets the variable <code class="variable">link</code> when it reached @links using the % operator
+                        <br>line 5 : <a href="#jump">jump</a> if <code class="variable">type</code> is @switch, this ensures that the switch building does not get controlled
+                        <br>line 6 : <a href="#control">control</a> the enabled of <code class="variable">block</code>, which is the results of getlink, to <code class="variable">switch</code>
                     </p>
                 </section>
                 <section id="shuttle-logic">
@@ -1394,9 +1395,9 @@
                     <img alt="alt" src="image/vis shuttle.gif" >
                     <p>
                         Line 0 : <a href="#unit-bind">bind</a> a flare
-                        <br>Line 1 : <a href="#unit-locate">locate</a> an ally core, outputs its coordinates to `<span style="color: aqua;">cx</span>,<span style="color: aqua;">cy</span>`, and building reference to `<span style="color: aqua;">core</span>`
+                        <br>Line 1 : <a href="#unit-locate">locate</a> an ally core, outputs its coordinates to <code class="variable">cx</code>,<code class="variable">cy</code>, and building reference to <code class="variable">core</code>
                         <br>Line 2 - 3 : get the coordinates of the linked vault using <a href="#sensor">sensor</a>
-                        <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#totalitems">@totalItems</a> from <span style="color: yellow;">@unit</span> to get the amount of items the unit are currently carrying
+                        <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#totalitems">@totalItems</a> from <code class="content-name">@unit</code> to get the amount of items the unit are currently carrying
                         <br>Line 5 : a conditional <a href="#jump">jump</a>, jump to (move to core) and take item if the item the unit are currently carrying is 0
                         <br>Else jump to move to (vault and drop item)</span>
                         <br>Line 6-7: <a href="#move">move</a> to vault and take item from vault
@@ -1412,12 +1413,12 @@
                     <img alt="alt" src="image/reactor fail safe.gif" class="image">
                     <img alt="alt" src="image/reactor faiil safe ex.png" style="width: 500px;">
                     <p>
-                        line 0 : <a href="#get-link">getlink</a> with `<span style="color: aqua;">i</span>`, which is an <a href="#incrementing-variable">incrementing variable</a>, writes the result to `<span style="color: aqua;">block</span>`
-                        <br>line 1 : <a href="#sensor">sensor</a> for cryofluid in `<span style="color: aqua;">block</span>`, writes the result to `<span style="color: aqua;">cryo</span>`
-                        <br>line 2 : <a href="#jump">compare</a> if `<span style="color: aqua;">cryo</span>` > (greater than) <span style="color: yellow;">15</span>, if it is `<span style="color: aqua;">fail</span>` will be true, else `<span style="color: aqua;">fail</span>` will be false
-                        <br>line 3 : <a href="#control">control</a> `<span style="color: aqua;">block</span>` to `<span style="color: aqua;">fail</span>` which controls the thorium reactors to `<span style="color: aqua;">fail</span>`, if line 2 is true then `<span style="color: aqua;">fail</span>` is true, thus enabling the thorium reactor
-                        <br>line 4 : <a href="#incrementing-variable">incrementing the variable</a> `<span style="color: aqua;">i</span>`
-                        <br>line 5 : resets the variable `<span style="color: aqua;">i</span>` when it reached `<span style="color: yellow;">@links</span>` using the % operator
+                        line 0 : <a href="#get-link">getlink</a> with <code class="variable">i</code>, which is an <a href="#incrementing-variable">incrementing variable</a>, writes the result to <code class="variable">block</code>
+                        <br>line 1 : <a href="#sensor">sensor</a> for cryofluid in <code class="variable">block</code>, writes the result to <code class="variable">cryo</code>
+                        <br>line 2 : <a href="#jump">compare</a> if <code class="variable">cryo</code> > (greater than) <code style="color: yellow;">15</code>, if it is <code class="variable">fail</code> will be true, else <code class="variable">fail</code> will be false
+                        <br>line 3 : <a href="#control">control</a> <code class="variable">block</code> to <code class="variable">fail</code> which controls the thorium reactors to <code class="variable">fail</code>, if line 2 is true then <code class="variable">fail</code> is true, thus enabling the thorium reactor
+                        <br>line 4 : <a href="#incrementing-variable">incrementing the variable</a> <code class="variable">i</code>
+                        <br>line 5 : resets the variable <code class="variable">i</code> when it reached <code class="content-name">@links</code> using the % operator
                     </p>
                 </section>
                 <section id="counter-array">
@@ -1466,7 +1467,7 @@
                     <br>List of compiler:  (Last updated: 30 January 2023) (Information gathered by <span style="color: lightblue;">Varxalaxiacis</span>)
 
                     <ol>
-                        <li style="font-size: larger;"><a href="https://github.com/cardillan/mindcode"><b>Mindcode</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/cardillan/mindcode"><b class="link">Mindcode</b></a> :</li>
                         A high level language for Mindustry Logic (mlog) and Mindustry Schematics.
                         <ul>
                             <li>Repo Owner : cardillan</li>
@@ -1474,7 +1475,7 @@
                             <li>Stars : 93</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/mlogjs/mlogjs"><b>Mlog JS</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/mlogjs/mlogjs"><b class="link">Mlog JS</b></a> :</li>
                         Compile javascript into Mindustry logic code (mlog)
                         <ul>
                             <li>Repo Owner : mlogjs</li>
@@ -1482,7 +1483,7 @@
                             <li>Stars : 70</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/Lonami/pyndustric"><b>Pyndustric</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/Lonami/pyndustric"><b class="link">Pyndustric</b></a> :</li>
                         A Python compiler for Mindustry&apos;s logic processors assembly language
                         <ul>
                             <li>Repo Owner : Lonami</li>
@@ -1490,7 +1491,7 @@
                             <li>Stars : 50</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/Vilsol/go-mlog"><b>go-mlog</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/Vilsol/go-mlog"><b class="link">go-mlog</b></a> :</li>
                         Go to Mindustry (MLOG) compiler, runtime and decompiler (WIP)
                         <ul>
                             <li>Repo Owner : Vilsol</li>
@@ -1498,7 +1499,7 @@
                             <li>Stars : 27</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/A4-Tacks/mindustry_logic_bang_lang"><b>Mlog Bang Lang</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/A4-Tacks/mindustry_logic_bang_lang"><b class="link">Mlog Bang Lang</b></a> :</li>
                         Mindustry logic extension meta-programming language, for zero additional overhead!
                         <ul>
                             <li>Repo Owner : A4-Tacks</li>
@@ -1506,7 +1507,7 @@
                             <li>Stars : 19</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/SuperStormer/c2logic"><b>c2logic</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/SuperStormer/c2logic"><b class="link">c2logic</b></a> :</li>
                         Compiles C code to Mindustry logic.
                         <ul>
                             <li>Repo Owner : SuperStormer</li>
@@ -1514,7 +1515,7 @@
                             <li>Stars : 16</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/BalaM314/mlogx"><b>Mlogx</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/BalaM314/mlogx"><b class="link">Mlogx</b></a> :</li>
                         A compiler(technically a transpiler) for Mindustry Logic(mlog.)
                         <ul>
                             <li>Repo Owner : BalaM314</li>
@@ -1522,7 +1523,7 @@
                             <li>Stars : 14</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogpp"><b>Mlogpp</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogpp"><b class="link">Mlogpp</b></a> :</li>
                         high level mindustry logic language
                         <ul>
                             <li>Repo Owner : albi-c</li>
@@ -1530,7 +1531,7 @@
                             <li>Stars : 7</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/JeanJPNM/mlogls"><b>Mlogls</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/JeanJPNM/mlogls"><b class="link">Mlogls</b></a> :</li>
                         A language server for the Mindustry Logic programming language
                         <ul>
                             <li>Repo Owner : JeanJPNM</li>
@@ -1538,7 +1539,7 @@
                             <li>Stars : 6</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/yangfl/minasm"><b>MlogEvo</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/yangfl/minasm"><b class="link">MlogEvo</b></a> :</li>
                         Assembly-like language compiles to Mindustry Logic Language
                         <ul>
                             <li>Repo Owner : yangfl</li>
@@ -1546,7 +1547,7 @@
                             <li>Stars : 3</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/quantumsheep/glsl-mlog-compiler"><b>GLSL to Mlog</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/quantumsheep/glsl-mlog-compiler"><b class="link">GLSL to Mlog</b></a> :</li>
                         Transpiles GLSL to mlog (Mindustry Logic)
                         <ul>
                             <li>Repo Owner : quantumsheep</li>
@@ -1554,7 +1555,7 @@
                             <li>Stars : 3</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogium"><b>mlogium</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/albi-c/mlogium"><b class="link">mlogium</b></a> :</li>
                         high level mindustry logic language
                         <ul>
                             <li>Repo Owner : albi-c</li>
@@ -1562,7 +1563,7 @@
                             <li>Stars : 1</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/BnDLett/mlog_compiler"><b>Mlog Compiler</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/BnDLett/mlog_compiler"><b class="link">Mlog Compiler</b></a> :</li>
                         A compiler that compiles a custom programming language into Mindustry logic. 
                         <ul>
                             <li>Repo Owner : BnDLett</li>
@@ -1570,7 +1571,7 @@
                             <li>Stars : 0</li>
                         </ul>
                         <br>
-                        <li style="font-size: larger;"><a href="https://github.com/Voz-Duh/Mindustry_CodeToLogic"><b>Mindustry CodeToLogic</b></a> :</li>
+                        <li style="font-size: larger;"><a href="https://github.com/Voz-Duh/Mindustry_CodeToLogic"><b class="link">Mindustry CodeToLogic</b></a> :</li>
                         Converter from code to mindustry logic
                         <ul>
                             <li>Repo Owner : Voz-Duh</li>
@@ -1647,7 +1648,7 @@
                     <br>They have unlimited range
                     <br>They can link and control every buildings including enemy’s
                     <br>they can bind and control every units including enemy’s
-                    <br>Maximum IPT of a world processor is 500, which can be set using <mark class="wp">Set Rate</mark>
+                    <br>Maximum IPT of a world processor is 500, which can be set using <code class="wp">Set Rate</code>
                 </p>
                 <section id="how-to-get-world-processor">
                 <h2>How to get World Processor</h2>
@@ -1661,13 +1662,13 @@
                     <br><br>
                     alternatively you can load your custom map as normal through the “Play” 
                     button and use the console to make world processor available, typing :
-                    <br><mark class="lg">Blocks.worldProcessor.buildVisibility = BuildVisibility.shown</mark> will make world processor available in the menu, and
-                    <br><mark class="lg">Vars.state.playtestingMap=Vars.state.map</mark> allows you to edit them 
+                    <br><code>Blocks.worldProcessor.buildVisibility = BuildVisibility.shown</code> will make world processor available in the menu, and
+                    <br><code>Vars.state.playtestingMap=Vars.state.map</code> allows you to edit them 
                     (making the map into a playtest mode), we are basically doing the 
                     same thing as the former method but using the console instead, however when you exit out 
                     of the world the game thinks you are in the editor thus putting you in the editor without saving any changes, 
                     auto save does work though, so you might want to lower the auto save interval, or you can disable the playtest mode using : 
-                    <br><mark class="lg">Vars.state.playtestingMap=null</mark> before exiting the world
+                    <br><code>Vars.state.playtestingMap=null</code> before exiting the world
                     <br><br>
                     there might be better ways of gaining access to world processor, like using mods, if you know any other easier method let me know and i will edit this section
                     </p>
@@ -1675,49 +1676,61 @@
                     <ol style="list-style-type: disc;">
                         <section id="get-block">
                         <h2><li>Get block</li></h2>
+                        <p>
+                            Get tile information at the specified coordinates
+                        </p>
                         <img alt="alt" src="image/get block.png" style="max-width: 85vw !important;" >
                         <p>
-                            “result” the output
-                            <br>`get` what to get, can be:
-                                <br><span class="spin">“floor”	get the floor name of the specified coordinate
-                                <br>“ore”	get the ore name of the specified coordinate
-                                <br>“block”	get the block name of the specified coordinate
-                                <br>“building” get the building reference of the specified coordinate</span>
-                            <br>`at` x and y coordinate respectively
+                            <code class="field">result</code> the output
+                            <br><code class="field">get</code> what to get, can be:
+                                <br><span class="spin"><code class="field">floor</code>	get the floor name of the specified coordinate
+                                <br><code class="field">ore</code> get the ore name of the specified coordinate
+                                <br><code class="field">block</code>	get the block name of the specified coordinate
+                                <br><code class="field">building</code> get the building reference of the specified coordinate</span>
+                            <br><code class="field">at</code> x and y coordinate respectively
                         </p>
                         </section>
                         <section id="set-block">
                         <h2><li>Set Block</li></h2>
+                        <p>
+                            Set tile at the specified coordinates
+                        </p>
                         <img alt="alt" src="image/set block.png" style="max-width: 85vw !important;">
                         <p>
-                            `set` what type to set, can be : 
-                            <br><span class="spin">“floor” set the floor to the specified name and Coordinate
-                            <br>“ore”	set ore to the specified name and coordinate
-                            <br>“block”	set block to the specified name and coordinate</span>
-                            <br>name can be found on <a href="#environment">Environment</a>
-                            <br>`at` x and y coordinate respectively
-                            <br>`team` what them to set the block to, can be team name or a number 0 - 255
+                            <code class="field">set</code> what type to set, can be : 
+                            <br><span class="spin"><code class="field">floor</code> set the floor to the specified name and Coordinate
+                            <br><code class="field">ore</code> set ore to the specified name and coordinate
+                            <br><code class="field">block</code> set block to the specified name and coordinate</span>
+                            <br><code class="field">to</code> what tile to set, content name, name can be found on <a href="#environment">Environment</a>
+                            <br><code class="field">at</code> x and y coordinate respectively
+                            <br><code class="field">team</code> what team to set the block to, can be team name or a number 0 - 255
                         </p>
                         </section>
                         <section id="spawn-unit">
                             <h2><li>Spawn Unit</li></h2>
+                            <p>
+                                spawn a unit at the specified coordinates
+                            </p>
                             <img alt="alt" src="image/spawn unit.png" style="max-width: 85vw !important;">
                             <p>
-                                “result”, the output, unit reference
-                                <br>`spawn` what unit to spawn
-                                <br>`at` x and y coordinate respectively
-                                <br>`team` what them to set the block to, can be team name or a number 0 - 255
-                                <br>`rot` rotation (facing what direction) of the spawned unit, in degrees, for reference : 360/0 is right,	90 is up
+                                <code class="field">result</code>, the output, unit reference
+                                <br><code class="field">spawn</code> what unit to spawn, content name, name can be found on <a href="#units">Units</a>
+                                <br><code class="field">at</code> x and y coordinate respectively
+                                <br><code class="field">team</code> what team the unit spawned belong to, can be team name or a number 0 - 255
+                                <br><code class="field">rot</code> rotation, which direction the unit is facing when spawned, in degrees, for reference : 360/0 is right, 90 is up
                             </p>
                         </section>
                         <section id="apply-status">
                             <h2><li>Apply Status</li></h2>
+                            <p>
+                                apply a status effect to a unit
+                            </p>
                             <img alt="alt" src="image/apply status.png" style="max-width: 85vw !important;">
                             <p>
-                                `apply` or `clear`, apply or clear
-                                <br>`wet` what status to apply to the unit
-                                <br>`to` unit, unit reference
-                                <br>`for` duration of the status                            
+                                <code class="field">apply</code> or <code class="field">clear</code>, whether apply or clear the status effect
+                                <br><code class="field">wet</code> what status to apply to the unit
+                                <br><code class="field">to</code> unit, unit reference
+                                <br><code class="field">for</code> duration of the status                            
                             </p>
                         </section>
                         <section id="spawn-wave">
@@ -1729,6 +1742,9 @@
                         </section>
                         <section id="set-rule">
                             <h2><li>Set Rule</li></h2>
+                            <p>
+                                set the game rule, this is the same as the game setting in the map editor
+                            </p>
                             <img alt="alt" src="image/set rule.png" style="max-width: 85vw !important;">
                             <p>
                                 currentWaveTime
@@ -1754,8 +1770,8 @@
                                 <br>mapArea
                                     <br><span class="spin">set the size of the playable field in the map/sector
                                     <br>starts at the bottom left
-                                    <br>`x` and `y` is the offset from 0,0
-                                    <br>`width` and `height` is the size of the map, calculated from the offset</span>
+                                    <br><code class="field">x</code> and <code class="field">y</code> is the offset from 0,0
+                                    <br><code class="field">width</code> and <code class="field">height</code> is the size of the map, calculated from the offset</span>
                                 <br>lightning
                                     <br><span class="spin">boolean, whether to enable lightning or not, if disabled all section of the map (other 		solid walls) will be fully bright</span>
                                 <br>ambientLight
@@ -1784,16 +1800,18 @@
                         </section>
                         <section id="flush-message">
                             <h2><li>Flush Message</li></h2>
-                            <img alt="alt" src="image/flush message.png" style="max-width: 85vw !important;">
                             <p>
                                 display a message on player’s screen from the text buffer, will wait until the previous message finishes
-                                <br><br>`announce` center of the screen
+                            </p>
+                            <img alt="alt" src="image/flush message.png" style="max-width: 85vw !important;">
+                            <p>
+                                <br><br><code class="field">announce</code> center of the screen
                                 <br><img alt="alt" src="image/message.png" style="max-width: 85vw !important;">
-                                <br><br>`notify` top of the screen
+                                <br><br><code class="field">notify</code> top of the screen
                                 <br><img alt="alt" src="image/message 3.png" style="max-width: 85vw !important;">
-                                <br><br>`toast`
+                                <br><br><code class="field">toast</code>
                                 <br><img alt="alt" src="image/message 4.png" style="max-width: 85vw !important;">
-                                <br><br>`mission`
+                                <br><br><code class="field">mission</code>
                                 <br><img alt="alt" src="image/message 2.png" style="max-width: 85vw !important;">
                             </p>
                         </section>
@@ -1801,10 +1819,10 @@
                             <h2><li>Cut scene</li></h2>
                             <p>
                                 manipulate the camera, players cannot move/interact in this mode
-                                <br>does not have duration cutscene will stays until `cutscene stop` is used
-                                    <br><span class="spin">`pan` moves the camera to the specified coordinates, with specified speed
-                                    <br>`zoom` zooms the camera, value is from 0 to 1, although can be more it is limited by the game, this limit is the same as your manual zoom limit, when used not with `pan` will zoom to 0,0 instead
-                                    <br>`stop` stops previous cutscene</span>
+                                <br>does not have duration cutscene will stays until <code class="wp">cutscene stop</code> is used
+                                    <br><span class="spin"><code class="field">pan</code> moves the camera to the specified coordinates, with specified speed
+                                    <br><code class="field">zoom</code> zooms the camera, value is from 0 to 1, although can be more it is limited by the game, this limit is the same as your manual zoom limit, when used not with <code class="field">pan</code> will zoom to 0,0 instead
+                                    <br><code class="field">stop</code> stops previous cutscene</span>
                             </p>
                         </section>
                         <section id="effect">
@@ -1820,13 +1838,13 @@
                             <img alt="alt" src="image/explosion.png" style="max-width: 85vw !important;">
                             <p>
                                 create an explosion
-                                <br><span class="spin">`team` what team the explosion belong to, explosion cannot harm ally blocks
-                                <br>`x` `y` where to create the explosion
-                                <br>`radius` size of explosion, block outside this radius does not take damage
-                                <br>`damage` the damage of the explosion
-                                <br>`air` whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
-                                <br>`ground` whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
-                                <br>`pierce` whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged</span>
+                                <br><span class="spin"><code class="field">team</code> what team the explosion belong to, explosion cannot harm ally blocks
+                                <br><code class="field">x</code> <code class="field">y</code> where to create the explosion
+                                <br><code class="field">radius</code> size of explosion, block outside this radius does not take damage
+                                <br><code class="field">damage</code> the damage of the explosion
+                                <br><code class="field">air</code> whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
+                                <br><code class="field">ground</code> whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
+                                <br><code class="field">pierce</code> whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged</span>
                             </p>
                         </section>
                         <section id="set-rate">
@@ -1838,15 +1856,19 @@
                         </section>
                         <section id="fetch">
                             <h2><li>Fetch</li></h2>
+                            <p>
+                                get <code class="field">unit</code>/<code class="field">player</code>/<code class="field">core</code>/<code class="field">building</code> 
+                                and output their reference to <code class="variable">result</code>, by index
+                                <br>or <code class="field">unitCount</code>/<code class="field">playerCount</code>/<code class="field">coreCount</code>/<code class="field">buildCount</code> 
+                                <br>which gets their respective total count (alive/exist) in the map
+                            </p>
                             <img alt="alt" src="image/fetch.png" style="max-width: 85vw !important;">
                             <p>
-                                get unit, player, core, building, and outputs their reference to “result”, by index
-                            <br>    <span class="spin">`team` what team to fetch the object
-                            <br>    `#` index, starts at 0, 0 being the first object
-                            <br>    unitCount, playerCount, coreCount, buildCount, gets the total count of currently alive/available object in the world</span>
-                            <br>when an object dies the last object index will replace the object index that dies
-                            <br>for example: you have 10 conveyors indexed from 1-10, conveyor #5 is deconstructed, conveyor 
-                            <br>#10 will the become #5, then a new placed conveyor will become #10
+                                <code class="field">team</code> what team to fetch the object, content name, eg. <code class="content-name">@sharded</code>
+                                <br><code class="field">#</code> index, starts at 0, 0 being the first object
+                                <br><br>when an object dies the last object index will replace the object index that dies
+                                <br>for example: you have 10 conveyors indexed from 1-10, conveyor #5 is deconstructed, conveyor 
+                                <br>#10 will the become #5, then a new placed conveyor will become #10
                             </p>
                         </section>
                         <section id="sync">
