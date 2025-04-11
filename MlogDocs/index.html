@@ -168,7 +168,7 @@
             <section id="foreword">
                 <hr>
                 <h1>Foreword</h1>
-                <p class="ti">This documentation was written mostly by me, so there may be inaccuracies or omissions.  asdfasdfasdf 
+                <p class="ti">This documentation was written mostly by me, so there may be inaccuracies or omissions.
                     As English is not my first language, I apologize for any spelling or grammar errors. If you have any corrections, additions, or suggestions, 
                     please feel free to contact me to discuss them.
                     you can DM me on<br>
@@ -310,7 +310,7 @@
                         is also sometimes called a “building variable”,
                         <br>building variable cannot be overwritten by any means, 
                         <br>in other words, you cannot use this variable to put in an output of an instruction
-                        <br>however you can copy the its contents to another variable, Like <code class="op">set <span style="color: aqua;">myBuilding</span> = <span style="color: aqua;">display1</span></code>
+                        <br>however you can copy the its contents to another variable, Like <code class="op">set myBuilding = display1</code>
                         <br>the variable <code class="variable">myBuilding</code> is now the same as <code class="variable">display1</code>, meaning you can use it the same way,
                         <br>however <code class="variable">myBuilding</code> is an independent variable (your variable) now, this means it also acts like a normal variable,
                         for example if the display block that is linked to the processor is destroyed the variable <code class="variable">display1</code> will be null, 
@@ -346,7 +346,7 @@
                         </p>
                         <img alt="alt" src="image/increment.png" >
                         <p>
-                            Since processor loops, this will increase <code class="variable">x</code> by <span style="color: yellow;">1</span> every loop, as time goes on x will 
+                            Since processor loops, this will increase <code class="variable op">x</code> by <span style="color: yellow;">1</span> every loop, as time goes on x will 
                             get bigger and bigger. This is what’s called incrementing a variable
                         </p>
                     </div>
@@ -372,7 +372,7 @@
                         </p>
                         <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
                         <p>
-                            Since this <code class="op">set</code> instruction is at line 10, the <code class="variable">x</code> variable will be 11.
+                            Since this <code class="op">set</code> instruction is at line 10, the <code class="variable op">x</code> variable will be 11.
                             Another usage example is: <a href="#counter-array" > @counter Array.</a>
                         </p>
                         <li><b>@this</b></li>
@@ -380,7 +380,7 @@
                                 <b>@this</b> shows the <a href="#building-reference" > building reference</a> 
                                 for that processor, example: anything that
                                 uses building reference can be replaced by this, so instead of
-                                <code>processor1</code> you can write <code>@this</code> for this processor
+                                <code class="variable">processor1</code> you can write <code class="variable">@this</code> for this processor
                             </p>
                         <li><b><a href="#unit" >@unit</a></b></li>
                         <p style="margin-top: 5px;" class="ti">	
@@ -394,11 +394,11 @@
                         </p>
                         <li><b>@mapw and @maph</b></li>
                         <p style="margin-top: 5px;" class="ti">
-                            These shows the map width and map height, for example if your map width is 300 <code>@mapw</code> will be equal 300
+                            These shows the map width and map height, for example if your map width is 300 <code class="content-name">@mapw</code> will be equal 300
                         </p>
                         <li><b>@links </b></li>
                         <p style="margin-top: 5px;" class="ti"><b>@links</b> shows the number of links the processor has, example: if you have
-                            3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code>@links</code> will be <span  style="color: yellow;">3</span></p>
+                            3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code class="content-name">@links</code> will be <span  style="color: yellow;">3</span></p>
                         <li><b>@ipt</b></li>
                         <p style="margin-top: 5px;" class="ti">
                             ipt stands for instruction per tick, this shows how many instruction a 
@@ -407,10 +407,10 @@
                         <li><b>@time, @tick, @second and @minute</b></li>
                         <p style="margin-top: 5px;" class="ti">
                             Shows the playtime of the current save, this is updated every frame, NOT every time the processor checks for it
-                            @time, in millisecond 
-                            @tick, in tick(1/60th of a second)
-                            @second, in second
-                            @minutes, in minute
+                            <br><code class="content-name">@time</code>, in millisecond 
+                            <br><code class="content-name">@tick</code>, in tick(1/60th of a second)
+                            <br><code class="content-name">@second</code>, in second
+                            <br><code class="content-name">@minutes</code>, in minute
                         </p>
                         <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
                     </ol>
@@ -419,7 +419,7 @@
                     <h2>Constants</h2>
                     <p class="ti">
                         Constant, they are like variable but you can’t write to them, their value are predetermined, 
-                        for example <code><b>@pi</b></code>, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
+                        for example <code class="content-name">@pi</code>, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
                         (if you’re just starting out you don’t have to read all of this, you can always come back):
                     </p>
                     <ol start="list-style-type:dics;">
@@ -454,7 +454,7 @@
                     <p class="ti">
                         Internally there is a Text buffer and a Draw buffer in each processor, 
                         when you use print or draw, when the processor runs it, it will store it in the buffer.
-                        Example: if you <code>print frog</code> the word <code>frog</code> will be stored in the text buffer, 
+                        Example: if you <code class="draw">print "frog"</code> the word <code>frog</code> will be stored in the text buffer, 
                         then to get that word to a message block you have to use <code class="draw">Print Flush</code> which transfer 
                         the items in the text buffer to the message block
                     </p>
@@ -526,7 +526,7 @@
                         <img alt="alt" src="image/read 1.png"style="max-width: 85vw !important">
                         <p>
                             this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
-                            called <code class="variable">result</code>, therefore <code class="variable">result</code> is now <span style="color: yellow;">1838</span>
+                            called <code class="variable draw">result</code>, therefore <code class="variable draw">result</code> is now <span style="color: yellow;">1838</span>
                             <br><br>
                             the largest integer that can be stored in a single address is related to <a href="#integers">integer limitations</a>
                         </p>
@@ -538,14 +538,14 @@
                 <h1>Instructions</h1>
                 <ol style="list-style-type: disc; padding-left: 20px" >
                     <section id="read">
-                        <h2><li>Read</li></h2>
+                        <h2><li><b>Read</b></li></h2>
                         <p class="ti">
                             Read a value from a cell<br>
                             <img alt="alt" src="image/read.png"style="max-width: 85vw !important"><br>
-                            <code class="variable">result</code> is your variable name
-                            <br><code class="variable">cell1</code> is where to get the value from, a <a href="#building-reference">building reference</a>, “bank{number}” for Banks
+                            <code class="variable draw">result</code> is your variable name
+                            <br><code class="variable draw">cell1</code> is where to get the value from, a <a href="#building-reference">building reference</a>, “bank{number}” for Banks
                             <br>`<span style="color: yellow;">0</span>` is the cell’s address. like said above, cells can store up to 64 values, this means there are only 64 addresses, starting at <span style="color: yellow;">0</span>, meaning <span style="color: yellow;">0</span> - <span style="color: yellow;">63</span>
-                            <br>Example: there is a value at 0 in <code class="variable">cell1</code> that is <span style="color: yellow;">10</span>, then <code class="variable">result</code> variable will be <span style="color: yellow;">10</span>
+                            <br>Example: there is a value at 0 in <code class="variable draw">cell1</code> that is <span style="color: yellow;">10</span>, then <code class="variable draw">result</code> variable will be <span style="color: yellow;">10</span>
                         </p>
                     </section>
                     <section id="write">
@@ -554,7 +554,7 @@
                             Write a value to a cell<br>
                             <img alt="alt" src="image/write.png"style="max-width: 85vw !important"><br>
                             Essentially the same with read but it writes instead<br>
-                            Example: the <code class="variable">result</code> variable is <span style="color: yellow;">10</span>, then it will write <span style="color: yellow;">10</span> to <code class="variable">cell1</code> at #0<br>
+                            Example: the <code class="variable draw">result</code> variable is <span style="color: yellow;">10</span>, then it will write <span style="color: yellow;">10</span> to <code class="variable draw">cell1</code> at #0<br>
                             Can also be directly written using a number instead of a variable.
                         </p>
                     </section>
@@ -571,10 +571,8 @@
                                 RGB stands for Red,Green,Blue<br>
                                 Value can be from 0 (dimmest) to 255 (brightest)<br>
                                 Example: 255, 255, 255 is White
-                                
                             </p>
                             <li><b>Color</b></li>
-                            
                             <p class="ti">
                                 Sets the color of the next upcoming draw isntruction<br>
                                 <img alt="alt" src="image/draw color.png"style="max-width: 80vw !important"><br>
@@ -583,12 +581,11 @@
                                 <br>0 is 0% and 255 is 100% opaque
                                 <br>Value can be from 0 (dimmest) to 255 (brightest)
                             </p>
-                            
-                            <section id="draw-col">
+                            <section id="draw-col" style="margin-bottom: 0;">
                             <li><b>col</b></li>
                             <p class="ti">
                                 Same as color, but use hex color code instead of RGB color code
-                                Usually used with the <a href="#pack-color" >Pack Color</a> instruction
+                                <br>Usually used with the <a href="#pack-color" >Pack Color</a> instruction
                             </p>
                             </section>
                             <li><b>Stroke</b></li>
@@ -641,7 +638,7 @@
                                 though the <a href="#bleeding-edge">Bleeding Edge</a> version supports more content
                                 <br><img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
                                 <code class="field">x</code>, <code class="field">y</code> is the of coordinates<br>
-                                <code class="field">image</code> is what image it will draw, you put object name here, like <code>@dagger</code><br>
+                                <code class="field">image</code> is what image it will draw, you put object name here, like <code class="content-name">@dagger</code><br>
                                 <code class="field">size</code> is the size of the image<br>
                                 <code class="field">rotation</code> will rotate the image, in degrees<br>
                                 <b>cannot draw modded items!</b>
@@ -792,12 +789,12 @@
                         <p class="ti">
                             Sensor / get / read data from an object, usually buildings or units with their reference<br>
                             <img alt="alt" src="image/sensor.png"style="max-width: 88vw !important;"><br>
-                            <code class="variable">results</code> is your named variable<br>
-                            <code>@copper</code> is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
-                            <code class="variable">block1</code> building reference, it is what object to get the data from, can also be a <a href="#controlling-units">unit reference</a><br>
+                            <code class="variable control">result</code> is your named variable<br>
+                            <code class="content-name">@copper</code> is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
+                            <code class="variable control">block1</code> building reference, it is what object to get the data from, can also be a <a href="#controlling-units">unit reference</a><br>
                             Example:<br>
                             <img alt="alt" src="image/sensor 1.png"style="max-width: 88vw !important;"><br>
-                            This will get the amount of copper in <code class="variable">vault1</code>, the number will be stored in the variable <code class="variable">result</code>, let’s say the vault has 10 coppers, therefore <code class="variable">result</code> will be 10
+                            This will get the amount of copper in <code class="variable control">vault1</code>, the number will be stored in the variable <code class="variable control">result</code>, let’s say the vault has 10 coppers, therefore <code class="variable control">result</code> will be 10
                         </p>
                     </section>
                     <section id="set">
@@ -811,8 +808,8 @@
                         <p class="ti">
                             Perform a single operation on 2 variables, or just numbers directly, example:
                             <br><img alt="alt" src="image/operation1.png"style="max-width: 88vw !important;"><br>
-                            Let’s say <code class="variable">a</code> is <span style="color: yellow;">10</span>, therefore this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span><br>
-                            <code class="variable">result</code> will then be <span style="color: yellow;">15</span>
+                            Let’s say <code class="variable op">a</code> is <span style="color: yellow;">10</span>, therefore this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span><br>
+                            <code class="variable op">result</code> will then be <span style="color: yellow;">15</span>
                         </p>
                         <ol class="custom-list">
                             <li><b>+</b></li>
@@ -1003,9 +1000,9 @@
                             For the inverse operation, sensor <code class="content-name">@id</code> of the object<br>
                             Example:<br>
                             <img alt="alt" src="image/lookup1.png" style="max-width: 85vw !important;"><br>
-                            This operation is looking up item with an id of 1, which is lead, therefore <code class="variable">result</code> will then be <code class="content-name">@lead</code> (NOT a string), a <a href="#contentname">content name</a>, which can be used for things like sensor :<br>
+                            This operation is looking up item with an id of 1, which is lead, therefore <code class="variable op">result</code> will then be <code class="content-name">@lead</code>, a <a href="#contentname">content name</a>, which can be used for things like sensor :<br>
                             <img alt="alt" src="image/lookup.png" style="max-width: 85vw !important;">
-                            <br> <code class="variable">lead_count</code> is now a variable containing number of lead in <code class="variable">vault1</code>
+                            <br> <code class="variable control">lead_count</code> is now a variable containing number of lead in <code class="variable control">vault1</code>
                             <br>Lookup are usually used with an <a href="#incrementing-variable">incrementing variable</a>
                             <br>Lists of IDs can be found in the <a href="#appendix">Appendix</a>
                         </p>
@@ -1149,23 +1146,23 @@
                     <p class="ti">
                         Bind 1 unit and put its reference in the <code class="variable">@unit</code> variable,
                         <br> 
-                        When binding a unit <span style="color: yellow;">@[type]</span> it will bind in an order
+                        When binding a unit <code class="content-name">@[type]</code> (using <a href="#contentname">content name</a>) it will bind in an order
                         <br>
                         the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
                         When looped (meaning the <code class="unit">unit bind</code> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
                         Here’s a visualization : the red box indicates that the unit is in the <code class="variable">@unit</code> variable<br>
                         <img alt="alt" src="image/vis bind.gif" style="max-width: 85vw !important;">
                         <br>
-                        Don’t worry about instruction line 1,2,3,they are there just to make the code not 1 instruction, to more easily visualize it.<br>
-                        Let’s say the first mega reference “mega#1”, when “mega#1” is binded it store the reference in 
+                        Don’t worry about instruction line 1,2,3, they are there just to make the code not 1 instruction, to more easily visualize it.<br>
+                        Let’s say the first mega reference <code>mega#1</code>, when <code>mega#1</code> is binded it store the reference in 
                         <code class="variable">@unit</code> meaning <code class="variable">@unit</code> 
-                        is now “mega#1”, and so on with “mega#2 , 3 , 4” 
+                        is now <code>mega#1</code>, and so on with <code>mega#2</code>, 3, 4, ... 
                         <br>
                         <br>
                         Unit bind can also be used with a variable that stores a unit reference to bind that specific unit directly,
                         <br>for example the <code class="control">radar</code> instruction can output a unit reference to a variable, you can 
                         use that variable for <code class="unit">ubind</code>, 
-                        <br>another example after binding a <span style="color: yellow;">@[type]</span> with <code class="unit">ubind</code> you can save 
+                        <br>another example after binding a <code class="content-name">@[type]</code> with <code class="unit">ubind</code> you can save 
                         <code class="variable">@unit</code> to another variable, then rebind that unit with the variable
 <!-- mark -->
                     </p>
@@ -1271,8 +1268,8 @@
                             <p class="ti">
                                 Build a block at specified location, if out of range or invalid will do nothing<br>
                                 <img alt="alt" src="image/unit control build.png" style="max-width: 80vw !important;" ><br>
-                                <code class="field">x,y</code> is build location<br>
-                                <code class="field">block</code> is what block to build<br>
+                                <code class="field">x</code>, <code class="field">y</code> is build location<br>
+                                <code class="field">block</code> is what block to build, <a href="#contentname">Content name</a><br>
                                 <code class="field">rotation</code> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
                                 <code class="field">Config</code>, configuration of blocks, eg, if <code class="content-name">@copper</code> when building a sorter will set the sorter to <code class="content-name">@copper</code>. 
                                 Additionally can be a building reference, eg, if <code class="content-name">@this</code> when building a processor will copy <code class="content-name">@this</code> processor’s code to the built processor
@@ -1281,14 +1278,14 @@
                             <p class="ti">
                                 Gets a block at a specified location, outputs will be null if out of range<br>
                                 <img alt="alt" src="image/ucontrol getblock.png" style="max-width: 80vw !important;" ><br>
-                                <code class="field">x,y</code> is coordinate location to get the block<br>
+                                <code class="field">x</code>, <code class="field">y</code> is coordinate location to get the block<br>
                                 <code class="field">type</code> is an output, it will output the type of block to the variable<br>
                                 <code class="field">building</code> is an output, it will output the <a href="#building-reference">building reference</a> to the variable<br>
                                 <code class="field">floor</code> is an output, it will output the type of floor to the variable
                                 <br>
                                 <br>when getBlock-ing a cell,bank, or a display you can still write/draw to them even if the unit is no longer present, 
                                 only the building reference is needed for these blocks, this means you can get them once and then unbind/move the unit
-                                your variable of <code class="variable">building</code> will remain until either you overwrite it or the processor is refreshed.
+                                your variable of <code class="variable unit">building</code> will remain until either you overwrite it or the processor is refreshed.
                                 <br>however you can't enable/disable or config getBlock-ed buildings,
                             </p>
                             <h3><li><b>Within</b></li></h3>
@@ -1304,7 +1301,7 @@
                                 <img alt="alt" src="image/vis ucontrol within.png" style="max-width: 80vw !important;" >
                                 <img alt="alt" src="image/vis ucontrol within 1.png" style="max-width: 80vw !important;" ><br>
                                 In this two scenario, the first picture will have the 
-                                variable `<code class="variable">result</code>` true because the unit is within the circle, 
+                                variable <code class="variable">result</code> true because the unit is within the circle, 
                                 while the second picture is false because it is outside the circle
                             </p>
                             <h3><li><b>Unbind</b></li></h3>
@@ -1332,7 +1329,7 @@
                         <br><code class="field">Order</code> is sorting order, ascending or descending, can only be 0 or 1
                         <br><code class="field">sort</code> is a metric to sort results by, distance means it will get unit by distance
                         <br>Since order is 1, the unit gotten is the closest to that <code class="content-name">@unit</code>’s unit
-                        <br>Will output the unit reference to <code class="variable">result</code>.
+                        <br>Will output the unit reference to <code class="variable unit">result</code>.
                         <br>sort distance order 1 = closest, 0 = furthest
                         <br>sort health, maxHealth, armor, shield order 1 = highest, 0 = lowest
                     </p>
@@ -1347,6 +1344,7 @@
                         <p>
                             Will locate a building of the selected group, in this case, core,
                             <br><img alt="alt" src="image/unit locate.png" style="max-width: 80vw !important;">
+                            <br><code class="field">Find</code> what group to find, <span class="toadd">TO ADD#</span>(in each group state every blocks that are in that group)
                             <br><code class="field">Enemy</code> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                             <br><code class="field">outX</code> and <code class="field">outY</code> are the building’s output coordinates
                             <br><code class="field">Found</code> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
@@ -1354,9 +1352,13 @@
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
-                           <img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
-                           <br>Will locate an ore of the selected type, in this case <code class="content-name">@copper</code>
-                           <br>May not consistently return the closest tile, but will always return the closest "vein"
+                            Will locate an ore of the selected type, in this case <code class="content-name">@copper</code>
+                            <br><img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
+                            <br><code class="field">Find</code> what group to find
+                            <br><code class="field">Ore</code> what ore to find, takes <a href="#contentname">Content name</a>
+                            <br><code class="field">outX</code> and <code class="field">outY</code> are the tile's output coordinates
+                            <br><code class="field">Found</code> is an output on whether the tile is found(exist in the map) or not, true means it is found, false means it is not found
+                            <br>May not consistently return the closest tile, but will always return the closest "vein"
                         </p>
                         <h1><li><b>Spawn</b></li></h1>
                         <p>
@@ -1901,8 +1903,8 @@
                             <img alt="alt" src="image/set prop.png" style="max-width: 85vw !important;">
                             <p>
                                 sets the properties of a unit or building
-                                <br><span class="spin">`of` unit/building Reference
-                                <br>`to` value</span>
+                                <br><span class="spin"><code class="field">of</code> unit/building Reference
+                                <br><code class="field">to</code> value</span>
                                 <br><span class="toadd">TO ADD#</span> (list of properties, and explanation)
                             </p>
                         </section>
@@ -2066,8 +2068,8 @@
                     <br>the `printFlush` argument are boolean,
                     <br>when true it uses the text in the text buffer as the name,
                     <br>otherwise uses the `name` argument.
-                    <br>name can game content name, like <span style="color: yellow;">@router</span>, or <span style="color: yellow;">@surge-alloy</span>, if doesn't work use file name instead.
-                    <br>can also be file name, like <span style="color: yellow;">"item-copper"</span>, when using a file name remember to put them in quotes,
+                    <br>name can game content name, like <code class="content-name">@router</code>, or <code class="content-name">@surge-alloy</code>, if doesn't work use file name instead.
+                    <br>can also be file name, like <code>"item-copper"</code>, when using a file name remember to put them in quotes,
                     <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
                     <br>
                     <br><b>posi</b>, sets the vertices location of a quad, location are world x,y location
@@ -2110,7 +2112,7 @@
                     an object camera width/height, usually the players possesed object, eg turrets/units
                     <br>the width/height numbers are in blocks
                     <br>example:
-                    <br>`sensor width <mark class="lg">@unit</mark> <mark  class="lg">@cameraWidth</mark>`, where <mark class="lg">@unit</mark> is the player
+                    <br><code class="wp">sensor width @unit @cameraWidth</code>, where <code class="variable">@unit</code> is the player
                     <br>a maxed zoomed out screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
                     <br>if the object is not a player/doesn't have a camera returns 0
                 </p>
@@ -2120,17 +2122,17 @@
                     an object x/y camera location
                     <br>the x/y numbers are in the map coordinate system
                     <br>example:
-                    <br>`sensor x <mark class="lg">@unit</mark> <mark class="lg">@cameraX</mark>`, where `<mark class="lg">@unit</mark>` is the player
+                    <br><code class="wp">sensor x @unit @cameraX</code>, where <code class="variable">@unit</code>` is the player
                     <br>while moving the camera returns the camera position in the map coordinate location
-                    <br>different from sensoring `<mark class="lg">@x</mark>` since you can move the camera independently of the unit
+                    <br>different from sensoring <code class="content-name">@x</code> since you can move the camera independently of the unit
                 </p>
                 <br>
                 <h2><li>@solid</li></h2>
                 <p class="spin" style="margin-left: 20px;">
                     an object solidness
                     <br>example:
-                    <br>`sensor s conveyor1 <mark class="lg">@solid</mark>`
-                    <br>returns `s` as <span style="color: yellow;">0</span>
+                    <br><code class="wp">sensor s conveyor1 @solid</code>
+                    <br>returns <code class="variable">s</code> as <span style="color: yellow;">0</span>
                     <br>while a wall for example returns 1
                 </p>
                 <br>
@@ -2138,11 +2140,11 @@
                 <p class="spin" style="margin-left: 20px;">
                     an object velocity, in blocks/second
                     <br>example:
-                    <br>`sensor vx <mark class="lg">@unit</mark> <mark class="lg">@velocityX</mark>`
-                    <br>returns `vx` as a number of the <mark class="lg">@unit</mark> velocity in blocks/second
+                    <br><code class="wp">sensor vx @unit @velocityX</code>`
+                    <br>returns <code class="variable">vx</code> as a number of the <code class="variable">@unit</code> velocity in blocks/second
                     <br>can also be think of as a vector,
-                    <br>by using `<mark class="op">op len</mark>` on the <mark class="lg">@unit</mark>'s <mark class="lg">@velocityX</mark> and <mark class="lg">@velocityY</mark> you can get the unit current speed
-                    <br>this variable also avaiable in `<mark class="wp">setprop</mark>`
+                    <br>by using <code class="op">op len</code> on the <code class="variable">@unit</code>'s <code class="content-name">@velocityX</code> and <code class="content-name">@velocityY</code> you can get the unit current speed
+                    <br>this variable also avaiable in <code class="wp">setprop</code>
                 </p>
                 <br>
             </section>
@@ -2173,10 +2175,10 @@
                 <section id="you-cannot-spawn-scathe-missile" style="margin-bottom: 40px;">
                     <h2>You cannot spawn Scathe missile</h2>
                     <p class="ti">
-                        To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using `<mark class="wp">setprop</mark>` and `<mark class="lg">@scathe-missle</mark>`, make the unit drop the payload and then kill the unit
+                        To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using <code class="wp">setprop</code> and <code class="content-name">@scathe-missle</code>, make the unit drop the payload and then kill the unit
                         <br>you can also setprop properties of the scathe missile.
-                        <br>by using <mark class="wp">fetch</mark> with <mark class="lg">@scathe-missile</mark> as the `unit` argument you can get the scathe missile reference
-                        <br>you can put this reference to the <mark class="wp">setprop</mark> instruction to set the properties of the missile.
+                        <br>by using <code class="wp">fetch</code> with <code class="content-name">@scathe-missile</code> as the `unit` argument you can get the scathe missile reference
+                        <br>you can put this reference to the <code class="wp">setprop</code> instruction to set the properties of the missile.
                     </p>
                 </section>
                 <section id="modded-items-and-draw-image" style="margin-bottom: 40px;">
@@ -2285,11 +2287,11 @@
                 <section id="self-linking-processor" style="margin-bottom: 40px;">
                     <h2>Linking a processor to itself</h2>
                     <p class="ti">
-                        normally <mark class="control">control enabled @this 0</mark>, doesn't work, but if you link the processor to itself it does
+                        normally <code class="control">control enabled @this 0</code>, doesn't work, but if you link the processor to itself it does
                         <br>to link a processor to itself you either need a modified schematic file or using the console:
-                        <br><mark class="lg">Vars.world.tile(x, y).build.links.add(new LogicBlock.LogicLink(x, y, "processor1", true))</mark>
+                        <br><code>Vars.world.tile(x, y).build.links.add(new LogicBlock.LogicLink(x, y, "processor1", true))</code>
                         <br>replace the x and y to the coordinates of the processor, and paste it to the console, this will make the processor link it self
-                        <br>now <mark class="control">control enabled @this 0</mark> will work,
+                        <br>now <code class="control">control enabled @this 0</code> will work,
                         <br>there might be some other uses for it, but i haven't found any, if you do feel free to contact me so i can update this
                     </p>
                 </section>

@@ -479,7 +479,7 @@ section {
     color: black;
 } */
 
-.op, .jump, .unit, .draw, .control, .wp {
+.op:not(.variable), .jump:not(.variable), .unit:not(.variable), .draw:not(.variable), .control:not(.variable), .wp:not(.variable) {
     border-radius: 0;
     color: white;
     font-family: "Audiowide", sans-serif;
@@ -648,8 +648,8 @@ code {
     border: 1px solid #6c7680;
     white-space: break-spaces;
     font-size: 85%;
-    padding: 0em .4em;
-    border-radius: 4px;
+    padding: 0.05em .4em;
+    border-radius: 6px;
     font-family: monospace;
     margin: 0;
 }
@@ -672,8 +672,8 @@ code {
     position: absolute;
     left: 0;
     bottom: -2px;
-    width: calc(100% - 0.5em);
-    height: 2.5px;
+    width: calc(100% - 0.25em);
+    height: 3px;
     left: 50%;
     transform: translateX(-50%);
   }
