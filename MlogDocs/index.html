@@ -165,9 +165,9 @@
                 &#9776;
             </div>
             <h1 style="font-size: xx-large; text-align: center;">Mlog Documentation</h1><h1 style="text-align: center; font-size: medium; margin-top: -17px;">By Yruei</h1>
-            <section id="foreword">
-                <hr>
+            <section id="foreword" class="subtitle">
                 <h1>Foreword</h1>
+                <hr>
                 <p class="ti">This documentation was written mostly by me, so there may be inaccuracies or omissions.
                     As English is not my first language, I apologize for any spelling or grammar errors. If you have any corrections, additions, or suggestions, 
                     please feel free to contact me to discuss them.
@@ -191,9 +191,9 @@
                     </p>
 
             </section>
-            <section id="introduction">
-                <hr>
+            <section id="introduction" class="subtitle">
                 <h1>Introduction</h1>
+                <hr>
                 <p style="font-size: x-large;">What is Mindustry logic?</p>
             <p class="ti"> Mindustry Logic (mlog) is a scripting language added in v6 for the purpose of introducing more advanced automation and 
                 strategy into the game  It is heavily inspired by Assembly languages, therefore the language is a low level language 
@@ -207,12 +207,12 @@
                 <br><br>
                 mlog is not necessary for the completion of campaign , it is very optional, often the time you spent coding will be more than if you just do it manually..</p>
             </section>
-            <hr>
-            <section id="glossary">
+            <section id="glossary" class="subtitle">
                 <h1>Glossary</h1>
+                <hr>
                 <h2>Data types</h2>
                 <ul>
-                    <section id="integers" style="margin-bottom: 0;">
+                    <section id="integers">
                         <li><p><b>Integers</b></p></li>
                         <p class="ti">
                             <a href="https://en.wikipedia.org/wiki/Integer">Integers</a> 
@@ -227,19 +227,19 @@
                             </p>
                         </div>
                     </section>
-                    <section id="float" style="margin-bottom: 0;">
+                    <section id="float">
                         <li><p><b>Float</b></p></li>
                             <p class="ti">Opposite of integers, decimal numbers, 1.001, are float.</p>
                     </section>
-                    <section id="boolean" style="margin-bottom: 0;">
+                    <section id="boolean">
                         <li><p><b>Boolean</b></p></li>
                             <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
                     </section>
-                    <section id="strings" style="margin-bottom: 0;">
+                    <section id="strings">
                         <li><p><b>Strings</b></p></li>
                             <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
                     </section>
-                    <section id="building-reference" style="margin-bottom: 0;">
+                    <section id="building-reference">
                         <li><p><b>Block or Unit Reference</b></p></li>
                             <p class="ti">
                                 every block and unit has a unique reference, so every block and unit can be differentiated from 
@@ -259,9 +259,9 @@
                     </section>
                 </ul>
             </section>
-            <section id="basic-concept">
-                <hr>
+            <section id="basic-concept" class="subtitle">
                 <h1>Basic concept</h1>
+                <hr>
                 <section id="processors">
                     <h2>Processors</h2>
                     <p class="ti">There are 3 types of Logic Processors, Micro processor, Logic processor, and Hyper processor, 
@@ -331,7 +331,7 @@
                     <img alt="alt" src="image/operation.png" >
                     <p>
                         Because <code class="variable op">x</code> is <span style="color: yellow;">10</span> this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span>, and the result of it is written to the <code class="variable op">result</code> variable, 
-                        meaning <code class="variable op">result</code> is now <span style="color: yellow;">15</span>. Of course it doesn’t have to be <code class="variable op">result</code>, you can write anything for it, 
+                        meaning <code class="variable op">result</code> is now <span style="color: yellow;">15</span>. Of course it doesn’t have to be "result", you can write anything for it, 
                         different people write their variable differently, some chooses to write arbitrary words/letters like “peach” 
                         and others simply write “x+5”, whatever you choose is up to you, just keep in mind you have to remember them.
                         <br><br> an <span style="color: red;">undefined</span> variable will have <span style="color: red;">null</span> as their default value and this gets coerced to <span style="color: yellow;">0</span>.
@@ -394,11 +394,11 @@
                         </p>
                         <li><b>@mapw and @maph</b></li>
                         <p style="margin-top: 5px;" class="ti">
-                            These shows the map width and map height, for example if your map width is 300 <code class="content-name">@mapw</code> will be equal 300
+                            These shows the map width and map height, for example if your map width is 300 <code class="variable">@mapw</code> will be equal 300
                         </p>
                         <li><b>@links </b></li>
                         <p style="margin-top: 5px;" class="ti"><b>@links</b> shows the number of links the processor has, example: if you have
-                            3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code class="content-name">@links</code> will be <span  style="color: yellow;">3</span></p>
+                            3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code class="variable">@links</code> will be <span  style="color: yellow;">3</span></p>
                         <li><b>@ipt</b></li>
                         <p style="margin-top: 5px;" class="ti">
                             ipt stands for instruction per tick, this shows how many instruction a 
@@ -407,10 +407,10 @@
                         <li><b>@time, @tick, @second and @minute</b></li>
                         <p style="margin-top: 5px;" class="ti">
                             Shows the playtime of the current save, this is updated every frame, NOT every time the processor checks for it
-                            <br><code class="content-name">@time</code>, in millisecond 
-                            <br><code class="content-name">@tick</code>, in tick(1/60th of a second)
-                            <br><code class="content-name">@second</code>, in second
-                            <br><code class="content-name">@minutes</code>, in minute
+                            <br><code class="variable">@time</code>, in millisecond 
+                            <br><code class="variable">@tick</code>, in tick(1/60th of a second)
+                            <br><code class="variable">@second</code>, in second
+                            <br><code class="variable">@minutes</code>, in minute
                         </p>
                         <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
                     </ol>
@@ -419,7 +419,7 @@
                     <h2>Constants</h2>
                     <p class="ti">
                         Constant, they are like variable but you can’t write to them, their value are predetermined, 
-                        for example <code class="content-name">@pi</code>, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
+                        for example <code class="variable">@pi</code>, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
                         (if you’re just starting out you don’t have to read all of this, you can always come back):
                     </p>
                     <ol start="list-style-type:dics;">
@@ -476,10 +476,10 @@
                         </p>
                 </section>
             </section>
-            <section id="blocks">
+            <section id="blocks" class="subtitle">
             <h1>Blocks</h1>
                 <ol style="list-style-type: disc;">
-                    <section id="message" style="margin-bottom: 0;">
+                    <section id="message">
                         <li>Message</li>
                         <p class="ti" style="margin-top: 5px;">
                             Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
@@ -487,14 +487,14 @@
                             <br>will only show its text when hovered
                         </p>
                     </section>
-                    <section id="switch" style="margin-bottom: 0;">
+                    <section id="switch">
                         <li>Switch</li>
                         <p class="ti" style="margin-top: 5px;">
                             Has 2 states, enabled and disabled / 1 and 0, state can be read using Sensor 
                             instruction, and can also be controlled with Control instruction.
                         </p>
                     </section>
-                    <section id="display" style="margin-bottom: 0;">
+                    <section id="display">
                         <li>Logic displays and Large</li>
                         <p class="ti" style="margin-top: 5px;">
                             Is used with Draw and Draw Flush, 
@@ -503,7 +503,7 @@
                             <br> the border (Bezel) is 8 pixels
                         </p>
                     </section>
-                    <section id="cell" style="margin-bottom: 0;">
+                    <section id="cell">
                         <li>Memory cell and Memory Bank</li>
                         <p class="ti" style="margin: 5px;">
                             A cell can store up to 64 values, but only numbers, while Bank can store up to 512 values<br>
@@ -533,9 +533,9 @@
                     </section>
                 </ol>
             </section>
-            <section id="instructions">
-                <hr>
+            <section id="instructions" class="subtitle">
                 <h1>Instructions</h1>
+                <hr>
                 <ol style="list-style-type: disc; padding-left: 20px" >
                     <section id="read">
                         <h2><li><b>Read</b></li></h2>
@@ -581,7 +581,7 @@
                                 <br>0 is 0% and 255 is 100% opaque
                                 <br>Value can be from 0 (dimmest) to 255 (brightest)
                             </p>
-                            <section id="draw-col" style="margin-bottom: 0;">
+                            <section id="draw-col">
                             <li><b>col</b></li>
                             <p class="ti">
                                 Same as color, but use hex color code instead of RGB color code
@@ -1089,9 +1089,9 @@
                     </section>
                 </ol>
             </section>
-            <section id="controlling-units">
-                <hr>
+            <section id="controlling-units" class="subtitle">
                 <h1>Controlling Units</h1>
+                <hr>
                 <ol style="list-style-type: disc;">
                     <section id="unit">
                         <h3><li><b>@unit</b></li></h3>
@@ -1372,9 +1372,9 @@
                 </section>
                 </ol>
             </section>
-            <section id="simple-logic-examples">
-                <hr>
+            <section id="simple-logic-examples" class="subtitle">
                 <h1>Simple Logic examples</h1>
+                <hr>
                 <div style="font-size: larger; color: yellow;">
                     From now on i will start documenting logic invention, <a href="MlogInvention/index.html">Mlog Invention</a>
                     <br> if you have a logic schematic/program/invention you want to be documented here feel free to dm me
@@ -1435,9 +1435,9 @@
                     </p>
                 </section>
             </section>
-                <hr>
-            <section id="advanced">
+            <section id="advanced" class="subtitle">
                 <h1>Advanced</h1>
+                <hr>
                 <section id="writing-in-text-editor">
                     <h2>Writing in text editor</h2>
                     <p class="ti">
@@ -1641,10 +1641,10 @@
                         <br>use cases for this are very minimal, ( I, of course, don’t know every detail about this, the use cases i did use this for was drawing into a single display with multiple processor without it flashing)
                     </p>
                 </section>
-                <hr>
             </section>
-            <section id="world-logic">
+            <section id="world-logic" class="subtitle">
                 <h1>World Logic</h1>
+                <hr>
                 <p class="ti"> 
                     World processor are processor that controls how the world behave, they have every instruction a normal processor have plus world instruction
                     <br>They have unlimited range
@@ -1910,10 +1910,10 @@
                         </section>
                     </ol>
 
-                <hr>
-            </section>
-            <section id="bleeding-edge">
+                </section>
+                <section id="bleeding-edge" class="subtitle">
                 <h1>Bleeding Edge</h1>
+                <hr>
                 <p class="spin" style="margin-left: 20px;">
                     <span class="toadd">TO ADD#</span> (whole bleeding edge section)
                     <br><br>Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
@@ -1925,16 +1925,35 @@
                 <br>
                 <h2><li>Read and Write</li></h2>
                 <p class="spin" style="margin-left: 20px;">
-                    the read and write instruction now supports writing and reading directly to another processor.
-                    <br> by putting "string" on the <span style="color: aqua;">at</span> field and the processor reference on the
-                    <span style="color: aqua;">to</span> field, you can directly change the value of that variable in that processor
+                    - the read and write instruction now supports writing and reading directly to another processor.
+                    <br>by putting "string" on the <code class="field">at</code> field and the processor reference on the
+                    <code class="field">to</code> field, you can directly change the value of that variable in that processor
                     <br>
+                    <br>- now supports reading strings, An UTF-16 value will be returned for the selected character of the string
+                    <br>example:
+                    <br><code class="draw">read result = "Mindustry" at 0</code>
+                    <br>will return 77, which is the UTF-16 value of M, at 1 will return 105, which is the UTF-16 value of i, and so on
+                </p>
+                <br>
+                <h2><li>Setrule</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    - new rule <code class="field">canGameOver</code>
+                    <br>- new rule <code class="field">unitMineSpeed</code>
+                    <br>- new rule <code class="field">dragMultiplier</code>
+                </p>
+                <h2><li>Flush message</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    - new field <code class="field">success</code>
+                </p>
+                <h2><li>Lookup</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    - now supports <code class="field">team</code> lookup
                 </p>
                 <h2><li>Print char</li></h2>
                 <p class="spin" style="margin-left: 20px;">
                     print a character and put it in the text buffer like print does, however
-                    takes integer as an input instead of string.
-                    <br> uses the ASCII table <a href="https://wikipedia.org/wiki/ASCII">https://wikipedia.org/wiki/ASCII</a>
+                    takes integer (UTF-16) as an input instead of string.
+                    <!-- <br> uses the ASCII table <a href="https://wikipedia.org/wiki/ASCII">https://wikipedia.org/wiki/ASCII</a> -->
                 </p>
                 <h2><li>Draw image</li></h2>
                 <p class="spin" style="margin-left: 20px;">
@@ -2147,10 +2166,51 @@
                     <br>this variable also avaiable in <code class="wp">setprop</code>
                 </p>
                 <br>
+                <h2><li>@size</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    now can return the length of strings
+                    <br>example:
+
+                    <br><code class="control">sensor length = @size in "Mindustry"</code>
+                    <br>will return 9
+                </p>
+                <br>
+                <h2><li>@memoryCapacity</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    return the capacity of the selected memory cell/bank
+                    <br>example:
+                    <br><code class="control">sensor memory = @memoryCapacity in bank1</code>
+                    <br>will return the memory capacity of bank1, which is 512
+                </p>
+                <br>
+                <h2><li>@totalPayload</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    return the total payload carried by the unit
+                    <br>counted per tile, so a 2x2 block will count as 4
+                    <br>example:
+                    <br><code class="control">sensor result = @totalPayload in @unit</code>
+                    <br>when <code class="variable">@unit</code> is carrying a copper wall for example, will return 4
+                    <br>if carrying a unit will return the unit's size, a mace for example has a size of 1.25 x 1.25, which is 1.5625
+                    <br>every payload carried size added together
+                </p>
+                <h2><li>@payloadCapacity</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    return the payload capacity of the unit
+                    <br>example:
+                    <br><code class="control">sensor result = @payloadCapacity in @unit</code>
+                    <br>when <code class="variable">@unit</code> is an oct will return 30.25
+                </p>
+                <h2><li>@currentAmmoType</li></h2>
+                <p class="spin" style="margin-left: 20px;">
+                    return the ammo type used by a turret
+                    <br>example:
+                    <br><code class="control">sensor result = @currentAmmoType in duo1</code>
+                    <br>when <code class="variable">duo1</code> is an using copper as its ammo will return <code class="content-name">@copper</code>
+                </p>
             </section>
-            <section id="extras">
-                <hr>
+            <section id="extras" class="subtitle">
                 <h1>Extras</h2>
+                    <hr>
                 <p>
                     These are niche question that very small number of people might have
                 </p>
@@ -2168,7 +2228,7 @@
                     <p class="ti">
                         in v6 the <span style="color: cyan; font-style: italic;">config</span> property was renamed to <span style="color: cyan; font-style: italic;">configure</span>. To ensure backwards compatibility with old code 
                         the game automatically changes the word <span style="color: cyan; font-style: italic;">configure</span> to <span style="color: cyan; font-style: italic;">config</span>
-                        <br>therefore it is not recommended to use the word <span style="color: cyan; font-style: italic;">configure</span> anywhere in your code
+                        <br>if you use this as a variable it will still works, you just can't have "configure" anymore
                         <br>this applies both when writing in game and importing from text
                     </p>
                 </section>
@@ -2295,10 +2355,10 @@
                         <br>there might be some other uses for it, but i haven't found any, if you do feel free to contact me so i can update this
                     </p>
                 </section>
-                <hr>
             </section>
-            <section id="self-promotion">
+            <section id="self-promotion" class="subtitle">
                 <h1 style="font-size: 35px;">Self Promotion</h1>
+                <hr>
                 <h2>My Micro Processor only Bad Apple!!!</h2>
                 <a href="https://youtu.be/wcJ96CXrBnk" class="ytlink">Bad Apple!! in Mindustry!</a>
                 <img alt="alt" src="image/bad apple.gif" >
@@ -2314,10 +2374,10 @@
                 <h2>Power Monitor with Numbers</h2>
                 <img alt="alt" src="image/power display.gif" >
             </section>
-            <section id="appendix">
+            <section id="appendix" class="subtitle">
 
-                <hr>
                 <h1 style="font-size: 35px;">Appendix</h2>
+                    <hr>
 
                 <h2 id="mloginvention">Mlog Invention</h2>
                 is in a seperate page <a href="MlogInvention/index.html">Yrueii.github.io/MlogDocs/MlogInvention</a>
@@ -3976,9 +4036,9 @@
                     </li>
                 </ul>
             </section>
-            <section id="Contributors">
-                <hr>
+            <section id="Contributors" class="subtitle">
                 <h1>Contributors</h2>
+                    <hr>
 
             </section>
         

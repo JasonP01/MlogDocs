@@ -293,7 +293,11 @@ text-decoration: none; /* Optional: to remove the underline from the link */
 
 
 section {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+}
+
+.subtitle {
+    margin-bottom: 80px;
 }
 
 
