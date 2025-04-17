@@ -247,6 +247,9 @@ background-color: white;
 border-radius: 30px;
 } */
 
+/* .indent {
+    margin-left: 20px;
+} */
 
 .indent1 {
     margin-left: 25px;
@@ -310,6 +313,10 @@ section {
     .spin{
         padding-left: 10px;
     }
+
+    /* .indent {
+        margin-left: 10px;
+    } */
 
     .main-content {
         padding: 20px;

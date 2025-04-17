@@ -1914,7 +1914,7 @@
                 <section id="bleeding-edge" class="subtitle">
                 <h1>Bleeding Edge</h1>
                 <hr>
-                <p class="spin" style="margin-left: 20px;">
+                <p>
                     <span class="toadd">TO ADD#</span> (whole bleeding edge section)
                     <br><br>Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
                     <br>BE version can be found and downloaded on
@@ -1923,290 +1923,363 @@
                     <br><span style="font-size: larger;">BE feature are subject to <span style="color: red;">change</span>, therefore i cannot make sure these information are up to date</span>
                 </p>
                 <br>
-                <h2><li>Read and Write</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    - the read and write instruction now supports writing and reading directly to another processor.
-                    <br>by putting "string" on the <code class="field">at</code> field and the processor reference on the
-                    <code class="field">to</code> field, you can directly change the value of that variable in that processor
+                <ul>
+                    <h2><li>Read and Write</li></h2>
+                    <p>
+                        - the read and write instruction now supports writing and reading directly to another processor.
+                        <br>by putting "string" on the <code class="field">at</code> field and the processor reference on the
+                        <code class="field">to</code> field, you can directly change the value of that variable in that processor
+                        <br>
+                        <br>- now supports reading strings, An UTF-16 value will be returned for the selected character of the string
+                        <br>example:
+                        <br><code class="draw">read result = "Mindustry" at 0</code>
+                        <br>will return 77, which is the UTF-16 value of M, at 1 will return 105, which is the UTF-16 value of i, and so on
+                    </p>
                     <br>
-                    <br>- now supports reading strings, An UTF-16 value will be returned for the selected character of the string
-                    <br>example:
-                    <br><code class="draw">read result = "Mindustry" at 0</code>
-                    <br>will return 77, which is the UTF-16 value of M, at 1 will return 105, which is the UTF-16 value of i, and so on
-                </p>
-                <br>
-                <h2><li>Setrule</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    - new rule <code class="field">canGameOver</code>
-                    <br>- new rule <code class="field">unitMineSpeed</code>
-                    <br>- new rule <code class="field">dragMultiplier</code>
-                </p>
-                <h2><li>Flush message</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    - new field <code class="field">success</code>
-                </p>
-                <h2><li>Lookup</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    - now supports <code class="field">team</code> lookup
-                </p>
-                <h2><li>Print char</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    print a character and put it in the text buffer like print does, however
-                    takes integer (UTF-16) as an input instead of string.
-                    <!-- <br> uses the ASCII table <a href="https://wikipedia.org/wiki/ASCII">https://wikipedia.org/wiki/ASCII</a> -->
-                </p>
-                <h2><li>Draw image</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    Draw image now supports more contents, like floors (@salt, @ice) and more
-                </p>
-                <br>
-                <h2><li>Draw print</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
-                </p>
-                <br>
-                <h2><li>Draw Translate</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    Translate / offset the display coordinates, this instruction is cumulative, meaning it translate it by the specified number every flush.
-                    <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
-                    <br>like said above it is cumulative, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
-                    <br>also is stored in the display like any other draw instruction, meaning if other processors draw to that display it will also be translated.
-                    <br>to reset it use draw reset.
-                </p>
-                <br>
-                <h2><li>Draw Scale</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    scale the display coordinates / zooms it, this is also cumulative and stored in the display like translate.
-                    <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
-                    <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again.
-                    <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x.
-                </p>
-                <br>
-                <h2><li>Draw Rotate</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    self explanatory, rotate the display coordinates by a degree, also cumulative and stored in the display like translate and scale.
-                </p>
-                <br>
-                <h2><li>Draw Reset</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one.
-                </p>
-                <br>
-                <h2><li>Format</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    allows you to print a variable or something else inside a string, if you know python it's similar to
-                    <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string.
+                    <h2><li>Setrule</li></h2>
+                    <p>
+                        - new rule <code class="field">canGameOver</code>
+                        <br>- new rule <code class="field">unitMineSpeed</code>
+                        <br>- new rule <code class="field">dragMultiplier</code>
+                    </p>
+                    <h2><li>Flush message</li></h2>
+                    <p>
+                        - new field <code class="field">success</code>
+                    </p>
+                    <h2><li>Lookup</li></h2>
+                    <p>
+                        - now supports <code class="field">team</code> lookup
+                    </p>
+                    <h2><li>Print char</li></h2>
+                    <p>
+                        print a character and put it in the text buffer like print does, however
+                        takes integer (UTF-16) as an input instead of string.
+                        <!-- <br> uses the ASCII table <a href="https://wikipedia.org/wiki/ASCII">https://wikipedia.org/wiki/ASCII</a> -->
+                    </p>
+                    <h2><li>Draw image</li></h2>
+                    <p>
+                        Draw image now supports more contents, like floors (@salt, @ice) and more
+                    </p>
                     <br>
-                    <br>the pattern is {0-9}
+                    <h2><li>Draw print</li></h2>
+                    <p>
+                        Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
+                    </p>
                     <br>
-                    <br>example:
-                    <br><img alt="alt" src="image/format.png" style="max-width: 75vw !important;">
-                    <img alt="alt" src="image/format 1.png" style="max-width: 75vw !important;">
-                    <br>the first format will take {0} and the second format will take {1}
-                </p>
-                <br>
-                <h2><li>Play Sound</li></h2>
-                <img alt="alt" src="image/play sound.png" >
-                <p class="spin" style="margin-left: 20px;">
-                    <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>.
-                    <br>volume controls the volume of the played sound</span>.
-                    <br>pitch change the pitch of the played sound, </span>.
-                    <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>.
-                    <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
-                    <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
-                    <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span>
-                    <br>    or c3 : <span style="color: yellow;">2 ^ (-12 / 12)</span> = <span style="color: yellow;">0.5</span></span>
-                    <br>pan pans the sound to the left or right
-                    <br>limit, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
-                </p>
-                <br>
-                <h2><li>Weather Sense</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    sense the current weather is the specified weather type, returns boolean
-                </p>
-                <br>
-                <h2><li>Weather Set</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    set the current state of the weather to the specified type
-                </p>
-                <br>
-                <h2><li>Make Marker</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    Makes a Marker
-                    <br>a marker is an entity in the map that shows content to the user, for example when you select a unit (shift + drag click) a diamond
-                    shaped box appear around that unit, that is a marker, or when you tell a unit to move a line appears, that is also considered a marker,
-                    the floating text in the beginning tutorial is also a marker.
+                    <h2><li>Draw Translate</li></h2>
+                    <p>
+                        Translate / offset the display coordinates, this instruction is cumulative, meaning it translate it by the specified number every flush.
+                        <br>example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
+                        <br>like said above it is cumulative, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
+                        <br>also is stored in the display like any other draw instruction, meaning if other processors draw to that display it will also be translated.
+                        <br>to reset it use draw reset.
+                    </p>
                     <br>
-                    <br><mark class="lg">id</mark> is numeric identity of the Marker, id can be from 0 to 19999
-                    <br>meaning a world/map can only have 20.000 markers
-                    <br>game created markers like the examples above doesn't intervere with player made markers
+                    <h2><li>Draw Scale</li></h2>
+                    <p>
+                        scale the display coordinates / zooms it, this is also cumulative and stored in the display like translate.
+                        <br>example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
+                        <br>if you run and flush scale 2, 2 again it will scale it again by 2 times again.
+                        <br>running scale 1,2 will work as you expected, scaling the y while not scaling the x.
+                    </p>
                     <br>
-                    <br><mark class="lg">replace</mark> determines whether this marker will replace exsisting previous markers that has the same id 
-                    <br>currently there is a <span style="color: red;">bug</span> with the <mark class="lg">replace</mark> argument where it <span style="color: red;">replaces</span> other markers than the specified id
-                    <br>it is recommended to just keep it false
+                    <h2><li>Draw Rotate</li></h2>
+                    <p>
+                        self explanatory, rotate the display coordinates by a degree, also cumulative and stored in the display like translate and scale.
+                    </p>
                     <br>
-                    <br><b>Texture</b>, makes a marker for a Texture.
-                    <br>initially invisible until texture is defined, using <mark class="wp">setmarker texture</mark>.
-                    <br>texture can be anything that is available in the game.
+                    <h2><li>Draw Reset</li></h2>
+                    <p>
+                        resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one.
+                    </p>
                     <br>
-                    <br><b>Quad</b>, are quadrilateral / a 4 sided polygon.
-                    <br>a quad has 4 vertices and 4 sides.
-                    <br>each vertices position can be set using <mark class="wp">setmarker posi</mark>.
+                    <h2><li>Format</li></h2>
+                    <p>
+                        allows you to print a variable or something else inside a string, if you know python it's similar to
+                        <br>f”string text {variable}”, where `variable` can be anything, int, float, or another string.
+                        <br>
+                        <br>the pattern is {0-9}
+                        <br>
+                        <br>example:
+                        <br><img alt="alt" src="image/format.png" style="max-width: 75vw !important;">
+                        <img alt="alt" src="image/format 1.png" style="max-width: 75vw !important;">
+                        <br>the first format will take {0} and the second format will take {1}
+                    </p>
                     <br>
-                    <br>texture is initially just pure white, can be defined with <mark class="wp">setmarker texture</mark>,
-                    <br>then needs to be further defined with <mark class="wp">setmarker uvi</mark> to set the texture location within the quad.
-                </p>
-                <div style="display: flex; flex-wrap: wrap;" >
-                    <figure style="margin-right: 0; text-align: center;">
-                        <img src="image/quad.png" alt="" height="200px">
-                        <figcaption>Default quad</figcaption>
-                    </figure>
-                    <figure style="margin-right: 0; text-align: center;">
-                        <img src="image/quad router.png" alt="" height="200px">
-                        <figcaption>Quad with texture and uvi</figcaption>
-                    </figure>
-                    <figure style="margin-right: 0; text-align: center;">
-                        <img src="image/quad colori.png" alt="" height="200px">
-                        <figcaption>Stretched Quad with colori</figcaption>
-                    </figure>
-                    <figure style="margin-right: 0; text-align: center;">
-                        <img src="image/raycast.png" alt="" height="200px">
-                        <figcaption>Raycast displayed using quads</figcaption>
-                    </figure>
-                </div>
-                <p class="spin" style="margin-left: 20px;">
-                    <br><span class="toadd">TO ADD#</span>
-                </p>    
-                <br>
-                <h2><li>Set Marker</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    Sets a property of a marker with the specified id.
+                    <h2><li>Play Sound</li></h2>
+                    <img alt="alt" src="image/play sound.png" >
+                    <p>
+                        <br>plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder</span>.
+                        <br><code class="field">volume</code> controls the volume of the played sound</span>.
+                        <br><code class="field">pitch</code> change the pitch of the played sound, </span>.
+                        <br>    <span class="spin">the formula is, pitch = <span style="color: yellow;"> 2 ^ ([semitone change] / 12 )</span>.
+                        <br>    for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
+                        <br>    <span style="color: yellow;">2 ^ (12 / 12)</span> = <span style="color: yellow;">2</span>
+                        <br>    or c6 : <span style="color: yellow;">2 ^ (24 / 12)</span> = <span style="color: yellow;">4</span>
+                        <br>    or c3 : <span style="color: yellow;">2 ^ (-12 / 12)</span> = <span style="color: yellow;">0.5</span></span>
+                        <br><code class="field">pan</code> pans the sound to the left or right
+                        <br><code class="field">limit</code>, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
+                    </p>
                     <br>
+                    <h2><li>Weather Sense</li></h2>
+                    <p>
+                        sense the current weather is the specified weather type, returns boolean
+                    </p>
                     <br>
-                    <b>texture</b>, sets the texure of a marker.
-                    <br>the `printFlush` argument are boolean,
-                    <br>when true it uses the text in the text buffer as the name,
-                    <br>otherwise uses the `name` argument.
-                    <br>name can game content name, like <code class="content-name">@router</code>, or <code class="content-name">@surge-alloy</code>, if doesn't work use file name instead.
-                    <br>can also be file name, like <code>"item-copper"</code>, when using a file name remember to put them in quotes,
-                    <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
+                    <h2><li>Weather Set</li></h2>
+                    <p>
+                        set the current state of the weather to the specified type
+                    </p>
                     <br>
-                    <br><b>posi</b>, sets the vertices location of a quad, location are world x,y location
-                    <br>with index from 0-3
-                    <br>each index repesents each vertices
+                    <h2><li>Make Marker</li></h2>
+                    <p>
+                        Makes a Marker
+                        <br>a marker is an entity in the map that shows content to the user, for example when you select a unit (shift + drag click) a diamond
+                        shaped box appear around that unit, that is a marker, or when you tell a unit to move a line appears, that is also considered a marker,
+                        the floating text in the beginning tutorial is also a marker.
+                        <br>
+                        <br><code class="field">id</code> is numeric identity of the Marker, id can be from 0 to 19999
+                        <br>meaning a world/map can only have 20.000 markers
+                        <br>game created markers like the examples above doesn't intervere with player made markers
+                        <br>currently there is a <span style="color: red;">bug</span> with the <code class="field">replace</code> argument where it <span style="color: red;">replaces</span> other markers than the specified id
+                        <br>
+                        <br><code class="field">x</code>, <code class="field">y</code>
+                        <br>marker location with the middle of the marker as its origin
+                        <br>
+                        <br><code class="field">replace</code> determines whether this marker will replace exsisting previous markers that has the same id 
+                        <br>it is recommended to just keep it false
+                        <br>
+                        <br><code class="field">shapeText</code>
+                        <br>a rectangular shape with a text above it
+                        <br>
+                        <br><code class="field">point</code>
+                        <br>an expanding red circle
+                        <br>
+                        <br><code class="field">shape</code>
+                        <br>a rectangular shape
+                        <br>
+                        <br><code class="field">text</code>
+                        <br>a text with a semi transparant black background
+                        <br>
+                        <br><code class="field">line</code>
+                        <br>a line
+                        <br>
+                        <br><code class="field">Texture</code>, makes a marker for a Texture.
+                        <br>initially invisible until texture is defined, using <code class="wp">setmarker texture</code>.
+                        <br>texture can be anything that is available in the game.
+                        <br>
+                        <br><code class="field">Quad</code>, are quadrilateral / a 4 sided polygon.
+                        <br>a quad has 4 vertices and 4 sides.
+                        <br>each vertices position can be set using <code class="wp">setmarker posi</code>.
+                        <br>texture is initially just pure white, can be defined with <code class="wp">setmarker texture</code>,
+                        <br>then needs to be further defined with <code class="wp">setmarker uvi</code> to set the texture location within the quad.
+                    </p>
+                    <div style="display: flex; flex-wrap: wrap;">
+                        <figure style="margin-left: 0; text-align: center;">
+                            <img src="image/quad.png" alt="" height="200px">
+                            <figcaption>Default quad</figcaption>
+                        </figure>
+                        <figure style="margin-left: 0; text-align: center;">
+                            <img src="image/quad router.png" alt="" height="200px">
+                            <figcaption>Quad with texture and uvi</figcaption>
+                        </figure>
+                        <figure style="margin-left: 0; text-align: center;">
+                            <img src="image/quad colori.png" alt="" height="200px">
+                            <figcaption>Stretched Quad with colori</figcaption>
+                        </figure>
+                        <figure style="margin-left: 0; text-align: center;">
+                            <img src="image/raycast.png" alt="" height="200px">
+                            <figcaption>Raycast displayed using quads</figcaption>
+                        </figure>
+                    </div>
+                    <p>
+                        <br><span class="toadd">TO ADD#</span>
+                    </p>    
                     <br>
-                    <br><b>uvi</b>, sets each vertices of the texture relative to the quad (UV Mapping with index)
-                    <br>with index from 0-3
-                    <br>each index repesents each vertices, example:
-                    <br>#0 (0,0)
-                    <br>#1 (1,0)
-                    <br>#2 (1,1)
-                    <br>#3 (0,1)
-                    <br>will sets each texture vertices exactly where the quad vertices are, this means texture will stretch/reform to the quad shapes
+                    <h2><li>Set Marker</li></h2>
+                    <p>
+                        Sets a property of a marker with the specified id.
+                        <br><br>setting a <code>null</code> value to any fields in <code class="wp">setmarker</code> 
+                        will <b>not</b> change the value to 0, but instead just kept the previous value of that marker. 
+                        <br>
+                        <br><code class="field">remove</code>
+                        <br>remove the marker
+                        <br>
+                        <br><code class="field">world</code>
+                        <br>
+                        <br>
+                        <br><code class="field">minimap</code>
+                        <br>
+                        <br>
+                        <br><code class="field">autoscale</code>
+                        <br>automatically scales the size of the marker depending on player camera zoom
+                        <br>
+                        <br><code class="field">pos</code>
+                        <br>repositions the marker
+                        <br>
+                        <br><code class="field">endPos</code>
+                        <br>used for positioning the other end of the <code class="field">line</code> marker
+                        <br>
+                        <br><code class="field">drawLayer</code>
+                        <br>sets the layer where the markers sits on, a higher number means it will overlap objects with lower numbers
+                        <br>if you're familiar with programming it is sometimes called the "z-index"
+                        <br>
+                        <br><code class="field">color</code>
+                        <br>sets the color of the marker 
+                        <br>
+                        <br><code class="field">radius</code>
+                        <br>
+                        <br>
+                        <br><code class="field">stroke</code>
+                        <br>
+                        <br>
+                        <br><code class="field">rotation</code>
+                        <br>
+                        <br>
+                        <br><code class="field">shape</code>
+                        <br>
+                        <br>
+                        <br><code class="field">arc</code>
+                        <br>
+                        <br>
+                        <br><code class="field">flushText</code>
+                        <br>
+                        <br>
+                        <br><code class="field">fontSize</code>
+                        <br>
+                        <br>
+                        <br><code class="field">textHeight</code>
+                        <br>
+                        <br>
+                        <br><code class="field">labelFlags</code>
+                        <br>
+                        <br>
+                        <br><code class="field">texture</code>, sets the texure of a marker.
+                        <br>the <code class="field">printFlush</code> argument are boolean,
+                        <br>when true it uses the text in the text buffer as the name,
+                        <br>otherwise uses the <code class="field">name</code> argument.
+                        <br>name can game content name, like <code class="content-name">@router</code>, or <code class="content-name">@surge-alloy</code>, if doesn't work use file name instead.
+                        <br>can also be file name, like <code>"item-copper"</code>, when using a file name remember to put them in quotes,
+                        <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
+                        <br>
+                        <br><code class="field">textureSize</code>
+                        <br>
+                        <br>
+                        <br><code class="field">posi</code>, sets the vertices location of a quad, location are world x,y location
+                        <br>with index from 0-3
+                        <br>each index repesents each vertices
+                        <br>
+                        <br><code class="field">uvi</code>, sets each vertices of the texture relative to the quad (UV Mapping with index)
+                        <br>with index from 0-3
+                        <br>each index repesents each vertices, example:
+                        <br>#0 (0,0)
+                        <br>#1 (1,0)
+                        <br>#2 (1,1)
+                        <br>#3 (0,1)
+                        <br>will sets each texture vertices exactly where the quad vertices are, this means texture will stretch/reform to the quad shapes
+                        <br>
+                        <br><code class="field">colori</code>, similar to uvi, if indexes are set to different colors; color will gradient from one to the other
+                        <br>with index from 0-3
+                        <br>each index repesents each vertices, example:
+                        <br>#0 (0,0)
+                        <br>#1 (1,0)
+                        <br>#2 (1,1)
+                        <br>#3 (0,1)
+                        <br>will set
+                        <br><code class="field">color</code >, change the color of the marker.
+                        <br>color only tints the color of the marker,
+                        <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
+                        <br>since quad doesn't have a color quad will take the full color the specified color.
+                        <br><br><span class="toadd">TO ADD#</span>
+                    </p>
                     <br>
-                    <br><b>colori</b>, similar to uvi, if indexes are set to different colors; color will gradient from one to the other
-                    <br>with index from 0-3
-                    <br>each index repesents each vertices, example:
-                    <br>#0 (0,0)
-                    <br>#1 (1,0)
-                    <br>#2 (1,1)
-                    <br>#3 (0,1)
-                    <br>will set
-                    <br><b>color</b>, change the color of the marker.
-                    <br>color only tints the color of the marker,
-                    <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
-                    <br>since quad doesn't have a color quad will take the full color the specified color.
-                    <br><br><span class="toadd">TO ADD#</span>
-
-                </p>
-                <br>
-                <h2><li>Locale Print</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    <span class="toadd">TO ADD#</span>
-
-                </p>
-                <br>
-                <h2><li>@cameraWidth and @cameraHeight</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    an object camera width/height, usually the players possesed object, eg turrets/units
-                    <br>the width/height numbers are in blocks
-                    <br>example:
-                    <br><code class="wp">sensor width @unit @cameraWidth</code>, where <code class="variable">@unit</code> is the player
-                    <br>a maxed zoomed out screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
-                    <br>if the object is not a player/doesn't have a camera returns 0
-                </p>
-                <br>
-                <h2><li>@cameraX and @cameraY</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    an object x/y camera location
-                    <br>the x/y numbers are in the map coordinate system
-                    <br>example:
-                    <br><code class="wp">sensor x @unit @cameraX</code>, where <code class="variable">@unit</code>` is the player
-                    <br>while moving the camera returns the camera position in the map coordinate location
-                    <br>different from sensoring <code class="content-name">@x</code> since you can move the camera independently of the unit
-                </p>
-                <br>
-                <h2><li>@solid</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    an object solidness
-                    <br>example:
-                    <br><code class="wp">sensor s conveyor1 @solid</code>
-                    <br>returns <code class="variable">s</code> as <span style="color: yellow;">0</span>
-                    <br>while a wall for example returns 1
-                </p>
-                <br>
-                <h2><li>@velocityX and @velocityY</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    an object velocity, in blocks/second
-                    <br>example:
-                    <br><code class="wp">sensor vx @unit @velocityX</code>`
-                    <br>returns <code class="variable">vx</code> as a number of the <code class="variable">@unit</code> velocity in blocks/second
-                    <br>can also be think of as a vector,
-                    <br>by using <code class="op">op len</code> on the <code class="variable">@unit</code>'s <code class="content-name">@velocityX</code> and <code class="content-name">@velocityY</code> you can get the unit current speed
-                    <br>this variable also avaiable in <code class="wp">setprop</code>
-                </p>
-                <br>
-                <h2><li>@size</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    now can return the length of strings
-                    <br>example:
-
-                    <br><code class="control">sensor length = @size in "Mindustry"</code>
-                    <br>will return 9
-                </p>
-                <br>
-                <h2><li>@memoryCapacity</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    return the capacity of the selected memory cell/bank
-                    <br>example:
-                    <br><code class="control">sensor memory = @memoryCapacity in bank1</code>
-                    <br>will return the memory capacity of bank1, which is 512
-                </p>
-                <br>
-                <h2><li>@totalPayload</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    return the total payload carried by the unit
-                    <br>counted per tile, so a 2x2 block will count as 4
-                    <br>example:
-                    <br><code class="control">sensor result = @totalPayload in @unit</code>
-                    <br>when <code class="variable">@unit</code> is carrying a copper wall for example, will return 4
-                    <br>if carrying a unit will return the unit's size, a mace for example has a size of 1.25 x 1.25, which is 1.5625
-                    <br>every payload carried size added together
-                </p>
-                <h2><li>@payloadCapacity</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    return the payload capacity of the unit
-                    <br>example:
-                    <br><code class="control">sensor result = @payloadCapacity in @unit</code>
-                    <br>when <code class="variable">@unit</code> is an oct will return 30.25
-                </p>
-                <h2><li>@currentAmmoType</li></h2>
-                <p class="spin" style="margin-left: 20px;">
-                    return the ammo type used by a turret
-                    <br>example:
-                    <br><code class="control">sensor result = @currentAmmoType in duo1</code>
-                    <br>when <code class="variable">duo1</code> is an using copper as its ammo will return <code class="content-name">@copper</code>
-                </p>
+                    <h2><li>Locale Print</li></h2>
+                    <p>
+                        <span class="toadd">TO ADD#</span>
+                    </p>
+                    <br>
+                    <h2><li>@cameraWidth and @cameraHeight</li></h2>
+                    <p>
+                        an object camera width/height, usually the players possesed object, eg turrets/units
+                        <br>the width/height numbers are in blocks
+                        <br>example:
+                        <br><code class="wp">sensor width @unit @cameraWidth</code>, where <code class="variable">@unit</code> is the player
+                        <br>a maxed zoomed out screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
+                        <br>if the object is not a player/doesn't have a camera returns 0
+                    </p>
+                    <br>
+                    <h2><li>@cameraX and @cameraY</li></h2>
+                    <p>
+                        an object x/y camera location
+                        <br>the x/y numbers are in the map coordinate system
+                        <br>example:
+                        <br><code class="wp">sensor x @unit @cameraX</code>, where <code class="variable">@unit</code>` is the player
+                        <br>while moving the camera returns the camera position in the map coordinate location
+                        <br>different from sensoring <code class="content-name">@x</code> since you can move the camera independently of the unit
+                    </p>
+                    <br>
+                    <h2><li>@solid</li></h2>
+                    <p>
+                        an object solidness
+                        <br>example:
+                        <br><code class="wp">sensor s conveyor1 @solid</code>
+                        <br>returns <code class="variable">s</code> as <span style="color: yellow;">0</span>
+                        <br>while a wall for example returns 1
+                    </p>
+                    <br>
+                    <h2><li>@velocityX and @velocityY</li></h2>
+                    <p>
+                        an object velocity, in blocks/second
+                        <br>example:
+                        <br><code class="wp">sensor vx @unit @velocityX</code>`
+                        <br>returns <code class="variable">vx</code> as a number of the <code class="variable">@unit</code> velocity in blocks/second
+                        <br>can also be think of as a vector,
+                        <br>by using <code class="op">op len</code> on the <code class="variable">@unit</code>'s <code class="content-name">@velocityX</code> and <code class="content-name">@velocityY</code> you can get the unit current speed
+                        <br>this variable also avaiable in <code class="wp">setprop</code>
+                    </p>
+                    <br>
+                    <h2><li>@size</li></h2>
+                    <p>
+                        now can return the length of strings
+                        <br>example:
+    
+                        <br><code class="control">sensor length = @size in "Mindustry"</code>
+                        <br>will return 9
+                    </p>
+                    <br>
+                    <h2><li>@memoryCapacity</li></h2>
+                    <p>
+                        return the capacity of the selected memory cell/bank
+                        <br>example:
+                        <br><code class="control">sensor memory = @memoryCapacity in bank1</code>
+                        <br>will return the memory capacity of bank1, which is 512
+                    </p>
+                    <br>
+                    <h2><li>@totalPayload</li></h2>
+                    <p>
+                        return the total payload carried by the unit
+                        <br>counted per tile, so a 2x2 block will count as 4
+                        <br>example:
+                        <br><code class="control">sensor result = @totalPayload in @unit</code>
+                        <br>when <code class="variable">@unit</code> is carrying a copper wall for example, will return 4
+                        <br>if carrying a unit will return the unit's size, a mace for example has a size of 1.25 x 1.25, which is 1.5625
+                        <br>every payload carried size added together
+                    </p>
+                    <h2><li>@payloadCapacity</li></h2>
+                    <p>
+                        return the payload capacity of the unit
+                        <br>example:
+                        <br><code class="control">sensor result = @payloadCapacity in @unit</code>
+                        <br>when <code class="variable">@unit</code> is an oct will return 30.25
+                    </p>
+                    <h2><li>@currentAmmoType</li></h2>
+                    <p>
+                        return the ammo type used by a turret
+                        <br>example:
+                        <br><code class="control">sensor result = @currentAmmoType in duo1</code>
+                        <br>when <code class="variable">duo1</code> is an using copper as its ammo will return <code class="content-name">@copper</code>
+                    </p>
+                </ul>
             </section>
             <section id="extras" class="subtitle">
                 <h1>Extras</h2>
