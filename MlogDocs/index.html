@@ -2195,7 +2195,33 @@
                     <br>
                     <h2><li>Locale Print</li></h2>
                     <p>
-                        <span class="toadd">TO ADD#</span>
+                        Prints a property from the map locale bundles to the text buffer, 
+                        allowing to create multi-language maps by displaying different localized texts corresponding to the player's selected language.
+                        <br>Locale bundles are accessible in the map editor, <code>Map Info</code> -> <code>Locale Bundles</code>
+                        <br><img src="image/localeprint.png" alt="" style="width: calc(50vw + 200px);">
+                        <br>in the left side add your languages, each languages can have different properties, to add properties click <code>add</code> on the right side.
+                        <br>A property have a name and a value, the name is what you write on the <code class="wp">locale print</code> instruction, the <code class="wp">locale print</code>
+                        instruction then gets the value of that property according to the player's language and then put them in the print buffer, can then be
+                        <code class="draw">print flush</code>ed as normal.
+                        <br>
+                        <br>so for example if you have a property in the English language named <code>welcome</code> you can <code class="wp">locale print "welcome"</code>, this will put 
+                        the property values of <code>welcome</code> to the processor print buffer, in this case <code>Welcome (this text will appear for players using English)</code>.,
+                        if the player's language is English.
+                        <br>
+                        <br>when you create a new property it usually copies itself to all of your added languages, unless you disable <code class="field">Apply Changes To All Locales</code> at the top of the locale bundles menu.
+                        if a language does not have a property that other languages have, that property in languages that does have it will have a <span style="border: 1px rgb(255, 255, 92) solid;">yellow border</span>, meaning there are a language(s) in your selection that does not have a property
+                        with that name, if you try to <code class="wp">locale print</code> this it will default to the properties in English, if there is no properties in English too will output <code>???{name}???</code>
+                        <br>a <span style="border: 1px rgb(87, 152, 236) solid;">blue border</span> on properties means the value of that properties is the same accros language(s)
+                        <br>here's an example:
+                        <br><img src="image/localeprintexample.png" alt="">
+                        <br>
+                        <br>property values supports formatting like normal <code class="draw">print</code> does, like placeholders <code>{0}</code>, colors <code>[red]</code>,
+                        newlines <code>\n</code>
+                        <br>
+                        <br>for mobile devices you can add <code>.mobile</code> at the end of the property name, for example <code>welcome.mobile</code>, if players are on mobile
+                        the instruction <code class="wp">locale print "welcome"</code> will search properties ending with <code>.mobile</code> first and displays that, if it doesn't exist
+                        will use the regular <code>welcome</code> property instead
+                        
                     </p>
                     <br>
                     <h2><li>@cameraWidth and @cameraHeight</li></h2>
@@ -4111,7 +4137,10 @@
             </section>
             <section id="Contributors" class="subtitle">
                 <h1>Contributors</h2>
-                    <hr>
+                    <ul>
+                        <li>apszoldat</li> for information regarding locale print
+                        <li>Varxalaxiacis</li> for information regarding transpilers
+                    </ul>
 
             </section>
         
