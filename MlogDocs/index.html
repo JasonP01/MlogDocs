@@ -777,11 +777,12 @@
                             <code class="field">from</code> is <a href="#building-reference">building reference</a><br>
                             <code class="field">target</code> is a filter, target enemy means it will only radar enemy units<br>
                             <code class="field">order</code> is sorting order, ascending or descending, can only be 0 or 1<br>
-                            <code class="field">sort</code> is a metric to sort results by sort distance means it will get unit by distance<br>
-                                Since <code class="field">order</code> is 1, the unit gotten is the closest to that building<br>
-                            Cannot get multiple units at the same time<br>
-                            <code class="field">Order</code> cannot be change to look for metrics in the middle e.g 0.5<br>
-                            Will output the <a href="#building-reference">unit reference</a> to `<span style="color: aqua;">result</span>`
+                            <code class="field">sort</code> is a metric to sort results by, sort distance means it will get unit by distance
+                            <br>In this example, since <code class="field">order</code> is 1, and <code class="field">sort</code> is distance, 
+                            the unit returned is the closest to that building.
+                            <br>Cannot get multiple units at the same time.
+                            <br><code class="field">Order</code> cannot be change to look for metrics in the middle e.g 0.5
+                            <br>Will output the <a href="#building-reference">unit reference</a> to <code class="variable control">result</code>
                         </p>
                     </section>
                     <section id="sensor">
@@ -1283,6 +1284,9 @@
                                 <code class="field">building</code> is an output, it will output the <a href="#building-reference">building reference</a> to the variable<br>
                                 <code class="field">floor</code> is an output, it will output the type of floor to the variable
                                 <br>
+                                <br>the range of getblock is max(27.5, {unit's range})
+                                <br>which means takes the highest number between the two 
+                                <br>
                                 <br>when getBlock-ing a cell,bank, or a display you can still write/draw to them even if the unit is no longer present, 
                                 only the building reference is needed for these blocks, this means you can get them once and then unbind/move the unit
                                 your variable of <code class="variable unit">building</code> will remain until either you overwrite it or the processor is refreshed.
@@ -1348,7 +1352,8 @@
                             <br><code class="field">Enemy</code> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                             <br><code class="field">outX</code> and <code class="field">outY</code> are the building’s output coordinates
                             <br><code class="field">Found</code> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
-                            <br><code class="field">Building</code> is an output of that building reference
+                            <br><code class="field">Building</code> is an output of that building reference, but this is only returned if that building is within <span style="color: yellow;">max(27.5,{unit's range})</span> of the unit,
+                            else will return null instead
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
@@ -1964,6 +1969,8 @@
                     <h2><li>Draw print</li></h2>
                     <p>
                         Draw text from the print buffer. only ASCII characters allowed. clears the print buffer. still needs to be draw flushed
+                        <br>as far as i know, there isn't an option to make the text larger, but you can use draw scale, but this just enlarges it, it doesn't make the text 
+                        higher resolution
                     </p>
                     <br>
                     <h2><li>Draw Translate</li></h2>
