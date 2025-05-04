@@ -1352,8 +1352,8 @@
                             <br><code class="field">Enemy</code> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                             <br><code class="field">outX</code> and <code class="field">outY</code> are the building’s output coordinates
                             <br><code class="field">Found</code> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
-                            <br><code class="field">Building</code> is an output of that building reference, but this is only returned if that building is within <span style="color: yellow;">max(27.5,{unit's range})</span> of the unit,
-                            else will return null instead
+                            <br><code class="field">Building</code> is an output of that building reference, if locating for enemy blocks, will only return if that building is within <span style="color: yellow;">max(27.5,{unit's range})</span> of the unit,
+                            if locating for ally blocks, will return that building regardless, else will return null instead
                         </p>
                         <h1><li><b>Ore</b></li></h1>
                         <p>
