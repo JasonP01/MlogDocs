@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mlog Labeler</title>
+    <script src="script.js"></script>
+    <style>
+        textarea {
+            width: 300px;
+            height: 500px;
+            resize: none;
+            background-color: #302e38;
+            color: white;
+            border-color: #302e38;
+        }
+        textarea::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #888; 
+            border-radius: 6px;
+        }
+
+        textarea:focus {
+            border-color: rgb(34, 34, 39); 
+            outline: 2px ridge #182b44;
+        }
+
+        button {
+            background-color: #4CAF50; /* Green background */
+            color: white;              /* White text */
+            padding: 12px 24px;         /* Padding */
+            border: none;               /* Remove default border */
+            border-radius: 8px;         /* Rounded corners */
+            cursor: pointer;            /* Pointer cursor on hover */
+            font-size: 16px;            /* Text size */
+            font-family: Arial, sans-serif; /* Font family */
+            outline: 5px ridge rgba(34, 85, 82, 0.6);
+            border-radius: 2rem;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: #45a049; /* Darker green when hovered */
+        }
+
+        @media (max-width: 668px) {
+            .input{
+                padding-right: 0 !important;
+            }
+
+        }
+        
+        .codebox {
+            height: fit-content;
+            width: fit-content;
+            text-align: left;
+            margin: 0 auto;
+            border-radius: 7px;
+            overflow: auto;
+            padding: 0px 30px 0px 30px;
+            background-color: rgb(38, 36, 44);
+            border: 1px solid rgb(38, 36, 44);
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .toggled {
+        background-color: #4CAF50;
+        color: white;
+        }
+
+        .untoggled {
+        background-color: red;
+        color: white;
+        }
+
+        button:hover.untoggled {
+            background-color: #971111;
+        }
+
+        #status {
+        opacity: 1;
+        color: rgb(0, 255, 0);
+        }
+
+        /* .visible {
+        opacity: 0 !important;
+        } */
+            
+    </style>
+</head>
+<body 
+    style=
+    "background-color: rgb(62, 59, 73); 
+    color: white; 
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+">
+
+    <h2>Mlog Labeler</h2>
+    <p style="font-size: larger;">Please enter unedited mlog code</p>
+
+    <div style="padding-right: 30px;display: inline-block;" class="input">
+        <p style="font-size: larger;">Input</p>
+        <textarea id="input" placeholder="Enter Mlog Code here"></textarea>
+        <br><button onclick="submitText()">Submit</button>
+        <button id="toggleButton" class="toggled" onclick="toggleButton()">Indent</button>
+    </div> 
+
+    <div style="display: inline-block;vertical-align: top;">
+        <p style="font-size: larger;">Output</p>
+        <textarea id="output" placeholder="Output here"></textarea>
+        <br><button onclick="copy()">Copy</button>
+        <p id="status"></p>
+    </div>
+    
+    
+    <h2>
+        what is labels?
+    </h2>
+    <p>
+        Label is a jump destination, for example
+        <div class="codebox">
+                <code>
+set i 0
+print "frog1"
+op add i i 1
+jump 1 lessThan i 2
+print "frog2"
+printflush message1
+                </code>
+        </div>
+    can be written as
+    <div class="codebox">
+        <code>
+set i 0
+j1:
+print "frog1"
+op add i i 1
+jump j1 lessThan i 2
+print "frog2"
+printflush message1  
+        </code>
+    </div>
+    <br>it makes writing with text editor easier since you don't have to worry about jumps jumping to the wrong line when you add line(s) in between
+    <br>it also makes it easier to read in its text form, with labels you dont have to count lines to figure out what line the jump instruction jumps to
+    </p>
+    
+
+</body>
+</html>
