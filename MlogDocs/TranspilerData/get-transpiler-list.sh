@@ -25,4 +25,4 @@ for line in "${repos[@]}"; do
 done
 
 echo 'Update transpiler list finish!'
-Run jq -nrf gen-transpiler-list.jq
+jq -nrf gen-transpiler-list.jq

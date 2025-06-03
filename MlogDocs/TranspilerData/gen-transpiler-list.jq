@@ -13,11 +13,11 @@ import "transpiler-datas" as $datas;
 })
 | sort_by(-.stars)[]
 | [
-  "<li style=\"font-size: larger;\"><a href=\"\(.html_url)\"><b>\(.name)</b></a> :</li>",
+  "<li style=\"font-size: larger;\"><a href=\"\(.html_url)\"><b class=\"link\">\(.name)</b></a> :</li>",
   "\(.description)",
   "<ul>",
   "    <li>Repo Owner : \(.owner)</li>",
-  "    <li>Last Updated : \(.updated_at)</li>",
+  "    <li>Last Updated : \(.updated_at | sub("T"; " ") | sub("Z$"; ""))</li>",
   "    <li>Stars : \(.stars)</li>",
   "</ul>",
   "<br>"
