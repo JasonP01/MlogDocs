@@ -2173,8 +2173,9 @@
                         <br>the <code class="field">printFlush</code> argument are boolean,
                         <br>when true it uses the text in the text buffer as the name,
                         <br>otherwise uses the <code class="field">name</code> argument.
-                        <br>name can game content name, like <code class="content-name">@router</code>, or <code class="content-name">@surge-alloy</code>, if doesn't work use file name instead.
-                        <br>can also be file name, like <code>"item-copper"</code>, when using a file name remember to put them in quotes,
+                        <br>name can be game content name, like <code class="content-name">@router</code>, or <code class="content-name">@surge-alloy</code>, if doesn't work use file name instead.
+                        <br>can also be file name, like <code>"item-copper"</code> or <code>"sprites/noise.png"</code>, 
+                        <br>when using a file name, write it exactly like shown above, including quotes, <b>NOT LIKE</b> <code>sprites/noise.png</code> or <code>@sprites/noise.png</code>.
                         <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
                         <br>
                         <br><code class="field">textureSize</code>
@@ -2200,7 +2201,7 @@
                         <br>#1 (1,0)
                         <br>#2 (1,1)
                         <br>#3 (0,1)
-                        <br>will set
+                        <br>
                         <br><code class="field">color</code >, change the color of the marker.
                         <br>color only tints the color of the marker,
                         <br>meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
