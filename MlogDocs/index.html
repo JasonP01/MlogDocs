@@ -1934,6 +1934,8 @@
                     <a href="https://github.com/Anuken/MindustryBuilds">https://github.com/Anuken/MindustryBuilds</a>
                     <br>
                     <br><span style="font-size: larger;">BE feature are subject to <span style="color: red;">change</span>, therefore i cannot make sure these information are up to date</span>
+                    <br>
+                    <br><span>Some Information are gathered from <a href="https://github.com/cardillan/mindcode/wiki/Changes-to-Mindustry-Logic">Cardillan</a> Github Wiki</span>
                 </p>
                 <br>
                 <ul>
@@ -1947,6 +1949,10 @@
                         <br>example:
                         <br><code class="draw">read result = "Mindustry" at 0</code>
                         <br>will return 77, which is the UTF-16 value of M, at 1 will return 105, which is the UTF-16 value of i, and so on
+                        <br>
+                        <br>- Now can access individual pixels in erekir canvas
+                        <br>
+                        <br>- Now can access individual characters on a message block with an index. A UTF-16 value of the character is returned. if out of range returns <code>null</code>
                     </p>
                     <br>
                     <h2><li>Setrule</li></h2>
@@ -2240,6 +2246,52 @@
                         
                     </p>
                     <br>
+                    <h2><li>unpackcolor</li></h2>
+                    <p>
+                        New instructions
+                        <span class="toadd">TO ADD#</span>
+                    </p>
+                    <br>
+                    <h2><li>op sign</li></h2>
+                    <p>
+                        New operation for <a href="#operation">operation</a>
+                        <br>Returns 0 only when the operand is strictly equal to 0, -1 for negative and 1 for positive numbers.
+                    </p>
+                    <br>
+                    <h2><li>op logn</li></h2>
+                    <p>
+                        New operation for <a href="#operation">operation</a>
+                        <br>example : <code class="op">op logn result 1000 10</code>
+                        <br>Computes the logarithm of 1000 in base 10
+                        <br>result : 3
+                        <br>because 10^3 = 1000
+                    </p>
+                    <br>
+                    <h2><li>op round</li></h2>
+                    <p>
+                        New operation for <a href="#operation">operation</a>
+                        <br>Rounds the value to the nearest integer.
+                    </p>
+                    <br>
+                    <h2><li>op emod</li></h2>
+                    <p>
+                        New operation for <a href="#operation">operation</a>
+                        <br><a href="https://en.wikipedia.org/wiki/Euclidean_division">Euclidian Modulo</a>
+                        <br>Example : <code class="op">op emod result -3 5</code>
+                        <br>Means: compute -3 mod 5, returning a positive result.
+                        <br>Result: result = 2
+                        <br>Because -3 mod 5 = 2 in positive modulo (since -3 ≡ 2 (mod 5)).
+                                            </p>
+                    <br>
+                    <h2><li>op ushr</li></h2>
+                    <p>
+                        New operation for <a href="#operation">operation</a>
+                        <br>Example : <code class="op">op ushr result -8 1</code>
+                        <br><span style="color: yellow;">-8</span> >>> <span style="color: yellow;">11111111 11111111 11111111 11111000</span>
+                        <br>Unsigned right shift by 1:
+                        <br><span style="color: yellow;">01111111 11111111 11111111 11111100</span> = <span style="color: yellow;">2147483644</span> 
+                    </p>
+                    <br>
                     <h2><li>@cameraWidth and @cameraHeight</li></h2>
                     <p>
                         an object camera width/height, usually the players possesed object, eg turrets/units
@@ -2321,6 +2373,52 @@
                         <br><code class="control">sensor result = @currentAmmoType in duo1</code>
                         <br>when <code class="variable">duo1</code> is an using copper as its ammo will return <code class="content-name">@copper</code>
                     </p>
+                    <h2><li>@displayHeight and @displayWidth</li></h2>
+                    <p>
+                        Returns the display height and width of a display, in pixels
+                    </p>
+                    <h2><li>@bufferUsage</li></h2>
+                    <p>
+                        Returns the number of commands currently in that display graphic buffer, useful for checking when to flush
+                    </p>
+                    <br>
+                    <h2><li>@operations</li></h2>
+                    <p>
+                        Returns the number of drawflush operations on a display since map reload (allows detecting the display needs to be redrawn).
+                    </p>
+                    <br>
+                    <h1><li>Technical</li></h1>
+                    <ul>
+                        <li>@counter</li>
+                            <span>
+                                The @counter is set back to numeric value at the start of the execution of each instruction. It is now impossible to assign null or an object value to @counter in any way - all such assignments (regardless of the actual assignment mechanism) are effectively ignored.
+                            </span>
+                        <br><br>
+                        <li>Mlog Parser</li>
+                        <span>
+                            The Mlog parser now correctly understands the literal <span style="color: yellow;">0xFFFFFFFF80000000</span> and can convert it into its binary form. 
+                            This hexadecimal value represents the minimum possible 32-bit signed integer (<code>Integer.MIN_VALUE</code>), which is <span style="color: yellow;">-2147483648</span>.
+                            However, the parser still fails to interpret the following numbers:
+                            <ul>
+                                <li><span style="color: yellow;">-9223372036854775808</span></li>
+                                This is the smallest possible 64-bit signed integer (<code>Long.MIN_VALUE</code>).
+                                <br>The parser can't parse this number in any format (decimal, hexadecimal, binary).
+
+                                <li>Hexadecimal values from <span style="color: yellow;">0x8000000000000001</span> to <span style="color: yellow;">0x800000000000000F</span></li>
+                                These are just above <code>Long.MIN_VALUE</code> in value.
+                                <br>The parser can't handle these when they're written in hexadecimal format.
+
+                                <li>Binary value <span style="color: yellow;">0b1000000000000000000000000000000000000000000000000000000000000001</span></li>
+                                This is a 64-bit binary number slightly larger than <code>Long.MIN_VALUE</code>.
+                                <br>The parser can't handle this specific binary literal.
+                            </ul>
+                        </span>
+                        <br>
+                        <li>control instruction</li>
+                        <span>
+                            the control instruction can control any block in the processor's range, not just blocks directly linked to it
+                        </span>
+                    </ul>
                 </ul>
             </section>
             <section id="extras" class="subtitle">
