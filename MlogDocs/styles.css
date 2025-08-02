@@ -18,6 +18,10 @@
     color: #d9e3f7;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 h1, h2, h3, h4, h5, h6, li, b {
     color: white;
 }
@@ -288,6 +292,7 @@ text-decoration: none; /* Optional: to remove the underline from the link */
     margin-left: 290px; /* Shift main content to the right to make space for the sidebar */
     margin-top:-20px;
     transition: margin-left 0.3s ease; /* Smooth transition */
+    max-width: 100vw;
 }
 
 .main-content.open {
