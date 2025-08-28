@@ -138,7 +138,7 @@ body::-webkit-scrollbar-thumb {
 .sidebar {
     width: 250px;
     background-color: #16191f;
-    padding: 20px;
+    padding: 20px 10px 20px 20px;
     position: fixed;    
     height: 100vh;
     left: 0px; /* Initially hidden */
@@ -341,7 +341,7 @@ section {
     .sidebar {
         font-size: 14px;
         width: 250px;
-        padding: 20px;
+        padding: 20px 10px 20px 20px;
         position: fixed;
         height: 100vh;
         left: -2px; 
@@ -447,7 +447,7 @@ section {
     .sidebar {
         font-size: 14px;
         width: 250px;
-        padding: 20px;
+        padding: 20px 10px 20px 20px;
         left: -292px; 
     }
 
@@ -760,3 +760,27 @@ pre {
     color: #bd93f9; /* Purple for numbers */
 }
 
+.sidebar ul li {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.copy-link-btn {
+    all: unset;
+    font-size: smaller;
+}
+
+.sidebar-link {
+    flex:1;
+}
+
+
+
+iframe {
+    overflow: hidden;
+    height: 90px;
+    transform: scale(1.2);
+    width: 100%;
+    transform-origin: left center;
+}

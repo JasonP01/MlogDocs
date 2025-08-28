@@ -81,12 +81,12 @@ document.addEventListener('DOMContentLoaded', function() {
       
 
   
-      tocLinks.forEach(link => link.classList.remove('highlight'));
+      tocLinks.forEach(link => link.parentElement.classList.remove('highlight'));
   
       parentSections.forEach(section => {
         const activeLink = document.querySelector(`#sidebar a[href="#${section.id}"]`);
         if (activeLink) {
-          activeLink.classList.add('highlight');
+          activeLink.parentElement.classList.add('highlight');
         }
       });
     }
@@ -94,6 +94,32 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightCurrentSection);
   
     highlightCurrentSection();
+
+    all_sidebar_links = document.querySelectorAll('.sidebar-link')
+    all_sidebar_links.forEach(link => {
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-link-btn';
+      copyBtn.title = 'Copy link';
+      img = `<img src="image/assets/link2.svg" alt="Copy link" style="width:16px;height:16px;">`
+      img_check = `<img src="image/assets/check-mark.svg" alt="Link copied" style="width:16px;height:16px;">`
+      copyBtn.innerHTML = img;
+      copyBtn.style.marginLeft = '6px';
+      copyBtn.style.cursor = 'pointer';
+
+      copyBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const url = window.location.origin + window.location.pathname + link.getAttribute('href');
+        navigator.clipboard.writeText(url).then(() => {
+          copyBtn.innerHTML = img_check;
+          setTimeout(() => copyBtn.innerHTML = img, 1200);
+        });
+      });
+
+      if (!link.nextSibling || !link.nextSibling.classList || !link.nextSibling.classList.contains('copy-link-btn')) {
+        link.parentNode.insertBefore(copyBtn, link.nextSibling);
+      }
+    })
 });
 
 
