@@ -1143,7 +1143,7 @@
                         </p>
                     </section>
                 <section id="unit-bind">
-                    <h1><li><b>Unit Bind</b></li></h1>
+                    <h2><li><b>Unit Bind</b></li></h2>
                     <p class="ti">
                         Bind 1 unit and put its reference in the <code class="variable">@unit</code> variable,
                         <br> 
@@ -1169,7 +1169,7 @@
                     </p>
                 </section>
                 <section id="unit-control">
-                    <h1><li><b>Unit Control</b></li></h1>
+                    <h2><li><b>Unit Control</b></li></h2>
                     <p class="ti">
                         Unit control, controls <b>one</b> unit in the <code class="content-name">@unit</code> variable, a common misconception is that it controls all binded unit, this is wrong, 
                         it might seem that way because processor loops, everytime it loops <code class="unit">ubind</code> it binds a new unit and controls it, it does this very fast that it looks like its controlling all unit at once. 
@@ -1325,7 +1325,7 @@
                         </ul>
                 </section>
                 <section id="unit-radar">
-                    <h1><li><b>Unit Radar</b></li></h1>
+                    <h2><li><b>Unit Radar</b></li></h2>
                     <p class="ti">
                         <img alt="alt" src="image/unit radar.png" style="max-width: 80vw !important;">
                         <br><code class="unit">Unit radar</code> locates other unit around the <code class="content-name">@unit</code> unit within the unit’s range (information can be found in-game’s info menu)
@@ -1344,7 +1344,7 @@
                         Locates the nearest building/ore/spawn to the unit without needing to be in the unit’s range, but limited to what it can locates
                     </p>
                     <ol style="list-style-type: disc;">
-                        <h1><li><b>Building</b></li></h1>
+                        <h3><li><b>Building</b></li></h3>
                         <p>
                             Will locate a building of the selected group, in this case, core,
                             <br><img alt="alt" src="image/unit locate.png" style="max-width: 80vw !important;">
@@ -1355,7 +1355,7 @@
                             <br><code class="field">Building</code> is an output of that building reference, if locating for enemy blocks, will only return if that building is within <span style="color: yellow;">max(27.5,{unit's range})</span> of the unit,
                             if locating for ally blocks, will return that building regardless, else will return null instead
                         </p>
-                        <h1><li><b>Ore</b></li></h1>
+                        <h3><li><b>Ore</b></li></h3>
                         <p>
                             Will locate an ore of the selected type, in this case <code class="content-name">@copper</code>
                             <br><img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
@@ -1365,11 +1365,11 @@
                             <br><code class="field">Found</code> is an output on whether the tile is found(exist in the map) or not, true means it is found, false means it is not found
                             <br>May not consistently return the closest tile, but will always return the closest "vein"
                         </p>
-                        <h1><li><b>Spawn</b></li></h1>
+                        <h3><li><b>Spawn</b></li></h3>
                         <p>
                             Will locate an enemy spawn point, may be a core or a position
                         </p>
-                        <h1><li><b>Damaged</b></li></h1>
+                        <h3><li><b>Damaged</b></li></h3>
                         <p>
                             Will locate an ally damaged building
                         </p>
@@ -1645,7 +1645,7 @@
                     </div>
                 </section>
                 <section id="subframe">
-                    <h1>Antithreading / Subframe</h1>
+                    <h2>Antithreading / Subframe</h2>
                     <p>
                         uses the game update order to force multiple processors into one.
                         <br>Every ingame frame the game updates blocks from left to right and bottom to top, this is not always true if you just recently placed a block, to fix this reload your save.
@@ -2389,7 +2389,7 @@
                         Returns the number of drawflush operations on a display since map reload (allows detecting the display needs to be redrawn).
                     </p>
                     <br>
-                    <h1><li>Technical</li></h1>
+                    <h2><li>Technical</li></h2>
                     <ul>
                         <li>@counter</li>
                             <span>
@@ -3723,7 +3723,8 @@
                         <br>        reactor</span>
                         <br>ulocate ore core true @copper outx outy found building
                         <br>ulocate spawn core true @copper outx outy found building
-                        <br>ulocate spawn core true @copper outx outy found building
+                        <br>ulocate damaged core true @copper outx outy found building
+
                         <br>
                         </section>
                         <section id="world-processor">
