@@ -1961,23 +1961,50 @@
                         <br>- new rule <code class="field">unitMineSpeed</code>
                         <br>- new rule <code class="field">dragMultiplier</code>
                     </p>
+                    <br>
                     <h2><li>Flush message</li></h2>
                     <p>
                         - new field <code class="field">success</code>
                     </p>
+                    <br>
                     <h2><li>Lookup</li></h2>
                     <p>
                         - now supports <code class="field">team</code> lookup
                     </p>
+                    <br>
                     <h2><li>Print char</li></h2>
                     <p>
                         print a character and put it in the text buffer like print does, however
                         takes integer (UTF-16) as an input instead of string.
                         <!-- <br> uses the ASCII table <a href="https://wikipedia.org/wiki/ASCII">https://wikipedia.org/wiki/ASCII</a> -->
                     </p>
+                    <br>
+                    <h2><li>Unit Control deconstruct</li></h2>
+                    <p>
+                        <code class="unit">ucontrol deconstruct 0 0 0 0 0</code>
+                        <br>attempts to tell <code class="variable">@unit</code> to deconstructs a block at the specified coordinates, if the unit is in range and able to deconstruct it
+                        <br>else does nothing
+                        <br>note that this instruction will not be available if the rule of "Logic Unit Deconstruction" is disabled in the world/map rule settings
+                    </p>
+                    <br>
                     <h2><li>Draw image</li></h2>
                     <p>
                         Draw image now supports more contents, like floors (@salt, @ice) and more
+                    </p>
+                    <p>
+                        Draw image now can copy contents of a display to another display
+                        <br>by putting block reference of the display you're trying to copy on the <code class="field">image</code> field then <code class="draw">drawflush</code>-ing it to another display
+                        <br>example: 
+                        <br>
+                        <code class="draw">draw image 0 0 display1 32 0 0</code>
+                        <br>
+                        <code class="control">drawflush display2</code>
+                        <br>
+                        will copy the content of display1 to display2
+                        <br>
+                        <br>note that the copied content will be affected like normal image, meaning translate/scale/rotate
+                        <br>copied contents origin is the center of the display
+
                     </p>
                     <br>
                     <h2><li>Draw print</li></h2>
@@ -2059,8 +2086,10 @@
                         shaped box appear around that unit, that is a marker, or when you tell a unit to move a line appears, that is also considered a marker,
                         the floating text in the beginning tutorial is also a marker.
                         <br>
-                        <br><code class="field">id</code> is numeric identity of the Marker, id can be from 0 to 19999
-                        <br>meaning a world/map can only have 20.000 markers
+                        <br><code class="field">id</code> is numeric identity of the Marker, id is 32 bit signed integer, meaning from -2147483648 to 2147483647, outside these range markers will be clamped to these values
+                        <br>for example 2147483647 and 2147483648 will both be considered as 2147483647
+                        <br>however note that the total number of markers is limited to 20.000
+                        <br>
                         <br>game created markers like the examples above doesn't intervere with player made markers
                         <br>currently there is a <span style="color: red;">bug</span> with the <code class="field">replace</code> argument where it <span style="color: red;">replaces</span> other markers than the specified id
                         <br>
@@ -2119,6 +2148,7 @@
                     <br>
                     <h2><li>Set Marker</li></h2>
                     <p>
+                        <!-- TODO tf is this br spam?!?! use list properly -->
                         Sets a property of a marker with the specified id.
                         <br><br>setting a <code>null</code> value to any fields in <code class="wp">setmarker</code> 
                         will <b>not</b> change the value to 0, but instead just kept the previous value of that marker. 
@@ -2183,6 +2213,9 @@
                         <br>can also be file name, like <code>"item-copper"</code> or <code>"sprites/noise.png"</code>, 
                         <br>when using a file name, write it exactly like shown above, including quotes, <b>NOT LIKE</b> <code>sprites/noise.png</code> or <code>@sprites/noise.png</code>.
                         <br>file names can be found on <a href="https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites" style="word-break: break-word;">https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites</a>
+                        <br>
+                        <br>the <code class="field">name</code> argument now supports block reference too, so you can set the texture of a marker to a display's content by putting the display block reference on the <code class="field">name</code> argument. like <code class='wp'>setmarker texture 0 0 display1 0</code>
+                        <br>content is live, meaning if the display content changes the marker texture will also change in realtime.
                         <br>
                         <br><code class="field">textureSize</code>
                         <br>
