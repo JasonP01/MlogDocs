@@ -245,8 +245,8 @@
                         <li><p><b>Block or Unit Reference</b></p></li>
                             <p class="ti">
                                 every block and unit has a unique reference, so every block and unit can be differentiated from 
-                                each other , internally they look like <code>message#98257</code> or <code>poly#49178</code>, these are not viewable without modifying the game.
-                                in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
+                                each other , internally they look like <code>message#98257</code> or <code>poly#49178</code>, these are not normally viewable in vanilla, but they do appear in the <a href="#vars-tab">vars tab</a>, indicated by the keyboard "building" on the right column, but you cannot see the exact reference number (the <code>#982...</code> part).
+                                <br>in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
                                 they can also be written to a normal variable
                             </p>
                     </section>
@@ -278,12 +278,19 @@
                     <p class="ti">the <code>Add</code> button <span style="font-size: 40px;">
                         (<img alt="alt" src="image/ui7.png"  style="top: 15px; width: 120px;">)</span> opens a menu to add an instruction:</p>
                     <img alt="alt" src="image/ui1.png" >
-                    <p class="ti">the <code>Vars</code> button <span style="font-size: 40px;">
-                        (<img alt="alt" src="image/vars.png"  style="top: 15px; width: 120px;">)</span> 
-                        opens a menu showing all of your variables
-                        <br><br>this menu is very useful for debugging
-                    </p>
-                    <img alt="alt" src="image/data types.png"  style="width: 800px;">
+                    <section id="vars-tab">
+                        <p class="ti">the <code>Vars</code> button <span style="font-size: 40px;">
+                            (<img alt="alt" src="image/vars.png"  style="top: 15px; width: 120px;">)</span> 
+                            opens a menu showing all of your variables and its type
+                            <br><br>this menu is very useful for debugging
+                        </p>
+                        <img alt="alt" src="image/data types.png"  style="width: 800px;">
+                        <br><code class="field">Number</code> is either an <a href="#integers">integer</a> or a <a href="#float">float</a>
+                        <br><code class="field">String</code> is a <a href="#strings">string</a> of characters
+                        <br><code class="field">Content</code> is a <a href="#contentname">Content name</a>
+                        <br><code class="field">Building</code> is a <a href="#building-reference">Building Reference</a>
+                        <br><code class="field">Building</code> is a <a href="#building-reference">Unit Reference</a>
+                    </section>
                     <p class="ti">the <code>edit</code> button <span style="font-size: 40px;">
                         (<img alt="alt" src="image/ui5.png"  style="top: 15px; width: 120px;">)</span>opens a menu to export/import codes</p>
                     <img alt="alt" src="image/ui2.png"  style="width: 300px; left:160px;">
@@ -2418,10 +2425,36 @@
                         <br>
                         Also Returns total string/characters length when used on a message block, but not length of text buffer
                     </p>
-                    <br>
                     <h2><li>@operations</li></h2>
                     <p>
                         Returns the number of drawflush operations on a display since map reload (allows detecting the display needs to be redrawn).
+                    </p>
+                    <h2><li>@buildX</li></h2>
+                    <p>
+                        Returns the x coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
+                    </p>
+                    <h2><li>@buildY</li></h2>
+                    <p>
+                        Returns the y coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
+                    </p>
+                    <h2><li>@building</li></h2>
+                    <p>
+                        If used on a unit, returns the <a href="#building-reference">block reference</a> of the building currently being constructed (<code class="field">build1#1234</code>, <code class="field">build2#3456</code>, etc), if the unit is building something.
+                        <br>If used on a building (a <a href="#building-reference">block reference</a>, eg <code class="field">build1#1234</code>), returns <a href="#contentname">content name</a> of what type the block will become once it's built (<code class="content-name">@conveyor</code>, <code class="content-name">@router</code>, etc).
+                        This is different from @type, which just returns the <a href="#contentname">content name</a> of the block, if @type is used for build#1234 it will just return <code class="content-name">@build1</code>
+                        <br>example:
+                        <br><code class="control">sensor bRef @unit @building</code>
+                        <br><code class="control">sensor bType bRef @building</code>
+                        <br>when <code class="variable">@unit</code> is building a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return <code class="content-name">@router</code> in <code class="variable">bType</code>
+                    </p>
+                    <h2><li>@breaking</li></h2>
+                    <p>
+                        If used on a unit, returns the <a href="#building-reference">block reference</a> of the building currently being broken (<code class="field">build1#1234</code>, <code class="field">build2#3456</code>, etc), if the unit is breaking something.
+                        <br>If used on a building (a <a href="#building-reference">block reference</a>, eg <code class="field">build1#1234</code>), returns boolean of whether the building is currently being broken or not.
+                        <br>example:
+                        <br><code class="control">sensor bRef @unit @breaking</code>
+                        <br><code class="control">sensor isBreaking @building @breaking</code>
+                        <br>when <code class="variable">@unit</code> is breaking a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return true in <code class="variable">isBreaking</code>
                     </p>
                     <br>
                     <h2><li>Technical</li></h2>
