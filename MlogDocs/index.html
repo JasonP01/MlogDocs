@@ -2449,12 +2449,12 @@
                     </p>
                     <h2><li>@breaking</li></h2>
                     <p>
-                        If used on a unit, returns the <a href="#building-reference">block reference</a> of the building currently being broken (<code class="field">build1#1234</code>, <code class="field">build2#3456</code>, etc), if the unit is breaking something.
-                        <br>If used on a building (a <a href="#building-reference">block reference</a>, eg <code class="field">build1#1234</code>), returns boolean of whether the building is currently being broken or not.
+                        If used on a unit, returns the <a href="#building-reference">block reference</a> of the building currently being deconstructed (<code class="field">build1#1234</code>, <code class="field">build2#3456</code>, etc), if the unit is breaking something.
+                        <br>If used on a building (a <a href="#building-reference">block reference</a>, eg <code class="field">build1#1234</code>), returns boolean of whether the building is currently being deconstructed or not.
                         <br>example:
                         <br><code class="control">sensor bRef @unit @breaking</code>
                         <br><code class="control">sensor isBreaking @building @breaking</code>
-                        <br>when <code class="variable">@unit</code> is breaking a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return true in <code class="variable">isBreaking</code>
+                        <br>when <code class="variable">@unit</code> is deconstructing a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return true in <code class="variable">isBreaking</code>
                     </p>
                     <br>
                     <h2><li>Technical</li></h2>
