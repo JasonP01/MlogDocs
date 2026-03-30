@@ -129,22 +129,26 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
   
 function triggerGlow(event) {
-
   event.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+  
+  const href = this.getAttribute('href');
+  const target = document.querySelector(this.getAttribute('href'));
+  const targetTop = target.getBoundingClientRect().top + window.scrollY;
 
-    let scrollToPosition;
-    if (target.offsetHeight > window.innerHeight){
-      scrollToPosition = targetTop
-    } else {
-      scrollToPosition = targetTop - (window.innerHeight / 2) + (target.offsetHeight / 2);
-    }
-      
-    window.scrollTo({
-      top: scrollToPosition,
-      behavior: 'smooth'
-    });
+  let scrollToPosition;
+  if (target.offsetHeight > window.innerHeight){
+    scrollToPosition = targetTop
+  } else {
+    scrollToPosition = targetTop - (window.innerHeight / 2) + (target.offsetHeight / 2);
+  }
+
+  // Push history entry so back button works
+  history.pushState(null, '', href);
+    
+  window.scrollTo({
+    top: scrollToPosition,
+    behavior: 'smooth'
+  });
 
   // Get the href attribute and extract the target ID
   const targetId = event.target.getAttribute('href').substring(1);
