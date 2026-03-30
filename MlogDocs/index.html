@@ -909,6 +909,14 @@
                             <p class="oplist">
                                 <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">Ceiling</a> , Round up the specified number
                             </p>
+                            <li><b>&lt;&lt;</b></li>
+                            <p class="oplist">
+                                <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> <a href="https://en.wikipedia.org/wiki/Logical_shift">logical shift</a> left
+                            </p>
+                            <li><b>&gt;&gt;</b></li>
+                            <p class="oplist">
+                                <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> <a href="https://en.wikipedia.org/wiki/Logical_shift">logical shift</a> right
+                            </p>
                             <li><b>or</b></li>
                             <p class="oplist">
                                 <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> or
@@ -935,7 +943,7 @@
                             </p>
                             <li><b>angle</b></li>
                             <p class="oplist">
-                                Angle of vector in degrees,usually used like: Angle = ((x1-x2) (y1-y2))
+                                Angle of <a href="#vectors">vector</a> in degrees,usually used like: Angle = ((x1-x2) (y1-y2))
                                 <br>internally the code does:
                                 <br>ang1 = atan2(a,b) * 180/&pi; (convert into degrees)
                                 <br><span style="color: aqua;">result</span> = {
@@ -957,7 +965,7 @@
                             </p>
                             <li><b>len</b></li>
                             <p class="oplist">
-                                Length of vector, usually used like: len = ((x1-x2) (y1-y2)).
+                                Length of <a href="#vectors">vector</a>, usually used like: len = ((x1-x2) (y1-y2)).
                                 <br>internally the code does:
                                 <br><span style="color: aqua;">result</span> = <span style="color: yellow;">&Sqrt; (a * a + b * b)</span>
                                 <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
@@ -2601,8 +2609,9 @@
                             <br>or if you want 75% of the way, put t as 0.75
                         </li>
                         <br>
+                        <section id="vectors">
                         <li>Vectors
-                            <br>Vector is defined by a : Direction, and Magnitude
+                            <br><a href="https://en.wikipedia.org/wiki/Euclidean_vector">Vector</a> is defined by a : Direction, and Magnitude
                             <br>Direction is where the vector is pointing at
                             <br>Magnitude is how long the vector is
                             <br>for example : a vector with direction of (1,0), since the X component of the direction is 1 and Y is 0 
@@ -2632,6 +2641,7 @@
                             you want to add (0.2,0) to your point every 1/60th of a second to get it to move 12 units in 1 second
 
                         </li>
+                        </section>
                     </ul>
                 </section>
                 <section id="self-linking-processor" style="margin-bottom: 40px;">
