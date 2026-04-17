@@ -1,0 +1,136 @@
+{"date_updated": "2026-04-11 09:29:46", "repos": [
+{
+  "html_url": "https://github.com/cardillan/mindcode",
+  "short_name": "Mincode",
+  "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
+  "owner": "cardillan",
+  "updated_at": "2026-04-08T05:55:28Z",
+  "stargazers_count": 140
+}
+,
+{
+  "html_url": "https://github.com/Lonami/pyndustric",
+  "short_name": "Pyndustric",
+  "description": "A Python compiler for Mindustry's logic processors assembly language",
+  "owner": "Lonami",
+  "updated_at": "2026-02-09T21:59:51Z",
+  "stargazers_count": 59
+}
+,
+{
+  "html_url": "https://github.com/JeanJPNM/mlogls",
+  "short_name": "Mlogls",
+  "description": "A language server for the Mindustry Logic programming language",
+  "owner": "JeanJPNM",
+  "updated_at": "2026-04-08T19:16:47Z",
+  "stargazers_count": 8
+}
+,
+{
+  "html_url": "https://github.com/BalaM314/mlogx",
+  "short_name": "Mlogx",
+  "description": "A compiler(technically a transpiler) for Mindustry Logic(mlog.)",
+  "owner": "BalaM314",
+  "updated_at": "2026-02-10T13:10:48Z",
+  "stargazers_count": 17
+}
+,
+{
+  "html_url": "https://github.com/albi-c/mlogium",
+  "short_name": "mlogium",
+  "description": "high level mindustry logic language",
+  "owner": "albi-c",
+  "updated_at": "2025-05-14T10:49:53Z",
+  "stargazers_count": 2
+}
+,
+{
+  "html_url": "https://github.com/mlogjs/mlogjs",
+  "short_name": "Mlog JS",
+  "description": "Compile javascript into Mindustry logic code (mlog)",
+  "owner": "mlogjs",
+  "updated_at": "2026-02-08T15:12:22Z",
+  "stargazers_count": 85
+}
+,
+{
+  "html_url": "https://github.com/BnDLett/mlog_compiler",
+  "short_name": "Mlog Compiler",
+  "description": "A compiler that compiles a custom programming language into Mindustry logic. ",
+  "owner": "BnDLett",
+  "updated_at": "2025-01-05T09:30:23Z",
+  "stargazers_count": 0
+}
+,
+{
+  "html_url": "https://github.com/SuperStormer/c2logic",
+  "short_name": "c2logic",
+  "description": "Compiles C code to Mindustry logic.",
+  "owner": "SuperStormer",
+  "updated_at": "2025-12-01T04:17:22Z",
+  "stargazers_count": 15
+}
+,
+{
+  "html_url": "https://github.com/yangfl/minasm",
+  "short_name": "MlogEvo",
+  "description": "Assembly-like language compiles to Mindustry Logic Language",
+  "owner": "yangfl",
+  "updated_at": "2025-06-08T06:41:51Z",
+  "stargazers_count": 3
+}
+,
+{
+  "html_url": "https://github.com/Vilsol/go-mlog",
+  "short_name": "go-mlog",
+  "description": "Go to Mindustry (MLOG) compiler, runtime and decompiler (WIP)",
+  "owner": "Vilsol",
+  "updated_at": "2025-04-22T06:14:55Z",
+  "stargazers_count": 28
+}
+,
+{
+  "html_url": "https://github.com/albi-c/mlogpp",
+  "short_name": "Mlogpp",
+  "description": "high level mindustry logic language",
+  "owner": "albi-c",
+  "updated_at": "2026-02-10T13:37:11Z",
+  "stargazers_count": 8
+}
+,
+{
+  "html_url": "https://github.com/quantumsheep/glsl-mlog-compiler",
+  "short_name": "GLSL to Mlog",
+  "description": "Transpiles GLSL to mlog (Mindustry Logic)",
+  "owner": "quantumsheep",
+  "updated_at": "2025-11-24T03:22:03Z",
+  "stargazers_count": 4
+}
+,
+{
+  "html_url": "https://github.com/Voz-Duh/Mindustry_CodeToLogic",
+  "short_name": "Mindustry CodeToLogic",
+  "description": "Converter from DSL to mindustry logic",
+  "owner": "Voz-Duh",
+  "updated_at": "2025-07-18T11:53:46Z",
+  "stargazers_count": 0
+}
+,
+{
+  "html_url": "https://github.com/A4-Tacks/mindustry_logic_bang_lang",
+  "short_name": "Mlog Bang Lang",
+  "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
+  "owner": "A4-Tacks",
+  "updated_at": "2026-04-09T13:26:27Z",
+  "stargazers_count": 32
+}
+,
+{
+  "html_url": "https://github.com/SkyeTheFoxyFox/sfmlog",
+  "short_name": "sfmlog",
+  "description": "An mlog transpiler",
+  "owner": "SkyeTheFoxyFox",
+  "updated_at": "2026-03-06T05:25:02Z",
+  "stargazers_count": 0
+}
+]}

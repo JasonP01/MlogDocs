@@ -18,6 +18,100 @@
     color: #d9e3f7;
 }
 
+data{
+    all:unset;
+}
+
+.skeleton {
+    [data-i18n] {
+        background: linear-gradient(90deg, #8888884b 25%, #7777774b 50%, #8888884b 75%);
+        background-size: 200% 100%;
+        color: transparent;
+        /* hide text until loaded */
+        border-radius: 4px;
+        display: inline-block;
+        animation: pulse 1.5s infinite linear;
+        width: 80%;
+        height: 1.5rem;
+    }
+    h1[data-i18n] {
+        height: 2rem;
+    }
+    h1.title[data-i18n] {
+        display: flex;
+        font-size: xx-large;
+        text-align: center;
+        justify-content: center;
+        width:300px;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    h1.title-by[data-i18n] {
+        display: flex;
+        font-size: xx-large;
+        text-align: center;
+        justify-content: center;
+        width:100px;
+        height: 1rem;
+        margin: 0 auto;
+        margin-top: 3px;
+        /* margin-bottom: 24px; */
+    }
+    
+    [data-i18n="foreword.title"]{
+        width: 200px;
+        margin-bottom: 0;
+    }
+    [data-i18n="foreword.content1"]{
+        width: 95%;
+        height: 16rem;
+    }
+    [data-i18n="introduction.title"]{
+        width: 15%;
+        height: 2rem;
+        margin: 0 auto;
+    }
+    [data-i18n="introduction.title2"]{
+        width: 20%;
+        height: 2rem;
+        margin: 0 auto;
+    }
+    [data-i18n="introduction.content1"]{
+        width: 95%;
+        height: 5rem;
+    }
+    [data-i18n="introduction.content2"]{
+        width: 95%;
+        height: 5rem;
+    }
+    [data-i18n="introduction.content3"]{
+        width: 95%;
+        height: 2rem;
+    }
+}
+
+
+@keyframes pulse {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.title {
+    font-size: xx-large;
+    text-align: center;
+}
+
+.title-by {
+    text-align: center;
+    font-size: medium;
+    margin-top: -17px;
+}
+
 html, body {
   overflow-x: hidden;
 }
@@ -777,12 +871,99 @@ pre {
     flex:1;
 }
 
-
-
 iframe {
     overflow: hidden;
     height: 90px;
     transform: scale(1.2);
     width: 100%;
     transform-origin: left center;
+}
+
+.content-table{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    border-left: solid 0.5px black;
+    border-top: solid 0.5px black;
+    
+    div{
+        border-right: solid 0.5px black;
+        border-bottom: solid 0.5px black;
+        align-items: center;
+        padding: 0 0.5rem;
+    }
+}
+
+.id-content-table{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: fit-content;
+    border-left: solid 0.5px black;
+    border-top: solid 0.5px black;
+    
+    div{
+        border-right: solid 0.5px black;
+        border-bottom: solid 0.5px black;
+        align-items: center;
+        padding: 0 0.5rem;
+    }
+}
+
+
+/* Tokens styles */
+
+.left130 {
+    left: 130px;
+}
+.left160 {
+    left: 160px;
+}
+.top15 {
+    top: 15px;
+}
+.width120 {
+    width: 120px;
+}
+.width300 {
+    width: 300px;
+}
+.width500 {
+    width: 600px;
+}
+.width600 {
+    width: 600px;
+}
+.width700 {
+    width: 700px;
+}
+.width800 {
+    width: 800px;
+}
+.height400 {
+    height: 400px;
+}
+.mwidth75vw {
+    max-width: 75vw;
+}
+.mwidth80vw {
+    max-width: 80vw;
+}
+.mwidth85vw {
+    max-width: 85vw;
+}
+.mwidth85vw {
+    max-width: 88vw;
+}
+
+.mtop20 {
+    margin-top: 20px;
+}
+
+code.yel {
+    color: yellow;
+}
+code.aqu {
+    color: yellow;
+}
+[href="https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4"] {
+    overflow-wrap: anywhere;
 }

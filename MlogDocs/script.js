@@ -1,3 +1,361 @@
+function renderTextWithTokens(el, text, sectionData, _debugPath) {
+  const frag = document.createDocumentFragment();
+  const regex = /(?<!\\)\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/g;
+  const pureregex = /(?<!\\)\{pure:([^}]+)\}/g;
+
+  let last = 0;
+  let m;
+
+  while ((m = regex.exec(text))) {
+    frag.append(text.slice(last, m.index).replace(/\\([{}])/g, '$1'));
+    let [fullMatch, type, name, extra] = m;
+    if (type === 'pure') {
+      const pureMatch = pureregex.exec(fullMatch);
+      if (pureMatch) {
+        fullMatch = pureMatch[0];
+        name = pureMatch[1];
+        type = 'pure';
+      };
+    }
+    const tokenPos = m.index;
+
+    // ── Resolve ────────────────────────────────────────────────────────────
+    const resolver = tokenResolvers[type];
+    if (!resolver) {
+      console.error(
+        `[i18n] Unknown token type "${type}"\n` +
+        `  key   : ${_debugPath ?? '(unknown)'}\n` +
+        `  token : ${fullMatch}\n` +
+        `  offset: char ${tokenPos} in value\n` +
+        `  value : ${text}`
+      );
+      frag.append(fullMatch); // render raw so page doesn't silently break
+      last = regex.lastIndex;
+      continue;
+    }
+
+    let resolved;
+    try {
+      resolved = resolver(
+        ...(name  ? [name]        : []),
+        ...(sectionData ? [sectionData] : []),
+        ...(extra ? [extra]       : [])
+      );
+    } catch (err) {
+      // Determine likely cause
+      let hint = '';
+      if (name && sectionData && !(name in sectionData)) {
+        hint = `\n  hint  : key "${name}" not found in sectionData — available keys: [${Object.keys(sectionData).join(', ')}]`;
+      } else if (!name && ['link','code','hl','b','span','p'].includes(type)) {
+        hint = `\n  hint  : token type "${type}" requires a name argument`;
+      } else if (!extra && ['link','img','video','span','p'].includes(type)) {
+        hint = `\n  hint  : token type "${type}" requires an extra argument`;
+      }
+
+      console.error(
+        `[i18n] Token resolver threw for type "${type}"\n` +
+        `  key   : ${_debugPath ?? '(unknown)'}\n` +
+        `  token : ${fullMatch}\n` +
+        `  offset: char ${tokenPos} in value\n` +
+        `  name  : ${name ?? '(none)'}\n` +
+        `  extra : ${extra ?? '(none)'}\n` +
+        `  error : ${err.message}` +
+        hint
+      );
+      frag.append(fullMatch);
+      last = regex.lastIndex;
+      continue;
+    }
+
+    if (resolved instanceof Element && resolved.textContent) {
+      const nested = resolved.textContent;
+      const nestedRegex = /(?<!\\)\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/;
+      if (nestedRegex.test(nested)) {
+        renderTextWithTokens(resolved, nested, sectionData, _debugPath);
+      }
+    }
+
+    frag.append(resolved);
+    last = regex.lastIndex;
+  }
+  frag.append(text.slice(last).replace(/\\([{}])/g, '$1'));
+  el.replaceChildren(frag);
+}
+
+const modal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImage');
+const modalVideo = document.getElementById('modalVideo');
+
+const tokenResolvers = {
+  link(name, sectionData, extra) {
+    const el = document.createElement("a");
+    el.href = `${extra}`;
+    el.textContent = sectionData[name];
+    // el.addEventListener('click', triggerGlow);
+    return el;
+  },
+  hl(name, sectionData, extra) {
+    const el = document.createElement("span");
+    switch (extra) {
+      case "yel":
+        el.style.color = "yellow";
+        break;
+      case "red":
+        el.style.color = "red";
+        break;
+      case "lig":
+        el.style.color = "lightblue";
+      case "aq":
+        el.style.color = "aqua";
+        break;
+      case "bg-lg":
+        el.style.backgroundColor = "lightgray";
+        el.style.color = "black";
+        break;
+      case "bg-g":
+        el.style.backgroundColor = "gray";
+        el.style.color = "black";
+        break;
+      case "bg-g-yel":
+        el.style.backgroundColor = "gray";
+        el.style.color = "yellow";
+        break;
+      default:
+        console.warn(`Unknown hl color "${extra}" for key "${name}"`);
+    }
+    el.textContent = sectionData[name];
+    return el;
+  },
+  code(name, sectionData, extra) {
+    const el = document.createElement("code");
+    if (extra) {
+      el.classList.add(...extra.split(' '))
+    }
+    el.textContent = sectionData[name];
+    return el;
+  },
+  br() {
+    return document.createElement("br");
+  },
+  b(name, sectionData) {
+    const el = document.createElement("b");
+    el.textContent = sectionData[name];
+    return el;
+  },
+  img(name, sectionData, extra) {
+    const el = document.createElement("img");
+    el.src = name;
+    el.classList.add(...extra.split(' '));
+    el.addEventListener('click', function () {
+      modal.style.display = 'flex';
+      modalImg.src = this.src;
+      modalVideo.style.display = 'none';
+      modalImg.style.display = 'Block';
+    });
+    return el;
+  },
+  video(name, sectionData, extra) {
+    const el = document.createElement("video");
+    el.src = name;
+    el.classList.add(...extra.split(' '));
+    el.addEventListener('click', function () {
+      if (this.id === 'modalVideo') return;
+      modal.style.display = 'flex';
+      modalVideo.src = this.src;
+      modalImg.style.display = 'none';
+      modalVideo.style.display = 'Block';
+    });
+    el.setAttribute('controls', '');
+    el.setAttribute('autoplay', '');
+    el.setAttribute('loop', '');
+    el.setAttribute('muted', '');
+    el.setAttribute('playsinline', '');
+    return el;
+  },
+  p(name, sectionData, extra) {
+    const el = document.createElement("p");
+    el.textContent = sectionData[name];
+    el.classList.add(...extra.split(' '));
+    return el;
+  },
+  span(name, sectionData, extra) {
+    const el = document.createElement("span");
+    el.textContent = sectionData[name];
+    el.classList.add(...extra.split(' '));
+    return el;
+  },
+  pure(name) {
+    const el = document.createElement("span");
+    el.innerHTML = name;
+    return el;
+  }
+};
+
+function resolveKey(path, obj) {
+  return path.split(".").reduce((o, k) => o?.[k], obj);
+}
+
+async function fetchYaml(url) {
+  let yamlText;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      console.error(`[i18n] Failed to fetch "${url}": HTTP ${response.status}`);
+      return;
+    }
+    yamlText = await response.text();
+  } catch (err) {
+    console.error(`[i18n] Network error fetching "${url}": ${err.message}`);
+    return;
+  }
+
+  let data;
+  try {
+    data = jsyaml.load(yamlText);
+  } catch (err) {
+    // js-yaml errors include mark.line (0-based) and mark.column
+    const line = err.mark ? err.mark.line + 1 : '?';
+    const col = err.mark ? err.mark.column + 1 : '?';
+    console.error(
+      `[i18n] YAML parse error in "${url}"\n` +
+      `  line  : ${line}\n` +
+      `  col   : ${col}\n` +
+      `  reason: ${err.reason ?? err.message}`
+    );
+    return;
+  }
+  return data;
+}
+
+async function loadLang(version, lang) {
+  const url = `./Languages/${version}/${lang}.yaml`;
+  const data = await fetchYaml(url);
+  console.log(data);
+
+  window.i18n = data;
+
+  let tokenErrors = 0;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const path = el.dataset.i18n;
+    const sectionKey = path.split(".").slice(0, -1).reduce((o, k) => o?.[k], i18n);
+    const value = resolveKey(path, i18n);
+
+    if (value === undefined || value === null) {
+      console.warn(`[i18n] Missing key "${path}" in "${lang}.yaml"`);
+      tokenErrors++;
+      return;
+    }
+
+    if (typeof value !== "string") {
+      console.warn(
+        `[i18n] Key "${path}" resolved to ${typeof value} instead of string — skipping`
+      );
+      return;
+    }
+
+    renderTextWithTokens(el, value, sectionKey, path);
+  });
+
+  if (tokenErrors > 0) {
+    console.warn(`[i18n] ${tokenErrors} missing key(s) in "${lang}.yaml"`);
+  }
+
+  document.body.classList.remove("skeleton");
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    if (link.dataset.triggerGlowListener) return;
+
+    link.addEventListener('click', triggerGlow);
+    link.dataset.triggerGlowListener = "1";
+  });
+
+  mappingTable = {
+    "environment-table": "environment",
+    "block-table": "blocks",
+    "item-table": "items",
+    "unit-table": "units",
+    "id-block-table": "blocks",
+    "id-unit-table": "units",
+    "id-item-table": "items",
+    "id-liquid-table": "liquids",
+  }
+
+  for (const [tableId, name] of Object.entries(mappingTable)) {
+    tableElement = document.getElementById(tableId);
+    if (tableElement){
+      const url = `./Languages/static/${name}.yaml`;
+      const data = await fetchYaml(url);
+      let isId = false;
+      if (tableId.split('-')[0] == 'id') {
+        isId = true;
+      }
+      const envData = data[name];
+      for (const [key, value] of Object.entries(envData)) {
+        if (isId) {
+          const keyCell = document.createElement('div');
+          keyCell.textContent = `${key}`;
+          tableElement.appendChild(keyCell);
+        }
+        const valueCell = document.createElement('div');
+        valueCell.textContent = value;
+        tableElement.appendChild(valueCell);
+      }
+    };
+  }
+
+}
+
+// Load default language (English)
+loadLang("v7", "en").then(() => {
+  // Optional operations needed to be done after loading
+  let img = document.querySelector('img[src="image/ui1.png"]');
+  let elementsToWrap = []
+  for (let i = 0; i < 48; i++) {
+    img = img.nextSibling;
+    elementsToWrap.push(img);
+  }
+
+  section = document.createElement('section');
+  section.id = 'vars-tab'
+  elementsToWrap[0].parentNode.insertBefore(section, elementsToWrap[0]);
+  elementsToWrap.forEach(el => section.appendChild(el));
+
+});
+
+function parseTranspilerDataJSON() {
+  fetch('./TranspilerData/transpiler-datas.json')
+  .then(res => res.json())
+  .then(datas => {
+    const sorted = datas.repos
+      .map(d => ({
+        html_url: d.html_url,
+        name: d.short_name,
+        description: d.description,
+        owner: d.owner,
+        updated_at: d.updated_at,
+        stars: d.stargazers_count,
+      }))
+      .sort((a, b) => b.stars - a.stars);
+
+    const html = sorted.map(d => `
+        <li style="font-size: larger;"><a href="${d.html_url}"><b class="link">${d.name}</b></a> :</li>
+        ${d.description}
+        <ul>
+            <li>Repo Owner : ${d.owner}</li>
+            <li>Last Updated : ${d.updated_at.replace('T', ' ').replace(/Z$/, '')}</li>
+            <li>Stars : ${d.stars}</li>
+        </ul>
+        <br>`
+    ).join('\n');
+
+    const date = new Date(datas.date_updated + ' UTC');
+    const formatted = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('transpilers-data-update-date').innerHTML = `List of compiler: (Last updated: ${formatted})`;
+    document.getElementById('transpilers-data').innerHTML = html;
+  })
+  .catch(err => console.error('fetch error:', err));
+}
+
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     var sidebar = document.getElementById('sidebar');
     var content = document.querySelector('.main-content');
@@ -54,6 +412,8 @@ document.querySelectorAll('img').forEach(img => {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+    parseTranspilerDataJSON();
+
     const tocLinks = document.querySelectorAll('#sidebar a');
   
     function highlightCurrentSection() {
@@ -120,52 +480,60 @@ document.addEventListener('DOMContentLoaded', function() {
         link.parentNode.insertBefore(copyBtn, link.nextSibling);
       }
     })
-});
 
-
-// Add event listener 'onclick' to every a[href = (with #)]
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', triggerGlow);
+  fetch('/MlogDocs/Languages/index.json')
+    .then(r => r.json())
+    .then(list => {
+      const ul = document.querySelector('#lang-list');
+      for (const [version, langs] of Object.entries(list)) {
+        const versionLi = document.createElement('li');
+        versionLi.textContent = version;
+        ul.appendChild(versionLi);
+        for (const { lang_code, language } of langs) {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="#" class="indent1" onclick="loadLang('${version}', '${lang_code}')">${language}</a>`;
+          versionLi.appendChild(li);
+        }
+      }
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="https://example.com/contribute">Contribute a translation!</a>`;
+      ul.appendChild(li);
+    });
 });
   
 function triggerGlow(event) {
   event.preventDefault();
-  
-  const href = this.getAttribute('href');
-  const target = document.querySelector(this.getAttribute('href'));
+
+  const href = this.getAttribute("href"); // "#section"
+  const target = document.querySelector(href);
+  if (!target) return;
+
+  // create history entry
+  history.pushState(null, "", href);
+
   const targetTop = target.getBoundingClientRect().top + window.scrollY;
 
-  let scrollToPosition;
-  if (target.offsetHeight > window.innerHeight){
-    scrollToPosition = targetTop
-  } else {
-    scrollToPosition = targetTop - (window.innerHeight / 2) + (target.offsetHeight / 2);
-  }
+  const scrollToPosition =
+    target.offsetHeight > window.innerHeight
+      ? targetTop
+      : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
 
-  // Push history entry so back button works
-  history.pushState(null, '', href);
-    
   window.scrollTo({
     top: scrollToPosition,
-    behavior: 'smooth'
+    behavior: "smooth",
   });
 
-  // Get the href attribute and extract the target ID
-  const targetId = event.target.getAttribute('href').substring(1);
-  const targetElement = document.getElementById(targetId);
-
-
+  const targetId = href.slice(1);
   const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        triggerGlow1(targetElement);
-        observer.disconnect();
-      }
-    });
+    if (entries[0].isIntersecting) {
+      triggerGlow1(target);
+      observer.disconnect();
+    }
   });
 
-  observer.observe(targetElement);
+  observer.observe(target);
 }
+
 
 function triggerGlow1(section) {
   section.classList.remove('glow-section');
@@ -174,11 +542,9 @@ function triggerGlow1(section) {
 }
 
 // Get the modal
-const modal = document.getElementById('imageModal');
+// const modal = document.getElementById('imageModal');
 
 // Get the image and insert it inside the modal
-const modalImg = document.getElementById('modalImage');
-const modalVideo = document.getElementById('modalVideo');
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName('close')[0];
@@ -201,7 +567,6 @@ document.querySelectorAll('video').forEach(video => {
     modalVideo.src = this.src;
     modalImg.style.display = 'none';
     modalVideo.style.display = 'Block';
-    console.log('asdfasfdasdfasdfasdfsdfasd')
   });
 });
 
