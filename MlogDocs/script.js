@@ -496,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       const li = document.createElement('li');
-      li.innerHTML = `<a href="https://example.com/contribute">Contribute a translation!</a>`;
+      li.innerHTML = `<a href="https://github.com/Yrueii/Yrueii.github.io">Contribute a translation!</a>`;
       ul.appendChild(li);
     });
 });
