@@ -7,12 +7,17 @@ async function loadJSON(filePath){
 
 function fillTemplateJSON(jsonData){
     const template = jsonData["template"];
-    return jsonData["data"].map(e => template.replace(/\{\}/g, e));
+    const data = jsonData["data"];
+    return data?.map(e => template?.replace(/\{\}/g, e));
 }
 
 loadJSON("./json/payloads.json").then(payloadData => {
-    payloadHTML = fillTemplateJSON(payloadData);
+    const payloadHTML = fillTemplateJSON(payloadData);
     document.getElementById("payloads").innerHTML = payloadHTML.join("\n");
+});
+loadJSON("./json/characters.json").then(characterData => {
+    const printCharHTML = fillTemplateJSON(characterData);
+    document.getElementById("printCharMenu").innerHTML = printCharHTML.join("\n");
 });
 
 //####################################################################################################################################
@@ -78,7 +83,8 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
         case 'Print Char':
-            code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '65'}</span>
+            code = `<span>char</span>
+                    <span class="editable iNo" id="string" contenteditable="true">${field1 || '65'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'printCharMenu')" class="pencilMenu">`
             break;
         case 'Format':
@@ -139,11 +145,11 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable operation" contenteditable="true">${field2 || 'a'}</span>`
             break;
         case 'Operation':
-            code = `<span class="editable operation" contenteditable="true" order="1">${field2 || 'result'}</span>
+            code = `<span class="editable operation" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
-                    <span class="editable operation" id="operation" order="2" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
-                    <span class="editable operation" contenteditable="true" order="4">${field4 || 'b'}</span>`
+                    <span class="editable operation" id="operation" order="1" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
+                    <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
@@ -189,17 +195,17 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')" oninput="selectOption(event,'ubindMenu', null, null, 1)">${field1 || '@poly'}</span>`
             break;
         case 'Unit Control':
-            code = `<span class="editable unitControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')" oninput="selectOption(event,'ucontrolMenu', null, null, 1)">${field1 || 'move'}</span>
-                    <span class="toggleableField" id="field1" style="display:block;">x</span>
-                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
-                    <span class="toggleableField" id="field2" style="display:block;">y</span>
-                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
-                    <span class="toggleableField" id="field3">x</span>
-                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">${field4 || '0'}</span>
-                    <span class="toggleableField" id="field4">y</span>
-                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>
-                    <span class="toggleableField" id="field5">y</span>
-                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">${field6 || '0'}</span>`
+            code = `<span class="editable unitControl selectionValue" contenteditable="true" order="1" onclick="popUpMenu(event,'ucontrolMenu')" oninput="selectOption(event,'ucontrolMenu', null, null, 1)">${field1 || 'move'}</span>
+                    <span class="toggleableField" id="field1" style="display:block;" order="11">x</span>
+                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;" order="2">${field2 || '0'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;" order="22">y</span>
+                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style="display:block;" order="3">${field3 || '0'}</span>
+                    <span class="toggleableField" id="field3" order="33">x</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span class="toggleableField" id="field4" order="44">y</span>
+                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>
+                    <span class="toggleableField" id="field5" order="55">y</span>
+                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true" order="6">${field6 || '0'}</span>`
             break;
         case 'Unit Radar':
             code = `<span>target</span>
@@ -1299,20 +1305,6 @@ document.addEventListener('touchend',handleEnd)
 // instruction fields popupmenu
 // this whole section is an absolute fucking mess
 //####################################################################################################################################
-function getContentSize(element){
-    const style = getComputedStyle(element);
-
-    console.log(element.clientWidth);
-    console.log(element.clientHeight);
-    const width = element.clientWidth 
-    - parseFloat(style.paddingLeft)
-    - parseFloat(style.paddingRight);
-    const height = element.clientHeight
-    - parseFloat(style.paddingTop)
-    - parseFloat(style.paddingBottom);
-
-    return [width, height];
-}
 var clickedMenu;
 var bgclickedMenu;
 var popUpMenuElement;
@@ -1588,7 +1580,8 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
         option = importSelectionValue
     }
     
-    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
+    const fieldsParent = clickedMenu.parentElement
+    const fields = fieldsParent.querySelectorAll('.toggleableField')
 
 
 
@@ -1612,6 +1605,47 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
         })
     }
     switch(id){
+        case 'opMenu':
+            //first value i.e. "a" in "op add result a b"
+            //find this for reordering i.e. "result = a + b" --> "result = min a b"
+            const firstVal = fieldsParent.querySelector('[order = "3"]');
+            const operator = fieldsParent.querySelector('[order = "1"]');
+            switch (option){
+                case 'flip':
+                case 'abs':
+                case 'sign':
+                case 'log':
+                case 'log10':
+                case 'floor':
+                case 'ceil':
+                case 'round':
+                case 'sqrt':
+                case 'rand':
+                case 'sin':
+                case 'cos':
+                case 'tan':
+                case 'asin':
+                case 'acos':
+                case 'atan':
+                    main([1,2,3]);
+                    firstVal.parentElement.insertBefore(operator, firstVal);
+                    break;
+                case 'max':
+                case 'min':
+                case 'angle':
+                case 'anglediff':
+                case 'len':
+                case 'noise':
+                    main([1,2,3,4]);
+                    firstVal.parentElement.insertBefore(operator, firstVal);
+                    break;
+                //for all operations with the format result = a <op> b
+                default:
+                    main([1,2,3,4]);
+                    firstVal.after(operator);
+                    break;
+            }
+            break;
         case 'setRuleMenu':
             switch(option){
                 case 'mapArea':
@@ -1861,43 +1895,43 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'move':
                 case 'pathfind':
                 case 'mine':
-                    main([11,22,1,2], {11:'x',22:'y'})
+                    main([11,22,1,2,3], {11:'x',22:'y'})
                     break;
                 case 'approach':
-                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'radius'})
+                    main([11,22,33,1,2,3,4], {11:'x',22:'y',33:'radius'})
                     break;
                 case 'boost':
-                    main([11,1], {11:'enable'})
+                    main([11,1,2], {11:'enable'})
                     break;
                 case 'target':
-                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'shoot'})
+                    main([11,22,33,1,2,3,4], {11:'x',22:'y',33:'shoot'})
                     break;
                 case 'targetp':
-                    main([11,22,1,2], {11:'unit',22:'shoot'})
+                    main([11,22,1,2,3], {11:'unit',22:'shoot'})
                     break;
                 case 'itemDrop':
-                    main([11,22,1,2], {11:'to',22:'amount'})
+                    main([11,22,1,2,3], {11:'to',22:'amount'})
                     break;
                 case 'itemTake':
-                    main([11,22,33,1,2,3], {11:'from',22:'item',33:'amount'})
+                    main([11,22,33,1,2,3,4], {11:'from',22:'item',33:'amount'})
                     break;
                 case 'payTake':
-                    main([11,1], {11:'takeUnits'})
+                    main([11,1,2], {11:'takeUnits'})
                     break;
                 case 'itemTake':
-                    main([11,22,33,1,2,3], {11:'from',22:'item',33:'amount',})
+                    main([11,22,33,1,2,3,4], {11:'from',22:'item',33:'amount',})
                     break;
                 case 'flag':
-                    main([11,1], {11:'value'})
+                    main([11,1,2], {11:'value'})
                     break;
                 case 'build':
-                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'block',44:'rotation',55:'config'})
+                    main([11,22,33,44,55,1,2,3,4,5,6], {11:'x',22:'y',33:'block',44:'rotation',55:'config'})
                     break;
                 case 'getBlock':
-                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'type',44:'building',55:'floor'})
+                    main([11,22,33,44,55,1,2,3,4,5,6], {11:'x',22:'y',33:'type',44:'building',55:'floor'})
                     break;
                 case 'within':
-                    main([11,22,33,44,1,2,3,4], {11:'x',22:'y',33:'radius',44:'result'})
+                    main([11,22,33,44,1,2,3,4,5], {11:'x',22:'y',33:'radius',44:'result'})
                     break;
             }
             break;
@@ -1948,6 +1982,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                     main([1])
                     break;
             }
+            break;
+        case 'printCharMenu':
+            fieldsParent.querySelector("#string").textContent = String(option?.charCodeAt(0));
             break;
         default:
             console.log('something went wrong');
@@ -2277,6 +2314,7 @@ const operatorMap = {
     "/"         : 'div',
     "//"        : 'idiv',
     "%"         : 'mod',
+    "%%"        : 'emod',
     "^"         : 'pow',
     "=="        : 'equal',
     'not'       : 'notEqual',
@@ -2299,10 +2337,13 @@ const operatorMap = {
     "len"       : 'len',
     "noise"     : 'noise',
     "abs"       : 'abs',
+    "sign"      : 'sign',
     "log"       : 'log',
+    "logn"      : 'logn',
     "log10"     : 'log10',
     "floor"     : 'floor',
     "ceil"      : 'ceil',
+    "round"     : 'round',
     "sqrt"      : 'sqrt',
     "rand"      : 'rand',
     "sin"       : 'sin',
@@ -2319,6 +2360,7 @@ const operatorMap = {
     'div'               : 'div',
     'idiv'              : 'idiv',
     'mod'               : 'mod',
+    'emod'              : 'emod',
     'pow'               : 'pow',
     'equal'             : 'equal',
     'notEqual'          : 'notEqual',
@@ -2341,10 +2383,13 @@ const operatorMap = {
     'len'               : 'len',
     'noise'             : 'noise',
     'abs'               : 'abs',
+    'sign'              : 'sign',
     'log'               : 'log',
+    'logn'              : 'logn',
     'log10'             : 'log10',
     'floor'             : 'floor',
     'ceil'              : 'ceil',
+    'round'             : 'round',
     'sqrt'              : 'sqrt',
     'rand'              : 'rand',
     'sin'               : 'sin',
