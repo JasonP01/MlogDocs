@@ -449,7 +449,18 @@ document.addEventListener('DOMContentLoaded', function() {
           activeLink.parentElement.classList.add('highlight');
         }
       });
+
     }
+    langButton = document.querySelector('.language-selection-button');
+    langButton.addEventListener('click', function() {
+      console.log('asdfjhasdkfj')
+      const langSelection = document.querySelector('.language-selection');
+      if (langSelection.style.display === 'block') {
+        langSelection.style.display = 'none';
+      } else {
+        langSelection.style.display = 'block';
+      }
+    });
   
     window.addEventListener('scroll', highlightCurrentSection);
   
@@ -484,20 +495,20 @@ document.addEventListener('DOMContentLoaded', function() {
   fetch('/MlogDocs/Languages/index.json')
     .then(r => r.json())
     .then(list => {
-      const ul = document.querySelector('#lang-list');
+      const langList = document.querySelector('#lang-list');
       for (const [version, langs] of Object.entries(list)) {
-        const versionLi = document.createElement('li');
+        const versionLi = document.createElement('div');
         versionLi.textContent = version;
-        ul.appendChild(versionLi);
+        langList.appendChild(versionLi);
         for (const { lang_code, language } of langs) {
-          const li = document.createElement('li');
-          li.innerHTML = `<a href="#" class="indent1" onclick="loadLang('${version}', '${lang_code}')">${language}</a>`;
-          versionLi.appendChild(li);
+          const div = document.createElement('div');
+          div.innerHTML = `<a href="#" class="indent1" onclick="loadLang('${version}', '${lang_code}')">${language}</a>`;
+          versionLi.appendChild(div);
         }
       }
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="https://github.com/Yrueii/Yrueii.github.io">Contribute a translation!</a>`;
-      ul.appendChild(li);
+      // const div = document.createElement('div');
+      // div.innerHTML = `<a href="https://github.com/Yrueii/Yrueii.github.io">Contribute a translation!</a>`;
+      // langList.appendChild(div);
     });
 });
   
@@ -551,12 +562,14 @@ const span = document.getElementsByClassName('close')[0];
 
 // Add click event to all images
 document.querySelectorAll('img').forEach(img => {
-  img.addEventListener('click', function() {
-    modal.style.display = 'flex';
-    modalImg.src = this.src;
-    modalVideo.style.display = 'none';
-    modalImg.style.display = 'Block';
-  });
+  if (!img.dataset.listenerExclude) {
+    img.addEventListener('click', function() {
+      modal.style.display = 'flex';
+      modalImg.src = this.src;
+      modalVideo.style.display = 'none';
+      modalImg.style.display = 'Block';
+    });
+  }
 });
 
 // Add click event to all videos

@@ -10,12 +10,23 @@
     /* font-style: normal; */
 }
 
+:root{
+    --bg-color: #1e2229;
+    --sidebar-bg-color: #16191f;
+    --sidebar-border-color: #30363d;
+    --text-color: #d9e3f7;
+    --primary-color: #03a3f2;
+    --secondary-color: #7ed4ff;
+    --accent-color: #6b84d4;
+    --error-color: #ff0000;
+}
+
 * {
     /* font-family: "Audiowide", sans-serif; */ /* this is mindustry font but it looks weird */
     /* font-weight: 100; */
     font-family: Arial, sans-serif;
     line-height: 24px;
-    color: #d9e3f7;
+    color: var(--text-color);
 }
 
 data{
@@ -101,15 +112,30 @@ data{
     }
 }
 
+.main-title {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-bottom: 2.5rem;
+}
+
+.title-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
 .title {
     font-size: xx-large;
     text-align: center;
+    margin: 0;
+    line-height: 1;
 }
 
 .title-by {
     text-align: center;
     font-size: medium;
-    margin-top: -17px;
 }
 
 html, body {
@@ -134,7 +160,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    background-color: #1e2229;
+    background-color: var(--bg-color);
 }
 
 body::-webkit-scrollbar {
@@ -171,7 +197,7 @@ body::-webkit-scrollbar-thumb {
     position: absolute;
     top: 15px;
     right: 35px;
-    color: #fff;
+    color: var(--text-color);
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
@@ -232,7 +258,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar {
     width: 250px;
-    background-color: #16191f;
+    background-color: var(--sidebar-bg-color);
     padding: 20px 10px 20px 20px;
     position: fixed;    
     height: 100vh;
@@ -240,7 +266,7 @@ body::-webkit-scrollbar-thumb {
     transition: left 0.3s ease;
     overflow-y: auto;
     z-index: 999; /* Ensure it is below the hamburger menu */
-    border: 1px solid #30363d;
+    border: 1px solid var(--sidebar-border-color);
 }
 
 .sidebar.open {
@@ -259,7 +285,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar h2 {
     margin-top: 0;
-    color:#ffffff;
+    color: white;
 }
 
 .sidebar ul {
@@ -277,7 +303,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar-right {
     width: 250px;
-    background-color: #16191f;
+    background-color: var(--sidebar-bg-color);
     padding: 20px;
     position: fixed;
     height: 100vh;
@@ -285,7 +311,7 @@ body::-webkit-scrollbar-thumb {
     transition: right 0.3s ease;
     overflow-y: auto;
     z-index: 999;
-    border: 1px solid #30363d;
+    border: 1px solid var(--sidebar-border-color);
 }
 
 .sidebar-right.open {
@@ -427,6 +453,15 @@ section {
 
 /* Styles for mobile devices */
 @media (max-width: 768px) {
+
+    .main-title {
+        margin-bottom: 5rem;
+    }
+
+    .language-selection-button{
+        top: 70px;
+    }
+
     .ti {
         text-indent: 10px;
     }
@@ -578,7 +613,7 @@ section {
 }
 
 .link {
-    color:#03a3f2 ;
+    color:var(--primary-color) ;
 }
 
 .lg ,.lg sub, .lg sup {
@@ -653,7 +688,7 @@ ol.custom-list li::before {
 }
 
 .ytlink {
-    background-color: #7ed4ff;
+    background-color: var(--secondary-color);
     color: black;
     border-radius: 10px;
     justify-content: center;
@@ -711,9 +746,9 @@ th {
 
 a {
     position: relative;
-    color:#03a3f2 ;
+    color: var(--primary-color);
     text-decoration: none;
-    border-bottom: 2px solid #03a3f2;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 a .tooltip {
@@ -906,6 +941,65 @@ iframe {
         align-items: center;
         padding: 0 0.5rem;
     }
+}
+
+.language-selection {
+    display: none;
+    position: absolute;
+    width: 280px;
+    /* padding: 1rem 1.5rem; */
+    top: 100%;
+    left: 0px;
+    background-color: var(--sidebar-bg-color);
+    border: 1px solid var(--sidebar-border-color);
+    border-radius: 10px;
+    border-top-left-radius: 0;
+}
+
+.language-selection-button {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 5px;
+    padding: 0.5rem;
+    position: relative;
+    width: fit-content;
+    user-select: none;
+    z-index: 998;
+}
+
+.language-selection-button:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+    background-color: var(--sidebar-border-color);
+}
+
+.language-selection-button::after {
+    content: '';
+    display: inline-block;
+    width: 0; 
+    height: 0; 
+    margin-left: 5px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--text-color);
+}
+
+.lang-footer, .lang-body, .lang-header {
+    padding: 0.5rem 1rem;
+}
+
+.lang-footer {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: large;
+    color: var(--text-color);
+    border-top: 1px solid var(--sidebar-border-color);
+}
+.lang-header {
+    font-size: larger;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--sidebar-border-color);
 }
 
 
