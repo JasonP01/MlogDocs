@@ -41,6 +41,41 @@ function renderTextWithTokens(el, text, sectionData, _debugPath) {
         ...(sectionData ? [sectionData] : []),
         ...(extra ? [extra]       : [])
       );
+      if (resolved && resolved.delete) {
+        const depth = resolved.depth || 0;
+        let top = el;
+        for (let i = 0; i < depth; i++) {
+          top = top.parentElement;
+        }
+        if (resolved.sibling) {
+          const split = resolved.sibling.split(' ');
+          const dist = parseInt(split[0], 10) || 0;
+          const mode = split[1] || '';
+          let siblingEl = top;
+          let siblingList = [];
+          for (let i = 0; i < Math.abs(dist); i++) {
+            siblingEl = dist > 0 ? siblingEl.nextElementSibling : siblingEl.previousElementSibling;
+            if (!siblingEl){
+              break;
+            }
+            siblingList.push(siblingEl);
+          }
+          if (siblingList.length > 0) {
+            if (mode == 'cascade') {
+              siblingList.forEach(sib => {
+                sib.remove();
+              });
+            } else {
+              siblingList[siblingList.length - 1].remove();
+              console.info(`[i18n] Deleted sibling element at distance ${dist} from element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
+            }
+          }
+        }
+        top.remove();
+        console.info(`[i18n] Deleted element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
+        last = regex.lastIndex;
+        continue;
+      }
     } catch (err) {
       // Determine likely cause
       let hint = '';
@@ -184,10 +219,13 @@ const tokenResolvers = {
     el.classList.add(...extra.split(' '));
     return el;
   },
-  pure(name) {
+  raw(name) {
     const el = document.createElement("span");
     el.innerHTML = name;
     return el;
+  },
+  delete(name, sectionData, extra) {
+    return {delete: true, depth: name ? parseInt(name) : 0, sibling: extra};
   }
 };
 
@@ -228,14 +266,19 @@ async function fetchYaml(url) {
 }
 
 async function loadLang(version, lang) {
+  document.body.classList.add("skeleton");
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    el.textContent = ""; // clear text to prevent showing wrong language during loading
+  });
+
   const url = `./Languages/${version}/${lang}.yaml`;
   const data = await fetchYaml(url);
-  console.log(data);
 
   window.i18n = data;
 
   let tokenErrors = 0;
   document.querySelectorAll("[data-i18n]").forEach(el => {
+    
     const path = el.dataset.i18n;
     const sectionKey = path.split(".").slice(0, -1).reduce((o, k) => o?.[k], i18n);
     const value = resolveKey(path, i18n);
@@ -305,7 +348,7 @@ async function loadLang(version, lang) {
 
 }
 
-// Load default language (English)
+// Load default language (v7 English)
 loadLang("v7", "en").then(() => {
   // Optional operations needed to be done after loading
   let img = document.querySelector('img[src="image/ui1.png"]');
@@ -451,9 +494,10 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
     }
+
+    // Language selection dropdown
     langButton = document.querySelector('.language-selection-button');
     langButton.addEventListener('click', function() {
-      console.log('asdfjhasdkfj')
       const langSelection = document.querySelector('.language-selection');
       if (langSelection.style.display === 'block') {
         langSelection.style.display = 'none';
@@ -463,9 +507,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
     window.addEventListener('scroll', highlightCurrentSection);
-  
     highlightCurrentSection();
 
+    // Add copy link buttons to sidebar links
     all_sidebar_links = document.querySelectorAll('.sidebar-link')
     all_sidebar_links.forEach(link => {
       const copyBtn = document.createElement('button');
@@ -492,6 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
 
+  // Load available languages and populate the language selection dropdown
   fetch('/MlogDocs/Languages/index.json')
     .then(r => r.json())
     .then(list => {

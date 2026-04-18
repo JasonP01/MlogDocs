@@ -440,34 +440,59 @@ instructions:
     read:
         title: Read
         content: |
-            Read a value from a cell
+            Read a value from a certain object. this instruction can:
+            {br}Read a value from a cell.
+            {br}Read a variable value from other processor.
+            {br}Read strings directly and returning UTF-16 decimal value.
             {br}
             {img:image/read.png:mwidth85vw}
             {br}
             {code:result:variable draw} is your variable name
-            {br} {code:cell1:variable draw} is where to get the value from, a {link:builref:#building-reference}, “bank\{number\}” for Banks
-            {br}`{hl:_0:yel}` is the cell’s address. like said above, cells can store up to 64 values, this means there are only 64 addresses, starting at {hl:_0:yel}, meaning {hl:_0:yel} - {hl:_63:yel}
-            {br} Example: there is a value at 0 in {code:cell1:variable draw} that is {hl:_10:yel}, then {code:result:variable draw} variable will be {hl:_10:yel}
+            {br} {code:cell1:variable draw} is where to get the value from, a {link:builref:#building-reference}, for example {code:bank1:variable} for banks, {code:processor1:variable} for processors.
+            {br}{code:at:field} is location within the object you are reading from. 
+            {br}for example, a cells can store up to 64 values, this means there are  64 available addresses, starting at {hl:_0:yel}, meaning {hl:_0:yel} - {hl:_63:yel}. If there is a value of {hl:_10:yel} at {hl:_0:yel} in {code:cell1:variable draw}, then if you put {hl:_0:yel} in the {code:at:field} field the {code:result:variable draw} variable will be {hl:_10:yel}.
+            {br}For reading variables from other processor you have to put that variable name in a string and on the {code:at:field} field. for example there is a variable in {code:processor1:variable} called {code:that_variable:variable}, you need to put {code:that_variable1:variable draw} (with quotes) on the {code:at:field} field, {code:result:variable draw} will then return whatever the value of {code:that_variable:variable} currently in {code:processor1:variable}.
+            {br}For reading strings simply put {code:strings:variable} on the second field (where {code:cell1:variable draw} currently is on the picture above) and index on the {code:at:field} field. For example if you put {code:strings:variable} then {hl:_0:yel} on the {code:at:field} field then {code:result:variable draw} will return {hl:_115:yel} because the UTF-16 decimal value of "s" is {hl:_115:yel}
         result: result
         cell1: cell1
+        bank1: bank1
+        processor1: processor1
+        that_variable: that_variable
+        that_variable1: '"that_variable"'
+        strings: '"strings"'
         builref: building reference
         _0: "0"
+        at: at
         _63: "63"
+        _115: "115"
         _10: "10"
     write:
         title: Write
         content: |
-            Write a value to a cell{br}
+            Write a value from a certain object. this instruction can:
+            {br}write a value from to cell.
+            {br}write/change the value of a variable on other processor.
+            {br}
             {img:image/write.png:mwidth85vw}
             {br}
-            Essentially the same with read but it writes instead
-            {br}
-            Example: the {code:result:variable draw} variable is {hl:_10:yel}, then it will write {hl:_10:yel} to {code:cell1:variable draw} at #0
-            {br}
-            Can also be directly written using a number instead of a variable.
+            {code:result:variable draw} is your variable name
+            {br} {code:cell1:variable draw} is where to write the value to, a {link:builref:#building-reference}, for example {code:bank1:variable} for banks, {code:processor1:variable} for processors.
+            {br}{code:at:field} is location within the object you are writing to. 
+            {br}for example, a cells can store up to 64 values, this means there are  64 available addresses, starting at {hl:_0:yel}, meaning {hl:_0:yel} - {hl:_63:yel}. if you put {hl:_0:yel} in the {code:at:field} field that value in that cell will change to whatever the value of {code:result:variable draw} variable will is.
+            {br}For writing variables to other processor you have to put that variable name in a string and on the {code:at:field} field. for example there is a variable in {code:processor1:variable} called {code:that_variable:variable}, you need to put {code:that_variable1:variable draw} (with quotes) on the {code:at:field} field, then the value of {code:that_variable:variable} will then be changed to whatever the value of {code:result:variable draw} currently is.
         result: result
-        _10: "10"
         cell1: cell1
+        bank1: bank1
+        processor1: processor1
+        that_variable: that_variable
+        that_variable1: '"that_variable"'
+        strings: '"strings"'
+        builref: building reference
+        _0: "0"
+        at: at
+        _63: "63"
+        _115: "115"
+        _10: "10"
         
     draw:
         title: Draw
@@ -1732,6 +1757,12 @@ world_logic:
             {br}{span:set_the_dark_part_of_light_colors_in_oth:spin}
             {br}solarMultiplier
             {br}{span:set_the_multiplier_solar_panels_produce_:spin}
+            {br}dragMultiplier
+            {br}
+            {br}ban
+            {br}
+            {br}unban
+            {br}
             {br}unitBuildSpeed
             {br}{span:set_the_build_speed_of_units:spin}
             {br}unitHealth
@@ -1908,20 +1939,8 @@ bleeding_edge:
     TOADD: TOADD
     httpsgithubcomanukenmindustrybuilds: "https://github.com/Anuken/MindustryBuilds"
     cardillan: "Cardillan"
-    title2: "Read and Write"
-    content2: |
-        - the read and write instruction now supports writing and reading directly to another processor.
-        {br}by putting "string" on the {code:at:field} field and the processor reference on the
-        {code:to:field} field, you can directly change the value of that variable in that processor
-        {br}
-        {br}- now supports reading strings, An UTF-16 value will be returned for the selected character of the string
-        {br}example:
-        {br}{code:read_result_mindustry_at_0:draw}
-        {br}will return 77, which is the UTF-16 value of M, at 1 will return 105, which is the UTF-16 value of i, and so on
-        {br}
-        {br}- Now can access individual pixels in erekir canvas
-        {br}
-        {br}- Now can access individual characters on a message block with an index. A UTF-16 value of the character is returned. if out of range returns {code:null}
+    title2: "{delete:1}"
+    content2: "{delete:0:1}"
     at: "at"
     to: "to"
     read_result_mindustry_at_0: "read result = \"Mindustry\" at 0"
