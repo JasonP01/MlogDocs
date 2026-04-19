@@ -21,6 +21,123 @@
 title: Mlog Documentation
 by: By Yruei
 
+table_of_contents:
+    # the key here is actually used for href (the link) so dont change them
+    foreword: Foreword
+    introduction: Introduction
+    glossary: Glossary
+    integers: Integers
+    float: Float
+    boolean: Boolean
+    strings: Strings
+    building-reference: Block or Unit Reference
+    contentname: Content name
+
+    basic-concept: Basic Concept
+    processors: Processors
+    processors-ui: Processor's UI
+    how-processor-run-its-code: How Processors run its code
+    links: Links
+    variables: Variables
+    built-in-variables: Built in Variables
+    constants: Constant
+    buffers: Buffers
+
+    blocks: Blocks
+    message: Message
+    switch: Switch
+    display: Displays
+    cell: Cells/Banks
+
+    instructions: Instructions
+    read: Read
+    write: Write
+    draw: Draw
+    draw-flush: Draw Flush
+    print: Print
+    print-flush: Print Flush
+    get-link: Get link
+    control: Control
+    radar: Radar
+    sensor: Sensor
+    set: Set
+    operation: Operation
+    lookup: Lookup
+    pack-color: Pack Color
+    wait: Wait
+    stop: Stop
+    end: End
+    jump: Jump
+
+    controlling-units: Controlling Units
+    unit-bind: Unit Bind
+    unit-control: Unit Control
+    unit-radar: Unit Radar
+    unit-locate: Unit Locate
+
+    simple-logic-examples: Simple Logic Examples
+    universal-switch: Universal Switch
+    shuttle-logic: Shuttle Logic
+    thorium-reactor-fail-safe: Thorium Reactor Fail Safe
+    counter-array: counter Array
+    
+    advanced: Advanced
+    writing-in-text-editor: Writing in text editor
+    transpiler: Transpiler
+    mods: Mods
+    subframe: Antithreading / Subframe
+
+    world-logic: World Logic (WIP)
+    how-to-get-world-processor: How to get World Processor
+    get-block: Get Block
+    set-block: Set Block
+    spawn-unit: Spawn Unit
+    apply-status: Apply Status
+    spawn-wave: Spawn Wave(WIP)
+    set-rule: Set Rule(WIP)
+    flush-message: Flush Message
+    cutscene: Cutscene
+    effect: Effect
+    explosion: Explosion
+    set-rate: Set Rate
+    fetch: Fetch
+    sync: Sync(WIP)
+    get-flag: Get Flag
+    set-flag: Set Flag
+    set-prop: Set Prop
+    
+    bleeding-edge: Bleeding Edge(WIP)
+
+    extras: Extras
+    mindustry-coordinate-system: Mindustry Coordinate System
+    configure-turns-to-config: The word configure turns to config
+    you-cannot-spawn-scathe-missile: You cannot spawn Scathe missles
+    modded-items-and-draw-image: Modded items and Draw Image
+    ai-chatbot-doenst-understand-mlog: AI Chatbot doesn't understand Mlog
+    getting-unit-cap: Getting unit cap
+    v6-unit-control-with-logic: v6 unit control with logic
+    damage-calculation: Damage calculation   
+    math: Math
+    self-linking-processor: Self linking processor
+
+    self-promotion: Self promotion
+
+    appendix: Appendix
+    mloginvention: Mlog Invention
+    built-in-variables1: Built in Variables
+    global: Global
+    environment: Environment
+    sensors: Sensors
+    blocks-and-items: Blocks and Items
+    units: Units
+    text-form-instruction: Text form instruction
+    normal-processor: Normal Processor
+    world-processor: World Processor
+    lookup-ids: Lookup Id(s)
+    dblockbehaviour: Disabled block behaviour
+    
+    Contributors: Contributors
+
 foreword:
     title: Foreword
     content1: |
@@ -1816,8 +1933,16 @@ world_logic:
     explosion:
         title: "Explosion"
         content: |
-            create an explosion
-            {br}{span:codeteamfield_what_team_the_explosion_be:spin}
+            {img:image/explosion.png:mwidth85vw}
+            {br}create an explosion
+        content2: |
+            {code:team:field} what team the explosion belong to, explosion cannot harm ally blocks
+            {br}{code:x:field} {code:y:field} where to create the explosion
+            {br}{code:radius:field} size of explosion, block outside this radius does not take damage
+            {br}{code:damage:field} the damage of the explosion
+            {br}{code:air:field} whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
+            {br}{code:ground:field} whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
+            {br}{code:pierce:field} whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged
         team: "team"
         x: "x"
         y: "y"
@@ -1826,14 +1951,6 @@ world_logic:
         air: "air"
         ground: "ground"
         pierce: "pierce"
-        codeteamfield_what_team_the_explosion_be: |
-            {code:team:field} what team the explosion belong to, explosion cannot harm ally blocks
-            {br}{code:x:field} {code:y:field} where to create the explosion
-            {br}{code:radius:field} size of explosion, block outside this radius does not take damage
-            {br}{code:damage:field} the damage of the explosion
-            {br}{code:air:field} whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
-            {br}{code:ground:field} whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
-            {br}{code:pierce:field} whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged
     set_rate:
         title: "Set Rate"
         content: "Set the speed of the processor, in instruction per tick, 1 second = 60 ticks"

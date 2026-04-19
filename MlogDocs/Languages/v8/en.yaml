@@ -21,6 +21,124 @@
 title: Mlog Documentation
 by: By Yruei
 
+table_of_contents:
+    # the key here is actually used for href (the link) so dont change them
+    foreword: Foreword
+    introduction: Introduction
+    glossary: Glossary
+    integers: Integers
+    float: Float
+    boolean: Boolean
+    strings: Strings
+    building-reference: Block or Unit Reference
+    contentname: Content name
+
+    basic-concept: Basic Concept
+    processors: Processors
+    processors-ui: Processor's UI
+    how-processor-run-its-code: How Processors run its code
+    links: Links
+    variables: Variables
+    built-in-variables: Built in Variables
+    constants: Constant
+    buffers: Buffers
+
+    blocks: Blocks
+    message: Message
+    switch: Switch
+    display: Displays
+    cell: Cells/Banks
+
+    instructions: Instructions
+    read: Read
+    write: Write
+    draw: Draw
+    draw-flush: Draw Flush
+    print: Print
+    print-flush: Print Flush
+    get-link: Get link
+    control: Control
+    radar: Radar
+    sensor: Sensor
+    set: Set
+    operation: Operation
+    lookup: Lookup
+    pack-color: Pack Color
+    wait: Wait
+    stop: Stop
+    end: End
+    jump: Jump
+
+    controlling-units: Controlling Units
+    unit-bind: Unit Bind
+    unit-control: Unit Control
+    unit-radar: Unit Radar
+    unit-locate: Unit Locate
+
+    simple-logic-examples: Simple Logic Examples
+    universal-switch: Universal Switch
+    shuttle-logic: Shuttle Logic
+    thorium-reactor-fail-safe: Thorium Reactor Fail Safe
+    counter-array: counter Array
+    
+    advanced: Advanced
+    writing-in-text-editor: Writing in text editor
+    transpiler: Transpiler
+    mods: Mods
+    subframe: Antithreading / Subframe
+
+    world-logic: World Logic (WIP)
+    how-to-get-world-processor: How to get World Processor
+    get-block: Get Block
+    set-block: Set Block
+    spawn-unit: Spawn Unit
+    apply-status: Apply Status
+    spawn-wave: Spawn Wave(WIP)
+    set-rule: Set Rule(WIP)
+    flush-message: Flush Message
+    cutscene: Cutscene
+    effect: Effect
+    explosion: Explosion
+    set-rate: Set Rate
+    fetch: Fetch
+    sync: Sync(WIP)
+    get-flag: Get Flag
+    set-flag: Set Flag
+    set-prop: Set Prop
+    set-marker: Set Marker
+    
+    bleeding-edge: Bleeding Edge(WIP)
+
+    extras: Extras
+    mindustry-coordinate-system: Mindustry Coordinate System
+    configure-turns-to-config: The word configure turns to config
+    you-cannot-spawn-scathe-missile: You cannot spawn Scathe missles
+    modded-items-and-draw-image: Modded items and Draw Image
+    ai-chatbot-doenst-understand-mlog: AI Chatbot doesn't understand Mlog
+    getting-unit-cap: Getting unit cap
+    v6-unit-control-with-logic: v6 unit control with logic
+    damage-calculation: Damage calculation   
+    math: Math
+    self-linking-processor: Self linking processor
+
+    self-promotion: Self promotion
+
+    appendix: Appendix
+    mloginvention: Mlog Invention
+    built-in-variables1: Built in Variables
+    global: Global
+    environment: Environment
+    sensors: Sensors
+    blocks-and-items: Blocks and Items
+    units: Units
+    text-form-instruction: Text form instruction
+    normal-processor: Normal Processor
+    world-processor: World Processor
+    lookup-ids: Lookup Id(s)
+    dblockbehaviour: Disabled block behaviour
+
+    Contributors: Contributors
+
 foreword:
     title: Foreword
     content1: |
@@ -1847,8 +1965,17 @@ world_logic:
     explosion:
         title: "Explosion"
         content: |
-            create an explosion
-            {br}{span:codeteamfield_what_team_the_explosion_be:spin}
+            {img:image/v8_explosion.png:mwidth85vw}
+            {br}create an explosion
+        content2: |
+            {code:team:field} what team the explosion belong to, explosion cannot harm ally blocks
+            {br}{code:x:field} {code:y:field} where to create the explosion
+            {br}{code:radius:field} size of explosion, block outside this radius does not take damage
+            {br}{code:damage:field} the damage of the explosion
+            {br}{code:air:field} whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
+            {br}{code:ground:field} whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
+            {br}{code:pierce:field} whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged
+            {br}{code:effect:field} whether to pierce show the visual effect of the explosion or not
         team: "team"
         x: "x"
         y: "y"
@@ -1857,14 +1984,8 @@ world_logic:
         air: "air"
         ground: "ground"
         pierce: "pierce"
-        codeteamfield_what_team_the_explosion_be: |
-            {code:team:field} what team the explosion belong to, explosion cannot harm ally blocks
-            {br}{code:x:field} {code:y:field} where to create the explosion
-            {br}{code:radius:field} size of explosion, block outside this radius does not take damage
-            {br}{code:damage:field} the damage of the explosion
-            {br}{code:air:field} whether to damage air or nor, true means it will damage air (air units, boosted units, etc)
-            {br}{code:ground:field} whether to damage ground or nor, true means it will damage ground (ground unit, blocks, etc)
-            {br}{code:pierce:field} whether to pierce buildings or not, if false, it will need a line of sight from the explosion to the block, if something is in the way that block will not be damaged
+        effect: "effect"
+
     set_rate:
         title: "Set Rate"
         content: "Set the speed of the processor, in instruction per tick, 1 second = 60 ticks"
@@ -1923,6 +2044,143 @@ world_logic:
         codeoffield_unitbuilding_reference_brcod: |
             {code:of:field} unit/building Reference
             {br}{code:to:field} value
+    set_marker:
+        title: "Set Marker"
+        content: |
+            {img:image/v8_setmarker.png:_}
+            {br}Sets a property of a marker with the specified id.
+            {br}{br}setting a {code:null} value to any fields in {code:setmarker:wp}
+            will {b:not} change the value to 0, but instead just kept the previous value of that marker.
+            {br}
+            {br}{code:remove:field}
+            {br}remove the marker
+            {br}
+            {br}{code:world:field}
+            {br}
+            {br}
+            {br}{code:minimap:field}
+            {br}
+            {br}
+            {br}{code:autoscale:field}
+            {br}automatically scales the size of the marker depending on player camera zoom
+            {br}
+            {br}{code:pos:field}
+            {br}repositions the marker
+            {br}
+            {br}{code:endpos:field}
+            {br}used for positioning the other end of the {code:line:field} marker
+            {br}
+            {br}{code:drawlayer:field}
+            {br}sets the layer where the markers sits on, a higher number means it will overlap objects with lower numbers
+            {br}if you're familiar with programming it is sometimes called the "z-index"
+            {br}
+            {br}{code:color:field}
+            {br}sets the color of the marker
+            {br}
+            {br}{code:radius:field}
+            {br}
+            {br}
+            {br}{code:stroke:field}
+            {br}
+            {br}
+            {br}{code:rotation:field}
+            {br}
+            {br}
+            {br}{code:shape:field}
+            {br}
+            {br}
+            {br}{code:arc:field}
+            {br}
+            {br}
+            {br}{code:flushtext:field}
+            {br}
+            {br}
+            {br}{code:fontsize:field}
+            {br}
+            {br}
+            {br}{code:textheight:field}
+            {br}
+            {br}
+            {br}{code:labelflags:field}
+            {br}
+            {br}
+            {br}{code:texture:field}, sets the texure of a marker.
+            {br}the {code:printflush:field} argument are boolean,
+            {br}when true it uses the text in the text buffer as the name,
+            {br}otherwise uses the {code:name:field} argument.
+            {br}name can be game content name, like {code:router:content-name}, or {code:surgealloy:content-name}, if doesn't work use file name instead.
+            {br}can also be file name, like {code:itemcopper} or {code:spritesnoisepng},
+            {br}when using a file name, write it exactly like shown above, including quotes, {b:not_like} {code:spritesnoisepng} or {code:spritesnoisepng2}.
+            {br}file names can be found on {link:httpsgithubcomanukenmindustrytreemasterc:https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites}
+            {br}
+            {br}the {code:name:field} argument now supports block reference too, so you can set the texture of a marker to a display's content by putting the display block reference on the {code:name:field} argument. like {code:setmarker_texture_0_0_display1_0:wp}
+            {br}content is live, meaning if the display content changes the marker texture will also change in realtime.
+            {br}
+            {br}{code:texturesize:field}
+            {br}
+            {br}
+            {br}{code:posi:field}, sets the vertices location of a quad, location are world x,y location
+            {br}with index from 0-3
+            {br}each index repesents each vertices
+            {br}
+            {br}{code:uvi:field}, sets each vertices of the texture relative to the quad (UV Mapping with index)
+            {br}with index from 0-3
+            {br}each index repesents each vertices, example:
+            {br}#0 (0,0)
+            {br}#1 (1,0)
+            {br}#2 (1,1)
+            {br}#3 (0,1)
+            {br}will sets each texture vertices exactly where the quad vertices are, this means texture will stretch/reform to the quad shapes
+            {br}
+            {br}{code:colori:field}, similar to uvi, if indexes are set to different colors; color will gradient from one to the other
+            {br}with index from 0-3
+            {br}each index repesents each vertices, example:
+            {br}#0 (0,0)
+            {br}#1 (1,0)
+            {br}#2 (1,1)
+            {br}#3 (0,1)
+            {br}
+            {br}{code:color:field}, change the color of the marker.
+            {br}color only tints the color of the marker,
+            {br}meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
+            {br}since quad doesn't have a color quad will take the full color the specified color.
+            {br}{br}{span:TOADD:toadd}
+        setmarker: "setmarker"
+        remove: "remove"
+        world: "world"
+        minimap: "minimap"
+        autoscale: "autoscale"
+        pos: "pos"
+        endpos: "endPos"
+        drawlayer: "drawLayer"
+        color: "color"
+        radius: "radius"
+        stroke: "stroke"
+        rotation: "rotation"
+        arc: "arc"
+        flushtext: "flushText"
+        fontsize: "fontSize"
+        textheight: "textHeight"
+        labelflags: "labelFlags"
+        printflush: "printFlush"
+        name: "name"
+        router: "@router"
+        surgealloy: "@surge-alloy"
+        itemcopper: "\"item-copper\""
+        spritesnoisepng: "sprites/noise.png"
+        spritesnoisepng2: "@sprites/noise.png"
+        setmarker_texture_0_0_display1_0: "setmarker texture 0 0 display1 0"
+        texturesize: "textureSize"
+        posi: "posi"
+        uvi: "uvi"
+        colori: "colori"
+        httpsgithubcomanukenmindustrytreemasterc: "https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites"
+        not: "not"
+        not_like: "NOT LIKE"
+        null: "null"
+        line: "line"
+        shape: "shape"
+        texture: "Texture"
 
 
 bleeding_edge:
@@ -2104,137 +2362,8 @@ bleeding_edge:
     setmarker_posi: "setmarker posi"
     setmarker_uvi: "setmarker uvi"
     content20: "{br}{span:TOADD:toadd}"
-    title19: "Set Marker"
-    content21: |
-        Sets a property of a marker with the specified id.
-        {br}{br}setting a {code:null} value to any fields in {code:setmarker:wp}
-        will {b:not} change the value to 0, but instead just kept the previous value of that marker.
-        {br}
-        {br}{code:remove:field}
-        {br}remove the marker
-        {br}
-        {br}{code:world:field}
-        {br}
-        {br}
-        {br}{code:minimap:field}
-        {br}
-        {br}
-        {br}{code:autoscale:field}
-        {br}automatically scales the size of the marker depending on player camera zoom
-        {br}
-        {br}{code:pos:field}
-        {br}repositions the marker
-        {br}
-        {br}{code:endpos:field}
-        {br}used for positioning the other end of the {code:line:field} marker
-        {br}
-        {br}{code:drawlayer:field}
-        {br}sets the layer where the markers sits on, a higher number means it will overlap objects with lower numbers
-        {br}if you're familiar with programming it is sometimes called the "z-index"
-        {br}
-        {br}{code:color:field}
-        {br}sets the color of the marker
-        {br}
-        {br}{code:radius:field}
-        {br}
-        {br}
-        {br}{code:stroke:field}
-        {br}
-        {br}
-        {br}{code:rotation:field}
-        {br}
-        {br}
-        {br}{code:shape:field}
-        {br}
-        {br}
-        {br}{code:arc:field}
-        {br}
-        {br}
-        {br}{code:flushtext:field}
-        {br}
-        {br}
-        {br}{code:fontsize:field}
-        {br}
-        {br}
-        {br}{code:textheight:field}
-        {br}
-        {br}
-        {br}{code:labelflags:field}
-        {br}
-        {br}
-        {br}{code:texture:field}, sets the texure of a marker.
-        {br}the {code:printflush:field} argument are boolean,
-        {br}when true it uses the text in the text buffer as the name,
-        {br}otherwise uses the {code:name:field} argument.
-        {br}name can be game content name, like {code:router:content-name}, or {code:surgealloy:content-name}, if doesn't work use file name instead.
-        {br}can also be file name, like {code:itemcopper} or {code:spritesnoisepng},
-        {br}when using a file name, write it exactly like shown above, including quotes, {b:not_like} {code:spritesnoisepng} or {code:spritesnoisepng2}.
-        {br}file names can be found on {link:httpsgithubcomanukenmindustrytreemasterc:https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites}
-        {br}
-        {br}the {code:name:field} argument now supports block reference too, so you can set the texture of a marker to a display's content by putting the display block reference on the {code:name:field} argument. like {code:setmarker_texture_0_0_display1_0:wp}
-        {br}content is live, meaning if the display content changes the marker texture will also change in realtime.
-        {br}
-        {br}{code:texturesize:field}
-        {br}
-        {br}
-        {br}{code:posi:field}, sets the vertices location of a quad, location are world x,y location
-        {br}with index from 0-3
-        {br}each index repesents each vertices
-        {br}
-        {br}{code:uvi:field}, sets each vertices of the texture relative to the quad (UV Mapping with index)
-        {br}with index from 0-3
-        {br}each index repesents each vertices, example:
-        {br}#0 (0,0)
-        {br}#1 (1,0)
-        {br}#2 (1,1)
-        {br}#3 (0,1)
-        {br}will sets each texture vertices exactly where the quad vertices are, this means texture will stretch/reform to the quad shapes
-        {br}
-        {br}{code:colori:field}, similar to uvi, if indexes are set to different colors; color will gradient from one to the other
-        {br}with index from 0-3
-        {br}each index repesents each vertices, example:
-        {br}#0 (0,0)
-        {br}#1 (1,0)
-        {br}#2 (1,1)
-        {br}#3 (0,1)
-        {br}
-        {br}{code:color:field}, change the color of the marker.
-        {br}color only tints the color of the marker,
-        {br}meaning a marker that already has a color, like setting the color of a texture to white doesn't effect them, it will appear as its original texture color,
-        {br}since quad doesn't have a color quad will take the full color the specified color.
-        {br}{br}{span:TOADD:toadd}
-    setmarker: "setmarker"
-    remove: "remove"
-    world: "world"
-    minimap: "minimap"
-    autoscale: "autoscale"
-    pos: "pos"
-    endpos: "endPos"
-    drawlayer: "drawLayer"
-    color: "color"
-    radius: "radius"
-    stroke: "stroke"
-    rotation: "rotation"
-    arc: "arc"
-    flushtext: "flushText"
-    fontsize: "fontSize"
-    textheight: "textHeight"
-    labelflags: "labelFlags"
-    printflush: "printFlush"
-    name: "name"
-    router: "@router"
-    surgealloy: "@surge-alloy"
-    itemcopper: "\"item-copper\""
-    spritesnoisepng: "sprites/noise.png"
-    spritesnoisepng2: "@sprites/noise.png"
-    setmarker_texture_0_0_display1_0: "setmarker texture 0 0 display1 0"
-    texturesize: "textureSize"
-    posi: "posi"
-    uvi: "uvi"
-    colori: "colori"
-    httpsgithubcomanukenmindustrytreemasterc: "https://github.com/Anuken/Mindustry/tree/master/core/assets-raw/sprites"
-    not: "not"
-    not_like: "NOT LIKE"
+    title19: "{delete:1}"
+    content21: "{delete:0:1}"
     title20: "Locale Print"
     # FIX {code:name} 
     content22: |

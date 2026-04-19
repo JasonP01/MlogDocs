@@ -1,3 +1,6 @@
+// #################################################################################################################
+// renderTextWithTokens takes a string with tokens in the form {type:name:extra} and renders it into the given element, replacing tokens with the output of their respective resolvers. It also includes detailed error handling and logging for debugging issues with token resolution.
+
 function renderTextWithTokens(el, text, sectionData, _debugPath) {
   const frag = document.createDocumentFragment();
   const regex = /(?<!\\)\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/g;
@@ -117,6 +120,9 @@ function renderTextWithTokens(el, text, sectionData, _debugPath) {
   el.replaceChildren(frag);
 }
 
+// ####################################################################################################
+// Token resolvers take arguments (name, sectionData, extra) depending on the token type, and return either a string or a DOM element to be rendered in place of the token. If a resolver throws an error, the raw token will be rendered and an error will be logged to the console with details for debugging.
+
 const modal = document.getElementById('imageModal');
 const modalImg = document.getElementById('modalImage');
 const modalVideo = document.getElementById('modalVideo');
@@ -233,6 +239,8 @@ function resolveKey(path, obj) {
   return path.split(".").reduce((o, k) => o?.[k], obj);
 }
 
+// ############################################################################
+// Fetch YAML file and parse it, with error handling and i18n-specific logging
 async function fetchYaml(url) {
   let yamlText;
   try {
@@ -265,11 +273,127 @@ async function fetchYaml(url) {
   return data;
 }
 
+// ###########################################################################################################
+// Mapping of li classes to hrefs for auto-generating table of contents
+
+const liClassTolinksMap = {
+  "sub-title": [
+    "foreword",
+    "introduction",
+    "glossary",
+    "basic-concept",
+    "blocks",
+    "instructions",
+    "controlling-units",
+    "simple-logic-examples",
+    "advanced",
+    "world-logic",
+    "bleeding-edge",
+    "extras",
+    "self-promotion",
+    "appendix",
+    "Contributors"
+  ],
+  "indent1": [
+    "integers",
+    "float",
+    "boolean",
+    "strings",
+    "building-reference",
+    "contentname",
+    "processors",
+    "processors-ui",
+    "how-processor-run-its-code",
+    "links",
+    "variables",
+    "built-in-variables",
+    "constants",
+    "buffers",
+    "message",
+    "switch",
+    "display",
+    "cell",
+    "read",
+    "write",
+    "draw",
+    "draw-flush",
+    "print",
+    "print-flush",
+    "get-link",
+    "control",
+    "radar",
+    "sensor",
+    "set",
+    "operation",
+    "lookup",
+    "pack-color",
+    "wait",
+    "stop",
+    "end",
+    "jump",
+    "unit-bind",
+    "unit-control",
+    "unit-radar",
+    "unit-locate",
+    "universal-switch",
+    "shuttle-logic",
+    "thorium-reactor-fail-safe",
+    "counter-array",
+    "writing-in-text-editor",
+    "transpiler",
+    "mods",
+    "subframe",
+    "how-to-get-world-processor",
+    "get-block",
+    "set-block",
+    "spawn-unit",
+    "apply-status",
+    "spawn-wave",
+    "set-rule",
+    "flush-message",
+    "cutscene",
+    "effect",
+    "explosion",
+    "set-rate",
+    "fetch",
+    "sync",
+    "get-flag",
+    "set-flag",
+    "set-prop",
+    "set-marker",
+    "mindustry-coordinate-system",
+    "configure-turns-to-config",
+    "you-cannot-spawn-scathe-missile",
+    "modded-items-and-draw-image",
+    "ai-chatbot-doenst-understand-mlog",
+    "getting-unit-cap",
+    "v6-unit-control-with-logic",
+    "damage-calculation",
+    "math",
+    "self-linking-processor",
+    "mloginvention",
+    "built-in-variables1",
+    "text-form-instruction",
+    "lookup-ids",
+    "dblockbehaviour"
+  ],
+  "indent2": [
+    "global",
+    "environment",
+    "sensors",
+    "blocks-and-items",
+    "units",
+    "normal-processor",
+    "world-processor"
+  ]
+};
+
 async function loadLang(version, lang) {
   document.body.classList.add("skeleton");
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.textContent = ""; // clear text to prevent showing wrong language during loading
   });
+  document.getElementById('sidebar').firstElementChild.replaceChildren(); // clear table of contents
 
   const url = `./Languages/${version}/${lang}.yaml`;
   const data = await fetchYaml(url);
@@ -305,17 +429,43 @@ async function loadLang(version, lang) {
 
   document.body.classList.remove("skeleton");
 
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    if (link.dataset.triggerGlowListener) return;
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'copy-link-btn';
+  copyBtn.title = 'Copy link';
+  img = `<img src="image/assets/link2.svg" alt="Copy link" style="width:16px;height:16px;">`
+  img_check = `<img src="image/assets/check-mark.svg" alt="Link copied" style="width:16px;height:16px;">`
+  copyBtn.innerHTML = img;
+  copyBtn.style.marginLeft = '6px';
+  copyBtn.style.cursor = 'pointer';
 
-    link.addEventListener('click', triggerGlow);
-    link.dataset.triggerGlowListener = "1";
-  });
+  const tableOfContents = document.getElementById('sidebar').firstElementChild;
+  const tableOfContentsObj = data['table_of_contents'];
+
+  for (const [key, value] of Object.entries(tableOfContentsObj)) {
+    const link = document.createElement('a');
+    const li = document.createElement('li');
+    link.href = `#${key}`;
+    link.textContent = value;
+    link.classList.add('sidebar-link');
+    li.appendChild(link);
+    li.appendChild(copyBtn.cloneNode(true));
+    for (const [cls, list] of Object.entries(liClassTolinksMap)) {
+      if (list.includes(key)) {
+        li.classList.add(cls);
+        break;
+      }
+    }
+    tableOfContents.appendChild(li);
+  }
+
+  // For highlightCurrentSection()
+  tocLinks = document.querySelectorAll('#sidebar a');
 
   mappingTable = {
     "environment-table": "environment",
     "block-table": "blocks",
     "item-table": "items",
+    "liquid-table": "liquids",
     "unit-table": "units",
     "id-block-table": "blocks",
     "id-unit-table": "units",
@@ -326,7 +476,7 @@ async function loadLang(version, lang) {
   for (const [tableId, name] of Object.entries(mappingTable)) {
     tableElement = document.getElementById(tableId);
     if (tableElement){
-      const url = `./Languages/static/${name}.yaml`;
+      const url = `./Languages/${version}/static/${name}.yaml`;
       const data = await fetchYaml(url);
       let isId = false;
       if (tableId.split('-')[0] == 'id') {
@@ -350,6 +500,7 @@ async function loadLang(version, lang) {
 
 // Load default language (v7 English)
 loadLang("v7", "en").then(() => {
+// loadLang("v8", "en").then(() => {
   // Optional operations needed to be done after loading
   let img = document.querySelector('img[src="image/ui1.png"]');
   let elementsToWrap = []
@@ -453,12 +604,11 @@ document.querySelectorAll('img').forEach(img => {
 });
 
 
+let tocLinks = document.querySelectorAll('#sidebar a');
 
 document.addEventListener('DOMContentLoaded', function() {
     parseTranspilerDataJSON();
 
-    const tocLinks = document.querySelectorAll('#sidebar a');
-  
     function highlightCurrentSection() {
       const centerX = window.innerWidth / 1.5;
       let centerY = window.innerHeight / 2;
@@ -509,32 +659,32 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightCurrentSection);
     highlightCurrentSection();
 
-    // Add copy link buttons to sidebar links
-    all_sidebar_links = document.querySelectorAll('.sidebar-link')
-    all_sidebar_links.forEach(link => {
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-link-btn';
-      copyBtn.title = 'Copy link';
-      img = `<img src="image/assets/link2.svg" alt="Copy link" style="width:16px;height:16px;">`
-      img_check = `<img src="image/assets/check-mark.svg" alt="Link copied" style="width:16px;height:16px;">`
-      copyBtn.innerHTML = img;
-      copyBtn.style.marginLeft = '6px';
-      copyBtn.style.cursor = 'pointer';
+    const tableOfContent = document.getElementById('sidebar').firstElementChild;
 
-      copyBtn.addEventListener('click', function(e) {
+    tableOfContent.addEventListener('click', e => {
+      const btn = e.target.closest('.copy-link-btn');
+
+      if (btn) {
         e.stopPropagation();
         e.preventDefault();
-        const url = window.location.origin + window.location.pathname + link.getAttribute('href');
-        navigator.clipboard.writeText(url).then(() => {
-          copyBtn.innerHTML = img_check;
-          setTimeout(() => copyBtn.innerHTML = img, 1200);
-        });
-      });
 
-      if (!link.nextSibling || !link.nextSibling.classList || !link.nextSibling.classList.contains('copy-link-btn')) {
-        link.parentNode.insertBefore(copyBtn, link.nextSibling);
+        const link = btn.closest('li').querySelector('a');
+        const url = location.origin + location.pathname + link.getAttribute('href');
+
+        navigator.clipboard.writeText(url).then(() => {
+          btn.innerHTML = img_check;
+          setTimeout(() => btn.innerHTML = img, 1200);
+        });
+
+        return;
       }
-    })
+
+      const link = e.target.closest('a[href^="#"]');
+      if (link) {
+        triggerGlow.call(link, e);
+        // no preventDefault → smooth scroll remains
+      }
+    });
 
   // Load available languages and populate the language selection dropdown
   fetch('/MlogDocs/Languages/index.json')
