@@ -476,6 +476,7 @@ async function loadLang(version, lang) {
   for (const [tableId, name] of Object.entries(mappingTable)) {
     tableElement = document.getElementById(tableId);
     if (tableElement){
+      tableElement.replaceChildren(); // clear existing content
       const url = `./Languages/${version}/static/${name}.yaml`;
       const data = await fetchYaml(url);
       let isId = false;
