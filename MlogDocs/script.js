@@ -66,16 +66,17 @@ function renderTextWithTokens(el, text, sectionData, _debugPath) {
           if (siblingList.length > 0) {
             if (mode == 'cascade') {
               siblingList.forEach(sib => {
-                sib.remove();
+                sib.classList.add('hidden');
+                console.info(`[i18n] Hidden sibling element at distance ${dist} from element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
               });
             } else {
-              siblingList[siblingList.length - 1].remove();
-              console.info(`[i18n] Deleted sibling element at distance ${dist} from element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
+              siblingList[siblingList.length - 1].classList.add('hidden');
+              console.info(`[i18n] Hidden sibling element at distance ${dist} from element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
             }
           }
         }
-        top.remove();
-        console.info(`[i18n] Deleted element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
+        top.classList.add('hidden');
+        console.info(`[i18n] Hidden element at depth ${depth} for token "${fullMatch}" in key "${_debugPath ?? '(unknown)'}"`);
         last = regex.lastIndex;
         continue;
       }
@@ -360,7 +361,9 @@ const liClassTolinksMap = {
     "get-flag",
     "set-flag",
     "set-prop",
+    "make-marker",
     "set-marker",
+
     "mindustry-coordinate-system",
     "configure-turns-to-config",
     "you-cannot-spawn-scathe-missile",
@@ -394,6 +397,7 @@ async function loadLang(version, lang) {
     el.textContent = ""; // clear text to prevent showing wrong language during loading
   });
   document.getElementById('sidebar').firstElementChild.replaceChildren(); // clear table of contents
+  document.querySelectorAll(".hidden").forEach(el => el.classList.remove("hidden")); // unhide any elements hidden by delete tokens
 
   const url = `./Languages/${version}/${lang}.yaml`;
   const data = await fetchYaml(url);
@@ -409,6 +413,7 @@ async function loadLang(version, lang) {
 
     if (value === undefined || value === null) {
       console.warn(`[i18n] Missing key "${path}" in "${lang}.yaml"`);
+      // el.classList.add('hidden');
       tokenErrors++;
       return;
     }

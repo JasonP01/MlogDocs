@@ -2009,6 +2009,12 @@ world_logic:
         codeoffield_unitbuilding_reference_brcod: |
             {code:of:field} unit/building Reference
             {br}{code:to:field} value
+    make_marker:
+        title: "{delete:2}"
+        content: 
+    set_marker:
+        title: "{delete:2}"
+        content: 
 
 
 bleeding_edge:
@@ -2922,6 +2928,18 @@ built_in_vars2:
             title: "@shootY"
             content: |
                 the y coordinate value of what that object is targeting, returns number, if used on a player will return their cursor position
+        cameraX:
+            title: "{delete:0}"
+            content: "{delete:0}"
+        cameraY:
+            title: "{delete:0}"
+            content: "{delete:0}"
+        cameraWidth:
+            title: "{delete:0}"
+            content: "{delete:0}"
+        cameraHeight:
+            title: "{delete:0}"
+            content: "{delete:0}"
         size:
             title: "@size"
             content: |

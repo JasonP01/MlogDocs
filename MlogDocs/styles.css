@@ -1061,3 +1061,7 @@ code.aqu {
 [href="https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4"] {
     overflow-wrap: anywhere;
 }
+
+.hidden {
+    display:none;
+}

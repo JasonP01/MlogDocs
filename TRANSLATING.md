@@ -92,5 +92,6 @@ variable = apply mindustry font, black background, light blue text
                           the second number indicates how many siblings to also delete, default 0 means only delete the element itself
 {delete:0:3 cascade}    > Deletes element and 3 next siblings, cascade means deletes in-between siblings as well
 {delete:0:-3 cascade}   > Deletes element and 3 previous siblings, cascade means deletes in-between siblings as well
+The delete token should be ignored when translating normally, this token is purely for restructuring the document on version changes
 
 ```

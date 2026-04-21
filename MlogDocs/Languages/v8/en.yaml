@@ -105,6 +105,7 @@ table_of_contents:
     get-flag: Get Flag
     set-flag: Set Flag
     set-prop: Set Prop
+    make-marker: Make Marker
     set-marker: Set Marker
     
     bleeding-edge: Bleeding Edge(WIP)
@@ -2044,6 +2045,68 @@ world_logic:
         codeoffield_unitbuilding_reference_brcod: |
             {code:of:field} unit/building Reference
             {br}{code:to:field} value
+
+    make_marker:
+        title: "Make Marker"
+        content: |
+            Makes a Marker
+            {br}a marker is an entity in the map that shows content to the user, for example when you select a unit (shift + drag click) a diamond
+            shaped box appear around that unit, that is a marker, or when you tell a unit to move a line appears, that is also considered a marker,
+            the floating text in the beginning tutorial is also a marker.
+            {br}
+            {br}{code:id:field} is numeric identity of the Marker, id is 32 bit signed integer, meaning from -2147483648 to 2147483647, outside these range markers will be clamped to these values
+            {br}for example 2147483647 and 2147483648 will both be considered as 2147483647
+            {br}however note that the total number of markers is limited to 20.000
+            {br}
+            {br}game created markers like the examples above doesn't intervere with player made markers
+            {br}currently there is a bug with the {code:replace:field} argument where it replaces other markers than the specified id
+            {br}
+            {br}{code:x:field}, {code:y:field}
+            {br}marker location with the middle of the marker as its origin
+            {br}
+            {br}{code:replace:field} determines whether this marker will replace exsisting previous markers that has the same id
+            {br}it is recommended to just keep it false
+            {br}
+            {br}{code:shapetext:field}
+            {br}a rectangular shape with a text above it
+            {br}
+            {br}{code:point:field}
+            {br}an expanding red circle
+            {br}
+            {br}{code:shape:field}
+            {br}a rectangular shape
+            {br}
+            {br}{code:text:field}
+            {br}a text with a semi transparant black background
+            {br}
+            {br}{code:line:field}
+            {br}a line
+            {br}
+            {br}{code:texture:field}, makes a marker for a Texture.
+            {br}initially invisible until texture is defined, using {code:setmarker_texture:wp}.
+            {br}texture can be anything that is available in the game.
+            {br}
+            {br}{code:quad:field}, are quadrilateral / a 4 sided polygon.
+            {br}a quad has 4 vertices and 4 sides.
+            {br}each vertices position can be set using {code:setmarker_posi:wp}.
+            {br}texture is initially just pure white, can be defined with {code:setmarker_texture:wp},
+            {br}then needs to be further defined with {code:setmarker_uvi:wp} to set the texture location within the quad.
+        id: "id"
+        replace: "replace"
+        x: "x"
+        y: "y"
+        shapetext: "shapeText"
+        point: "point"
+        shape: "shape"
+        text: "text"
+        line: "line"
+        texture: "Texture"
+        setmarker_texture: "setmarker texture"
+        quad: "Quad"
+        setmarker_posi: "setmarker posi"
+        setmarker_uvi: "setmarker uvi"
+
+
     set_marker:
         title: "Set Marker"
         content: |
@@ -2303,50 +2366,8 @@ bleeding_edge:
     content17: "sense the current weather is the specified weather type, returns boolean"
     title17: "Weather Set"
     content18: "set the current state of the weather to the specified type"
-    title18: "Make Marker"
-    content19: |
-        Makes a Marker
-        {br}a marker is an entity in the map that shows content to the user, for example when you select a unit (shift + drag click) a diamond
-        shaped box appear around that unit, that is a marker, or when you tell a unit to move a line appears, that is also considered a marker,
-        the floating text in the beginning tutorial is also a marker.
-        {br}
-        {br}{code:id:field} is numeric identity of the Marker, id is 32 bit signed integer, meaning from -2147483648 to 2147483647, outside these range markers will be clamped to these values
-        {br}for example 2147483647 and 2147483648 will both be considered as 2147483647
-        {br}however note that the total number of markers is limited to 20.000
-        {br}
-        {br}game created markers like the examples above doesn't intervere with player made markers
-        {br}currently there is a bug with the {code:replace:field} argument where it replaces other markers than the specified id
-        {br}
-        {br}{code:x:field}, {code:y:field}
-        {br}marker location with the middle of the marker as its origin
-        {br}
-        {br}{code:replace:field} determines whether this marker will replace exsisting previous markers that has the same id
-        {br}it is recommended to just keep it false
-        {br}
-        {br}{code:shapetext:field}
-        {br}a rectangular shape with a text above it
-        {br}
-        {br}{code:point:field}
-        {br}an expanding red circle
-        {br}
-        {br}{code:shape:field}
-        {br}a rectangular shape
-        {br}
-        {br}{code:text:field}
-        {br}a text with a semi transparant black background
-        {br}
-        {br}{code:line:field}
-        {br}a line
-        {br}
-        {br}{code:texture:field}, makes a marker for a Texture.
-        {br}initially invisible until texture is defined, using {code:setmarker_texture:wp}.
-        {br}texture can be anything that is available in the game.
-        {br}
-        {br}{code:quad:field}, are quadrilateral / a 4 sided polygon.
-        {br}a quad has 4 vertices and 4 sides.
-        {br}each vertices position can be set using {code:setmarker_posi:wp}.
-        {br}texture is initially just pure white, can be defined with {code:setmarker_texture:wp},
-        {br}then needs to be further defined with {code:setmarker_uvi:wp} to set the texture location within the quad.
+    title18: "{delete:1}"
+    content19: "{delete:0}"
     id: "id"
     replace: "replace"
     x: "x"
@@ -2451,23 +2472,11 @@ bleeding_edge:
     _8bin: "11111111 11111111 11111111 11111000"
     _8binshift: "11111111 11111111 11111111 11111000"
     _2147483644: "2147483644"
-    title27: "@cameraWidth and @cameraHeight"
-    content29: |
-        an object camera width/height, usually the players possesed object, eg turrets/units
-        {br}the width/height numbers are in blocks
-        {br}example:
-        {br}{code:sensor_width_unit_camerawidth:wp}, where {code:unit:variable} is the player
-        {br}a maxed zoomed out screen on a 1080x1920 screen width is 40, which means the viewable width is 40 blocks
-        {br}if the object is not a player/doesn't have a camera returns 0
+    title27: "{delete:1}"
+    content29: "{delete:0:1}"
     sensor_width_unit_camerawidth: "sensor width @unit @cameraWidth"
-    title28: "@cameraX and @cameraY"
-    content30: |
-        an object x/y camera location
-        {br}the x/y numbers are in the map coordinate system
-        {br}example:
-        {br}{code:sensor_x_unit_camerax:wp}, where {code:unit:variable}` is the player
-        {br}while moving the camera returns the camera position in the map coordinate location
-        {br}different from sensoring {code:x:content-name} since you can move the camera independently of the unit
+    title28: "{delete:1}"
+    content30: "{delete:0:1}"
     sensor_x_unit_camerax: "sensor x @unit @cameraX"
     title29: "@solid"
     content31: |
@@ -2953,6 +2962,22 @@ built_in_vars2:
             title: "@shootY"
             content: |
                 the y coordinate value of what that object is targeting, returns number, if used on a player will return their cursor position
+        cameraX:
+            title: "@cameraX"
+            content: |
+                the x coordinate location of the object’s camera; returns number, if used on a player will return their camera position, if object doesn't have a camera returns 0, if used on an invalid object, returns null.
+        cameraY:
+            title: "@cameraY"
+            content: |
+                the y coordinate location of the object’s camera; returns number, if used on a player will return their camera position, if object doesn't have a camera returns 0, if used on an invalid object, returns null.
+        cameraWidth:
+            title: "@cameraWidth"
+            content: |
+                the width of the object’s camera view; returns number, if used on a player will return their camera view width, if object doesn't have a camera returns 0, if used on an invalid object, returns null.
+        cameraHeight:
+            title: "@cameraHeight"
+            content: |
+                the height of the object’s camera view; returns number, if used on a player will return their camera view height, if object doesn't have a camera returns 0, if used on an invalid object, returns null.
         size:
             title: "@size"
             content: |
